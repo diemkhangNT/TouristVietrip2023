@@ -5,7 +5,7 @@
 }
 
 body {
-    background-image: url("images/1.jpg");
+   color:red;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -17,6 +17,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 90vh;
+    background-color:blueviolet;
 }
 
 .container {
