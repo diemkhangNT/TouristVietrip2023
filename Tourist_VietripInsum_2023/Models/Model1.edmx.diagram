@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5e754339743c40e4985ffa9512d3e66e" Name="Diagram1">
+        <EntityTypeShape EntityType="TouristModel.Customer_Guest" Width="1.5" PointX="8.25" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.DetailSchedule" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.Hotel" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.OrderCu" Width="1.5" PointX="10.5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.Position" Width="1.5" PointX="6" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.Schedule" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.Staff" Width="1.5" PointX="8.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.Ticket" Width="1.5" PointX="12.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.Tour" Width="1.5" PointX="8.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.TourType" Width="1.5" PointX="6" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.TypeCu" Width="1.5" PointX="6" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.TypeTicket" Width="1.5" PointX="10.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.VistLocation" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="TouristModel.FK_Customer_Guest_TypeCus" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_OrderCus_Customer_Guest" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_DetailSchedule_Schedule" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_DetailSchedule_VistLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_Schedule_Hotel" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_OrderCus_Staff" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_OrderCus_Tour" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_Ticket_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_Staff_Position" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_Tour_Schedule" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_Ticket_TypeTicket" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_Tour_TourType" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
