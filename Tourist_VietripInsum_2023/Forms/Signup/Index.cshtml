@@ -1,8 +1,4 @@
 ﻿
-@{
-    Layout = null;
-}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,14 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/Content/style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>Login Form</title>
+    <title>Sign Up</title>
     <style>
         body {
             background-image: url("../images/1.jpg");
         }
 
-        .input-field {
-            margin: 10px;
         }
     </style>
 </head>
@@ -27,17 +21,22 @@
         <div class="container">
 
             <div class="top">
-                <header>Login</header>
+                <header>Sign Up</header>
             </div>
 
             <div class="input-field">
                 <input type="text" class="input" placeholder="Username" id="">
-
+                <i class='bx bx-user'></i>
             </div>
 
             <div class="input-field">
                 <input type="Password" class="input" placeholder="Password" id="">
+                <i class='bx bx-lock-alt'></i>
+            </div>
 
+            <div class="input-field">
+                <input type="Password" class="input" placeholder="Nhập lại Password" id="">
+                <i class='bx bx-lock-alt'></i>
             </div>
 
             <div class="input-field">
@@ -46,12 +45,7 @@
 
             <div class="bottom">
                 <div class="left">
-                    <input type="checkbox" name="" id="check">
-                    <label for="check"> Remember Me</label>
-                </div>
-
-                <div class="middle">
-                    <label><a href="signup.html"> Sign Up</a></label>
+                    <label><a href="index.html"> Sign In </a></label>
                 </div>
                 <div class="right">
                     <label><a href="forgotpass.html">Forgot password?</a></label>
