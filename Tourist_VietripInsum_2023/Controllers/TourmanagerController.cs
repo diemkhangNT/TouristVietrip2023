@@ -7,7 +7,7 @@ using Tourist_VietripInsum_2023.App_Start;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
-    [Myauthentication(idStaff = "TM")]
+    [Authentication(IdPos ="TM")]
     public class TourmanagerController : Controller
     {
         // GET: Tourmanager

@@ -7,7 +7,7 @@ using Tourist_VietripInsum_2023.App_Start;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
-    [Myauthentication(idStaff = "OP")]
+    [Authentication(IdPos ="OP")]
     public class OrderProcessingController : Controller
     {
         // GET: OrderProcessing

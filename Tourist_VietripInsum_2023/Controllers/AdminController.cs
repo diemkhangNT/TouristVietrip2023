@@ -8,7 +8,7 @@ using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
-    [Myauthentication(idStaff = "AD")]
+    [Authentication(IdPos ="AD")]
     public class AdminController : Controller
     {
         // GET: Admin

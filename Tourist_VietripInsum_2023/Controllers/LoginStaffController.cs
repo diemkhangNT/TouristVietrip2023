@@ -11,41 +11,44 @@ namespace Tourist_VietripInsum_2023.Controllers
     {
         // GET: LoginStaff
         TouristEntities1 database = new TouristEntities1();
-        public ActionResult LoginStaff()
+        public ActionResult Login()
         {
             
             return View();
         }
 
         [HttpPost]
-        public ActionResult LoginStaff(string userstaff,string pswstaff)
+        public ActionResult Login(string username, string password)
         {
-            var data = database.Staffs.Where(s => s.Username == userstaff && s.UserPassword == pswstaff).FirstOrDefault();
-            var taikhoan = database.Staffs.SingleOrDefault(s => s.Username == userstaff && s.UserPassword == pswstaff);
-            if (data == null)
+            var tm = "TM"; var op = "OP"; var ad = "AD";
+
+            var data = database.Staffs.Where(s => s.Username == username && s.UserPassword == password).FirstOrDefault();
+            var taikhoan = database.Staffs.SingleOrDefault(s => s.Username == username && s.UserPassword == password);
+            
+             if (data == null)
             {
                 TempData["error"] = "Tài khoản đăng nhập không đúng";
-                return View("LoginStaff");
+                return View("Login");
             }
-            else if (taikhoan != null)
+            else 
             {
                 //add session
                 database.Configuration.ValidateOnSaveEnabled = false;
                 Session["user"] = taikhoan;
-                if (data.IdPos.ToString() == "TM")
+                if (data.IdPos.ToString() == tm)
                 {
                     return RedirectToAction("HomePageTM", "Tourmanager");
                 }
-                else if (data.IdPos.ToString() == "OP")
+                else if (data.IdPos.ToString() == op)
                 {
                     return RedirectToAction("HomePageOP", "OrderProcessing");
-                } 
-                else 
+                }
+                else if (data.IdPos.ToString() == ad)
                 {
                     return RedirectToAction("HomePage", "Admin");
                 }
             }
-           
+
             return View();
         }
     }
