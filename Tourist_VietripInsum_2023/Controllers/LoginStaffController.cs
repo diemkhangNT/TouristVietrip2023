@@ -11,9 +11,8 @@ namespace Tourist_VietripInsum_2023.Controllers
     {
         // GET: LoginStaff
         TouristEntities1 database = new TouristEntities1();
-        public ActionResult Login()
+       public ActionResult Login()
         {
-            
             return View();
         }
 
@@ -22,22 +21,23 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             var tm = "TM"; var op = "OP"; var ad = "AD";
 
-            var data = database.Staffs.Where(s => s.Username == username && s.UserPassword == password).FirstOrDefault();
+            var data = database.Staffs.Where(s => s.Username== username && s.UserPassword == password).FirstOrDefault();
             var taikhoan = database.Staffs.SingleOrDefault(s => s.Username == username && s.UserPassword == password);
-            
-             if (data == null)
+            if (data == null)
             {
                 TempData["error"] = "Tài khoản đăng nhập không đúng";
-                return View("Login");
+                ViewBag.test = username;
+                return View("demo");
             }
-            else 
+            else if (taikhoan != null)
             {
                 //add session
                 database.Configuration.ValidateOnSaveEnabled = false;
                 Session["user"] = taikhoan;
+
                 if (data.IdPos.ToString() == tm)
                 {
-                    return RedirectToAction("HomePageTM", "Tourmanager");
+                    return Redirect("/Tourmanager/HomePageTM");
                 }
                 else if (data.IdPos.ToString() == op)
                 {
@@ -47,8 +47,13 @@ namespace Tourist_VietripInsum_2023.Controllers
                 {
                     return RedirectToAction("HomePage", "Admin");
                 }
+               
             }
+            return View();
+        }
 
+        public ActionResult demo()
+        {
             return View();
         }
     }
