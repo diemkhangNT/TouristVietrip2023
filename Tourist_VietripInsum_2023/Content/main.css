@@ -68,7 +68,7 @@ body {
     line-height: 1.5;
     color: #212529;
     text-align: left;
-    background-color: #FFF;
+    background-color: rgb(0, 28, 64);
 }
 
 [tabindex="-1"]:focus {
@@ -2600,7 +2600,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
     min-height: calc(100vh - 50px);
     padding: 10px;
     margin-top: 30px;
-    background-color: #f5f5f5;
+    background-color: #e1edea;
     -webkit-transition: margin-left 0.3s ease;
     -o-transition: margin-left 0.3s ease;
     transition: margin-left 0.3s ease;
@@ -14300,7 +14300,7 @@ be a descendant of the grid when it is being dragged.
 .app-content {
     min-height: calc(100vh - 50px);
     padding: 10px;
-    background-color: #f5f5f5;
+    background-color: #eff9f6;
     -webkit-transition: margin-left 0.3s ease;
     -o-transition: margin-left 0.3s ease;
     transition: margin-left 0.3s ease;
@@ -14357,7 +14357,7 @@ be a descendant of the grid when it is being dragged.
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    background-color: rgb(0, 28, 64);
+    background-color: #1e7e5d;
     z-index: 1;
     padding-right: 15px;
     padding-left: 15px;
@@ -14379,7 +14379,7 @@ be a descendant of the grid when it is being dragged.
     -webkit-box-flex: 1;
     -ms-flex: 1 0 auto;
     flex: 1 0 auto;
-    color: #FFD43B !important;
+    color: #f5f5f5 !important;
     text-align: center;
     padding: 0 15px;
     font-size: 18px;
@@ -14408,7 +14408,7 @@ be a descendant of the grid when it is being dragged.
 .app-sidebar__toggle {
     padding: 10px;
     font-family: fontAwesome;
-    color: white;
+    color: red;
     line-height: 2.4;
     -webkit-transition: background-color 0.3s ease;
     -o-transition: background-color 0.3s ease;
@@ -14465,19 +14465,21 @@ be a descendant of the grid when it is being dragged.
 }
 
 .app-nav__item {
-    display: block;
-    padding: 15px;
-    line-height: 0px;
-    color: rgb(0, 28, 64);
-    background: rgb(255, 212, 59);
+    padding: 5px;
+    color: #ffc107;
+    text-align:center;
+    justify-content:center
+    /*background: #f11b1b;*/
     -webkit-transition: background-color 0.3s ease;
     -o-transition: background-color 0.3s ease;
     transition: background-color 0.3s ease;
+    margin-bottom:0px;
 }
 
     .app-nav__item:hover, .app-nav__item:focus {
         background: rgba(0, 0, 0, 0.1);
         color: #f6f6f6;
+        cursor: pointer;
     }
 
 .app-search {
@@ -14608,7 +14610,7 @@ be a descendant of the grid when it is being dragged.
     padding-right: 10px;
     overflow: auto;
     z-index: 10;
-    background: rgb(0, 28, 64);
+    background: #094933;
     /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
     /* border-bottom-right-radius: 50px; */
 }
@@ -14934,12 +14936,12 @@ be a descendant of the grid when it is being dragged.
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
     flex-direction: row;
-    background-color: #FFF;
+    background-color: #e1edea;
     border-radius: .375rem;
     padding: 10px 30px;
     -webkit-box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
     box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
-    border-left: 6px solid #FFD43B;
+    border-left: 6px solid #d2d83f;
     margin-bottom: 20px;
 }
 
@@ -16495,4 +16497,9 @@ td, th {
     padding: 5px 16px;
     background-color: white;
     color: white;
+}
+
+
+.justify-content-between {
+    margin-top:10px;
 }
