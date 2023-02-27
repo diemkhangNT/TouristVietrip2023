@@ -27,7 +27,6 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 TempData["error"] = "Tài khoản đăng nhập không đúng";
                 ViewBag.test = username;
-                return View("demo");
             }
             else if (taikhoan != null)
             {
@@ -51,7 +50,10 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             return View();
         }
-
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
         public ActionResult demo()
         {
             return View();

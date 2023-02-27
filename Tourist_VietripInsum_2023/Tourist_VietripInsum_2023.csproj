@@ -228,7 +228,7 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Forms\ChangePass\Index.cshtml" />
+    <Content Include="Views\LoginStaff\ForgotPassword.cshtml" />
     <Content Include="Forms\Contact\Index.cshtml" />
     <Content Include="Forms\Login\Index.cshtml" />
     <Content Include="Forms\Order\Index.cshtml" />
@@ -274,6 +274,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Forms\ChangePass\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
