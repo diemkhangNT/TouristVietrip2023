@@ -1,8 +1,4 @@
 ﻿
-@{
-    Layout = null;
-}
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +56,7 @@
             </div>
         </div>
         <hr>
-        <ul class="app-menu">
+        <ul class="app-menu ">
             <li>
                 <a class="app-menu__item haha" href="#">
                     <i class='app-menu__icon bx bx-tachometer'></i>
@@ -68,7 +64,7 @@
                 </a>
             </li>
             <li>
-                <a class="app-menu__item @ViewBag.home" href="#">
+                <a class="app-menu__item @ViewBag.home" href="~/Tourmanager/HomePageTM">
                     <i class='app-menu__icon bx bx-task'></i>
                     <span class="app-menu__label">Tổng quan</span>
                 </a>
@@ -106,12 +102,12 @@
             </li>
         </ul>
     </aside>
-    <main class="app-content">
+    <main class="app-content ">
         <div class="row">
             <div class="col-md-12">
                 <div class="app-title">
                     <ul class="app-breadcrumb breadcrumb">
-                        <li class="breadcrumb-item"><a href="#"><b>@ViewBag.nd</b></a></li>
+                        <li class="breadcrumb-item"><a href="#"><b>@ViewBag.Name</b></a></li>
                     </ul>
                     <div id="clock"></div>
                 </div>
