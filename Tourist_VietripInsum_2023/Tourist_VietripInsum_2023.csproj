@@ -205,7 +205,7 @@
     <Content Include="Content\Images\DiemKhang.jpg" />
     <Content Include="Content\Images\logo_project.png" />
     <Content Include="Content\main.css" />
-    <Content Include="Content\style.css" />
+    <Content Include="Content\styleLogin.css" />
     <Content Include="Content\style_contact.css" />
     <Content Include="Content\style_order.css" />
     <Content Include="favicon.ico" />
@@ -252,6 +252,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Tourmanager\HomePageTM.cshtml" />
+    <Content Include="Views\Tourmanager\LayoutTM\_ViewTM.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -267,14 +269,8 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Admin\HomePage.cshtml" />
-    <Content Include="Views\Tourmanager\LayoutTM\ViewTM.cshtml" />
-    <Content Include="Views\Tourmanager\HomePageTM.cshtml" />
-    <Content Include="Views\OrderProcessing\LayoutOP\View.cshtml" />
-    <Content Include="Views\Tourmanager\LayoutTM\View.cshtml" />
     <Content Include="Views\LoginStaff\Login.cshtml" />
     <Content Include="Views\LoginStaff\Demo.cshtml" />
-    <Content Include="Views\Tourmanager\HomePageTM.cshtml" />
-    <Content Include="Views\OrderProcessing\HomePageOP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

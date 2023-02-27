@@ -21,8 +21,9 @@
 <body onload="time()" class="app sidebar-mini rtl">
     <!-- Navbar-->
     <header class="app-header">
-        <!-- Sidebar toggle button<a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
-                                    aria-label="Hide Sidebar"></a>-->
+        <!-- Sidebar toggle button-->
+        <a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+           aria-label="Hide Sidebar"></a>
         <!-- Navbar Right Menu-->
         <!--<ul class="app-nav">-->
         <!-- User Menu-->
@@ -35,7 +36,7 @@
                  alt="User Image">
             <h3 class="app-nav__item justify-content-between">Vietrip Insum</h3>
         </ul>
-        
+
     </header>
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
@@ -46,10 +47,9 @@
             <div>
                 <p class="app-sidebar__user-name">
                     <b>
-                        @*@{
+                        @{
                             var user = (Tourist_VietripInsum_2023.Models.Staff)HttpContext.Current.Session["user"];
-                            @user.FullName}**@
-                        Nguyen Thi Diem Khang
+                            @user.FullName}*
                     </b>
                 </p>
                 <p class="app-sidebar__user-designation">Welcome to your back!</p>
@@ -96,7 +96,7 @@
             </li>
             <!-- User Menu-->
             <li>
-                <a class="app-menu__item btn_Logout" href="#">
+                <a class="app-menu__item btn_Logout" href="@Url.Action("Login", "LoginStaff" )">
                     <i class='app-menu__icon bx bx-log-out '></i><span class="app-menu__label">Đăng xuất</span>
                 </a>
             </li>

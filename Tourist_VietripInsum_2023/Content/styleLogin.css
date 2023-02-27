@@ -5,26 +5,40 @@
 }
 
 body {
-   color:red;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
+    background-image: url("Images/bg_login.jpg");
 }
 
+/*.input-field {
+    margin: 10px;
+}*/
+.logo1 {
+    image-rendering: pixelated;
+}
+.logo {
+    color: #d8c74e;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    padding-bottom:10px;
+}
 .box {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 90vh;
-    background-color:blueviolet;
 }
 
 .container {
-    width: 350px;
+    width: 300px;
     display: flex;
     flex-direction: column;
-    padding: 0 15px 0 15px;
+    padding: 30px;
+    background-color: #648ec778;
+    border-radius: 50px 0px 20px 0px;
 }
 
 span {
@@ -40,11 +54,17 @@ header {
     font-size: 30px;
     display: flex;
     justify-content: center;
-    padding: 10px 0 10px 0;
+}
+
+.logo {
+    color: #fff;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
 }
 
 .input-field .input {
-    margin: 0px;
+    margin-top: 20px;
     height: 45px;
     width: 87%;
     border: none;
@@ -78,6 +98,7 @@ i {
     background: rgba(255,255,255,0.7);
     cursor: pointer;
     transition: .3s;
+    color: darkblue;
 }
 
     .submit:hover {
@@ -96,7 +117,10 @@ i {
 .left {
     display: flex;
 }
-
+.right{
+    font-size: 15px;
+    font-style:italic;
+}
 label a {
     text-decoration: none;
     color: #fff;
