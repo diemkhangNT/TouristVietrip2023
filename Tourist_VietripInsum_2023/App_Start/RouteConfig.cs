@@ -16,7 +16,7 @@ namespace Tourist_VietripInsum_2023
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "LoginStaff", action = "Login", id = UrlParameter.Optional }
             );
         }
     }

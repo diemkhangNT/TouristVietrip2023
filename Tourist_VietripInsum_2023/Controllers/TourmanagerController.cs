@@ -11,7 +11,7 @@ using Tourist_VietripInsum_2023.App_Start;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
-    [AdminAuthorize(idPos = "TM")]
+    [AdminAuthorize (idPos = "TM")]
     public class TourmanagerController : Controller
     {
         // GET: Tourmanager

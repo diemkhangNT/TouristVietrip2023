@@ -34,16 +34,16 @@ namespace Tourist_VietripInsum_2023.Controllers
                 //add session
                 database.Configuration.ValidateOnSaveEnabled = false;
                 Session["user"] = taikhoan;
-
-                if (data.IdPos.ToString() == tm)
+                var user = data.IdPos.ToString();
+                if (user == tm)
                 {
-                    return Redirect("/Tourmanager/HomePageTM");
+                    return RedirectToAction("HomePageTM", "Tourmanager" );
                 }
-                else if (data.IdPos.ToString() == op)
+                else if (user == op)
                 {
                     return RedirectToAction("HomePageOP", "OrderProcessing");
                 }
-                else if (data.IdPos.ToString() == ad)
+                else if (user == ad)
                 {
                     return RedirectToAction("HomePage", "Admin");
                 }
