@@ -271,6 +271,14 @@
     <Content Include="Views\Admin\HomePage.cshtml" />
     <Content Include="Views\LoginStaff\Login.cshtml" />
     <Content Include="Views\LoginStaff\Demo.cshtml" />
+    <Content Include="Views\Tourmanager\QuanLyTour.cshtml" />
+    <Content Include="Views\Tourmanager\CreateTour.cshtml" />
+    <Content Include="Views\Tourmanager\EditTour.cshtml" />
+    <Content Include="Views\Tourmanager\DeleteTour.cshtml" />
+    <Content Include="Views\Tourmanager\TourTypeDetails.cshtml" />
+    <Content Include="Views\Tourmanager\CreateTourType.cshtml" />
+    <Content Include="Views\Tourmanager\EditTourType.cshtml" />
+    <Content Include="Views\Tourmanager\TourDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

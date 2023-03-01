@@ -1,0 +1,106 @@
+﻿@model Tourist_VietripInsum_2023.Models.Tour
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Tour</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagerTour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImagerTour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Departure)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Departure)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReturnDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeTour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeTour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeparturePlace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeparturePlace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberAvailable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberAvailable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeadlineOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeadlineOrder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Schedule.IdHotel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Schedule.IdHotel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TourType.TypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TourType.TypeName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "QuanLyTour")
+        </div>
+    }
+</div>
