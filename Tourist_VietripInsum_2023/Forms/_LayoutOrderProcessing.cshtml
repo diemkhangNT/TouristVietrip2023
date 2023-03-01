@@ -1,11 +1,13 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <!-- Main CSS-->
-    <link rel="stylesheet" href="~/Content/main.css">
+    <link rel="stylesheet" href="~/Content/Css_layoutManage/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!-- or -->
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -39,10 +41,10 @@
             <div>
                 <p class="app-sidebar__user-name">
                     <b>
-                        @{
-                            var user = (Tourist_VietripInsum_2023.Models.Staff)HttpContext.Current.Session["user"];
-                            @user.FullName}*
-                      
+                        @*@{
+                            var user = (Test02.Models.NhanVien)HttpContext.Current.Session["user"];
+                            @user.TenNV}*@
+                        Diem Khang
                     </b>
                 </p>
                 <p class="app-sidebar__user-designation">Welcome to your back!</p>
@@ -53,7 +55,7 @@
             <li>
                 <a class="app-menu__item haha" href="#">
                     <i class='app-menu__icon bx bx-cart-alt'></i>
-                    <span class="">ADMIN</span>
+                    <span class="">ORDER PROCESSING</span>
                 </a>
             </li>
             <li>
@@ -146,19 +148,16 @@
                 return i;
             }
         }
-            //In dữ liệu
-            //var myApp = new function () {
-            //    this.printTable = function () {
-            //        var tab = document.getElementById('sampleTable');
-            //        var win = window.open('', '', 'height=700,width=700');
-            //        win.document.write(tab.outerHTML);
-            //        win.document.close();
-            //        win.print();
-            //    }
-            //}
+        //In dữ liệu
+        //var myApp = new function () {
+        //    this.printTable = function () {
+        //        var tab = document.getElementById('sampleTable');
+        //        var win = window.open('', '', 'height=700,width=700');
+        //        win.document.write(tab.outerHTML);
+        //        win.document.close();
+        //        win.print();
+        //    }
+        //}
     </script>
-    
-
-   
 </body>
 </html>
