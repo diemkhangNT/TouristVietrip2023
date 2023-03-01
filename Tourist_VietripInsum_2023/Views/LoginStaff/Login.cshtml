@@ -2,7 +2,20 @@
 @{
     Layout = null;
 }
-
+@{
+    var checkMessage = TempData["AlertMessage"];
+    if (checkMessage == "Login error")
+    {
+        <script>
+            swal({
+                title: "Login unsuccess!",
+                text: "Invalid Username / Password!",
+                icon: "error",
+                button: "OK",
+            });
+        </script>
+    }
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,8 +30,10 @@
     <div class="box">
         <div class="container">
             <div class="top">
-                <span><img class="logo1" src="~/Content/Images/logo_project.png" width="60px" height="75px;"
-     alt="User Image"></span>
+                <span>
+                    <img class="logo1" src="~/Content/Images/logo_project.png" width="60px" height="75px;"
+                         alt="User Image">
+                </span>
                 <span class="logo" style="color: #f2e193; font-size: 40px; display: flex; justify-content: center; ">Vietrip Insum</span>
             </div>
             <div class="body_form">
@@ -27,22 +42,22 @@
                 {
                     <div class="wrap-input100 validate-input input-field">
                         <input class="input100 input" type="text" placeholder="username" name="UserName"
-                               id="UserName">
+                               id="UserName" required>
                         @*<span class="focus-input100"></span>
-                <span class="symbol-input100">
-                    <i class='bx bx-user'></i>
-                </span>*@
+                            <span class="symbol-input100">
+                                <i class='bx bx-user'></i>
+                            </span>*@
                     </div>
                     <div class="wrap-input100 validate-input input-field">
                         <input autocomplete="off" class="input100 input" type="password" placeholder="password"
-                               name="Password" id="Password">
+                               name="Password" id="Password" required>
                         @*<span toggle="#password-field" id="spanElement" class="bx fa-fw bx-hide field-icon click-eye"></span>
-                <span class="focus-input100"></span>
-                <span class="symbol-input100">
-                    <i class='bx bx-key'></i>
-                </span>*@
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class='bx bx-key'></i>
+                            </span>*@
                     </div>
-                    <p class="text-danger">@TempData["error"]</p>
+                    <p class="text-danger"></p>
                     <!--=====ĐĂNG NHẬP======-->
                     <div class="container-login100-form-btn">
                         <input type="submit" class="submit" value="Login" />
@@ -60,10 +75,13 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
 
     </div>
 </body>
 </html>
+
+<!--dialog_message -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

@@ -28,10 +28,10 @@
         <!--<ul class="app-nav">-->
         <!-- User Menu-->
         <!--<li>
-            <a class="app-nav__item" href="#"><i class='bx bx-log-out bx-rotate-180'></i> </a>
-        </li>
-    </ul>-->
-        <ul class="app-nav" style="margin-right:200px">
+                <a class="app-nav__item" href="#"><i class='bx bx-log-out bx-rotate-180'></i> </a>
+            </li>
+        </ul>-->
+        <ul class="app-nav">
             <img class="app-nav__item" src="~/Content/Images/logo_project.png" width="40px" height="50px;"
                  alt="User Image">
             <h3 class="app-nav__item justify-content-between">Vietrip Insum</h3>
@@ -50,10 +50,10 @@
                     <b>
                         @{
                             var user = (Tourist_VietripInsum_2023.Models.Staff)HttpContext.Current.Session["user"];
-                            @user.FullName}*
+                            @user.FullName}
                     </b>
                 </p>
-                <p class="app-sidebar__user-designation">Welcome to your back!</p>
+                <p class="app-sidebar__user-designation">You are part of the company!</p>
             </div>
         </div>
         <hr>
@@ -71,7 +71,7 @@
                 </a>
             </li>
             <li>
-                <a class="app-menu__item  @ViewBag.dl" href="#">
+                <a class="app-menu__item  @ViewBag.qlt" href="/Tourmanager/QuanLyTour">
                     <i class='app-menu__icon bx bx-id-card'></i> <span class="app-menu__label">Quản lý tour</span>
                 </a>
             </li>
@@ -86,10 +86,10 @@
                 </a>
             </li>
             @*<li>
-                <a class="app-menu__item @ViewBag.sp" href="~/Views/OrderProcessing/Index.cshtml">
-                    <i class='app-menu__icon bx bx-task'></i><span class="app-menu__label">Kiểm kê &Aacute; Báo cáo</span>
-                </a>
-            </li>*@
+                    <a class="app-menu__item @ViewBag.sp" href="~/Views/OrderProcessing/Index.cshtml">
+                        <i class='app-menu__icon bx bx-task'></i><span class="app-menu__label">Kiểm kê &Aacute; Báo cáo</span>
+                    </a>
+                </li>*@
             <li>
                 <a class="app-menu__item  @ViewBag.baocao" href="#">
                     <i class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Thông tin tài khoản</span>
@@ -118,6 +118,9 @@
             @RenderBody()
         </div>
     </main>
+
+    <!--dialog_message -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript">
         //Thời Gian
         function time() {
@@ -159,16 +162,16 @@
                 return i;
             }
         }
-            //In dữ liệu
-            //var myApp = new function () {
-            //    this.printTable = function () {
-            //        var tab = document.getElementById('sampleTable');
-            //        var win = window.open('', '', 'height=700,width=700');
-            //        win.document.write(tab.outerHTML);
-            //        win.document.close();
-            //        win.print();
-            //    }
-            //}
+                //In dữ liệu
+                //var myApp = new function () {
+                //    this.printTable = function () {
+                //        var tab = document.getElementById('sampleTable');
+                //        var win = window.open('', '', 'height=700,width=700');
+                //        win.document.write(tab.outerHTML);
+                //        win.document.close();
+                //        win.print();
+                //    }
+                //}
     </script>
 
 

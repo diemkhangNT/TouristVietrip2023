@@ -26,8 +26,9 @@ namespace Tourist_VietripInsum_2023.Controllers
             var taikhoan = database.Staffs.SingleOrDefault(s => s.Username == username && s.UserPassword == password);
             if (data == null)
             {
-                TempData["error"] = "Tài khoản đăng nhập không đúng";
-                ViewBag.test = username;
+                TempData["AlertMessage"] = "Login error";
+                return RedirectToAction("ForgotPassword", "LoginStaff");
+                //ViewBag.test = username;
             }
             else if (taikhoan != null)
             {
@@ -37,17 +38,26 @@ namespace Tourist_VietripInsum_2023.Controllers
                 var user = data.IdPos.ToString();
                 if (user == tm)
                 {
+                    TempData["AlertMessage"] = "Login sucess";
                     return RedirectToAction("HomePageTM", "Tourmanager" );
                 }
                 else if (user == op)
                 {
+                    TempData["AlertMessage"] = "Login sucess";
                     return RedirectToAction("HomePageOP", "OrderProcessing");
                 }
                 else if (user == ad)
                 {
+                    TempData["AlertMessage"] = "Login sucess";
                     return RedirectToAction("HomePage", "Admin");
                 }
                
+            }
+            else
+            {
+                TempData["AlertMessage"] = "Login error";
+                return RedirectToAction("Login", "LoginStaff");
+                //ViewBag.test = username;
             }
             return View();
         }
