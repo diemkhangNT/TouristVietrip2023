@@ -73,13 +73,7 @@
             @Html.DisplayFor(model => model.DeadlineOrder)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Schedule.IdHotel)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Schedule.IdHotel)
-        </dd>
+        
 
         <dt>
             @Html.DisplayNameFor(model => model.TourType.TypeName)
@@ -91,7 +85,11 @@
 
     </dl>
 </div>
+@{ 
+    var idtour = Model.IdTour;
+}
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.IdTour }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "TourDetails") |
+    <a href="/Tourmanager/CreateSchedule/@idtour" >Add Schedule</a>
 </p>

@@ -28,8 +28,9 @@ namespace Tourist_VietripInsum_2023.Controllers
         //Trang hiển thị danh sách loại tour, tour
         public ActionResult QuanLyTour()
         {
-            var tours = db.Tours.Include(t => t.Schedule).Include(t => t.TourType);
-            var tourstype = db.TourTypes.ToList();
+            //var tours = db.Tours.Include(t => t.Schedule).Include(t => t.TourType);
+            //var tourstype = db.TourTypes.ToList();
+            var tours = db.Tours.ToList().OrderByDescending(s => s.IdTour);
             return View(tours.ToList());
         }
 
@@ -108,6 +109,51 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(tourType);
         }
 
+        
+
+        //Tạo tour
+        //public ActionResult CreateTour()
+        //{
+        //    ViewBag.Id_detailTour = new SelectList(db.Schedules, "IdSchedule", "IdHotel");
+        //    ViewBag.Id_TypeTour = new SelectList(db.TourTypes, "IdType", "TypeName");
+        //    return View();
+        //}
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult CreateTour([Bind(Include = "IdTour,Id_TypeTour,Id_detailTour,ImagerTour,Departure,ReturnDay,TimeTour,DeparturePlace,NumberAvailable,Price,DeadlineOrder")] Tour tour)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Tours.Add(tour);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    ViewBag.Id_detailTour = new SelectList(db.Schedules, "IdSchedule", "IdHotel", tour.Id_detailTour);
+        //    ViewBag.Id_TypeTour = new SelectList(db.TourTypes, "IdType", "TypeName", tour.Id_TypeTour);
+        //    return View(tour);
+        //}
+
+        public ActionResult CreateTours()
+        {
+            
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateTours(Tour tour)
+        {
+
+            Random rd = new Random();
+            var idtour = "T" + rd.Next(1, 1000);
+            tour.IdTour = idtour;
+
+           
+            db.Tours.Add(tour);
+            db.SaveChanges();
+            return RedirectToAction("QuanLyTour");
+        }
+
         //Chi tiết tour
         public ActionResult TourDetails(string id)
         {
@@ -115,36 +161,34 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tour tour = db.Tours.Find(id);
+            Tour tour = db.Tours.Where(s => s.IdTour == id).FirstOrDefault();
             if (tour == null)
             {
                 return HttpNotFound();
             }
             return View(tour);
         }
-
-        //Tạo tour
-        public ActionResult CreateTour()
+        public ActionResult CreateSchedule(string id)
         {
-            ViewBag.Id_detailTour = new SelectList(db.Schedules, "IdSchedule", "IdHotel");
-            ViewBag.Id_TypeTour = new SelectList(db.TourTypes, "IdType", "TypeName");
-            return View();
+            return View(db.Schedules.Where(s => s.IdTour == id).FirstOrDefault());
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateTour([Bind(Include = "IdTour,Id_TypeTour,Id_detailTour,ImagerTour,Departure,ReturnDay,TimeTour,DeparturePlace,NumberAvailable,Price,DeadlineOrder")] Tour tour)
+        public ActionResult CreateSchedule(Schedule schedules, Tour tour, string id)
         {
-            if (ModelState.IsValid)
-            {
-                db.Tours.Add(tour);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            tour = db.Tours.Where(s => s.IdTour == id).FirstOrDefault();
 
-            ViewBag.Id_detailTour = new SelectList(db.Schedules, "IdSchedule", "IdHotel", tour.Id_detailTour);
-            ViewBag.Id_TypeTour = new SelectList(db.TourTypes, "IdType", "TypeName", tour.Id_TypeTour);
-            return View(tour);
+            Random rd = new Random();
+            var idschedule = "S" + rd.Next(1, 1000);
+            schedules.IdSchedule = idschedule;
+
+            var idtour = tour.IdTour;
+
+
+            db.Schedules.Add(schedules);
+            db.SaveChanges();
+            return RedirectToAction("QuanLyTour");
         }
+
 
         //Sửa tour
         public ActionResult EditTour(string id)

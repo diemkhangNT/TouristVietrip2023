@@ -32,6 +32,7 @@ namespace Tourist_VietripInsum_2023.Models
         public virtual DbSet<Position> Positions { get; set; }
         public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<Tour> Tours { get; set; }
         public virtual DbSet<TourType> TourTypes { get; set; }
