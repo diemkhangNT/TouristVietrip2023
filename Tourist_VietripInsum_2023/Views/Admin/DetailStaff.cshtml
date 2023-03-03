@@ -1,0 +1,87 @@
+﻿@model Tourist_VietripInsum_2023.Models.Staff
+@using Tourist_VietripInsum_2023.Models;
+
+@{
+    ViewBag.Title = "DetailStaff";
+    Layout = "~/Views/Admin/AdminView.cshtml";
+    TouristEntities1 db = new TouristEntities1();
+    ViewBag.qlstaff = "active";
+
+    ViewBag.nd = "Detail Staff";
+}
+<link href="~/Content/staff.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+
+                <h2 style="text-align:center">STAFF</h2>
+                <div class="staffinfo">
+                    <div class="staff-img">
+                        <img src="~/Content/Images/DiemKhang.jpg" class="rounded-circle" alt="Cinque Terre" width="100" height="100">
+                    </div>
+                    <div class="staff-content">
+                        <h2> @Html.DisplayFor(model => model.FullName)</h2>
+                        <span style="margin-right:30px">
+                            <strong>Id Staff:</strong> @Html.DisplayFor(model => model.IdStaff)
+                        </span>
+                        <span>
+                            <strong>Id Staff:</strong>
+                            @{
+                                var pos = db.Positions.Where(s => s.IdPos == Model.IdPos).FirstOrDefault();
+                            }
+                            @Html.DisplayFor(model => model.IdStaff) -
+                            <strong>@Html.DisplayFor(model => pos.NamePos)</strong>
+
+                        </span>
+                        <p>
+                            <span style="margin-right:30px">
+                                <strong>Gender:</strong>@Html.DisplayFor(model => model.Gender)
+                            </span>
+                            <span>
+                                <strong>Birthday:</strong>@Html.DisplayFor(model => model.StaffBirthday)
+                            </span>
+                        </p>
+                        <p>
+                            <span style="margin-right:30px">
+                                <strong>Mail:</strong>@Html.DisplayFor(model => model.StaffEmail)
+                            </span>
+                            <span>
+                                <strong>Phone:</strong>@Html.DisplayFor(model => model.NumberPhone)
+                            </span>
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    //In dữ liệu
+    var myApp = new function () {
+        this.printTable = function () {
+            var tab = document.getElementById('sampleTable');
+            var win = window.open('', '', 'height=800px,width=1200px');
+            win.document.write(tab.outerHTML);
+            win.document.close();
+            win.print();
+        }
+    }
+
+    oTable = $('#sampleTable').dataTable();
+    $('#all').click(function (e) {
+        $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
+        e.stopImmediatePropagation();
+    });
+</script>

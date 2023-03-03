@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.Tour>
+    @{
+        ViewBag.Title = "QuanLyTour";
+        Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+    }
+
+    <h2>QuanLyTour</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "CreateTours")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdTour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id_TypeTour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id_detailTour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImagerTour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Departure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeTour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeparturePlace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberAvailable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdTour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id_TypeTour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id_detailTour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImagerTour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Departure)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReturnDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeTour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeparturePlace)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberAvailable)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+               
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+
+                    <a href="/Tourmanager/TourDetails/@item.IdTour">Detail</a>|
+                    <a href="/Tourmanager/CreateSchedule/@item.IdTour">Add Schedule</a>
+
+                </td>
+            </tr>
+        }
+
+    </table>

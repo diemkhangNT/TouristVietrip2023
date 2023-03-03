@@ -139,6 +139,63 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Customer_Guest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DetailSchedule.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Hotel.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderCu.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Position.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Schedule.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Staff.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Ticket.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tour.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TourType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TypeCu.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TypeTicket.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VistLocation.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +208,7 @@
     <Content Include="Content\Images\DiemKhang.jpg" />
     <Content Include="Content\Images\logo_project.png" />
     <Content Include="Content\main.css" />
+    <Content Include="Content\staff.css" />
     <Content Include="Content\styleLogin.css" />
     <Content Include="Content\style_contact.css" />
     <Content Include="Content\style_order.css" />
@@ -197,14 +255,29 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Admin\HomePage.cshtml" />
     <Content Include="Views\LoginStaff\Login.cshtml" />
     <Content Include="Views\LoginStaff\Demo.cshtml" />
+    <Content Include="Views\Tourmanager\EditTour.cshtml" />
+    <Content Include="Views\Tourmanager\DeleteTour.cshtml" />
+    <Content Include="Views\Tourmanager\TourTypeDetails.cshtml" />
+    <Content Include="Views\Tourmanager\CreateTourType.cshtml" />
+    <Content Include="Views\Tourmanager\EditTourType.cshtml" />
+    <Content Include="Views\Tourmanager\TourDetails.cshtml" />
+    <Content Include="Views\Tourmanager\CreateTours.cshtml" />
+    <Content Include="Views\Tourmanager\QuanLyTour.cshtml" />
+    <Content Include="Views\Tourmanager\CreateSchedule.cshtml" />
+    <Content Include="Views\Admin\AdminView.cshtml" />
+    <Content Include="Views\Admin\HomePage.cshtml" />
+    <Content Include="Views\Admin\Staffmanager.cshtml" />
+    <Content Include="Views\Admin\CreateStaff.cshtml" />
+    <Content Include="Views\Admin\DetailStaff.cshtml" />
+    <Content Include="Views\Admin\EditStaff.cshtml" />
+    <Content Include="Views\Admin\DeleteStaff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Forms\ChangePass\" />
-    <Folder Include="Models\" />
+    <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -1,0 +1,95 @@
+﻿@model Tourist_VietripInsum_2023.Models.Tour
+
+@{
+    ViewBag.Title = "TourDetails";
+    Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+}
+
+<div>
+    <h4>Tour</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagerTour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImagerTour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Departure)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Departure)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReturnDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeTour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeTour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeparturePlace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeparturePlace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberAvailable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberAvailable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeadlineOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeadlineOrder)
+        </dd>
+
+        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TourType.TypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TourType.TypeName)
+        </dd>
+
+    </dl>
+</div>
+@{ 
+    var idtour = Model.IdTour;
+}
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdTour }) |
+    @Html.ActionLink("Back to List", "TourDetails") |
+    <a href="/Tourmanager/CreateSchedule/@idtour" >Add Schedule</a>
+</p>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
@@ -64,9 +65,11 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             return View();
         }
-        public ActionResult demo()
+        public ActionResult Logout()
         {
-            return View();
+            Session.Clear();//remove session
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login");
         }
     }
 }
