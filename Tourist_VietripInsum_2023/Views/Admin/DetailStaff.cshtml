@@ -22,37 +22,45 @@
                         <img src="~/Content/Images/DiemKhang.jpg" class="rounded-circle" alt="Cinque Terre" width="100" height="100">
                     </div>
                     <div class="staff-content">
-                        <h2> @Html.DisplayFor(model => model.FullName)</h2>
-                        <span style="margin-right:30px">
-                            <strong>Id Staff:</strong> @Html.DisplayFor(model => model.IdStaff)
-                        </span>
-                        <span>
-                            <strong>Id Staff:</strong>
+                        <p class="nameuser">@Html.DisplayFor(modelItem => Model.FullName)</p>
+                        <p>
+                            <span>
+                                <i class="fa fas-person-lines-fill"></i>
+                                <strong>Id Staff: </strong> @Html.DisplayFor(modelItem => Model.IdStaff)
+                            </span>
                             @{
                                 var pos = db.Positions.Where(s => s.IdPos == Model.IdPos).FirstOrDefault();
                             }
-                            @Html.DisplayFor(model => model.IdStaff) -
-                            <strong>@Html.DisplayFor(model => pos.NamePos)</strong>
-
-                        </span>
-                        <p>
-                            <span style="margin-right:30px">
-                                <strong>Gender:</strong>@Html.DisplayFor(model => model.Gender)
-                            </span>
                             <span>
-                                <strong>Birthday:</strong>@Html.DisplayFor(model => model.StaffBirthday)
+                                @Html.DisplayFor(modelItem => Model.IdPos) - @Html.DisplayFor(modelItem => pos.NamePos)
                             </span>
                         </p>
                         <p>
-                            <span style="margin-right:30px">
-                                <strong>Mail:</strong>@Html.DisplayFor(model => model.StaffEmail)
+                            <span>
+                                <strong>Gender:</strong> @Html.DisplayFor(modelItem => Model.Gender)
                             </span>
                             <span>
-                                <strong>Phone:</strong>@Html.DisplayFor(model => model.NumberPhone)
+                                <strong>Birthday:</strong> @Html.DisplayFor(modelItem => Model.StaffBirthday)
+                            </span>
+                        </p>
+                        <p>
+                            <span>
+                                <strong>Address:</strong> @Html.DisplayFor(modelItem => Model.StaffAddress)
+                            </span>
+                        </p>
+                        <p>
+                            <span>
+                                <strong>Username:</strong> @Html.DisplayFor(modelItem => Model.Username)
+                            </span>
+                        </p>
+                        <p>
+                            <span>
+                                <strong>Contact:</strong> @Html.DisplayFor(modelItem => Model.NumberPhone) - @Html.DisplayFor(modelItem => Model.StaffEmail)
                             </span>
                         </p>
 
                     </div>
+                   
 
                 </div>
 
@@ -62,6 +70,13 @@
 
 
 
+        </div>
+        <div class="row element-button" style="padding-left:10px">
+            <div class="col-sm-2">
+                <a class="btn btn-danger btn-sm " type="button" title="EditStaff" href="/Admin/Staffmanager">
+                    Back to list
+                </a>
+            </div>
         </div>
     </div>
 </div>

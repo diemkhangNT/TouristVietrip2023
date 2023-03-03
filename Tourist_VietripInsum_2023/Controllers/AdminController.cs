@@ -88,23 +88,14 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult EditStaff(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Staff st = db.Staffs.Where(s => s.IdStaff == id).FirstOrDefault();
-            if (st == null)
-            {
-                return HttpNotFound();
-            }
-            return View(st);
+            return View(db.Staffs.Where(s => s.IdStaff == id).FirstOrDefault());
         }
         [HttpPost]
-        public ActionResult EditStaff(string id,Staff st)
+        public ActionResult EditStaff(string id,Staff nv)
         {
-            db.Entry(st).State = System.Data.Entity.EntityState.Modified;
+            db.Entry(nv).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("DetailStaff");
+            return RedirectToAction("Staffmanager");
         }
         public ActionResult DeleteStaff(string id)
         {
