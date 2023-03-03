@@ -176,9 +176,6 @@
     <Compile Include="Models\Staff.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Ticket.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -276,8 +273,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\AccountInfo\Index.cshtml" />
-    <Content Include="Views\LoginStaff\LoginStaff.cshtml" />
-    <Content Include="Views\Admin\HomePage.cshtml" />
     <Content Include="Views\OrderProcessing\LayoutOP\View.cshtml" />
     <Content Include="Views\Tourmanager\LayoutTM\View.cshtml" />
     <Content Include="Views\LoginStaff\Login.cshtml" />
@@ -306,7 +301,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Forms\ChangePass\" />
-    <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -41,7 +41,7 @@
                 @using (Html.BeginForm("Login", "LoginStaff", FormMethod.Post))
                 {
                     <div class="wrap-input100 validate-input input-field">
-                        <input class="input100 input" type="text" placeholder="username" name="UserName"
+                        <input class="input100 input" type="text" placeholder="Enter username" name="UserName"
                                id="UserName" required>
                         @*<span class="focus-input100"></span>
                             <span class="symbol-input100">
@@ -49,15 +49,21 @@
                             </span>*@
                     </div>
                     <div class="wrap-input100 validate-input input-field">
-                        <input autocomplete="off" class="input100 input" type="password" placeholder="password"
+                        <input autocomplete="off" class="input100 input" type="password" placeholder="Enter password"
                                name="Password" id="Password" required>
-                        @*<span toggle="#password-field" id="
-                            
-                            spanElement" class="bx fa-fw bx-hide field-icon click-eye"></span>
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-                                <i class='bx bx-key'></i>
-                            </span>*@
+                        <input type="checkbox" class="checkbox" onclick="myFunction()">
+                        <label id="showpass" class="showpass"> Show Password </label> 
+                        <script>
+                            function myFunction() {
+                                var x = document.getElementById("Password");
+                                if (x.type === "password") {
+                                    x.type = "text";
+                                } else {
+                                    x.type = "password";
+                                }
+                            }
+                        </script>
+
                     </div>
                     <p class="text-danger"></p>
                     <!--=====ĐĂNG NHẬP======-->

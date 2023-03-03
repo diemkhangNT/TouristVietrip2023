@@ -176,4 +176,13 @@ button {
     transition: .3s;
     text-decoration: none;
 }
-
+.showpass{
+    margin-top: 20px;
+    margin-left: 0px;
+    color: white;
+}
+.checkbox{
+    margin-top: 20px;
+    text-align: center;
+    margin-left: 100px;
+}
