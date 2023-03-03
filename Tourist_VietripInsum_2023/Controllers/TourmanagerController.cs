@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-using System.Data;
 using System.Net;
-using System.IO;
+using System.Web.Mvc;
 using Tourist_VietripInsum_2023.App_Start;
 using Tourist_VietripInsum_2023.Models;
-using System.Data.Entity;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
