@@ -24,8 +24,11 @@ namespace Tourist_VietripInsum_2023
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/jqueryboxmap/AdminLTE.min.css",
                       "~/Content/site.css",
-                      "~/Content/main.css"));
+                      "~/Content/main.css",
+                      "~/Content/stylefooter.css"
+                      ));
         }
     }
 }
