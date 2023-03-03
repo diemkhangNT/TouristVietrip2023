@@ -127,9 +127,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AdminAuthorize.cs" />
+    <Compile Include="App_Start\AuthorizeAttribite.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\Myauthentication.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountInfoController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -271,6 +272,12 @@
     <Content Include="Views\AccountInfo\Index.cshtml" />
     <Content Include="Views\LoginStaff\LoginStaff.cshtml" />
     <Content Include="Views\Admin\HomePage.cshtml" />
+    <Content Include="Views\OrderProcessing\LayoutOP\View.cshtml" />
+    <Content Include="Views\Tourmanager\LayoutTM\View.cshtml" />
+    <Content Include="Views\LoginStaff\Login.cshtml" />
+    <Content Include="Views\LoginStaff\Demo.cshtml" />
+    <Content Include="Views\Tourmanager\HomePageTM.cshtml" />
+    <Content Include="Views\OrderProcessing\HomePageOP.cshtml" />
     <Content Include="Views\Tourmanager\LayoutTM\ViewTM.cshtml" />
     <Content Include="Views\Tourmanager\HomePageTM.cshtml" />
   </ItemGroup>

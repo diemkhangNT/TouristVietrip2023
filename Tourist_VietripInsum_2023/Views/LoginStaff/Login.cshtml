@@ -1,0 +1,87 @@
+﻿@model Tourist_VietripInsum_2023.Models.Staff
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Content/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Login Form</title>
+    <style>
+        body {
+            background-image: url("../images/1.jpg");
+        }
+
+        .input-field {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="container">
+
+            <div class="top">
+                <header>Login</header>
+            </div>
+            @using (Html.BeginForm("Login", "LoginStaff", FormMethod.Post))
+            {
+                @*<div class="input-field">
+                <input type="text" class="input" placeholder="Username" id="username" name="username">
+
+            </div>
+
+            <div class="input-field">
+                <input type="Password" class="input" placeholder="Password" id="psw" name="psw">
+
+            </div>
+
+            <div class="input-field">
+                <input type="submit" class="submit" value="Login" id="">
+            </div>*@
+                <div class="wrap-input100 validate-input">
+                    <input class="input100" type="text" placeholder="Tài khoản quản trị" name="UserName"
+                           id="UserName">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class='bx bx-user'></i>
+                    </span>
+                </div>
+                <div class="wrap-input100 validate-input">
+                    <input autocomplete="off" class="input100" type="password" placeholder="Mật khẩu"
+                           name="Password" id="Password">
+                    <span toggle="#password-field" id="spanElement" class="bx fa-fw bx-hide field-icon click-eye"></span>
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class='bx bx-key'></i>
+                    </span>
+                </div>
+                <p class="text-danger">@TempData["error"]</p>
+                <!--=====ĐĂNG NHẬP======-->
+                <div class="container-login100-form-btn">
+                    <input type="submit" value="Đăng nhập" />
+                </div>
+            }
+
+            <div class="bottom">
+                <div class="left">
+                    <input type="checkbox" name="" id="check">
+                    <label for="check"> Remember Me</label>
+                </div>
+
+                <div class="middle">
+                    <label><a href="signup.html"> Sign Up</a></label>
+                </div>
+                <div class="right">
+                    <label><a href="forgotpass.html">Forgot password?</a></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

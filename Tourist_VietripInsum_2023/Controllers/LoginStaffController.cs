@@ -11,41 +11,49 @@ namespace Tourist_VietripInsum_2023.Controllers
     {
         // GET: LoginStaff
         TouristEntities1 database = new TouristEntities1();
-        public ActionResult LoginStaff()
+       public ActionResult Login()
         {
-            
             return View();
         }
 
         [HttpPost]
-        public ActionResult LoginStaff(string userstaff,string pswstaff)
+        public ActionResult Login(string username, string password)
         {
-            var data = database.Staffs.Where(s => s.Username == userstaff && s.UserPassword == pswstaff).FirstOrDefault();
-            var taikhoan = database.Staffs.SingleOrDefault(s => s.Username == userstaff && s.UserPassword == pswstaff);
+            var tm = "TM"; var op = "OP"; var ad = "AD";
+
+            var data = database.Staffs.Where(s => s.Username== username && s.UserPassword == password).FirstOrDefault();
+            var taikhoan = database.Staffs.SingleOrDefault(s => s.Username == username && s.UserPassword == password);
             if (data == null)
             {
                 TempData["error"] = "Tài khoản đăng nhập không đúng";
-                return View("LoginStaff");
+                ViewBag.test = username;
+                return View("demo");
             }
             else if (taikhoan != null)
             {
                 //add session
                 database.Configuration.ValidateOnSaveEnabled = false;
                 Session["user"] = taikhoan;
-                if (data.IdPos.ToString() == "TM")
+                var user = data.IdPos.ToString();
+                if (user == tm)
                 {
-                    return RedirectToAction("HomePageTM", "Tourmanager");
+                    return RedirectToAction("HomePageTM", "Tourmanager" );
                 }
-                else if (data.IdPos.ToString() == "OP")
+                else if (user == op)
                 {
                     return RedirectToAction("HomePageOP", "OrderProcessing");
-                } 
-                else 
+                }
+                else if (user == ad)
                 {
                     return RedirectToAction("HomePage", "Admin");
                 }
+               
             }
-           
+            return View();
+        }
+
+        public ActionResult demo()
+        {
             return View();
         }
     }

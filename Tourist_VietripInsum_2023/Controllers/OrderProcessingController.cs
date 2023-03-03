@@ -5,19 +5,18 @@ using System.Web;
 using System.Web.Mvc;
 using Tourist_VietripInsum_2023.App_Start;
 
-using Tourist_VietripInsum_2023.Models;
-
 namespace Tourist_VietripInsum_2023.Controllers
 {
-    [AdminAuthorize(idPos  = "AD")]
-    public class AdminController : Controller
+    [AdminAuthorize(idPos = "OP")]
+    public class OrderProcessingController : Controller
     {
-        // GET: Admin
+        // GET: OrderProcessing
+        public ActionResult Index()
+        {
+            return View();
+        }
 
-        TouristEntities1 database = new TouristEntities1();
-
-
-        public ActionResult HomePage()
+        public ActionResult HomePageOP()
         {
             return View();
         }
