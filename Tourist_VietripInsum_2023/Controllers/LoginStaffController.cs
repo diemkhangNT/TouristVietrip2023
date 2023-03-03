@@ -26,7 +26,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             if (data == null)
             {
                 TempData["AlertMessage"] = "Login error";
-                return RedirectToAction("ForgotPassword", "LoginStaff");
+                return View("Login");
                 //ViewBag.test = username;
             }
             else if (taikhoan != null)
