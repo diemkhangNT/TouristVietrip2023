@@ -12,25 +12,21 @@ namespace Tourist_VietripInsum_2023.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Schedule
+    public partial class VistLocation
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Schedule()
+        public VistLocation()
         {
             this.DetailSchedules = new HashSet<DetailSchedule>();
-            this.Tours = new HashSet<Tour>();
         }
     
-        public string IdSchedule { get; set; }
-        public string IdHotel { get; set; }
-        public string Describe { get; set; }
-        public int NoVistLocat { get; set; }
-        public string InfoConcentrate { get; set; }
+        public string IdVistLocat { get; set; }
+        public string NameVist { get; set; }
+        public string ImageLocation { get; set; }
+        public string Des_Location { get; set; }
+        public string Loca_address { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetailSchedule> DetailSchedules { get; set; }
-        public virtual Hotel Hotel { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tour> Tours { get; set; }
     }
 }

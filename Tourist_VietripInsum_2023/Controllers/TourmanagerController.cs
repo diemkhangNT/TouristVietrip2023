@@ -170,7 +170,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
         public ActionResult CreateSchedule(string id)
         {
-            return View(db.Schedules.Where(s => s.IdTour == id).FirstOrDefault());
+            return View(db.Schedules.Where(s => s.IdSchedule == id).FirstOrDefault());
         }
         [HttpPost]
         public ActionResult CreateSchedule(Schedule schedules, Tour tour, string id)

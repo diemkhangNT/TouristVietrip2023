@@ -12,25 +12,28 @@ namespace Tourist_VietripInsum_2023.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Schedule
+    public partial class Customer_Guest
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Schedule()
+        public Customer_Guest()
         {
-            this.DetailSchedules = new HashSet<DetailSchedule>();
-            this.Tours = new HashSet<Tour>();
+            this.OrderCus = new HashSet<OrderCu>();
         }
     
-        public string IdSchedule { get; set; }
-        public string IdHotel { get; set; }
-        public string Describe { get; set; }
-        public int NoVistLocat { get; set; }
-        public string InfoConcentrate { get; set; }
+        public string IdCus { get; set; }
+        public string NoPhone { get; set; }
+        public string IdTypeCus { get; set; }
+        public string Username { get; set; }
+        public string Userpassword { get; set; }
+        public string Fullname { get; set; }
+        public string Useraddress { get; set; }
+        public string Email { get; set; }
+        public Nullable<System.DateTime> Birthday { get; set; }
+        public string Gender { get; set; }
+        public string AvatarCus { get; set; }
     
+        public virtual TypeCu TypeCu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetailSchedule> DetailSchedules { get; set; }
-        public virtual Hotel Hotel { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tour> Tours { get; set; }
+        public virtual ICollection<OrderCu> OrderCus { get; set; }
     }
 }
