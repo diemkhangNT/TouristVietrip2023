@@ -1,0 +1,14 @@
+﻿body {
+}
+.staffinfo{
+    display: flex;
+  margin:30px
+}
+.staffinfo .staff-content{
+    margin-left:20px;
+}
+
+   
+
+
+   

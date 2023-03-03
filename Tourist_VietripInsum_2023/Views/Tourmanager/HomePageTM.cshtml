@@ -1,12 +1,24 @@
 ﻿
 @{
     ViewBag.Title = "HomePageTM";
-    Layout = "~/Views/Tourmanager/LayoutTM/ViewTM.cshtml";
+    Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
     ViewBag.Name = "Home Page";
     ViewBag.home = "active";
 }
-
-<h2>HomePageTM</h2>
+@{
+    var checkMessage = TempData["AlertMessage"];
+    if (checkMessage == "Login sucess")
+    {
+        <script>
+            swal({
+                title: "Login success!",
+                text: "Welcome to your back!",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    }
+}
 <div class="row">
     <!--Thông tin kho và số sản phẩm sắp hết hàng-->
     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">

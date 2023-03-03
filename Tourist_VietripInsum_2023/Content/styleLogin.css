@@ -5,26 +5,70 @@
 }
 
 body {
-   color:red;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
+    background-image: url("Images/bg_login.jpg");
 }
 
+/*.input-field {
+    margin: 10px;
+}
+body {
+    background-image: url("../images/1.jpg");
+}
+
+.input-field {
+    margin: 10px;
+}
+*/
+.btn_send {
+    margin-top: 50px;
+    border: none;
+    border-radius: 30px;
+    font-size: 15px;
+    height: 45px;
+    outline: none;
+    width: 100%;
+    color: black;
+    background: rgba(255,255,255,0.7);
+    cursor: pointer;
+    transition: .3s;
+    color: darkblue;
+}
+
+.logo1 {
+    image-rendering: pixelated;
+}
+.logo {
+    color: #d8c74e;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    padding-bottom:10px;
+}
 .box {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 90vh;
-    background-color:blueviolet;
 }
-
+.top{
+width: 400px;
+}
+.body_form {
+    background-color: #648ec778;
+    border-radius: 50px 0px 20px 0px;
+    margin: 10px 30px 80px 30px;
+    padding: 20px;
+}
 .container {
-    width: 350px;
+    width: 400px;
     display: flex;
     flex-direction: column;
-    padding: 0 15px 0 15px;
+    padding: 30px;
+    
 }
 
 span {
@@ -40,11 +84,17 @@ header {
     font-size: 30px;
     display: flex;
     justify-content: center;
-    padding: 10px 0 10px 0;
+}
+
+.logo {
+    color: #fff;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
 }
 
 .input-field .input {
-    margin: 0px;
+    margin-top: 20px;
     height: 45px;
     width: 87%;
     border: none;
@@ -64,7 +114,7 @@ i {
 }
 
 ::-webkit-input-placeholder {
-    color: #fff;
+    color: rgb(245 245 245 / 0.81);
 }
 
 .submit {
@@ -78,6 +128,7 @@ i {
     background: rgba(255,255,255,0.7);
     cursor: pointer;
     transition: .3s;
+    color: darkblue;
 }
 
     .submit:hover {
@@ -90,13 +141,23 @@ i {
     justify-content: space-between;
     color: #fff;
     font-size: small;
-    margin-top: 10px;
+    margin-top: 15px;
 }
+    .bottom:hover {
+        text-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
+    }
 
 .left {
     display: flex;
 }
-
+.right{
+    font-size: 15px;
+    font-style:italic;
+}
+.middle {
+    font-size: 15px;
+    font-style: italic;
+}
 label a {
     text-decoration: none;
     color: #fff;

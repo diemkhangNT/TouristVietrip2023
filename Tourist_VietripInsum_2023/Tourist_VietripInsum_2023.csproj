@@ -176,6 +176,9 @@
     <Compile Include="Models\Staff.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Ticket.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -207,7 +210,8 @@
     <Content Include="Content\Images\DiemKhang.jpg" />
     <Content Include="Content\Images\logo_project.png" />
     <Content Include="Content\main.css" />
-    <Content Include="Content\style.css" />
+    <Content Include="Content\staff.css" />
+    <Content Include="Content\styleLogin.css" />
     <Content Include="Content\style_contact.css" />
     <Content Include="Content\style_order.css" />
     <Content Include="favicon.ico" />
@@ -231,7 +235,7 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Forms\ChangePass\Index.cshtml" />
+    <Content Include="Views\LoginStaff\ForgotPassword.cshtml" />
     <Content Include="Forms\Contact\Index.cshtml" />
     <Content Include="Forms\Login\Index.cshtml" />
     <Content Include="Forms\Order\Index.cshtml" />
@@ -255,6 +259,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Tourmanager\HomePageTM.cshtml" />
+    <Content Include="Views\Tourmanager\LayoutTM\_ViewTM.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -276,6 +282,22 @@
     <Content Include="Views\Tourmanager\LayoutTM\View.cshtml" />
     <Content Include="Views\LoginStaff\Login.cshtml" />
     <Content Include="Views\LoginStaff\Demo.cshtml" />
+    <Content Include="Views\Tourmanager\EditTour.cshtml" />
+    <Content Include="Views\Tourmanager\DeleteTour.cshtml" />
+    <Content Include="Views\Tourmanager\TourTypeDetails.cshtml" />
+    <Content Include="Views\Tourmanager\CreateTourType.cshtml" />
+    <Content Include="Views\Tourmanager\EditTourType.cshtml" />
+    <Content Include="Views\Tourmanager\TourDetails.cshtml" />
+    <Content Include="Views\Tourmanager\CreateTours.cshtml" />
+    <Content Include="Views\Tourmanager\QuanLyTour.cshtml" />
+    <Content Include="Views\Tourmanager\CreateSchedule.cshtml" />
+    <Content Include="Views\Admin\AdminView.cshtml" />
+    <Content Include="Views\Admin\HomePage.cshtml" />
+    <Content Include="Views\Admin\Staffmanager.cshtml" />
+    <Content Include="Views\Admin\CreateStaff.cshtml" />
+    <Content Include="Views\Admin\DetailStaff.cshtml" />
+    <Content Include="Views\Admin\EditStaff.cshtml" />
+    <Content Include="Views\Admin\DeleteStaff.cshtml" />
     <Content Include="Views\Tourmanager\HomePageTM.cshtml" />
     <Content Include="Views\OrderProcessing\HomePageOP.cshtml" />
     <Content Include="Views\Tourmanager\LayoutTM\ViewTM.cshtml" />
@@ -283,6 +305,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Forms\ChangePass\" />
+    <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

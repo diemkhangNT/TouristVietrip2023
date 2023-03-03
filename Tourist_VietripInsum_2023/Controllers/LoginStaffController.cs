@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
@@ -25,9 +26,9 @@ namespace Tourist_VietripInsum_2023.Controllers
             var taikhoan = database.Staffs.SingleOrDefault(s => s.Username == username && s.UserPassword == password);
             if (data == null)
             {
-                TempData["error"] = "Tài khoản đăng nhập không đúng";
-                ViewBag.test = username;
-                return View("demo");
+                TempData["AlertMessage"] = "Login error";
+                return RedirectToAction("ForgotPassword", "LoginStaff");
+                //ViewBag.test = username;
             }
             else if (taikhoan != null)
             {
@@ -37,24 +38,38 @@ namespace Tourist_VietripInsum_2023.Controllers
                 var user = data.IdPos.ToString();
                 if (user == tm)
                 {
+                    TempData["AlertMessage"] = "Login sucess";
                     return RedirectToAction("HomePageTM", "Tourmanager" );
                 }
                 else if (user == op)
                 {
+                    TempData["AlertMessage"] = "Login sucess";
                     return RedirectToAction("HomePageOP", "OrderProcessing");
                 }
                 else if (user == ad)
                 {
+                    TempData["AlertMessage"] = "Login sucess";
                     return RedirectToAction("HomePage", "Admin");
                 }
                
             }
+            else
+            {
+                TempData["AlertMessage"] = "Login error";
+                return RedirectToAction("Login", "LoginStaff");
+                //ViewBag.test = username;
+            }
             return View();
         }
-
-        public ActionResult demo()
+        public ActionResult ForgotPassword()
         {
             return View();
+        }
+        public ActionResult Logout()
+        {
+            Session.Clear();//remove session
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login");
         }
     }
 }

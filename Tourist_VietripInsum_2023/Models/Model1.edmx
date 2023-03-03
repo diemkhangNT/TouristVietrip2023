@@ -4,16 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TouristModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TouristModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Customer_Guest">
           <Key>
             <PropertyRef Name="IdCus" />
             <PropertyRef Name="NoPhone" />
           </Key>
-          <Property Name="IdCus" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="IdCus" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="NoPhone" Type="char" MaxLength="15" Nullable="false" />
-          <Property Name="IdTypeCus" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="IdTypeCus" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="30" />
           <Property Name="Userpassword" Type="varchar" MaxLength="50" />
           <Property Name="Fullname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Useraddress" Type="varchar" MaxLength="50" Nullable="false" />
@@ -28,27 +28,27 @@
             <PropertyRef Name="idSchedule" />
           </Key>
           <Property Name="stt" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idSchedule" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="idVitsLocal" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="idSchedule" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="idVitsLocal" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Hotel">
           <Key>
             <PropertyRef Name="IdHotel" />
           </Key>
-          <Property Name="IdHotel" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="IdHotel" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="LevelHotel" Type="int" />
           <Property Name="NameHotel" Type="nvarchar" MaxLength="50" />
           <Property Name="AddressHotel" Type="nvarchar" MaxLength="50" />
-          <Property Name="ImgHotel" Type="varchar" MaxLength="50" />
+          <Property Name="ImgHotel" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="OrderCus">
           <Key>
             <PropertyRef Name="IdOrder" />
           </Key>
-          <Property Name="IdOrder" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="IdCus" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="IdStaff" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="IdTour" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="IdOrder" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="IdCus" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="IdStaff" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="IdTour" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="DateCreate" Type="smalldatetime" />
           <Property Name="StatusOrder" Type="nvarchar" MaxLength="30" />
           <Property Name="TotalPrice" Type="decimal" Precision="9" Scale="2" />
@@ -59,15 +59,16 @@
           <Key>
             <PropertyRef Name="IdPos" />
           </Key>
-          <Property Name="IdPos" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="IdPos" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="NamePos" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
             <PropertyRef Name="IdSchedule" />
           </Key>
-          <Property Name="IdSchedule" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="IdHotel" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="IdTour" Type="varchar" MaxLength="10" />
+          <Property Name="IdSchedule" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="IdHotel" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Describe" Type="ntext" />
           <Property Name="NoVistLocat" Type="int" Nullable="false" />
           <Property Name="InfoConcentrate" Type="nvarchar" MaxLength="200" />
@@ -76,8 +77,8 @@
           <Key>
             <PropertyRef Name="IdStaff" />
           </Key>
-          <Property Name="IdStaff" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="IdPos" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="IdStaff" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="IdPos" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" />
           <Property Name="UserPassword" Type="varchar" MaxLength="50" />
           <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -86,15 +87,25 @@
           <Property Name="StaffEmail" Type="varchar" MaxLength="30" />
           <Property Name="StaffBirthday" Type="smalldatetime" />
           <Property Name="Gender" Type="nvarchar" MaxLength="10" />
-          <Property Name="Avatar" Type="varchar" MaxLength="50" />
+          <Property Name="Avatar" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Ticket">
           <Key>
             <PropertyRef Name="IdTicket" />
           </Key>
-          <Property Name="IdTicket" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="IdOrder" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="IdTypeTicket" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="IdTicket" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="IdOrder" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="IdTypeTicket" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Gender" Type="nvarchar" MaxLength="10" />
           <Property Name="Birthday" Type="smalldatetime" />
@@ -103,9 +114,9 @@
           <Key>
             <PropertyRef Name="IdTour" />
           </Key>
-          <Property Name="IdTour" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="Id_TypeTour" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="Id_detailTour" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="IdTour" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Id_TypeTour" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Id_detailTour" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="ImagerTour" Type="varchar" MaxLength="500" />
           <Property Name="Departure" Type="smalldatetime" />
           <Property Name="ReturnDay" Type="smalldatetime" />
@@ -119,7 +130,7 @@
           <Key>
             <PropertyRef Name="IdType" />
           </Key>
-          <Property Name="IdType" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="IdType" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="TypeName" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Discount" Type="float" />
         </EntityType>
@@ -127,14 +138,14 @@
           <Key>
             <PropertyRef Name="IdTypeCus" />
           </Key>
-          <Property Name="IdTypeCus" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="IdTypeCus" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="NameTypeCus" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="TypeTicket">
           <Key>
             <PropertyRef Name="IdTypeticket" />
           </Key>
-          <Property Name="IdTypeticket" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="IdTypeticket" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="NameTypeTicket" Type="nvarchar" MaxLength="50" />
           <Property Name="Discount" Type="float" />
         </EntityType>
@@ -142,7 +153,7 @@
           <Key>
             <PropertyRef Name="IdVistLocat" />
           </Key>
-          <Property Name="IdVistLocat" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="IdVistLocat" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="NameVist" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="ImageLocation" Type="varchar" MaxLength="50" />
           <Property Name="Des_Location" Type="nvarchar" MaxLength="40" />
@@ -234,6 +245,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Schedule_Tour">
+          <End Role="Tour" Type="Self.Tour" Multiplicity="0..1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tour">
+              <PropertyRef Name="IdTour" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="IdTour" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Staff_Position">
           <End Role="Position" Type="Self.Position" Multiplicity="1" />
           <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
@@ -270,18 +293,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tour_Schedule">
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
-          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Schedule">
-              <PropertyRef Name="IdSchedule" />
-            </Principal>
-            <Dependent Role="Tour">
-              <PropertyRef Name="Id_detailTour" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tour_TourType">
           <End Role="TourType" Type="Self.TourType" Multiplicity="1" />
           <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
@@ -294,7 +305,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TouristModelStoreContainer">
+        <EntityContainer Name="TouristModel1StoreContainer">
           <EntitySet Name="Customer_Guest" EntityType="Self.Customer_Guest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetailSchedule" EntityType="Self.DetailSchedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
@@ -302,6 +313,7 @@
           <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ticket" EntityType="Self.Ticket" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TourType" EntityType="Self.TourType" Schema="dbo" store:Type="Tables" />
@@ -336,6 +348,10 @@
             <End Role="Hotel" EntitySet="Hotel" />
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Tour" Association="Self.FK_Schedule_Tour">
+            <End Role="Tour" EntitySet="Tour" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
           <AssociationSet Name="FK_Staff_Position" Association="Self.FK_Staff_Position">
             <End Role="Position" EntitySet="Position" />
             <End Role="Staff" EntitySet="Staff" />
@@ -348,10 +364,6 @@
             <End Role="TypeTicket" EntitySet="TypeTicket" />
             <End Role="Ticket" EntitySet="Ticket" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tour_Schedule" Association="Self.FK_Tour_Schedule">
-            <End Role="Schedule" EntitySet="Schedule" />
-            <End Role="Tour" EntitySet="Tour" />
-          </AssociationSet>
           <AssociationSet Name="FK_Tour_TourType" Association="Self.FK_Tour_TourType">
             <End Role="TourType" EntitySet="TourType" />
             <End Role="Tour" EntitySet="Tour" />
@@ -361,16 +373,16 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="TouristModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="TouristModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Customer_Guest">
           <Key>
             <PropertyRef Name="IdCus" />
             <PropertyRef Name="NoPhone" />
           </Key>
-          <Property Name="IdCus" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdCus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NoPhone" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="IdTypeCus" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdTypeCus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Userpassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Useraddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -387,8 +399,8 @@
             <PropertyRef Name="idSchedule" />
           </Key>
           <Property Name="stt" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idSchedule" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="idVitsLocal" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="idSchedule" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idVitsLocal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Schedule" Relationship="Self.FK_DetailSchedule_Schedule" FromRole="DetailSchedule" ToRole="Schedule" />
           <NavigationProperty Name="VistLocation" Relationship="Self.FK_DetailSchedule_VistLocation" FromRole="DetailSchedule" ToRole="VistLocation" />
         </EntityType>
@@ -396,21 +408,21 @@
           <Key>
             <PropertyRef Name="IdHotel" />
           </Key>
-          <Property Name="IdHotel" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdHotel" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LevelHotel" Type="Int32" />
           <Property Name="NameHotel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AddressHotel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ImgHotel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ImgHotel" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedule_Hotel" FromRole="Hotel" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="OrderCu">
           <Key>
             <PropertyRef Name="IdOrder" />
           </Key>
-          <Property Name="IdOrder" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="IdCus" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="IdStaff" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="IdTour" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdOrder" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdCus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdStaff" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdTour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DateCreate" Type="DateTime" Precision="0" />
           <Property Name="StatusOrder" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="TotalPrice" Type="Decimal" Precision="9" Scale="2" />
@@ -425,7 +437,7 @@
           <Key>
             <PropertyRef Name="IdPos" />
           </Key>
-          <Property Name="IdPos" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdPos" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NamePos" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Staffs" Relationship="Self.FK_Staff_Position" FromRole="Position" ToRole="Staff" />
         </EntityType>
@@ -433,21 +445,22 @@
           <Key>
             <PropertyRef Name="IdSchedule" />
           </Key>
-          <Property Name="IdSchedule" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="IdHotel" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdTour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="IdSchedule" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdHotel" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NoVistLocat" Type="Int32" Nullable="false" />
           <Property Name="InfoConcentrate" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DetailSchedules" Relationship="Self.FK_DetailSchedule_Schedule" FromRole="Schedule" ToRole="DetailSchedule" />
           <NavigationProperty Name="Hotel" Relationship="Self.FK_Schedule_Hotel" FromRole="Schedule" ToRole="Hotel" />
-          <NavigationProperty Name="Tours" Relationship="Self.FK_Tour_Schedule" FromRole="Schedule" ToRole="Tour" />
+          <NavigationProperty Name="Tour" Relationship="Self.FK_Schedule_Tour" FromRole="Schedule" ToRole="Tour" />
         </EntityType>
         <EntityType Name="Staff">
           <Key>
             <PropertyRef Name="IdStaff" />
           </Key>
-          <Property Name="IdStaff" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="IdPos" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdStaff" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdPos" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -456,17 +469,27 @@
           <Property Name="StaffEmail" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="StaffBirthday" Type="DateTime" Precision="0" />
           <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Avatar" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Avatar" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="OrderCus" Relationship="Self.FK_OrderCus_Staff" FromRole="Staff" ToRole="OrderCus" />
           <NavigationProperty Name="Position" Relationship="Self.FK_Staff_Position" FromRole="Staff" ToRole="Position" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Ticket">
           <Key>
             <PropertyRef Name="IdTicket" />
           </Key>
-          <Property Name="IdTicket" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="IdOrder" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="IdTypeTicket" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdTicket" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdOrder" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdTypeTicket" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Birthday" Type="DateTime" Precision="0" />
@@ -477,9 +500,9 @@
           <Key>
             <PropertyRef Name="IdTour" />
           </Key>
-          <Property Name="IdTour" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Id_TypeTour" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Id_detailTour" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdTour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Id_TypeTour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Id_detailTour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ImagerTour" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Departure" Type="DateTime" Precision="0" />
           <Property Name="ReturnDay" Type="DateTime" Precision="0" />
@@ -489,14 +512,14 @@
           <Property Name="Price" Type="Decimal" Precision="9" Scale="2" />
           <Property Name="DeadlineOrder" Type="DateTime" Precision="0" />
           <NavigationProperty Name="OrderCus" Relationship="Self.FK_OrderCus_Tour" FromRole="Tour" ToRole="OrderCus" />
-          <NavigationProperty Name="Schedule" Relationship="Self.FK_Tour_Schedule" FromRole="Tour" ToRole="Schedule" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedule_Tour" FromRole="Tour" ToRole="Schedule" />
           <NavigationProperty Name="TourType" Relationship="Self.FK_Tour_TourType" FromRole="Tour" ToRole="TourType" />
         </EntityType>
         <EntityType Name="TourType">
           <Key>
             <PropertyRef Name="IdType" />
           </Key>
-          <Property Name="IdType" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Discount" Type="Double" />
           <NavigationProperty Name="Tours" Relationship="Self.FK_Tour_TourType" FromRole="TourType" ToRole="Tour" />
@@ -505,7 +528,7 @@
           <Key>
             <PropertyRef Name="IdTypeCus" />
           </Key>
-          <Property Name="IdTypeCus" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdTypeCus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NameTypeCus" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Customer_Guest" Relationship="Self.FK_Customer_Guest_TypeCus" FromRole="TypeCus" ToRole="Customer_Guest" />
         </EntityType>
@@ -513,7 +536,7 @@
           <Key>
             <PropertyRef Name="IdTypeticket" />
           </Key>
-          <Property Name="IdTypeticket" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdTypeticket" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NameTypeTicket" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Discount" Type="Double" />
           <NavigationProperty Name="Tickets" Relationship="Self.FK_Ticket_TypeTicket" FromRole="TypeTicket" ToRole="Ticket" />
@@ -522,7 +545,7 @@
           <Key>
             <PropertyRef Name="IdVistLocat" />
           </Key>
-          <Property Name="IdVistLocat" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdVistLocat" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NameVist" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ImageLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Des_Location" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
@@ -639,15 +662,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tour_Schedule">
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
-          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+        <Association Name="FK_Schedule_Tour">
+          <End Role="Tour" Type="Self.Tour" Multiplicity="0..1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Schedule">
-              <PropertyRef Name="IdSchedule" />
+            <Principal Role="Tour">
+              <PropertyRef Name="IdTour" />
             </Principal>
-            <Dependent Role="Tour">
-              <PropertyRef Name="Id_detailTour" />
+            <Dependent Role="Schedule">
+              <PropertyRef Name="IdTour" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -683,6 +706,7 @@
           <EntitySet Name="Positions" EntityType="Self.Position" />
           <EntitySet Name="Schedules" EntityType="Self.Schedule" />
           <EntitySet Name="Staffs" EntityType="Self.Staff" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Tickets" EntityType="Self.Ticket" />
           <EntitySet Name="Tours" EntityType="Self.Tour" />
           <EntitySet Name="TourTypes" EntityType="Self.TourType" />
@@ -725,9 +749,9 @@
             <End Role="Position" EntitySet="Positions" />
             <End Role="Staff" EntitySet="Staffs" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tour_Schedule" Association="Self.FK_Tour_Schedule">
-            <End Role="Schedule" EntitySet="Schedules" />
+          <AssociationSet Name="FK_Schedule_Tour" Association="Self.FK_Schedule_Tour">
             <End Role="Tour" EntitySet="Tours" />
+            <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
           <AssociationSet Name="FK_Ticket_TypeTicket" Association="Self.FK_Ticket_TypeTicket">
             <End Role="TypeTicket" EntitySet="TypeTickets" />
@@ -743,9 +767,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TouristModelStoreContainer" CdmEntityContainer="TouristEntities1">
+        <EntityContainerMapping StorageEntityContainer="TouristModel1StoreContainer" CdmEntityContainer="TouristEntities1">
           <EntitySetMapping Name="Customer_Guest">
-            <EntityTypeMapping TypeName="TouristModel.Customer_Guest">
+            <EntityTypeMapping TypeName="TouristModel1.Customer_Guest">
               <MappingFragment StoreEntitySet="Customer_Guest">
                 <ScalarProperty Name="IdCus" ColumnName="IdCus" />
                 <ScalarProperty Name="NoPhone" ColumnName="NoPhone" />
@@ -762,7 +786,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DetailSchedules">
-            <EntityTypeMapping TypeName="TouristModel.DetailSchedule">
+            <EntityTypeMapping TypeName="TouristModel1.DetailSchedule">
               <MappingFragment StoreEntitySet="DetailSchedule">
                 <ScalarProperty Name="stt" ColumnName="stt" />
                 <ScalarProperty Name="idSchedule" ColumnName="idSchedule" />
@@ -771,7 +795,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Hotels">
-            <EntityTypeMapping TypeName="TouristModel.Hotel">
+            <EntityTypeMapping TypeName="TouristModel1.Hotel">
               <MappingFragment StoreEntitySet="Hotel">
                 <ScalarProperty Name="IdHotel" ColumnName="IdHotel" />
                 <ScalarProperty Name="LevelHotel" ColumnName="LevelHotel" />
@@ -782,7 +806,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderCus">
-            <EntityTypeMapping TypeName="TouristModel.OrderCu">
+            <EntityTypeMapping TypeName="TouristModel1.OrderCu">
               <MappingFragment StoreEntitySet="OrderCus">
                 <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
                 <ScalarProperty Name="IdCus" ColumnName="IdCus" />
@@ -797,7 +821,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Positions">
-            <EntityTypeMapping TypeName="TouristModel.Position">
+            <EntityTypeMapping TypeName="TouristModel1.Position">
               <MappingFragment StoreEntitySet="Position">
                 <ScalarProperty Name="IdPos" ColumnName="IdPos" />
                 <ScalarProperty Name="NamePos" ColumnName="NamePos" />
@@ -805,8 +829,9 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Schedules">
-            <EntityTypeMapping TypeName="TouristModel.Schedule">
+            <EntityTypeMapping TypeName="TouristModel1.Schedule">
               <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="IdTour" ColumnName="IdTour" />
                 <ScalarProperty Name="IdSchedule" ColumnName="IdSchedule" />
                 <ScalarProperty Name="IdHotel" ColumnName="IdHotel" />
                 <ScalarProperty Name="Describe" ColumnName="Describe" />
@@ -816,7 +841,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Staffs">
-            <EntityTypeMapping TypeName="TouristModel.Staff">
+            <EntityTypeMapping TypeName="TouristModel1.Staff">
               <MappingFragment StoreEntitySet="Staff">
                 <ScalarProperty Name="IdStaff" ColumnName="IdStaff" />
                 <ScalarProperty Name="IdPos" ColumnName="IdPos" />
@@ -832,8 +857,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TouristModel1.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Tickets">
-            <EntityTypeMapping TypeName="TouristModel.Ticket">
+            <EntityTypeMapping TypeName="TouristModel1.Ticket">
               <MappingFragment StoreEntitySet="Ticket">
                 <ScalarProperty Name="IdTicket" ColumnName="IdTicket" />
                 <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
@@ -845,7 +881,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tours">
-            <EntityTypeMapping TypeName="TouristModel.Tour">
+            <EntityTypeMapping TypeName="TouristModel1.Tour">
               <MappingFragment StoreEntitySet="Tour">
                 <ScalarProperty Name="IdTour" ColumnName="IdTour" />
                 <ScalarProperty Name="Id_TypeTour" ColumnName="Id_TypeTour" />
@@ -862,7 +898,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TourTypes">
-            <EntityTypeMapping TypeName="TouristModel.TourType">
+            <EntityTypeMapping TypeName="TouristModel1.TourType">
               <MappingFragment StoreEntitySet="TourType">
                 <ScalarProperty Name="IdType" ColumnName="IdType" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
@@ -871,7 +907,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TypeCus">
-            <EntityTypeMapping TypeName="TouristModel.TypeCu">
+            <EntityTypeMapping TypeName="TouristModel1.TypeCu">
               <MappingFragment StoreEntitySet="TypeCus">
                 <ScalarProperty Name="IdTypeCus" ColumnName="IdTypeCus" />
                 <ScalarProperty Name="NameTypeCus" ColumnName="NameTypeCus" />
@@ -879,7 +915,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TypeTickets">
-            <EntityTypeMapping TypeName="TouristModel.TypeTicket">
+            <EntityTypeMapping TypeName="TouristModel1.TypeTicket">
               <MappingFragment StoreEntitySet="TypeTicket">
                 <ScalarProperty Name="IdTypeticket" ColumnName="IdTypeticket" />
                 <ScalarProperty Name="NameTypeTicket" ColumnName="NameTypeTicket" />
@@ -888,7 +924,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="VistLocations">
-            <EntityTypeMapping TypeName="TouristModel.VistLocation">
+            <EntityTypeMapping TypeName="TouristModel1.VistLocation">
               <MappingFragment StoreEntitySet="VistLocation">
                 <ScalarProperty Name="IdVistLocat" ColumnName="IdVistLocat" />
                 <ScalarProperty Name="NameVist" ColumnName="NameVist" />
