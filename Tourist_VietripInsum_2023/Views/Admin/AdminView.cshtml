@@ -61,40 +61,26 @@
             <li>
                 <a class="app-menu__item haha" href="#">
                     <i class='app-menu__icon bx bx-tachometer'></i>
-                    <span class="">TOUR MANAGER</span>
+                    <span class="">ADMIN</span>
                 </a>
             </li>
             <li>
-                <a class="app-menu__item @ViewBag.home" href="~/Tourmanager/HomePageTM">
+                <a class="app-menu__item @ViewBag.home" href="~/Admin/HomePage">
                     <i class='app-menu__icon bx bx-task'></i>
                     <span class="app-menu__label">Tổng quan</span>
                 </a>
             </li>
             <li>
-                <a class="app-menu__item  @ViewBag.qlt" href="/Tourmanager/QuanLyTour">
-                    <i class='app-menu__icon bx bx-id-card'></i> <span class="app-menu__label">Quản lý tour</span>
+                <a class="app-menu__item  @ViewBag.qlstaff" href="/Admin/Staffmanager">
+                    <i class='app-menu__icon bx bx-id-card'></i> <span class="app-menu__label">Staff Management</span>
                 </a>
             </li>
             <li>
-                <a class="app-menu__item @ViewBag.dh" href="#">
-                    <i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Danh sách hành khách</span>
+                <a class="app-menu__item  @ViewBag.qlcustomer" href="/Admin/Customermanager">
+                    <i class='app-menu__icon bx bx-id-card'></i> <span class="app-menu__label">Member Management</span>
                 </a>
             </li>
-            <li>
-                <a class="app-menu__item @ViewBag.hd" href="#">
-                    <i class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Liên lạc</span>
-                </a>
-            </li>
-            @*<li>
-                    <a class="app-menu__item @ViewBag.sp" href="~/Views/OrderProcessing/Index.cshtml">
-                        <i class='app-menu__icon bx bx-task'></i><span class="app-menu__label">Kiểm kê &Aacute; Báo cáo</span>
-                    </a>
-                </li>*@
-            <li>
-                <a class="app-menu__item  @ViewBag.baocao" href="#">
-                    <i class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Thông tin tài khoản</span>
-                </a>
-            </li>
+
             <!-- User Menu-->
             <li>
                 <a class="app-menu__item btn_Logout" href="@Url.Action("Logout", "LoginStaff" )">
@@ -162,20 +148,21 @@
                 return i;
             }
         }
-                    //In dữ liệu
-                    //var myApp = new function () {
-                    //    this.printTable = function () {
-                    //        var tab = document.getElementById('sampleTable');
-                    //        var win = window.open('', '', 'height=700,width=700');
-                    //        win.document.write(tab.outerHTML);
-                    //        win.document.close();
-                    //        win.print();
-                    //    }
-                    //}
+                //In dữ liệu
+                //var myApp = new function () {
+                //    this.printTable = function () {
+                //        var tab = document.getElementById('sampleTable');
+                //        var win = window.open('', '', 'height=700,width=700');
+                //        win.document.write(tab.outerHTML);
+                //        win.document.close();
+                //        win.print();
+                //    }
+                //}
     </script>
 
 
 
 </body>
 </html>
+
 
