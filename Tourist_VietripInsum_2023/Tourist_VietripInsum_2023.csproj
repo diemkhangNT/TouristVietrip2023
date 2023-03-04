@@ -204,8 +204,6 @@
     <Content Include="Content\Images\bg_login.jpg" />
     <Content Include="Content\Images\DiemKhang.jpg" />
     <Content Include="Content\Images\logo_project.png" />
-    <Content Include="Content\jqueryboxmap\AdminLTE.min.css" />
-    <Content Include="Content\jqueryboxmap\jquery-jvectormap-1.2.2.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\staff.css" />
     <Content Include="Content\stylefooter.css" />
@@ -232,16 +230,10 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\plugins\boxmap\app.min.js" />
-    <Content Include="Scripts\plugins\boxmap\bootstrap3-wysihtml5.all.min.js" />
-    <Content Include="Scripts\plugins\boxmap\dashboard.js" />
-    <Content Include="Scripts\plugins\boxmap\daterangepicker.js" />
-    <Content Include="Scripts\plugins\boxmap\demo.js" />
-    <Content Include="Scripts\plugins\boxmap\jQuery-2.1.4.min.js" />
-    <Content Include="Scripts\plugins\boxmap\jquery-jvectormap-1.2.2.min.js" />
-    <Content Include="Scripts\plugins\boxmap\jquery-jvectormap-world-mill-en.js" />
-    <Content Include="Scripts\plugins\boxmap\jquery.knob.js" />
-    <Content Include="Scripts\plugins\boxmap\moment.min.js" />
+    <Content Include="Scripts\chart.js" />
+    <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\pace.min.js" />
     <Content Include="Views\LoginStaff\ForgotPassword.cshtml" />
     <Content Include="Forms\Contact\Index.cshtml" />
     <Content Include="Forms\Login\Index.cshtml" />
@@ -300,11 +292,13 @@
     <Content Include="Views\Admin\DetailStaff.cshtml" />
     <Content Include="Views\Admin\EditStaff.cshtml" />
     <Content Include="Views\Admin\DeleteStaff.cshtml" />
+    <Content Include="Views\Tourmanager\MapBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Forms\ChangePass\" />
     <Folder Include="images\" />
+    <Folder Include="Scripts\plugins\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

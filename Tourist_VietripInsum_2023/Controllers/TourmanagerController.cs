@@ -292,6 +292,9 @@ namespace Tourist_VietripInsum_2023.Controllers
             base.Dispose(disposing);
         }
 
-
+        public ActionResult MapBox()
+        {
+            return View();
+        }
     }
 }
