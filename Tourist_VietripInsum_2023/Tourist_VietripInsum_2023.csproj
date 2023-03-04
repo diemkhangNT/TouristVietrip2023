@@ -204,6 +204,7 @@
     <Content Include="Content\Images\bg_login.jpg" />
     <Content Include="Content\Images\DiemKhang.jpg" />
     <Content Include="Content\Images\logo_project.png" />
+    <Content Include="Content\Images\profile-user.png" />
     <Content Include="Content\jqueryboxmap\AdminLTE.min.css" />
     <Content Include="Content\jqueryboxmap\jquery-jvectormap-1.2.2.css" />
     <Content Include="Content\main.css" />
@@ -220,6 +221,7 @@
     <Content Include="Forms\style_order.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\profile-user.png" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -304,7 +306,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Forms\ChangePass\" />
-    <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -7,73 +7,115 @@
     TouristEntities1 db = new TouristEntities1();
     ViewBag.qlstaff = "active";
 
-    ViewBag.nd = "Detail Staff";
+    ViewBag.name = "Detail Staff";
 }
 <link href="~/Content/staff.css" rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <div class="row">
     <div class="col-md-12">
         <div class="tile">
-            <div class="tile-body">
+            <div class="tile-body" id="tile-body">
+                <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                    <h1 style="text-align: center; color: rgb(0, 28, 64);">
+                        STAFF INFORMATION
 
-                <h2 style="text-align:center">STAFF</h2>
-                <div class="staffinfo">
-                    <div class="staff-img">
-                        <img src="~/Content/Images/DiemKhang.jpg" class="rounded-circle" alt="Cinque Terre" width="100" height="100">
-                    </div>
-                    <div class="staff-content">
-                        <p class="nameuser">@Html.DisplayFor(modelItem => Model.FullName)</p>
-                        <p>
-                            <span>
-                                <i class="fa fas-person-lines-fill"></i>
-                                <strong>Id Staff: </strong> @Html.DisplayFor(modelItem => Model.IdStaff)
-                            </span>
-                            @{
-                                var pos = db.Positions.Where(s => s.IdPos == Model.IdPos).FirstOrDefault();
-                            }
-                            <span>
-                                @Html.DisplayFor(modelItem => Model.IdPos) - @Html.DisplayFor(modelItem => pos.NamePos)
-                            </span>
-                        </p>
-                        <p>
-                            <span>
-                                <strong>Gender:</strong> @Html.DisplayFor(modelItem => Model.Gender)
-                            </span>
-                            <span>
-                                <strong>Birthday:</strong> @Html.DisplayFor(modelItem => Model.StaffBirthday)
-                            </span>
-                        </p>
-                        <p>
-                            <span>
-                                <strong>Address:</strong> @Html.DisplayFor(modelItem => Model.StaffAddress)
-                            </span>
-                        </p>
-                        <p>
-                            <span>
-                                <strong>Username:</strong> @Html.DisplayFor(modelItem => Model.Username)
-                            </span>
-                        </p>
-                        <p>
-                            <span>
-                                <strong>Contact:</strong> @Html.DisplayFor(modelItem => Model.NumberPhone) - @Html.DisplayFor(modelItem => Model.StaffEmail)
-                            </span>
-                        </p>
+                    </h1>
+                    <div class="staffinfo">
+                        <div class="staff-img">
+                          
+                            <img src="@Model.Avatar" class="rounded-circle" alt="Cinque Terre" width="100" height="100" style="margin-top:30px;">
+                        </div>
+                        <div class="staff-content">
+                            <h2 class="nameuser">@Html.DisplayFor(modelItem => Model.FullName)</h2>
+                            <p>
+                                <span>
+                                    <i class="fa fas-person-lines-fill"></i>
+                                    <strong>Id Staff: </strong> @Html.DisplayFor(modelItem => Model.IdStaff)
+                                </span>
+                                @{
+                                    var pos = db.Positions.Where(s => s.IdPos == Model.IdPos).FirstOrDefault();
+                                }
+                                <span>
+                                    @Html.DisplayFor(modelItem => Model.IdPos) - @Html.DisplayFor(modelItem => pos.NamePos)
+                                </span>
+                            </p>
+                            <p>
+                                <span>
+                                    <strong>Gender:</strong> @Html.DisplayFor(modelItem => Model.Gender)
+                                </span>
+                                <span>
+                                    <strong>Birthday:</strong> @Html.DisplayFor(modelItem => Model.StaffBirthday)
+                                </span>
+                            </p>
+                            <p>
+                                <span>
+                                    <strong>Address:</strong> @Html.DisplayFor(modelItem => Model.StaffAddress)
+                                </span>
+                            </p>
+                            <p>
+                                <span>
+                                    <strong>Username:</strong> @Html.DisplayFor(modelItem => Model.Username)
+                                </span>
+                            </p>
+                            <p>
+                                <span>
+                                    <strong>Contact:</strong> @Html.DisplayFor(modelItem => Model.NumberPhone) - @Html.DisplayFor(modelItem => Model.StaffEmail)
+                                </span>
+                            </p>
+                            <p>
+                                <span>
+                                    <strong>Tinh trang:</strong>
+                                </span>
+                            </p>
+
+                        </div>
+
 
                     </div>
-                   
+                </div>
+
+
 
                 </div>
 
 
 
             </div>
-
-
-
-        </div>
         <div class="row element-button" style="padding-left:10px">
             <div class="col-sm-2">
-                <a class="btn btn-danger btn-sm " type="button" title="EditStaff" href="/Admin/Staffmanager">
+                <a class="btn btn-danger btn-sm " type="button" title="DeleteStaff" href="/Admin/DeleteStaff/@Model.IdStaff" >
+                    Delete Account
+                    @*<script>
+                        function showMessage() {
+                            swal({
+                                title: "Are you sure?",
+                                text: "Once deleted, you will not be able to recover this imaginary file!",
+                                icon: "warning",
+                                buttons: true,
+                                dangerMode: true,
+                            })
+                                .then((willDelete) => {
+                                    if (willDelete) {
+                                        $.ajax({
+                                            url: "/Admin/DeleteStaff" +@Model.IdStaff;
+                                        });
+
+                                    } else {
+                                        swal("Your imaginary file is safe!");
+                                    }
+                                });
+                        }
+                    </script>*@
+                </a>
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-delete btn-sm print-file" title="In" onclick="myApp.printTable()">
+                    <i class="fas fa-print"></i> In dữ liệu
+                </a>
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-warning btn-sm " type="button" title="Back" href="/Admin/Staffmanager">
                     Back to list
                 </a>
             </div>
@@ -82,11 +124,12 @@
 </div>
 
 
+
 <script>
     //In dữ liệu
     var myApp = new function () {
         this.printTable = function () {
-            var tab = document.getElementById('sampleTable');
+            var tab = document.getElementById('tile-body');
             var win = window.open('', '', 'height=800px,width=1200px');
             win.document.write(tab.outerHTML);
             win.document.close();
@@ -99,4 +142,8 @@
         $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
         e.stopImmediatePropagation();
     });
-</script>
+
+    
+    
+
+    </script>

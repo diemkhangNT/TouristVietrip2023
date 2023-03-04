@@ -10,6 +10,11 @@
     width: 25%;
     height: auto;
     text-align:center;
+   
+}
+
+.staff-img img {
+    margin-top:30px;
 }
 
 .staff-content {
