@@ -1,8 +1,13 @@
 ﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.Tour>
-    @{
-        ViewBag.Title = "QuanLyTour";
-        Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
-    }
+@using Tourist_VietripInsum_2023.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+    ViewBag.Name = "Tour Manager";
+    ViewBag.qlt = "active";
+    TouristEntities1 db = new TouristEntities1();
+    var dsLT = db.TourTypes.ToList();
+}
 
 <div class="row">
     <div class="col-md-12">

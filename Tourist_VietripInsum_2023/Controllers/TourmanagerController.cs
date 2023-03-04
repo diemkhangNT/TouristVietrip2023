@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-using System.Data;
 using System.Net;
-using System.IO;
+using System.Web.Mvc;
 using Tourist_VietripInsum_2023.App_Start;
 using Tourist_VietripInsum_2023.Models;
-using System.Data.Entity;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
@@ -21,7 +16,48 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult HomePageTM()
         {
-            return View();
+            //tính tổng số kho
+            var totalT = 0;
+            totalT = db.Tours.ToList().Count;
+            TempData["tongTour"] = totalT;
+            //tính tổng sản phẩm sắp hết hàng
+            var totalTT = 0;
+            totalTT = db.TourTypes.ToList().Count;
+            TempData["tongLT"] = totalTT;
+
+            ////tính tổng số sản phẩm
+            //var totalsp = db.VistLocations.ToList().Count;
+            //TempData["Tongsp1"] = totalsp;
+            ////tính tổng số Phiếu nhập xuất hàng
+            //var tongpn = 0;
+            //var tongpx = 0;
+            //var pnx = database.PhieuNhapXuats.ToList();
+            //foreach (var item in pnx)
+            //{
+            //    string str = item.MaPhieu.Substring(0, 2);
+            //    if (str == "PX")
+            //    {
+            //        tongpx = tongpx + 1;
+            //    }
+            //    else
+            //    {
+            //        tongpn = tongpn + 1;
+            //    }
+            //}
+            //TempData["Tongpn"] = tongpn;
+            //TempData["Tongpx"] = tongpx;
+            ////tính tổng sản phẩm tồn kho
+            //var total3 = 0;
+            //foreach (var item in dssphh)
+            //{
+            //    if (item.TinhTrang == "Tồn kho")
+            //    {
+            //        total3 = total3 + 1;
+            //    }
+            //}
+            //TempData["TongSPTK"] = total3;
+
+            return View(db.Tours.ToList());
         }
 
         // GET: Tours
@@ -170,7 +206,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
         public ActionResult CreateSchedule(string id)
         {
-            return View(db.Schedules.Where(s => s.IdTour == id).FirstOrDefault());
+            return View(db.Schedules.Where(s => s.IdSchedule == id).FirstOrDefault());
         }
         [HttpPost]
         public ActionResult CreateSchedule(Schedule schedules, Tour tour, string id)
@@ -255,5 +291,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             base.Dispose(disposing);
         }
+
+
     }
 }

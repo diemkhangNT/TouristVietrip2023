@@ -19,6 +19,7 @@
         </script>
     }
 }
+
 <div class="row">
     <!--Thông tin kho và số sản phẩm sắp hết hàng-->
     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
@@ -28,41 +29,41 @@
                 <a class="widget-small info coloured-icon @ViewBag.qlk" href="#">
                     <i class='icon bx bxs-user-account fa-3x'></i>
                     <div class="info">
-                        <h4>Thông tin kho</h4>
-                        <p><b>Tổng @TempData["tongKho"] kho được quản lý</b></p>
-                        <p class="info-tong">Chịu trách nhiệm quản lý kho hàng: nhập xuất, kiểm kê, báo cáo hàng hóa.</p>
+                        <h4>Thông tin tour</h4>
+                        <p><b>Tổng @TempData["tongTour"] tour được quản lý</b></p>
+                        <p class="info-tong">Tổng số tour được tạo</p>
                     </div>
                 </a>
             </div>
             <!-- col-6 -->
             <div class="col-lg-6 col-xs-12">
                 <a class="widget-small warning coloured-icon @ViewBag.hh" href="#">
-                    <i class='icon bx bxs-error-alt fa-3x'></i>
+                    <i class='icon bx bxs-receipt fa-3x'></i>
                     <div class="info">
-                        <h4>Sắp hết hàng</h4>
-                        <p><b>@TempData["tongSPHH"] sản phẩm</b></p>
-                        <p class="info-tong">Số sản phẩm cảnh báo hết cần nhập thêm.</p>
+                        <h4>Loại tour</h4>
+                        <p><b>Tổng @TempData["tongLT"] loại tour</b></p>
+                        <p class="info-tong">Tổng số loại tour được tạo</p>
                     </div>
                 </a>
             </div>
         </div>
     </div>
     <!--Tổng sản phẩm và sản phẩm tồn kho-->
-    <div class="col-md-12 col-lg-12">
-        <div class="row">
-            <!-- col-6 -->
-            <div class="col-lg-6 col-xs-12">
-                <a class="widget-small primary coloured-icon #" href="~/PhongKho/QuanLyDL">
-                    <i class='icon bx bxs-shopping-bag-alt fa-3x'></i>
-                    <div class="info">
-                        <h4>Thông tin sản phẩm</h4>
-                        <p><b>Tổng @TempData["Tongsp1"] sản phẩm</b></p>
-                        <p class="info-tong">Tổng số sản phẩm có trong các kho.</p>
-                    </div>
-                </a>
+    <!--<div class="col-md-12 col-lg-12">
+        <div class="row">-->
+    <!-- col-6 -->
+    <!--<div class="col-lg-6 col-xs-12">
+        <a class="widget-small primary coloured-icon #" href="~/PhongKho/QuanLyDL">
+            <i class='icon bx bxs-shopping-bag-alt fa-3x'></i>
+            <div class="info">
+                <h4>Thông tin sản phẩm</h4>
+                <p><b>Tổng @TempData["Tongsp1"] sản phẩm</b></p>
+                <p class="info-tong">Tổng số sản phẩm có trong các kho.</p>
             </div>
-            <!-- col-6 -->
-            <div class="col-lg-6 col-xs-12">
+        </a>
+    </div>-->
+    <!-- col-6 -->
+    <!--<div class="col-lg-6 col-xs-12">
                 <a class="widget-small danger coloured-icon #" href="~/PhongKho/TonKho">
                     <i class='icon bx bxs-tag-x fa-3x'></i>
                     <div class="info">
@@ -73,23 +74,23 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div>-->
     <!--Tổng phiếu xuất và tổng phiếu nhập-->
-    <div class="col-md-12 col-lg-12">
-        <div class="row">
-            <!-- col-6 -->
-            <div class="col-lg-6 col-xs-12">
-                <a class="widget-small info coloured-icon #" href="~/PhongKho/NhapKho">
-                    <i class='icon bx bxs-receipt fa-3x'></i>
-                    <div class="info">
-                        <h4>Phiếu nhập kho</h4>
-                        <p><b>Tổng @TempData["Tongpn"] phiếu được tạo</b></p>
-                        <p class="info-tong">Phiếu nhập hàng hóa vào kho.</p>
-                    </div>
-                </a>
+    <!--<div class="col-md-12 col-lg-12">
+        <div class="row">-->
+    <!-- col-6 -->
+    <!--<div class="col-lg-6 col-xs-12">
+        <a class="widget-small info coloured-icon #" href="~/PhongKho/NhapKho">
+            <i class='icon bx bxs-receipt fa-3x'></i>
+            <div class="info">
+                <h4>Phiếu nhập kho</h4>
+                <p><b>Tổng @TempData["Tongpn"] phiếu được tạo</b></p>
+                <p class="info-tong">Phiếu nhập hàng hóa vào kho.</p>
             </div>
-            <!-- col-6 -->
-            <div class="col-lg-6 col-xs-12">
+        </a>
+    </div>-->
+    <!-- col-6 -->
+    <!--<div class="col-lg-6 col-xs-12">
                 <a class="widget-small primary coloured-icon #" href="~/PhongKho/NhapKho">
                     <i class='icon bx bxs-info-circle fa-3x'></i>
                     <div class="info">
@@ -100,6 +101,39 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div>-->
     <!--END-->
 </div>
+
+<!-- Map box -->
+<section class="col-lg-5 connectedSortable">
+
+    <!-- Map box -->
+    <div class="box box-solid bg-light-blue-gradient">
+        <div class="box-header">
+            <!-- tools box -->
+            <div class="pull-right box-tools">
+                <button class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip" title="Date range"><i class="fa fa-calendar"></i></button>
+                <button class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Collapse" style="margin-right: 5px;"><i class="fa fa-minus"></i></button>
+            </div><!-- /. tools -->
+
+            <i class="fa fa-map-marker"></i>
+            <h3 class="box-title">
+                Visitors
+            </h3>
+        </div>
+        <div class="box-body">
+            <div id="world-map" style="height: 250px; width: 100%;"></div>
+        </div><!-- /.box-body-->
+    </div>
+    <!-- /.box -->
+
+
+</section><!-- right col -->
+
+<footer class="card-footer main-footer">
+    <div class="pull-right hidden-xs">
+        <b>Version</b> 2.2.0
+    </div>
+    <strong>Copyright &copy; 2023 Tourist Insum.</strong> All rights reserved.
+</footer>

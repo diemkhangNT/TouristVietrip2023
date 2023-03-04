@@ -175,9 +175,6 @@
     <Compile Include="Models\Staff.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Ticket.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -207,8 +204,11 @@
     <Content Include="Content\Images\bg_login.jpg" />
     <Content Include="Content\Images\DiemKhang.jpg" />
     <Content Include="Content\Images\logo_project.png" />
+    <Content Include="Content\jqueryboxmap\AdminLTE.min.css" />
+    <Content Include="Content\jqueryboxmap\jquery-jvectormap-1.2.2.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\staff.css" />
+    <Content Include="Content\stylefooter.css" />
     <Content Include="Content\styleLogin.css" />
     <Content Include="Content\style_contact.css" />
     <Content Include="Content\style_order.css" />
@@ -232,6 +232,16 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\plugins\boxmap\app.min.js" />
+    <Content Include="Scripts\plugins\boxmap\bootstrap3-wysihtml5.all.min.js" />
+    <Content Include="Scripts\plugins\boxmap\dashboard.js" />
+    <Content Include="Scripts\plugins\boxmap\daterangepicker.js" />
+    <Content Include="Scripts\plugins\boxmap\demo.js" />
+    <Content Include="Scripts\plugins\boxmap\jQuery-2.1.4.min.js" />
+    <Content Include="Scripts\plugins\boxmap\jquery-jvectormap-1.2.2.min.js" />
+    <Content Include="Scripts\plugins\boxmap\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="Scripts\plugins\boxmap\jquery.knob.js" />
+    <Content Include="Scripts\plugins\boxmap\moment.min.js" />
     <Content Include="Views\LoginStaff\ForgotPassword.cshtml" />
     <Content Include="Forms\Contact\Index.cshtml" />
     <Content Include="Forms\Login\Index.cshtml" />
