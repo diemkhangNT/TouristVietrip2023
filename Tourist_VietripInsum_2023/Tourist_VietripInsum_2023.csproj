@@ -204,6 +204,9 @@
     <Content Include="Content\Images\bg_login.jpg" />
     <Content Include="Content\Images\DiemKhang.jpg" />
     <Content Include="Content\Images\logo_project.png" />
+    <Content Include="Content\Images\profile-user.png" />
+    <Content Include="Content\jqueryboxmap\AdminLTE.min.css" />
+    <Content Include="Content\jqueryboxmap\jquery-jvectormap-1.2.2.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\staff.css" />
     <Content Include="Content\stylefooter.css" />
@@ -218,6 +221,7 @@
     <Content Include="Forms\style_order.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\profile-user.png" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -290,9 +294,9 @@
     <Content Include="Views\Admin\Staffmanager.cshtml" />
     <Content Include="Views\Admin\CreateStaff.cshtml" />
     <Content Include="Views\Admin\DetailStaff.cshtml" />
+    <Content Include="Views\Admin\DeleteStaff.cshtml" />
     <Content Include="Views\Admin\EditStaff.cshtml" />
     <Content Include="Views\Admin\DeleteStaff.cshtml" />
-    <Content Include="Views\Tourmanager\MapBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
