@@ -135,8 +135,7 @@ namespace Tourist_VietripInsum_2023.Controllers
            
                 st = db.Staffs.Where(s => s.IdStaff == id).FirstOrDefault();
                 db.Staffs.Remove(st);
-                TempData["messageAlert"] = "Đã xóa staff";
-               
+                TempData["messageAlert"] = "Đã xóa staff";             
                 db.SaveChanges();
                 return RedirectToAction("Staffmanager");
 

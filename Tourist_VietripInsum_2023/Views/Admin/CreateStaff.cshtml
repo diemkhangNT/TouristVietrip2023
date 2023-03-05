@@ -21,14 +21,14 @@
 
         <form class="row" method="post" enctype="multipart/form-data" action="~/Admin/CreateStaff">
 
-            <div class="col-sm-4" style="text-align:center;padding-left:50px;">
+            <div class="col-sm-3" style="text-align:center;padding-left:40px;">
                 <label class="control-label">Chọn hình ảnh</label>
                 @Html.TextBox("Avatar", "", new { type = "file" })
                 <br />
-                <img id="preview" class="rounded-circle " src="#" width="150" height="150" />
+                <img id="preview" class="rounded-circle " src="#" width="120" height="120" />
                 <br />
             </div>
-            <div class="col-sm-8">
+            <div class="col-sm-9">
                 <div class="form-group col-md-4">
                     @Html.LabelFor(model => model.IdPos, htmlAttributes: new { @class = "control-label col-md-3" })
 
