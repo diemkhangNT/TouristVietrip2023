@@ -291,6 +291,24 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             base.Dispose(disposing);
         }
+        public ActionResult Profile()
+        {
+            return View(); 
+        }
+        // GET: Staffs/Details/5
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Staff staff = db.Staffs.Find(id);
+            if (staff == null)
+            {
+                return HttpNotFound();
+            }
+            return View(staff);
+        }
 
         public ActionResult MapBox()
         {
