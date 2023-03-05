@@ -310,9 +310,5 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(staff);
         }
 
-        public ActionResult MapBox()
-        {
-            return View();
-        }
     }
 }

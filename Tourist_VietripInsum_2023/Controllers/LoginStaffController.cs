@@ -57,7 +57,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 TempData["AlertMessage"] = "Login error";
                 return RedirectToAction("Login", "LoginStaff");
-                ViewBag.test = username;
+                //ViewBag.test = username;
             }
             return View();
         }
