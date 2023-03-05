@@ -42,11 +42,12 @@ body {
     image-rendering: pixelated;
 }
 .logo {
-    color: #d8c74e;
+    color: #FEB326;
     font-size: 40px;
     display: flex;
     justify-content: center;
-    padding-bottom:10px;
+    padding-bottom: 10px;
+    font-family: Arial Black;
 }
 .box {
     display: flex;

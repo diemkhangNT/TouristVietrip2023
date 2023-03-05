@@ -19,87 +19,124 @@
         </script>
     }
 }
-<div class="row">
-    <!--Thông tin kho và số sản phẩm sắp hết hàng-->
-    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-        <div class="row">
-            <!-- col-6 -->
-            <div class="col-lg-6 col-xs-12">
-                <a class="widget-small info coloured-icon @ViewBag.qlk" href="#">
-                    <i class='icon bx bxs-user-account fa-3x'></i>
-                    <div class="info">
-                        <h4>Thông tin kho</h4>
-                        <p><b>Tổng @TempData["tongKho"] kho được quản lý</b></p>
-                        <p class="info-tong">Chịu trách nhiệm quản lý kho hàng: nhập xuất, kiểm kê, báo cáo hàng hóa.</p>
-                    </div>
-                </a>
-            </d iv>
-            <!-- col-6 -->
-            <div class="col-lg-6 col-xs-12">
-                <a class="widget-small warning coloured-icon @ViewBag.hh" href="#">
-                    <i class='icon bx bxs-error-alt fa-3x'></i>
-                    <div class="info">
-                        <h4>Sắp hết hàng</h4>
-                        <p><b>@TempData["tongSPHH"] sản phẩm</b></p>
-                        <p class="info-tong">Số sản phẩm cảnh báo hết cần nhập thêm.</p>
-                    </div>
-                </a>
+<html>
+
+<body>
+
+    <div class="row">
+        <!--Thông tin kho và số sản phẩm sắp hết hàng-->
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <!-- col-6 -->
+                <div class="col-lg-6 col-xs-12">
+                    <a class="widget-small info coloured-icon @ViewBag.qlk" href="#">
+                        <i class='icon bx bxs-user-account fa-3x'></i>
+                        <div class="info">
+                            <h4>Thông tin tour</h4>
+                            <p><b>Tổng @TempData["tongTour"] tour được quản lý</b></p>
+                            <p class="info-tong">Tổng số tour được tạo</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- col-6 -->
+                <div class="col-lg-6 col-xs-12">
+                    <a class="widget-small warning coloured-icon @ViewBag.hh" href="#">
+                        <i class='icon bx bxs-receipt fa-3x'></i>
+                        <div class="info">
+                            <h4>Loại tour</h4>
+                            <p><b>Tổng @TempData["tongLT"] loại tour</b></p>
+                            <p class="info-tong">Tổng số loại tour được tạo</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--Tổng sản phẩm và sản phẩm tồn kho-->
+        <!--<div class="col-md-12 col-lg-12">
+            <div class="row">-->
+        <!-- col-6 -->
+        <!--<div class="col-lg-6 col-xs-12">
+            <a class="widget-small primary coloured-icon #" href="~/PhongKho/QuanLyDL">
+                <i class='icon bx bxs-shopping-bag-alt fa-3x'></i>
+                <div class="info">
+                    <h4>Thông tin sản phẩm</h4>
+                    <p><b>Tổng @TempData["Tongsp1"] sản phẩm</b></p>
+                    <p class="info-tong">Tổng số sản phẩm có trong các kho.</p>
+                </div>
+            </a>
+        </div>-->
+        <!-- col-6 -->
+        <!--<div class="col-lg-6 col-xs-12">
+                    <a class="widget-small danger coloured-icon #" href="~/PhongKho/TonKho">
+                        <i class='icon bx bxs-tag-x fa-3x'></i>
+                        <div class="info">
+                            <h4>Sản phẩm tồn kho</h4>
+                            <p><b>@TempData["TongSPTK"] sản phẩm</b></p>
+                            <p class="info-tong">Tổng số sản phẩm tồn kho trong các kho.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>-->
+        <!--Tổng phiếu xuất và tổng phiếu nhập-->
+        <!--<div class="col-md-12 col-lg-12">
+            <div class="row">-->
+        <!-- col-6 -->
+        <!--<div class="col-lg-6 col-xs-12">
+            <a class="widget-small info coloured-icon #" href="~/PhongKho/NhapKho">
+                <i class='icon bx bxs-receipt fa-3x'></i>
+                <div class="info">
+                    <h4>Phiếu nhập kho</h4>
+                    <p><b>Tổng @TempData["Tongpn"] phiếu được tạo</b></p>
+                    <p class="info-tong">Phiếu nhập hàng hóa vào kho.</p>
+                </div>
+            </a>
+        </div>-->
+        <!-- col-6 -->
+        <!--<div class="col-lg-6 col-xs-12">
+                    <a class="widget-small primary coloured-icon #" href="~/PhongKho/NhapKho">
+                        <i class='icon bx bxs-info-circle fa-3x'></i>
+                        <div class="info">
+                            <h4>Phiếu xuất kho</h4>
+                            <p><b>Tổng @TempData["Tongpx"] phiếu được tạo</b></p>
+                            <p class="info-tong">Phiếu xuất hàng hóa ra khỏi kho.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>-->
+        <!--END-->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="tile">
+                <h3 class="tile-title">
+                    <i class="bx bxs-map"></i>
+                    Visitors
+                </h3>
+                <div class="">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15739731.94178454!2d96.86731624837675!3d15.607242742130582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31157a4d736a1e5f%3A0xb03bb0c9e2fe62be!2zVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1677896157419!5m2!1svi!2s" width="100%" height="280px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 ">
+            <div class="tile">
+                <h3 class="tile-title">
+                    Dữ liệu 6 tháng đầu năm
+                </h3>
+                <div>
+                    <canvas class=" embed-responsive-item" id="barChartDemo"></canvas>
+                </div>
             </div>
         </div>
     </div>
-    <!--Tổng sản phẩm và sản phẩm tồn kho-->
-    <div class="col-md-12 col-lg-12">
-        <div class="row">
-            <!-- col-6 -->
-            <div class="col-lg-6 col-xs-12">
-                <a class="widget-small primary coloured-icon #" href="~/PhongKho/QuanLyDL">
-                    <i class='icon bx bxs-shopping-bag-alt fa-3x'></i>
-                    <div class="info">
-                        <h4>Thông tin sản phẩm</h4>
-                        <p><b>Tổng @TempData["Tongsp1"] sản phẩm</b></p>
-                        <p class="info-tong">Tổng số sản phẩm có trong các kho.</p>
-                    </div>
-                </a>
-            </div>
-            <!-- col-6 -->
-            <div class="col-lg-6 col-xs-12">
-                <a class="widget-small danger coloured-icon #" href="~/PhongKho/TonKho">
-                    <i class='icon bx bxs-tag-x fa-3x'></i>
-                    <div class="info">
-                        <h4>Sản phẩm tồn kho</h4>
-                        <p><b>@TempData["TongSPTK"] sản phẩm</b></p>
-                        <p class="info-tong">Tổng số sản phẩm tồn kho trong các kho.</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-    <!--Tổng phiếu xuất và tổng phiếu nhập-->
-    <div class="col-md-12 col-lg-12">
-        <div class="row">
-            <!-- col-6 -->
-            <div class="col-lg-6 col-xs-12">
-                <a class="widget-small info coloured-icon #" href="~/PhongKho/NhapKho">
-                    <i class='icon bx bxs-receipt fa-3x'></i>
-                    <div class="info">
-                        <h4>Phiếu nhập kho</h4>
-                        <p><b>Tổng @TempData["Tongpn"] phiếu được tạo</b></p>
-                        <p class="info-tong">Phiếu nhập hàng hóa vào kho.</p>
-                    </div>
-                </a>
-            </div>
-            <!-- col-6 -->
-            <div class="col-lg-6 col-xs-12">
-                <a class="widget-small primary coloured-icon #" href="~/PhongKho/NhapKho">
-                    <i class='icon bx bxs-info-circle fa-3x'></i>
-                    <div class="info">
-                        <h4>Phiếu xuất kho</h4>
-                        <p><b>Tổng @TempData["Tongpx"] phiếu được tạo</b></p>
-                        <p class="info-tong">Phiếu xuất hàng hóa ra khỏi kho.</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-    <!--END-->
-</div>
+
+    <script src="~/Scripts/main.js"></script>
+    <script src="~/Scripts/chart.js"></script>
+    <script src="~/Scripts/pace.min.js"></script>
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+
+</body>
+</html>

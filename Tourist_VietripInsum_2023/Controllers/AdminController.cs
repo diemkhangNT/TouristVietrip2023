@@ -35,35 +35,65 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult UploadImage(HttpPostedFileBase fileImage)
+       
+        public void LuuAnh(Staff st, HttpPostedFileBase Avatar)
         {
-            if (fileImage != null || fileImage.ContentLength > 0)
+            #region Hình ảnh
+
+            if(Avatar==null)
             {
-                string _FileName = Path.GetFileName(fileImage.FileName);
-                ViewBag.nd = Path.GetFileName(fileImage.FileName);
-                string path = Path.Combine(Server.MapPath("/images/"), _FileName);
-                if (System.IO.File.Exists(path))
-                {
-                    //nếu hình ảnh đã tồn tại, thì xóa ảnh cũ, cập nhật lại ảnh mới
-                    System.IO.File.Delete(path);
-                    fileImage.SaveAs(path);
-                }
-                else
-                {
-                    fileImage.SaveAs(path);
-                }
+                st.Avatar = "/images/profile-user.png";
             }
-            return RedirectToAction("CreateStaff");
+            else
+            {
+                
+                //Xác định đường dẫn lưu file : Url tương đói => tuyệt đói
+                var urlTuongdoi = "/images/";
+                var urlTuyetDoi = Server.MapPath(urlTuongdoi);// Lấy đường dẫn lưu file trên server
+
+                //Check trùng tên file => Đổi tên file  = tên file cũ (ko kèm đuôi)
+                //Ảnh.jpg = > ảnh + "-" + 1 + ".jpg" => ảnh-1.jpg
+
+                string fullDuongDan = urlTuyetDoi + Avatar.FileName;
+
+
+                int i = 1;
+                while (System.IO.File.Exists(fullDuongDan) == true)
+                {
+                    // 1. Tách tên và đuôi 
+                    var ten = Path.GetFileNameWithoutExtension(Avatar.FileName);
+                    var duoi = Path.GetExtension(Avatar.FileName);
+                    // 2. Sử dụng biến i để chạy và cộng vào tên file mới
+                    fullDuongDan = urlTuyetDoi + ten + "-" + i + duoi;
+                    i++;
+                    // 3. Check lại 
+                }
+                #endregion
+                //Lưu file (Kiểm tra trùng file)
+                Avatar.SaveAs(fullDuongDan);
+                st.Avatar = urlTuongdoi + Path.GetFileName(fullDuongDan);
+            }    
         }
+
         [HttpPost]
-        public ActionResult CreateStaff(Staff staff,HttpPostedFileBase file)
+        public ActionResult CreateStaff(Staff staff,HttpPostedFileBase Avatar)
         {
+            //if(favatar.FileName!="")
+            // {
+            //     staff.Avatar = favatar.FileName;
+
+            //     string ten = Path.GetFileNameWithoutExtension(favatar.FileName);
+            //     string morong = Path.GetExtension(favatar.FileName);
+            //     string tendaydu = ten + DateTime.Now.ToString("yyMMddHHmmssff") + morong;
+            //     favatar.SaveAs(Path.Combine(Server.MapPath("~/images"), tendaydu));
+            // }    
+            LuuAnh(staff, Avatar);
             Random rd = new Random();
             var idstaff = "ST" + rd.Next(1, 1000);
             staff.IdStaff = idstaff;
 
-            
+            var pas = "123456";
+            staff.UserPassword = pas;
 
             
 
@@ -88,44 +118,28 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult EditStaff(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Staff st = db.Staffs.Where(s => s.IdStaff == id).FirstOrDefault();
-            if (st == null)
-            {
-                return HttpNotFound();
-            }
-            return View(st);
-        }
-        [HttpPost]
-        public ActionResult EditStaff(string id,Staff st)
-        {
-            db.Entry(st).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("DetailStaff");
-        }
-        public ActionResult DeleteStaff(string id)
-        {
             return View(db.Staffs.Where(s => s.IdStaff == id).FirstOrDefault());
         }
         [HttpPost]
+        public ActionResult EditStaff(string id,Staff nv, HttpPostedFileBase Avatar)
+        {
+            LuuAnh(nv, Avatar);
+            db.Entry(nv).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Staffmanager");
+        }
+        
+       
         public ActionResult DeleteStaff(string id, Staff st)
         {
-            try
-            {
-                
+           
                 st = db.Staffs.Where(s => s.IdStaff == id).FirstOrDefault();
                 db.Staffs.Remove(st);
+                TempData["messageAlert"] = "Đã xóa staff";             
                 db.SaveChanges();
                 return RedirectToAction("Staffmanager");
 
-            }
-            catch
-            {
-                return Content("err");
-            }
+           
         }
     }
 }

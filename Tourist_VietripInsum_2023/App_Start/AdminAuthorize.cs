@@ -19,7 +19,22 @@ namespace Tourist_VietripInsum_2023.App_Start
 
             if(nvSession!=null)
             {
-                return;
+                //check quyen
+
+                TouristEntities1 db = new TouristEntities1();
+
+                var count = db.Staffs.Count(m => m.IdStaff == nvSession.IdStaff && m.IdPos == idPos);
+
+                if (count != 0)
+                {
+                    return;
+                }
+                else
+                {
+                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "LoginStaff", action = "Login" }));
+                }
+
+                base.OnAuthorization(filterContext);
             }
             else
             {
@@ -27,22 +42,8 @@ namespace Tourist_VietripInsum_2023.App_Start
                     (new RouteValueDictionary
                     (new { controller = "LoginStaff", action = "Login" }));
             }
-
-            //check quyen
-
-            TouristEntities1 db = new TouristEntities1();
-            var count = db.Staffs.Count(m => m.IdStaff == nvSession.IdStaff & m.IdPos == idPos);
-
-            if(count !=0)
-            {
-                return;
-            }
-            else
-            {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
-            }
-
-            base.OnAuthorization(filterContext);
+            return;
+            
         }
     }
 }

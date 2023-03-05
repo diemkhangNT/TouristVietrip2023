@@ -1,94 +1,85 @@
 ﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.Tour>
-    @{
-        ViewBag.Title = "QuanLyTour";
-        Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
-    }
+@using Tourist_VietripInsum_2023.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+    ViewBag.Name = "Tour Manager";
+    ViewBag.qlt = "active";
+    TouristEntities1 db = new TouristEntities1();
+    var dsLT = db.TourTypes.ToList();
+}
 
-    <h2>QuanLyTour</h2>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
 
-    <p>
-        @Html.ActionLink("Create New", "CreateTours")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdTour)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id_TypeTour)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id_detailTour)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagerTour)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Departure)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReturnDay)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeTour)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeparturePlace)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumberAvailable)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            
-            <th></th>
-        </tr>
+                <div class="row element-button" style="padding-left:10px">
+                    <div class="col-sm-2">
+                        <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTour">
+                            Create Tour
+                        </a>
+                    </div>
+                </div>
+                <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                    <div class="row" style="padding-top:10px">
+                        <div class="col-sm-12">
+                            <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                @*//Phần render từng dòng trong C#*@
+                                <thead>
+                                    <tr role="row" class="col-staff">
+                                        <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã hóa đơn: activate to sort column ascending" style="width: 40px;">Id Tour</th>
+                                        <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã đơn hàng: activate to sort column ascending" style="width: 40px;">Id Type Tour</th>
+                                        <th class="100" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Tên đại lý: activate to sort column ascending" style="width: 100px;">Tourname</th>
+                                        <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Tổng tiền: activate to sort column ascending" style="width: 50px;">Gia</th>
+                                        <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã đơn hàng: activate to sort column ascending" style="width: 40px;">Cho trong</th>
+                                        <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Ngày lập: activate to sort column ascending" style="width: 80px;">Tinh trang</th>
+                                        <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Chức vụ: activate to sort column ascending" style="width: 80px;">Chức năng</th>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdTour)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id_TypeTour)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id_detailTour)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImagerTour)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Departure)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReturnDay)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TimeTour)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DeparturePlace)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumberAvailable)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-               
-                <td>
-                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                    <a href="/Tourmanager/TourDetails/@item.IdTour">Detail</a>|
-                    <a href="/Tourmanager/CreateSchedule/@item.IdTour">Add Schedule</a>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.IdTour)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Id_TypeTour)
+                                            </td>
+                                            <td>
+                                                
+                                               
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Schedule)
+                                            </td>
 
-                </td>
-            </tr>
-        }
+                                            <td>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <a href="#" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-train"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
 
-    </table>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
