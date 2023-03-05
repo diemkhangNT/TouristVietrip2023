@@ -24,10 +24,10 @@ namespace Tourist_VietripInsum_2023.Controllers
 
             var data = database.Staffs.Where(s => s.Username== username && s.UserPassword == password).FirstOrDefault();
             var taikhoan = database.Staffs.SingleOrDefault(s => s.Username == username && s.UserPassword == password);
-            if (data == null)
+            if (taikhoan == null)
             {
                 TempData["AlertMessage"] = "Login error";
-                return RedirectToAction("ForgotPassword", "LoginStaff");
+                return View("Login");
                 //ViewBag.test = username;
             }
             else if (taikhoan != null)

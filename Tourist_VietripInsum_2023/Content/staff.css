@@ -1,14 +1,31 @@
 ﻿body {
 }
-.staffinfo{
+
+.staffinfo {
     display: flex;
-  margin:30px
-}
-.staffinfo .staff-content{
-    margin-left:20px;
+    flex-direction: row;
 }
 
+.staff-img {
+    width: 25%;
+    height: auto;
+    text-align:center;
    
+}
 
+.staff-img img {
+    margin-top:30px;
+}
 
-   
+.staff-content {
+    width: 75%;
+}
+.staff-content p span {
+    margin-right:20px;
+}
+.nameuser{
+    font-size:20px;
+    font-weight:500;
+
+}
+ 

@@ -18,7 +18,6 @@ namespace Tourist_VietripInsum_2023.Models
         public Tour()
         {
             this.OrderCus = new HashSet<OrderCu>();
-            this.Schedules = new HashSet<Schedule>();
         }
     
         public string IdTour { get; set; }
@@ -35,8 +34,7 @@ namespace Tourist_VietripInsum_2023.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderCu> OrderCus { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Schedule> Schedules { get; set; }
+        public virtual Schedule Schedule { get; set; }
         public virtual TourType TourType { get; set; }
     }
 }

@@ -6,3 +6,18 @@
     <title>@ViewBag.Title</title>
    
 </head></html>
+<main class="app-content ">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="app-title">
+                <ul class="app-breadcrumb breadcrumb">
+                    <li class="breadcrumb-item"><a href="#"><b>@ViewBag.Name</b></a></li>
+                </ul>
+                <div id="clock"></div>
+            </div>
+        </div>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+</main>
