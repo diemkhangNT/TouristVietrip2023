@@ -291,12 +291,9 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             base.Dispose(disposing);
         }
-        public ActionResult Profile()
-        {
-            return View(); 
-        }
+        
         // GET: Staffs/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Profile(string id)
         {
             if (id == null)
             {
@@ -309,6 +306,8 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             return View(staff);
         }
+        
+        
 
     }
 }
