@@ -7,6 +7,8 @@
     ViewBag.qlstaff = "active";
     ViewBag.Name = "Staff Manager";
     TouristEntities1 db = new TouristEntities1();
+    
+
 
 }
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -16,13 +18,14 @@
     {
         <script>
             swal({
-                title: "Delete Staff",             
+                title: "Delete Staff",
                 icon: "success",
                 button: "OK",
             });
         </script>
     };
 }
+
 <div class="row">
     <div class="col-md-12">
         <div class="tile">
@@ -88,7 +91,7 @@
                                                 <a href="/Admin/DetailStaff/@item.IdStaff" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
                                                     <i class="fas fa-train"></i>
                                                 </a>
-                                                
+
                                             </td>
                                         </tr>
                                     }
