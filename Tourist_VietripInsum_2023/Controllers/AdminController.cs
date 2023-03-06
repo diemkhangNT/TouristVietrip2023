@@ -30,7 +30,36 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(staff.ToList());
         }
 
-        
+        public JsonResult CheckUsernameAvailability(string userdata)
+        {
+            System.Threading.Thread.Sleep(200);
+            var SeachData = db.Staffs.Where(x => x.Username == userdata).SingleOrDefault();
+            if (SeachData != null)
+            {
+                return Json(1);
+            }
+            else
+            {
+                return Json(0);
+            }
+
+        }
+        //public JsonResult checkmail(string userdata)
+        //{
+        //    System.Threading.Thread.Sleep(200);
+        //    var SeachDatas = db.Staffs.Where(x => x.StaffEmail == userdata).SingleOrDefault();
+        //    if (SeachDatas != null)
+        //    {
+        //        return Json(1);
+        //    }
+        //    else
+        //    {
+        //        return Json(0);
+        //    }
+
+        //}
+
+
         public ActionResult CreateStaff ()
         {
             return View();
@@ -76,17 +105,9 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateStaff(Staff staff,HttpPostedFileBase Avatar)
+        public ActionResult CreateStaff(Staff staff,HttpPostedFileBase Avatar,string id)
         {
-            //if(favatar.FileName!="")
-            // {
-            //     staff.Avatar = favatar.FileName;
-
-            //     string ten = Path.GetFileNameWithoutExtension(favatar.FileName);
-            //     string morong = Path.GetExtension(favatar.FileName);
-            //     string tendaydu = ten + DateTime.Now.ToString("yyMMddHHmmssff") + morong;
-            //     favatar.SaveAs(Path.Combine(Server.MapPath("~/images"), tendaydu));
-            // }    
+           
             LuuAnh(staff, Avatar);
             Random rd = new Random();
             var idstaff = "ST" + rd.Next(1, 1000);
@@ -95,13 +116,57 @@ namespace Tourist_VietripInsum_2023.Controllers
             var pas = "123456";
             staff.UserPassword = pas;
 
-            
-
-
+     
+            TempData["noti"] = "oke";
             db.Staffs.Add(staff);
             db.SaveChanges();
             return RedirectToAction("Staffmanager");
+           
+
+
+
+
+
+            
         }
+        //[HttpPost]
+        //public JsonResult CheckUsername(string username)
+        //{
+
+        //    bool isValid = !db.Staffs.ToList().Exists(p => p.Username.Equals(username, StringComparison.CurrentCultureIgnoreCase));
+        //    return Json(isValid);
+        //}
+
+        //public JsonResult IsAlreadySigned(string UserName)
+        //{
+
+        //    return Json(IsUserAvailable(UserName));
+
+        //}
+        //public bool IsUserAvailable(string EmailId)
+        //{
+        //    List<Staff> lis = db.Staffs.ToList();
+        //    var c = db.Staffs.Where(x => x.Username == EmailId).SingleOrDefault();
+        //    bool status = false;
+        //    bool flg= false;
+        //    for (int i=0;i<lis.Count;i++)
+        //    {
+
+        //        if (c.Username==lis[i].Username)
+        //        {
+        //            //Already registered  
+        //            status = false;
+        //        }
+        //        else //Available to use  
+        //            status = true;
+
+        //    }
+        //    flg = status;
+
+        //    return flg;
+        //}
+
+       
         public ActionResult DetailStaff(string id)
         {
             if (id == null)
@@ -126,6 +191,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             LuuAnh(nv, Avatar);
             db.Entry(nv).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
+            TempData["noti"] = "oke";
             return RedirectToAction("Staffmanager");
         }
         
