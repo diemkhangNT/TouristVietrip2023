@@ -7,13 +7,14 @@
     ViewBag.qlstaff = "active";
     ViewBag.Name = "Staff Manager";
     TouristEntities1 db = new TouristEntities1();
-    
+
 
 
 }
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @{
     var checkmess = (string)TempData["messageAlert"];
+    var checknoti = (string)TempData["noti"];
     if (checkmess == "Đã xóa staff")
     {
         <script>
@@ -22,6 +23,13 @@
                 icon: "success",
                 button: "OK",
             });
+        </script>
+    };
+
+    if (checknoti == "oke")
+    {
+        <script>
+            swal("Good job!", "You clicked the button!", "success");
         </script>
     };
 }
