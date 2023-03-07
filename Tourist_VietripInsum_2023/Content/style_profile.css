@@ -16,6 +16,7 @@ body {
 
 .tab-content {
     flex: 1;
+    margin: 0px 30px;
 }
 
 .form-group {
@@ -34,4 +35,36 @@ body {
     width: 100px;
     border-radius: 100%;
     border: 5px solid #fff;
+}
+
+.title_acc {
+    border-radius: 0.375rem;
+    /*background-color: rgb(189 187 187 / 0.50);*/
+    align-items: center;
+    padding: 5px 10px;
+    border-left: 5px solid #ffd800;
+}
+
+label {
+    color: #999999;
+}
+.online {
+    align-items: center;
+    align-content: center;
+    justify-content:center;
+    justify-items:center;
+    font-size: 12px;
+    margin-right: 3px;
+}
+
+
+.editProfile {
+    border-radius: 0.375rem;
+    background-color: #ffd800;
+    align-items: center;
+    padding: 5px 50px;
+}
+.editProfile:hover {
+    cursor: no-drop;
+    
 }

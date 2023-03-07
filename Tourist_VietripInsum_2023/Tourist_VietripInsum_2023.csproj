@@ -237,6 +237,13 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\chart.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <None Include="Scripts\jquery-3.6.3.intellisense.js" />
+    <Content Include="Scripts\jquery-3.6.3.js" />
+    <Content Include="Scripts\jquery-3.6.3.min.js" />
+    <Content Include="Scripts\jquery-3.6.3.slim.js" />
+    <Content Include="Scripts\jquery-3.6.3.slim.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\pace.min.js" />
     <Content Include="Views\LoginStaff\ForgotPassword.cshtml" />
@@ -252,11 +259,8 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.6.3.slim.min.map" />
+    <Content Include="Scripts\jquery-3.6.3.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -267,7 +271,6 @@
     <Content Include="Views\Tourmanager\CreateTours.cshtml" />
     <Content Include="Views\Tourmanager\CreateTourType.cshtml" />
     <Content Include="Views\Tourmanager\DeleteTour.cshtml" />
-    <Content Include="Views\Tourmanager\Details.cshtml" />
     <Content Include="Views\Tourmanager\EditTour.cshtml" />
     <Content Include="Views\Tourmanager\EditTourType.cshtml" />
     <Content Include="Views\Tourmanager\HomePageTM.cshtml" />
@@ -291,9 +294,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\AccountInfo\Index.cshtml" />
-    <Content Include="Views\OrderProcessing\LayoutOP\View.cshtml" />
     <Content Include="Views\LoginStaff\Login.cshtml" />
-    <Content Include="Views\LoginStaff\Demo.cshtml" />
     <Content Include="Views\Admin\AdminView.cshtml" />
     <Content Include="Views\Admin\HomePage.cshtml" />
     <Content Include="Views\Admin\Staffmanager.cshtml" />
@@ -301,23 +302,6 @@
     <Content Include="Views\Admin\DetailStaff.cshtml" />
     <Content Include="Views\Admin\DeleteStaff.cshtml" />
     <Content Include="Views\Admin\EditStaff.cshtml" />
-    <Content Include="Views\OrderProcessing\HomePageOP.cshtml" />
-    <Content Include="Views\Staffs\Create.cshtml" />
-    <Content Include="Views\Staffs\Delete.cshtml" />
-    <Content Include="Views\Staffs\Edit.cshtml" />
-    <Content Include="Views\Staffs\Index.cshtml" />
-    <Content Include="Views\Admin\ListOfTourManagers.cshtml" />
-    <Content Include="Views\Admin\ListOfOrderProcessing.cshtml" />
-    <Content Include="Views\Admin\ListOfCustomers.cshtml" />
-    <Content Include="Views\Tourmanager\HotelDetails.cshtml" />
-    <Content Include="Views\Tourmanager\CreateHotel.cshtml" />
-    <Content Include="Views\Tourmanager\EditHotel.cshtml" />
-    <Content Include="Views\Tourmanager\DeleteHotel.cshtml" />
-    <Content Include="Views\Tourmanager\DeleteTourType.cshtml" />
-    <Content Include="Views\Tourmanager\VistLocationsDetails.cshtml" />
-    <Content Include="Views\Tourmanager\CreateVisitLocations.cshtml" />
-    <Content Include="Views\Tourmanager\EditVisitLocations.cshtml" />
-    <Content Include="Views\Tourmanager\DeleteVisitLocations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -333,8 +317,6 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

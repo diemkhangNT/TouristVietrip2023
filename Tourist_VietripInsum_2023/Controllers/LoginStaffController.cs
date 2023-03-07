@@ -26,9 +26,8 @@ namespace Tourist_VietripInsum_2023.Controllers
             var taikhoan = database.Staffs.SingleOrDefault(s => s.Username == username && s.UserPassword == password);
             if (taikhoan == null)
             {
-                TempData["AlertMessage"] = "Login error";
+                TempData["error"] = "err";
                 return View("Login");
-                //ViewBag.test = username;
             }
             else if (taikhoan != null)
             {

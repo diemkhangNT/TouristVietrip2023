@@ -2,20 +2,7 @@
 @{
     Layout = null;
 }
-@{
-    var checkMessage = TempData["AlertMessage"];
-    if (checkMessage == "Login error")
-    {
-        <script>
-            swal({
-                title: "Login unsuccess!",
-                text: "Invalid Username / Password!",
-                icon: "error",
-                button: "OK",
-            });
-        </script>
-    }
-}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,9 +11,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/Content/styleLogin.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>Login Form</title>
 </head>
 <body>
+    @{
+        var ktr = TempData["error"];
+        if (ktr == "err")
+        {
+            <script>
+                swal({
+                    title: "Login ",
+                    text: "Invalid Username / Password!",
+                    icon: "error",
+                    button: "OK",
+                });
+            </script>
+        }
+    }
     <div class="box">
         <div class="container">
             <div class="top">
@@ -52,7 +54,7 @@
                         <input autocomplete="off" class="input100 input" type="password" placeholder="Enter password"
                                name="Password" id="Password" required>
                         <input type="checkbox" class="checkbox" onclick="myFunction()">
-                        <label id="showpass" class="showpass"> Show Password </label> 
+                        <label id="showpass" class="showpass"> Show Password </label>
                         <script>
                             function myFunction() {
                                 var x = document.getElementById("Password");
@@ -65,7 +67,7 @@
                         </script>
 
                     </div>
-                    <p class="text-danger"></p>
+                    
                     <!--=====ĐĂNG NHẬP======-->
                     <div class="container-login100-form-btn">
                         <input type="submit" class="submit" value="Login" />
