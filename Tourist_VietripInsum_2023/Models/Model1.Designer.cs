@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\giabi\Source\Repos\diemkhangNT\Tourist_VietripInsum_2023\Tourist_VietripInsum_2023\Models\Model1.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\MÔN HỌC 2022-2023.HUFLIT\Học Kỳ 2\Lý Thuyết\Công Nghệ Phần Mềm Nâng Cao\WEB\Tourist_VietripInsum_2023\Tourist_VietripInsum_2023\Models\Model1.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

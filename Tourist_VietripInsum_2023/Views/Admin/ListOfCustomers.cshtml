@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.Customer_Guest>
+
+@{
+    ViewBag.Title = "ListOfCustomers";
+    Layout = "~/Views/Admin/AdminView.cshtml";
+    ViewBag.Name = "List Of Customer";
+}
+
+<table class="table">
+    <tr>
+    <thead>
+        <tr role="row" class="col-staff">
+            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã hóa đơn: activate to sort column ascending" style="width: 40px;">Avatar</th>
+            <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã đơn hàng: activate to sort column ascending" style="width: 40px;">Id</th>
+            <th class="100 sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Tên đại lý: activate to sort column ascending" style="width: 100px;">Full Name</th>
+            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Tổng tiền: activate to sort column ascending" style="width: 50px;">Name Position</th>
+            <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Ngày lập: activate to sort column ascending" style="width: 80px;">Status</th>
+            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Chức vụ: activate to sort column ascending" style="width: 50px; text-align: center;">Option</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvatarCus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fullname)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeCu.NameTypeCus)
+            </td>
+            <td>
+
+            </td>
+            <td>
+                <a href="#" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="#" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                    <i class="fas fa-train"></i>
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>

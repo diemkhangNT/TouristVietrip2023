@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.Staff>
+
+@{
+    ViewBag.Title = "ListOfTourManagers";
+    Layout = "~/Views/Admin/AdminView.cshtml";
+    ViewBag.Name = "List Of Tour Managers Staff";
+}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="row element-button" style="padding-left:10px">
+                        <div class="col-sm-2">
+                            <a class="btn btn-success btn-sm " type="button" title="CreateStaff" href="/Admin/CreateStaff">
+                                Create Staff
+                            </a>
+                        </div>
+                    </div>
+                    <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                        <thead>
+                            <tr role="row" class="col-staff">
+                                <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã hóa đơn: activate to sort column ascending" style="width: 40px;">Avatar</th>
+                                <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã đơn hàng: activate to sort column ascending" style="width: 40px;">Id</th>
+                                <th class="100 sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Tên đại lý: activate to sort column ascending" style="width: 100px;">Full Name</th>
+                                <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Tổng tiền: activate to sort column ascending" style="width: 50px;">Name Pos</th>
+                                <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã đơn hàng: activate to sort column ascending" style="width: 40px;">User Name</th>
+                                <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Ngày lập: activate to sort column ascending" style="width: 80px;">Status</th>
+                                <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Chức vụ: activate to sort column ascending" style="width: 50px; text-align: center;">Option</th>
+                            </tr>
+                        </thead>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Avatar)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdStaff)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Position.NamePos)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Username)
+                                </td>
+                                <td>
+
+                                </td>
+                                <td style="text-align: center;">
+                                    <a href="/Admin/EditStaff/@item.IdStaff" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="/Admin/DetailStaff/@item.IdStaff" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                        <i class="fas fa-train"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
