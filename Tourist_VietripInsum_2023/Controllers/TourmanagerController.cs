@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using Tourist_VietripInsum_2023.App_Start;
 using Tourist_VietripInsum_2023.Models;
@@ -18,7 +20,8 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             //tính tổng số kho
             var totalT = 0;
-            totalT = db.Tours.ToList().Count;
+            //totalT = db.Tours.ToList().Count;
+            totalT = 0;
             TempData["tongTour"] = totalT;
             //tính tổng sản phẩm sắp hết hàng
             var totalTT = 0;
@@ -147,42 +150,97 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         
 
-        //Tạo tour
-        //public ActionResult CreateTour()
-        //{
-        //    ViewBag.Id_detailTour = new SelectList(db.Schedules, "IdSchedule", "IdHotel");
-        //    ViewBag.Id_TypeTour = new SelectList(db.TourTypes, "IdType", "TypeName");
-        //    return View();
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult CreateTour([Bind(Include = "IdTour,Id_TypeTour,Id_detailTour,ImagerTour,Departure,ReturnDay,TimeTour,DeparturePlace,NumberAvailable,Price,DeadlineOrder")] Tour tour)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Tours.Add(tour);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.Id_detailTour = new SelectList(db.Schedules, "IdSchedule", "IdHotel", tour.Id_detailTour);
-        //    ViewBag.Id_TypeTour = new SelectList(db.TourTypes, "IdType", "TypeName", tour.Id_TypeTour);
-        //    return View(tour);
-        //}
-
-        public ActionResult CreateTours()
+     //Hotel
+     public ActionResult HotelManager(string id)
         {
+            var ht = db.Hotels.ToList().OrderByDescending(s => s.IdHotel);
+            return View(ht.ToList());
+        }
+        public ActionResult CreateHotel(string id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateHotel(Hotel hotel,HttpPostedFileBase Image )
+        {
+            //LuuAnh(detail, Image);
+            Random rd = new Random();
+            var idhotel = "H" + rd.Next(1, 1000);
+            hotel.IdHotel = idhotel;
+
             
+
+
+
+
+            db.Hotels.Add(hotel);
+            db.SaveChanges();
+            return RedirectToAction("QuanLyTour");
+        }
+        public ActionResult EditHotel(string id)
+        {
+            return View();
+        }
+        public ActionResult DeleteManager(string id)
+        {
             return View();
         }
 
-        [HttpPost]
-        public ActionResult CreateTours(Tour tour)
+        public ActionResult CreateTours()
         {
+            return View();
+        }
 
+        public void LuuAnh(Tour t, HttpPostedFileBase ImagerTour)
+        {
+            #region Hình ảnh
+
+            if (ImagerTour == null)
+            {
+                t.ImagerTour = "/images/profile-user.png";
+            }
+            else
+            {
+
+                //Xác định đường dẫn lưu file : Url tương đói => tuyệt đói
+                var urlTuongdoi = "/images/";
+                var urlTuyetDoi = Server.MapPath(urlTuongdoi);// Lấy đường dẫn lưu file trên server
+
+                //Check trùng tên file => Đổi tên file  = tên file cũ (ko kèm đuôi)
+                //Ảnh.jpg = > ảnh + "-" + 1 + ".jpg" => ảnh-1.jpg
+
+                string fullDuongDan = urlTuyetDoi + ImagerTour.FileName;
+
+
+                int i = 1;
+                while (System.IO.File.Exists(fullDuongDan) == true)
+                {
+                    // 1. Tách tên và đuôi 
+                    var ten = Path.GetFileNameWithoutExtension(ImagerTour.FileName);
+                    var duoi = Path.GetExtension(ImagerTour.FileName);
+                    // 2. Sử dụng biến i để chạy và cộng vào tên file mới
+                    fullDuongDan = urlTuyetDoi + ten + "-" + i + duoi;
+                    i++;
+                    // 3. Check lại 
+                }
+                #endregion
+                //Lưu file (Kiểm tra trùng file)
+                ImagerTour.SaveAs(fullDuongDan);
+                t.ImagerTour = urlTuongdoi + Path.GetFileName(fullDuongDan);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CreateTours(Tour tour,HttpPostedFileBase ImagerTour)
+        {
+            LuuAnh(tour, ImagerTour);
             Random rd = new Random();
-            var idtour = "T" + rd.Next(1, 1000);
+            var idtour = "Tour" + rd.Next(1, 1000);
             tour.IdTour = idtour;
+
+           
+
+
 
            
             db.Tours.Add(tour);
@@ -204,73 +262,67 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             return View(tour);
         }
-        public ActionResult CreateSchedule(string id)
+        
+        
+        public ActionResult EditTour(string id)
         {
-            return View(db.Schedules.Where(s => s.IdSchedule == id).FirstOrDefault());
+            return View(db.Tours.Where(s => s.IdTour == id).FirstOrDefault());
         }
         [HttpPost]
-        public ActionResult CreateSchedule(Schedule schedules, Tour tour, string id)
+        public ActionResult EditTour(string id,HttpPostedFileBase ImagerTour, Tour tour)
+        {
+            LuuAnh(tour, ImagerTour);
+            db.Entry(tour).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            TempData["noti"] = "oke";
+            return RedirectToAction("QuanLyTour");
+        }
+
+        //Xóa tour
+        public ActionResult DeleteTour(string id,Tour tour,DetailTour detailTour)
+        {
+            tour = db.Tours.Where(s => s.IdTour == id).FirstOrDefault();
+            detailTour = db.DetailTours.Where(s => s.IdTour == id).FirstOrDefault();
+            db.Tours.Remove(tour);
+            if(detailTour!=null)
+            {
+                db.DetailTours.Remove(detailTour);
+            }    
+           
+            TempData["messageAlert"] = "";
+            db.SaveChanges();
+            return RedirectToAction("QuanLyTour");
+        }
+        //DetailTour
+
+        public ActionResult ListDetailTour(string id)
+        {
+            var dt = db.DetailTours.Where(s => s.IdTour == id).ToList();
+            return View(dt);
+        }
+
+        public ActionResult CreateDetailTour(string id)
+        {
+            return View(db.DetailTours.Where(s => s.IdTour == id).FirstOrDefault());
+        }
+        [HttpPost]
+        public ActionResult CreateDetailTour(string id,DetailTour detailTour,Tour tour)
         {
             tour = db.Tours.Where(s => s.IdTour == id).FirstOrDefault();
 
             Random rd = new Random();
-            var idschedule = "S" + rd.Next(1, 1000);
-            schedules.IdSchedule = idschedule;
+            var idDetail = "DTOUR"+ rd.Next(1, 1000);
+            detailTour.IdSchedule = idDetail;
+            detailTour.IdTour = "Tour552";
 
-            var idtour = tour.IdTour;
-
-
-            db.Schedules.Add(schedules);
+            db.DetailTours.Add(detailTour);
             db.SaveChanges();
-            return RedirectToAction("QuanLyTour");
+            return RedirectToAction("TourDetail");
         }
 
 
-        //Sửa tour
-        public ActionResult EditTour(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tour tour = db.Tours.Find(id);
-            if (tour == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Id_detailTour = new SelectList(db.Schedules, "IdSchedule", "IdHotel", tour.Id_detailTour);
-            ViewBag.Id_TypeTour = new SelectList(db.TourTypes, "IdType", "TypeName", tour.Id_TypeTour);
-            return View(tour);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditTour([Bind(Include = "IdTour,Id_TypeTour,Id_detailTour,ImagerTour,Departure,ReturnDay,TimeTour,DeparturePlace,NumberAvailable,Price,DeadlineOrder")] Tour tour)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(tour).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.Id_detailTour = new SelectList(db.Schedules, "IdSchedule", "IdHotel", tour.Id_detailTour);
-            ViewBag.Id_TypeTour = new SelectList(db.TourTypes, "IdType", "TypeName", tour.Id_TypeTour);
-            return View(tour);
-        }
 
-        //Xóa tour
-        public ActionResult DeleteTour(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tour tour = db.Tours.Find(id);
-            if (tour == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tour);
-        }
+
 
         // POST: Tours/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -282,7 +334,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -296,19 +348,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(); 
         }
         // GET: Staffs/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Staff staff = db.Staffs.Find(id);
-            if (staff == null)
-            {
-                return HttpNotFound();
-            }
-            return View(staff);
-        }
+      
 
     }
 }

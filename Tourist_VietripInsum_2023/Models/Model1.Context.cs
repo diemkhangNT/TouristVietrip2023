@@ -26,15 +26,16 @@ namespace Tourist_VietripInsum_2023.Models
         }
     
         public virtual DbSet<Customer_Guest> Customer_Guest { get; set; }
-        public virtual DbSet<DetailSchedule> DetailSchedules { get; set; }
+        public virtual DbSet<DetailTour> DetailTours { get; set; }
         public virtual DbSet<Hotel> Hotels { get; set; }
         public virtual DbSet<OrderCu> OrderCus { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
-        public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<Tour> Tours { get; set; }
         public virtual DbSet<TourType> TourTypes { get; set; }
+        public virtual DbSet<Transport> Transports { get; set; }
         public virtual DbSet<TypeCu> TypeCus { get; set; }
         public virtual DbSet<TypeTicket> TypeTickets { get; set; }
         public virtual DbSet<VistLocation> VistLocations { get; set; }

@@ -143,7 +143,7 @@
     <Compile Include="Models\Customer_Guest.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DetailSchedule.cs">
+    <Compile Include="Models\DetailTour.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Hotel.cs">
@@ -170,10 +170,10 @@
     <Compile Include="Models\Position.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Schedule.cs">
+    <Compile Include="Models\Staff.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Staff.cs">
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Ticket.cs">
@@ -183,6 +183,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TourType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Transport.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TypeCu.cs">
@@ -214,6 +217,7 @@
     <Content Include="Content\styleLogin.css" />
     <Content Include="Content\style_contact.css" />
     <Content Include="Content\style_order.css" />
+    <Content Include="Content\tourmanager.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Forms\Order.html" />
@@ -238,6 +242,13 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\chart.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.6.3.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.3.js" />
     <Content Include="Scripts\jquery-3.6.3.min.js" />
@@ -253,13 +264,6 @@
     <Content Include="Forms\Order\Index.cshtml" />
     <Content Include="Forms\Signup\Index.cshtml" />
     <Content Include="Forms\_LayoutOrderProcessing.cshtml" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery-3.6.3.slim.min.map" />
     <Content Include="Scripts\jquery-3.6.3.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -269,17 +273,12 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\Tourmanager\CreateSchedule.cshtml" />
-    <Content Include="Views\Tourmanager\CreateTours.cshtml" />
     <Content Include="Views\Tourmanager\CreateTourType.cshtml" />
-    <Content Include="Views\Tourmanager\DeleteTour.cshtml" />
-    <Content Include="Views\Tourmanager\Details.cshtml" />
-    <Content Include="Views\Tourmanager\EditTour.cshtml" />
     <Content Include="Views\Tourmanager\EditTourType.cshtml" />
     <Content Include="Views\Tourmanager\HomePageTM.cshtml" />
     <Content Include="Views\Tourmanager\LayoutTM\_ViewTM.cshtml" />
     <Content Include="Views\Tourmanager\Profile.cshtml" />
     <Content Include="Views\Tourmanager\QuanLyTour.cshtml" />
-    <Content Include="Views\Tourmanager\TourDetails.cshtml" />
     <Content Include="Views\Tourmanager\TourTypeDetails.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -311,6 +310,13 @@
     <Content Include="Views\Staffs\Delete.cshtml" />
     <Content Include="Views\Staffs\Edit.cshtml" />
     <Content Include="Views\Staffs\Index.cshtml" />
+    <Content Include="Views\Tourmanager\CreateTours.cshtml" />
+    <Content Include="Views\Tourmanager\TourDetails.cshtml" />
+    <Content Include="Views\Tourmanager\CreateHotel.cshtml" />
+    <Content Include="Views\Tourmanager\HotelManager.cshtml" />
+    <Content Include="Views\Tourmanager\CreateDetailTour.cshtml" />
+    <Content Include="Views\Tourmanager\ListDetailTour.cshtml" />
+    <Content Include="Views\Tourmanager\EditTour.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
