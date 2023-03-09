@@ -25,6 +25,7 @@ namespace Tourist_VietripInsum_2023.Models
         public string Id_TypeTour { get; set; }
         public string ImagerTour { get; set; }
         public Nullable<System.DateTime> Departure { get; set; }
+        public Nullable<System.DateTime> ReturnDay { get; set; }
         public Nullable<int> TimeTour { get; set; }
         public string DeparturePlace { get; set; }
         public Nullable<int> NumberAvailable { get; set; }
