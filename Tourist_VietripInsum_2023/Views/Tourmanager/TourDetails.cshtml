@@ -24,11 +24,11 @@
                     Danh sách lịch trình
                 </a>
             </div>
-            <div class="col-sm-2">
+            @*<div class="col-sm-2">
                 <a class="btn btn-success btn-sm " type="button" title="Back" href="/Tourmanager/CreateDetailTour/@Model.IdTour">
                     Thêm lịch trình
                 </a>
-            </div>
+            </div>*@
             <div class="col-sm-2">
                 <a class="btn btn-danger btn-sm " type="button" title="Back" href="/Tourmanager/DeleteTour/@Model.IdTour">
                     Xóa tour
@@ -40,7 +40,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-3 " style="text-align:center;padding-top:40px;">
-                    <img class="img-rounded" src="@Model.ImagerTour" width="150" height="150" />
+                    <img class="img-rounded" src="@Model.ImagerTour" width="200" height="150" />
                 </div>
                 <div class="info col-sm-9" >
                     <h3>THÔNG TIN TOUR</h3>
@@ -85,7 +85,7 @@
                         <table>
                             @*//Phần render từng dòng trong C#*@
                             <thead>
-                                <tr>
+                                <tr style="background-color:antiquewhite;">
                                     <th>Vé người lớn</th>
                                     <th>Vé trẻ em</th>
 

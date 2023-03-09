@@ -88,9 +88,9 @@
         </div>
         <div class="row element-button" style="padding-left:10px; border: 0px;">
             <div class="col-sm-2">
-                <a class="btn btn-danger btn-sm " type="button" title="DeleteStaff" href="/Admin/DeleteStaff/@Model.IdStaff" >
+                <a class="btn btn-danger btn-sm " type="button" title="DeleteStaff" href="/Admin/DeleteStaff/@Model.IdStaff" onclick="showMessage">
                     Delete Account
-                    @*<script>
+                    <script>
                         function showMessage() {
                             swal({
                                 title: "Are you sure?",
@@ -102,7 +102,7 @@
                                 .then((willDelete) => {
                                     if (willDelete) {
                                         $.ajax({
-                                            url: "/Admin/DeleteStaff" +@Model.IdStaff;
+                                            @Url.Action("DeleteStaff","Admin")
                                         });
 
                                     } else {
@@ -110,7 +110,7 @@
                                     }
                                 });
                         }
-                    </script>*@
+                    </script>
                 </a>
             </div>
             <div class="col-sm-2">

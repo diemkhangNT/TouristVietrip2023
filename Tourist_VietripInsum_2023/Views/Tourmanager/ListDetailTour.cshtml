@@ -5,6 +5,8 @@
     ViewBag.Title = "ListDetailTour";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
     TouristEntities1 db = new TouristEntities1();
+    ViewBag.Name = "List Detail";
+    ViewBag.qlt = "active";
 
 
 }
@@ -15,11 +17,13 @@
             <div class="tile-body">
                 <div class="row element-button" style="padding:10px">
                     <div class="col-sm-2">
-                        <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateDetailTour">
-                            Create Tour
+                        <a class="btn btn-success btn-sm " type="button" title="Back to List" href="/Tourmanager/CreateDetailTour/@ViewBag.idt">
+                            Thêm Lịch trình
                         </a>
                     </div>
                 </div>
+            </div>
+                <h3>DANH SÁCH CHI TIẾT</h3>
                 <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                     <div class="row">
                         <div class="col-sm-12">
@@ -38,43 +42,46 @@
                                 </thead>
                                 <tbody>
 
-                                    @foreach( var item in Model)
+                                    @foreach (var item in Model)
                                     {
                                         //var check = dtour[i];
                                         //if (dtour[i].IdTour == Model.IdTour)
                                         //{
-                                            <tr>
+                                        <tr>
 
-                                                <td>
-                                                    @Html.DisplayFor(modelItem =>item.Stt)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.IdVistLocat)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.IdHotel)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.IdTrans)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.InfoConcentrate)
-                                                </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Stt)
+                                            </td>
+                                            @{
+                                                var ht = db.Hotels.Where(s => s.IdHotel == item.IdHotel).FirstOrDefault();
+                                            }
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.IdVistLocat)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => ht.NameHotel)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.IdTrans)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.InfoConcentrate)
+                                            </td>
 
-                                                <td style="text-align:center">
-                                                    <a href="/Tourmanager/" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <a href="/Tourmanager/r" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                        <i class="fas fa-train"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                        <i class="fas fa-trash"></i>
-                                                    </a>
+                                            <td style="text-align:center">
+                                                <a href="/Tourmanager/EditDetailTour/@item.IdSchedule" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="/Tourmanager/DetailTourDetail/@item.IdSchedule" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-train"></i>
+                                                </a>
+                                                <a href="/Tourmanager/DeleteDetailTour/@item.IdSchedule" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
 
-                                                </td>
-                                            </tr>
-                                        
+                                            </td>
+                                        </tr>
+
 
                                     }
                                 </tbody>
@@ -83,6 +90,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row element-button" style="padding:10px">
+        <div class="col-sm-2">
+            <a class="btn btn-warning btn-sm " type="button" title="Back to List" href="/Tourmanager/TourDetails/@ViewBag.idt">
+                Create Tour
+            </a>
         </div>
     </div>
 </div>

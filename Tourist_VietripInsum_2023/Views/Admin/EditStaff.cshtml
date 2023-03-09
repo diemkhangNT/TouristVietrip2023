@@ -84,7 +84,7 @@
                     <div class="row">
                         <div class="form-group col-sm-4">
                             @Html.LabelFor(model => model.StaffBirthday, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field StaffBirthday must be a date." id="StaffBirthday" name="StaffBirthday" type="datetime-local" value="">
+                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field StaffBirthday must be a date." id="StaffBirthday" name="StaffBirthday" type="date" value="@Model.StaffBirthday">
                             @Html.ValidationMessageFor(model => model.StaffBirthday, "", new { @class = "text-danger" })
                         </div>
 
@@ -121,6 +121,11 @@
                             @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
 
                         </div>
+                        <div class="col-md-9">
+                            <div class="form-group pull-right" style="margin-right: 30px;">
+                                <input type="submit" value="Save Account" class="btn btn-success btn-sm" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -133,11 +138,7 @@
             Back to list
         </a>
     </div>
-    <div class="col-md-9">
-        <div class="form-group pull-right" style="margin-right: 30px;">
-            <input type="submit" value="Save Account" class="btn btn-success btn-sm" />
-        </div>
-    </div>
+    
 </div>
 <script>
     Avatar.onchange = evt => {

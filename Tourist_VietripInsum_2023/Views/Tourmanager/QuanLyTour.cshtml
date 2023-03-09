@@ -6,16 +6,27 @@
     ViewBag.Name = "Tour Manager";
     ViewBag.qlt = "active";
     TouristEntities1 db = new TouristEntities1();
-    var dsLT = db.TourTypes.ToList();
-    var dsHT = db.Hotels.ToList();
-    var dsTQ = db.VistLocations.ToList();
+    List<Tour> t = db.Tours.ToList();
 }
 
-
+@{
+    var checkMessage = TempData["noti"];
+    if (checkMessage == "thieu")
+    {
+        <script>
+            swal({
+                title: "erorr",
+                text: "Welcome to your back!",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    }
+}
 <div class="row">
     <div class="col-md-12">
         <div class="tile">
-            <div class="tile-body"> 
+            <div class="tile-body">
 
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
@@ -30,7 +41,7 @@
 
                 </ul>
 
-                <div class="row element-button" style="padding:10px">
+                <div class="row" style="padding:10px">
                     <div class="col-sm-2">
                         <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTours">
                             Create Tour
@@ -38,17 +49,18 @@
                     </div>
                 </div>
                 <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                    <div class="row" >
+                    <div class="row">
                         <div class="col-sm-12">
                             <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
                                 @*//Phần render từng dòng trong C#*@
                                 <thead style="background-color:antiquewhite;">
                                     <tr>
+
                                         <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">IdTour</th>
                                         <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 40px;">Type Tour</th>
                                         <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 100px;">Tour Name</th>
-                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Chổ</th>
                                         <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 80px;">Thời gian tour</th>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Chổ</th>
                                         <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 50px;">Hạn</th>
                                         <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 50px;">Chức năng</th>
 
@@ -58,52 +70,54 @@
 
                                     @foreach (var item in Model)
                                     {
-                                    <tr>
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.IdTour)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Id_TypeTour)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TourName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.NumberAvailable)
-                                        </td>
-                                        @{
-                                            //DateTime timetour = (DateTime)item.Departure;
-                                            //int i = (int)item.TimeTour;
-                                            //DateTime timend = timetour.AddDays(i);
-                                            var bd = String.Format("{0:d/M/yyyy}", item.Departure);
-                                            //var en = String.Format("{0:d/M/yyyy}", timend);
-                                        }
-                                        <td>
+                                        <tr>
 
-                                           @Html.DisplayFor(modelItem => bd)
-                                        </td>
 
-                                        <td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.IdTour)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Id_TypeTour)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TourName)
+                                            </td>
+
                                             @{
-                                                var day = String.Format("{0:d/M/yyyy}", item.DeadlineOrder);
+                                                //DateTime timetour = (DateTime)item.Departure;
+                                                //int i = (int)item.TimeTour;
+                                                //DateTime timend = timetour.AddDays(i);
+                                                var bd = String.Format("{0:d/M/yyyy}", item.Departure);
+                                                //var en = String.Format("{0:d/M/yyyy}", timend);
                                             }
-                                            @Html.DisplayFor(modelItem => day)
-                                        </td>
+                                            <td>
 
-                                        <td style="text-align:center">
-                                            <a href="/Tourmanager/EditTour/@item.IdTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a href="/Tourmanager/TourDetails/@item.IdTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
-                                                <i class="fas fa-train"></i>
-                                            </a>
-                                            @*<a href="#" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                <i class="fas fa-trash"></i>
-            </a>*@
+                                                @Html.DisplayFor(modelItem => bd)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NumberAvailable)
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var day = String.Format("{0:d/M/yyyy}", item.DeadlineOrder);
+                                                }
+                                                @Html.DisplayFor(modelItem => day)
+                                            </td>
 
-                                        </td>
-                                    </tr>
+                                            <td style="text-align:center">
+                                                <a href="/Tourmanager/EditTour/@item.IdTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="/Tourmanager/TourDetails/@item.IdTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
+                                                    <i class="fas fa-train"></i>
+                                                </a>
+                                                @*<a href="#" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>*@
+
+                                            </td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>

@@ -25,7 +25,7 @@
                 <label class="control-label">Chọn hình ảnh</label>
                 @Html.TextBox("ImagerTour", "", new { type = "file" })
                 <br />
-                <img id="preview" src="#" width="220" height="200" />
+                <img id="preview" src="#" width="220" height="200" style="visibility:hidden" />
                 <br />
             </div>
             <div class="col-sm-9">
@@ -92,7 +92,7 @@
                 <div class="form-group col-sm-6">
                     <strong>Hạn đặt</strong>
                     <div class="col-md-12">
-                        <input class="form-control text-box single-line" data-val="true" data-val-date="The field StaffBirthday must be a date." id="DeadlineOrder" name="DeadlineOrder" type="datetime-local" value="">
+                        @Html.EditorFor(model => model.DeadlineOrder, new { htmlAttributes = new { @class = "form-control", @type="date"} })
                         @Html.ValidationMessageFor(model => model.DeadlineOrder, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -141,7 +141,7 @@
         const [file] = ImagerTour.files
         if (file) {
             preview.src = URL.createObjectURL(file);
-            $("#preview").removeClass("hidden");
+            document.getElementById("preview").style.visibility = "visible";
         }
     }
 </script>

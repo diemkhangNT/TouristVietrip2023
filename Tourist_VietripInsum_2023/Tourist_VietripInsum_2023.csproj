@@ -311,9 +311,10 @@
     <Content Include="Views\Tourmanager\TourDetails.cshtml" />
     <Content Include="Views\Tourmanager\CreateHotel.cshtml" />
     <Content Include="Views\Tourmanager\HotelManager.cshtml" />
-    <Content Include="Views\Tourmanager\CreateDetailTour.cshtml" />
     <Content Include="Views\Tourmanager\ListDetailTour.cshtml" />
     <Content Include="Views\Tourmanager\EditTour.cshtml" />
+    <Content Include="Views\Tourmanager\CreateDetailTour.cshtml" />
+    <Content Include="Views\Tourmanager\EditDetailTour.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

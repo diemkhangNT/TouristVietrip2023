@@ -401,19 +401,31 @@ namespace Tourist_VietripInsum_2023.Controllers
         [HttpPost]
         public ActionResult CreateTours(Tour tour,HttpPostedFileBase ImagerTour)
         {
-            LuuImage(tour, ImagerTour);
-            Random rd = new Random();
-            var idtour = "Tour" + rd.Next(1, 1000);
-            tour.IdTour = idtour;
+            if(tour==null)
+            {
+                TempData["noti"] = "thieu";
+                return RedirectToAction("QuanLyTour");
+               
+            }
+            else
+            {
+                LuuImage(tour, ImagerTour);
+                Random rd = new Random();
+                var idtour = "Tour" + rd.Next(1, 1000);
+                tour.IdTour = idtour;
+                db.Tours.Add(tour);
+                db.SaveChanges();
+                return RedirectToAction("QuanLyTour");
+            }
+            return View(tour);
+            
 
-           
 
 
 
-           
-            db.Tours.Add(tour);
-            db.SaveChanges();
-            return RedirectToAction("QuanLyTour");
+
+
+
         }
 
         //Chi tiết tour
@@ -466,12 +478,15 @@ namespace Tourist_VietripInsum_2023.Controllers
         public ActionResult ListDetailTour(string id)
         {
             var dt = db.DetailTours.Where(s => s.IdTour == id).ToList();
+            ViewBag.idt = id;
             return View(dt);
         }
 
         public ActionResult CreateDetailTour(string id)
         {
-            return View(db.DetailTours.Where(s => s.IdTour == id).FirstOrDefault());
+            ViewBag.IdHotel = new SelectList(db.Hotels, "IdHotel", "IdHotel");
+            ViewBag.IdTrans = new SelectList(db.Transports, "IdTrans", "IdTrans");
+            return View();
         }
         [HttpPost]
         public ActionResult CreateDetailTour(string id,DetailTour detailTour,Tour tour)
@@ -481,11 +496,50 @@ namespace Tourist_VietripInsum_2023.Controllers
             Random rd = new Random();
             var idDetail = "DTOUR"+ rd.Next(1, 1000);
             detailTour.IdSchedule = idDetail;
-            detailTour.IdTour = "Tour552";
+            detailTour.IdTour = id;
+
+            
 
             db.DetailTours.Add(detailTour);
             db.SaveChanges();
-            return RedirectToAction("TourDetail");
+            return RedirectToAction("QuanLyTour");
+        }
+
+        public ActionResult EditDetailTour(string id)
+        {
+            return View(db.DetailTours.Where(s => s.IdSchedule == id).FirstOrDefault());
+        }
+        [HttpPost]
+        public ActionResult EditDetailTour(string id, HttpPostedFileBase ImagerTour, DetailTour dt)
+        {
+            //LuuImage(tour, ImagerTour);
+            db.Entry(dt).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            TempData["noti"] = "oke";
+            return RedirectToAction("QuanLyTour");
+        }
+
+        public ActionResult DetailTourDetail(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DetailTour dt = db.DetailTours.Where(s => s.IdSchedule == id).FirstOrDefault();
+            if (dt == null)
+            {
+                return HttpNotFound();
+            }
+            return View(dt);
+        }
+
+        public ActionResult DeleteDetailTour(string id, DetailTour dt)
+        {
+            dt = db.DetailTours.Where(s => s.IdSchedule == id).FirstOrDefault();
+            db.DetailTours.Remove(dt);
+            TempData["messageAlert"] = "Đã xóa staff";
+            db.SaveChanges();
+            return RedirectToAction("QuanLyTour");
         }
 
 

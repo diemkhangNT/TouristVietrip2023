@@ -22,7 +22,7 @@
                     <label class="control-label">Chọn hình ảnh</label>
                     @Html.TextBox("ImagerTour", "", new { type = "file" })
                     <br />
-                    <img id="preview" src="#" width="220" height="200" />
+                    <img id="preview" src="#" width="220" height="200" style="visibility:hidden;"/>
                     <br />
                 </div>
                 <div class="col-sm-9">
@@ -71,7 +71,10 @@
                     <div class="form-group col-sm-6">
                         <strong>Ngày khỏi hành</strong>
                         <div class="col-md-12">
-                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field StaffBirthday must be a date." id="Departure" name="Departure" type="datetime-local" value="">
+                            @{ 
+                                var mindate = DateTime.Today;
+                            }
+                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field StaffBirthday must be a date." id="Departure" name="Departure"  type="Date" value=""  min="@mindate">
                             @Html.ValidationMessageFor(model => model.Departure, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -79,14 +82,14 @@
                     <div class="form-group col-sm-3">
                         <strong>Số ngày</strong>
                         <div class="col-md-12">
-                            @Html.EditorFor(model => model.TimeTour, new { htmlAttributes = new { @class = "form-control" } })
+                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field must be a date." id="TimeTour" name="TimeTour" type="number" min="0" value="0">
                             @Html.ValidationMessageFor(model => model.TimeTour, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group col-sm-3">
                         <strong>Số chổ</strong>
                         <div class="col-md-12">
-                            @Html.EditorFor(model => model.NumberAvailable, new { htmlAttributes = new { @class = "form-control" } })
+                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field must be a date." id="NumberAvailable" name="NumberAvailable" type="number" min="0" value="0">
                             @Html.ValidationMessageFor(model => model.NumberAvailable, "", new { @class = "text-danger" })
                         </div>
 
@@ -94,23 +97,23 @@
                     <div class="form-group col-sm-6">
                         <strong>Hạn đặt</strong>
                         <div class="col-md-12">
-                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field StaffBirthday must be a date." id="DeadlineOrder" name="DeadlineOrder" type="datetime-local" value="">
+                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field StaffBirthday must be a date." id="DeadlineOrder" name="DeadlineOrder" type="date" value="">
                             @Html.ValidationMessageFor(model => model.DeadlineOrder, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
 
                     <div class="form-group col-sm-3">
-                        <strong>Gía người lớn</strong>
+                        <strong>Vé người lớn</strong>
                         <div class="col-md-12">
-                            @Html.EditorFor(model => model.PriceAdult, new { htmlAttributes = new { @class = "form-control" } })
+                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field must be a date." id="PriceAdult" name="PriceAdult" type="number" min="0" value="0">
                             @Html.ValidationMessageFor(model => model.PriceAdult, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group col-sm-3">
-                        <strong>Gía trẻ em</strong>
+                        <strong>Vé trẻ em</strong>
                         <div class="col-md-12">
-                            @Html.EditorFor(model => model.PriceChildren, new { htmlAttributes = new { @class = "form-control" } })
+                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field must be a date." id="PriceChildren" name="PriceChildren" type="number" min="0" value="0">
                             @Html.ValidationMessageFor(model => model.PriceChildren, "", new { @class = "text-danger" })
                         </div>
 
@@ -146,7 +149,7 @@
         const [file] = ImagerTour.files
         if (file) {
             preview.src = URL.createObjectURL(file);
-            $("#preview").removeClass("hidden");
+            document.getElementById("preview").style.visibility = "visible";
         }
     }
 </script>
