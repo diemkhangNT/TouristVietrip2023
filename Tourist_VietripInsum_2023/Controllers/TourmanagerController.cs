@@ -318,40 +318,42 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
 
      //Hotel
-     public ActionResult HotelManager(string id)
-        {
-            var ht = db.Hotels.ToList().OrderByDescending(s => s.IdHotel);
-            return View(ht.ToList());
-        }
-        public ActionResult CreateHotel(string id)
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult CreateHotel(Hotel hotel,HttpPostedFileBase Image )
-        {
-            //LuuAnh(detail, Image);
-            Random rd = new Random();
-            var idhotel = "H" + rd.Next(1, 1000);
-            hotel.IdHotel = idhotel;
+     //public ActionResult HotelManager(string id)
+     //   {
+     //       var ht = db.Hotels.ToList().OrderByDescending(s => s.IdHotel);
+     //       return View(ht.ToList());
+     //   }
+     //   public ActionResult CreateHotel(string id)
+     //   {
+     //       return View();
+     //   }
+     //   [HttpPost]
+     //   public ActionResult CreateHotel(Hotel hotel,HttpPostedFileBase Image )
+     //   {
+     //       //LuuAnh(detail, Image);
+     //       Random rd = new Random();
+     //       var idhotel = "H" + rd.Next(1, 1000);
+     //       hotel.IdHotel = idhotel;
 
             
 
 
 
 
-            db.Hotels.Add(hotel);
-            db.SaveChanges();
-            return RedirectToAction("QuanLyTour");
-        }
-        public ActionResult EditHotel(string id)
-        {
-            return View();
-        }
+     //       db.Hotels.Add(hotel);
+     //       db.SaveChanges();
+     //       return RedirectToAction("QuanLyTour");
+     //   }
+        //public ActionResult EditHotel(string id)
+        //{
+        //    return View();
+        //}
         public ActionResult DeleteManager(string id)
         {
             return View();
         }
+
+        //tour
 
         public ActionResult CreateTours()
         {
