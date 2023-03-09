@@ -191,7 +191,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View();
         }
 
-        public void LuuAnh(Tour t, HttpPostedFileBase ImagerTour)
+        public void LuuImage(Tour t, HttpPostedFileBase ImagerTour)
         {
             #region Hình ảnh
 
@@ -233,7 +233,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         [HttpPost]
         public ActionResult CreateTours(Tour tour,HttpPostedFileBase ImagerTour)
         {
-            LuuAnh(tour, ImagerTour);
+            LuuImage(tour, ImagerTour);
             Random rd = new Random();
             var idtour = "Tour" + rd.Next(1, 1000);
             tour.IdTour = idtour;
@@ -271,7 +271,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         [HttpPost]
         public ActionResult EditTour(string id,HttpPostedFileBase ImagerTour, Tour tour)
         {
-            LuuAnh(tour, ImagerTour);
+            LuuImage(tour, ImagerTour);
             db.Entry(tour).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             TempData["noti"] = "oke";
