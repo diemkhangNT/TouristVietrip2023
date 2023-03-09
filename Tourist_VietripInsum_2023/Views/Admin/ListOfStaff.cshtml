@@ -1,9 +1,8 @@
 ﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.Staff>
-
 @{
-    ViewBag.Title = "ListOfOrderProcessing";
+    ViewBag.Title = "List Of Staff";
     Layout = "~/Views/Admin/AdminView.cshtml";
-    ViewBag.Name = "List Of Order Processing Staff";
+    ViewBag.Name = "List Of Staff";
 }
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -21,21 +20,30 @@
                 <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
                     <thead>
                         <tr role="row" class="col-staff">
-                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã hóa đơn: activate to sort column ascending" style="width: 40px;">Avatar</th>
+                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã hóa đơn: activate to sort column ascending" style="width: 40px; text-align: center;">Avatar</th>
                             <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã đơn hàng: activate to sort column ascending" style="width: 40px;">Id</th>
                             <th class="100 sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Tên đại lý: activate to sort column ascending" style="width: 100px;">Full Name</th>
-                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Tổng tiền: activate to sort column ascending" style="width: 50px;">Name Position</th>
+                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Tổng tiền: activate to sort column ascending" style="width: 50px;">Name Pos</th>
                             <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã đơn hàng: activate to sort column ascending" style="width: 40px;">User Name</th>
                             <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Ngày lập: activate to sort column ascending" style="width: 80px;">Status</th>
                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Chức vụ: activate to sort column ascending" style="width: 50px; text-align: center;">Option</th>
                         </tr>
                     </thead>
-
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Avatar)
+                            <td style="text-align: center">
+                                @{
+                                    var img = item.Avatar;
+                                    if (img == null)
+                                    {
+                                        <img src="~/Content/Images/account.png" width="50" height="50" />
+                                    }
+                                    else
+                                    {
+                                        <img src="@item.Avatar" width="50" height="50" />
+                                    }
+                                }
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.IdStaff)
@@ -61,8 +69,14 @@
                             </td>
                         </tr>
                     }
-
                 </table>
+            </div>
+        </div>
+        <div class="element-button" style="padding-left:10px; border: 0px;">
+            <div class="col-sm-2">
+                <a class="btn btn-warning btn-sm " type="button" title="Back" href="/Admin/HomePage">
+                    Back to list
+                </a>
             </div>
         </div>
     </div>

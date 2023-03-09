@@ -201,6 +201,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\main-AD.css" />
     <Content Include="Content\style_profile.css" />
     <Content Include="Content\Images\account.png" />
     <Content Include="Content\Images\bg_login.jpg" />
@@ -237,6 +238,13 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\chart.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.6.3.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.3.js" />
     <Content Include="Scripts\jquery-3.6.3.min.js" />
@@ -252,13 +260,6 @@
     <Content Include="Forms\Order\Index.cshtml" />
     <Content Include="Forms\Signup\Index.cshtml" />
     <Content Include="Forms\_LayoutOrderProcessing.cshtml" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery-3.6.3.slim.min.map" />
     <Content Include="Scripts\jquery-3.6.3.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -297,11 +298,21 @@
     <Content Include="Views\LoginStaff\Login.cshtml" />
     <Content Include="Views\Admin\AdminView.cshtml" />
     <Content Include="Views\Admin\HomePage.cshtml" />
-    <Content Include="Views\Admin\Staffmanager.cshtml" />
     <Content Include="Views\Admin\CreateStaff.cshtml" />
     <Content Include="Views\Admin\DetailStaff.cshtml" />
     <Content Include="Views\Admin\DeleteStaff.cshtml" />
     <Content Include="Views\Admin\EditStaff.cshtml" />
+    <Content Include="Views\Admin\ListOfCustomers.cshtml" />
+    <Content Include="Views\Admin\ListOfStaff.cshtml" />
+    <Content Include="Views\Tourmanager\CreateHotel.cshtml" />
+    <Content Include="Views\Tourmanager\CreateVisitLocations.cshtml" />
+    <Content Include="Views\Tourmanager\DeleteHotel.cshtml" />
+    <Content Include="Views\Tourmanager\DeleteTourType.cshtml" />
+    <Content Include="Views\Tourmanager\DeleteVisitLocations.cshtml" />
+    <Content Include="Views\Tourmanager\EditHotel.cshtml" />
+    <Content Include="Views\Tourmanager\EditVisitLocations.cshtml" />
+    <Content Include="Views\Tourmanager\HotelDetails.cshtml" />
+    <Content Include="Views\Tourmanager\VistLocationsDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

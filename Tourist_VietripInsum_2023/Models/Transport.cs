@@ -12,28 +12,19 @@ namespace Tourist_VietripInsum_2023.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Staff
+    public partial class Transport
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Staff()
+        public Transport()
         {
-            this.OrderCus = new HashSet<OrderCu>();
+            this.DetailTours = new HashSet<DetailTour>();
         }
     
-        public string IdStaff { get; set; }
-        public string IdPos { get; set; }
-        public string Username { get; set; }
-        public string UserPassword { get; set; }
-        public string FullName { get; set; }
-        public string NumberPhone { get; set; }
-        public string StaffAddress { get; set; }
-        public string StaffEmail { get; set; }
-        public Nullable<System.DateTime> StaffBirthday { get; set; }
-        public string Gender { get; set; }
-        public string Avatar { get; set; }
+        public string IdTrans { get; set; }
+        public string NameTrans { get; set; }
+        public string TheFirm { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderCu> OrderCus { get; set; }
-        public virtual Position Position { get; set; }
+        public virtual ICollection<DetailTour> DetailTours { get; set; }
     }
 }
