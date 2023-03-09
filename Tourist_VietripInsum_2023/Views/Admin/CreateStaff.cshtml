@@ -102,6 +102,16 @@
                     <input class="form-control" type="text" id="Username" name="Username" onchange="UserCheck()" />
                     @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                     <span id="status"></span>
+
+                </div>
+                <div class="form-group col-md-4">
+
+                </div>
+               
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input type="submit" value="Save Account" class="btn btn-success btn-sm" />
+                    </div>
                 </div>
             </div>
         </form>

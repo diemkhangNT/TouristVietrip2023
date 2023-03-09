@@ -3,93 +3,117 @@
 @{
     ViewBag.Title = "TourDetails";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+    ViewBag.Name = "Tour Manager";
+    ViewBag.qlt = "active";
 }
 
-<div>
-    <h4>Tour</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ImagerTour)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ImagerTour)
-        </dd>
+<style>
+    .info div{
+        padding-top:10px;
+    }
+</style>
+<div class="tile">
+    @*<h5 class="tile-title">THÔNG TIN TOUR</h5>*@
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Departure)
-        </dt>
+    <div class="tile-body">
 
-        <dd>
-            @Html.DisplayFor(model => model.Departure)
-        </dd>
+        <div class="row element-button">
+            <div class="col-sm-2">
+                <a class="btn btn-warning btn-sm " type="button" title="Back" href="/Tourmanager/ListDetailTour/@Model.IdTour">
+                    Danh sách lịch trình
+                </a>
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-success btn-sm " type="button" title="Back" href="/Tourmanager/CreateDetailTour/@Model.IdTour">
+                    Thêm lịch trình
+                </a>
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-danger btn-sm " type="button" title="Back" href="/Tourmanager/DeleteTour/@Model.IdTour">
+                    Xóa tour
+                </a>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ReturnDay)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ReturnDay)
-        </dd>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 " style="text-align:center;padding-top:40px;">
+                    <img class="img-rounded" src="@Model.ImagerTour" width="150" height="150" />
+                </div>
+                <div class="info col-sm-9" >
+                    <h3>THÔNG TIN TOUR</h3>
+                    <div class="col-sm-4">
+                        <strong>Id Tour: </strong>@Html.DisplayFor(model => model.IdTour)
+                    </div>
+                    <div class="col-sm-4">
+                        <strong>Type Tour: </strong>@Html.DisplayFor(model => model.Id_TypeTour)
+                    </div>
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-12">
+                        <strong>Tour Name: </strong>@Html.DisplayFor(model => model.TourName)
+                    </div>
+                    <div class="col-sm-4">
+                        <strong>Điểm đi: </strong>@Html.DisplayFor(model => model.DeparturePlace)
+                    </div>
+                    <div class="col-sm-4">
+                        <strong>Điểm đến: </strong>@Html.DisplayFor(model => model.DeparturePlace)
+                    </div>
+                    <div class="col-sm-4">
+                        <strong>Số chổ: </strong>@Html.DisplayFor(model => model.NumberAvailable)
+                    </div>
+                    @{
+                        var han = String.Format("{0:d/M/yyyy}", Model.DeadlineOrder);
+                        var ngay = String.Format("{0:d/M/yyyy}", Model.Departure);
+                    }
+                    <div class="col-sm-4">
+                        <strong>Ngày khởi hành: </strong>@Html.DisplayFor(model => ngay)
+                    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeTour)
-        </dt>
+                    <div class="col-sm-4">
+                        <strong>Thời gian đi: </strong>@Html.DisplayFor(model => model.TimeTour)
+                    </div>
+                    <div class="col-sm-4">
+                        <strong>Hạn đặt: </strong>@Html.DisplayFor(model => han)
+                    </div>
+                    <div class="col-sm-12">
+                        <strong>Mô tả: </strong>@Html.DisplayFor(model => model.Mota)
+                    </div>
+                    <div class="col-sm-12">
+                        <table>
+                            @*//Phần render từng dòng trong C#*@
+                            <thead>
+                                <tr>
+                                    <th>Vé người lớn</th>
+                                    <th>Vé trẻ em</th>
 
-        <dd>
-            @Html.DisplayFor(model => model.TimeTour)
-        </dd>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DeparturePlace)
-        </dt>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.PriceAdult)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.PriceChildren)
+                                    </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.DeparturePlace)
-        </dd>
+                                </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NumberAvailable)
-        </dt>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+            <div>
 
-        <dd>
-            @Html.DisplayFor(model => model.NumberAvailable)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DeadlineOrder)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DeadlineOrder)
-        </dd>
-
-        
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TourType.TypeName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TourType.TypeName)
-        </dd>
-
-    </dl>
-</div>
-@{ 
-    var idtour = Model.IdTour;
-}
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdTour }) |
-    @Html.ActionLink("Back to List", "TourDetails") |
-    <a href="/Tourmanager/CreateSchedule/@idtour" >Add Schedule</a>
-</p>
+            </div>
+            <div>
+                @Html.ActionLink("Back to List", "QuanLyTour")
+            </div>
+        </div>
+    </div>

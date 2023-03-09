@@ -12,13 +12,12 @@ namespace Tourist_VietripInsum_2023.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DetailSchedule
+    public partial class sysdiagram
     {
-        public int stt { get; set; }
-        public string idSchedule { get; set; }
-        public string idVitsLocal { get; set; }
-    
-        public virtual Schedule Schedule { get; set; }
-        public virtual VistLocation VistLocation { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

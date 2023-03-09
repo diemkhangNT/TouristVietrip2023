@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.Tour>
 @using Tourist_VietripInsum_2023.Models
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Tour manager";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
     ViewBag.Name = "Tour Manager";
     ViewBag.qlt = "active";
@@ -11,284 +11,99 @@
     var dsTQ = db.VistLocations.ToList();
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="tile">
-            <div class="tile-body">
-                @*Danh sách loại tour*@
-                <div class="element-button" style="padding-left:10px">
-                    <h2>LIST OF TOUR TYPE</h2>
-                    <div>
-                        <a class="btn btn-success btn-sm " type="button" title="CreateTourType" href="/Tourmanager/CreateTourType">
-                            Create Tour Type
-                        </a>
-                    </div>
-                </div>
-                <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                    <div class="row" style="padding-top:10px">
-                        <div class="col-sm-12">
-                            <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
-                                @*//Phần render từng dòng trong C#*@
-                                <thead>
-                                    <tr role="row" class="col-staff">
-                                        <th class="sorting">Id Tour Type</th>
-                                        <th class="sorting">Name Type Tour</th>
-                                        <th class="sorting">Discount</th>
-                                        <th class="sorting" style="text-align: center;">Option</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in dsLT)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.IdType)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.TypeName)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Discount)
-                                            </td>
-                                            <td style="text-align:center">
-                                                <a href="/Tourmanager/TourTypeDetails/@item.IdType" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Details">
-                                                    <i class="fas fa-train"></i>
-                                                </a>
-                                                <a href="/Tourmanager/EditTourType/@item.IdType" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <a href="/Tourmanager/DeleteTourType/@item.IdType" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="row">
     <div class="col-md-12">
         <div class="tile">
-            <div class="tile-body">
-                @*Danh sách khách sạn*@
-                <div class="element-button" style="padding-left:10px">
-                    <h2>LIST OF HOTEL</h2>
-                    <div>
-                        <a class="btn btn-success btn-sm " type="button" title="CreateHotel" href="/Tourmanager/CreateHotel">
-                            Create Hotel
-                        </a>
-                    </div>
-                </div>
-                <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                    <div class="row" style="padding-top:10px">
-                        <div class="col-sm-12">
-                            <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
-                                @*//Phần render từng dòng trong C#*@
-                                <thead>
-                                    <tr role="row" class="col-staff">
-                                        <th class="sorting">Image</th>
-                                        <th class="sorting">Id Hotel</th>
-                                        <th class="sorting">Level Hotel</th>
-                                        <th class="sorting">Name Hotel</th>
-                                        <th class="sorting">Address Hotel</th>
-                                        <th class="sorting" style="text-align: center;">Option</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in dsHT)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ImgHotel)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.IdHotel)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.LevelHotel)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.NameHotel)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.AddressHotel)
-                                            </td>
-                                            <td style="text-align:center">
-                                                <a href="/Tourmanager/HotelDetails/@item.IdHotel" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Details">
-                                                    <i class="fas fa-train"></i>
-                                                </a>
-                                                <a href="/Tourmanager/EditHotel/@item.IdHotel" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <a href="/Tourmanager/DeleteHotel/@item.IdHotel" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+            <div class="tile-body"> 
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="tile">
-            <div class="tile-body">
-                @*Danh sách địa điểm tham quan*@
-                <div class="element-button" style="padding-left:10px">
-                    <h2>LIST OF VISIT LOCATION</h2>
-                    <div>
-                        <a class="btn btn-success btn-sm " type="button" title="CreateHotel" href="/Tourmanager/CreateVisitLocations">
-                            Create Vist Location
-                        </a>
-                    </div>
-                </div>
-                <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                    <div class="row" style="padding-top:10px">
-                        <div class="col-sm-12">
-                            <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
-                                @*//Phần render từng dòng trong C#*@
-                                <thead>
-                                    <tr role="row" class="col-staff">
-                                        <th class="sorting">Image</th>
-                                        <th class="sorting">Id Vist Location</th>
-                                        <th class="sorting">Name Vist</th>
-                                        <th class="sorting">Destription Location</th>
-                                        <th class="sorting">Location Address</th>
-                                        <th class="sorting" style="text-align: center;">Option</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in dsTQ)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ImageLocation)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.IdVistLocat)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.NameVist)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Des_Location)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Loca_address)
-                                            </td>
-                                            <td style="text-align:center">
-                                                <a href="/Tourmanager/VistLocationsDetails/@item.IdVistLocat" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Details">
-                                                    <i class="fas fa-train"></i>
-                                                </a>
-                                                <a href="/Tourmanager/EditVisitLocations/@item.IdVistLocat" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <a href="/Tourmanager/DeleteVisitLocations/@item.IdVistLocat" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Tour</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Tourmanager/HotelManager">Hotel</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Transport</a>
+                    </li>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="tile">
-            <div class="tile-body">
-                @*Danh sách Tour*@
-                <div class="element-button" style="padding-left:10px">
-                    <h2>LIST OF TOUR</h2>
-                    <div>
-                        <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTour">
+                </ul>
+
+                <div class="row element-button" style="padding:10px">
+                    <div class="col-sm-2">
+                        <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTours">
                             Create Tour
                         </a>
                     </div>
                 </div>
                 <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                    <div class="row" style="padding-top:10px">
+                    <div class="row" >
                         <div class="col-sm-12">
                             <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
                                 @*//Phần render từng dòng trong C#*@
-                                <thead>
-                                    <tr role="row" class="col-staff">
-                                        <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã hóa đơn: activate to sort column ascending" style="width: 40px;">Id Tour</th>
-                                        <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã đơn hàng: activate to sort column ascending" style="width: 40px;">Type Tour</th>
-                                        <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Tổng tiền: activate to sort column ascending" style="width: 50px;">Departure</th>
-                                        <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã đơn hàng: activate to sort column ascending" style="width: 40px;">ReturnDay</th>
-                                        <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Ngày lập: activate to sort column ascending" style="width: 80px;">Time Tour</th>
-                                        <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Chức vụ: activate to sort column ascending" style="width: 80px;">Departure Place</th>
-                                        <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Chức vụ: activate to sort column ascending" style="width: 80px;">Number Available</th>
-                                        <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Chức vụ: activate to sort column ascending" style="width: 80px;">Price</th>
-                                        <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Chức vụ: activate to sort column ascending" style="width: 80px;">Deadline Order</th>
-                                        <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Chức vụ: activate to sort column ascending" style="width: 80px;">Option</th>
+                                <thead style="background-color:antiquewhite;">
+                                    <tr>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">IdTour</th>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 40px;">Type Tour</th>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 100px;">Tour Name</th>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Chổ</th>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 80px;">Thời gian tour</th>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 50px;">Hạn</th>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 50px;">Chức năng</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                     @foreach (var item in Model)
                                     {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.IdTour)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.TourType.TypeName)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Departure)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ReturnDay)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.TimeTour)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.DeparturePlace)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.NumberAvailable)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Price)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.DeadlineOrder)
-                                            </td>
-                                            <td style="text-align:center">
-                                                <a href="/Tourmanager/TourDetails/@item.IdTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Details">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <a href="/Tourmanager/EditTour/@item.IdTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                    <i class="fas fa-train"></i>
-                                                </a>
-                                                <a href="/Tourmanager/DeleteTour/@item.IdTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                    <tr>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IdTour)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Id_TypeTour)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TourName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NumberAvailable)
+                                        </td>
+                                        @{
+                                            //DateTime timetour = (DateTime)item.Departure;
+                                            //int i = (int)item.TimeTour;
+                                            //DateTime timend = timetour.AddDays(i);
+                                            var bd = String.Format("{0:d/M/yyyy}", item.Departure);
+                                            //var en = String.Format("{0:d/M/yyyy}", timend);
+                                        }
+                                        <td>
+
+                                           @Html.DisplayFor(modelItem => bd)
+                                        </td>
+
+                                        <td>
+                                            @{
+                                                var day = String.Format("{0:d/M/yyyy}", item.DeadlineOrder);
+                                            }
+                                            @Html.DisplayFor(modelItem => day)
+                                        </td>
+
+                                        <td style="text-align:center">
+                                            <a href="/Tourmanager/EditTour/@item.IdTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="/Tourmanager/TourDetails/@item.IdTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
+                                                <i class="fas fa-train"></i>
+                                            </a>
+                                            @*<a href="#" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                <i class="fas fa-trash"></i>
+            </a>*@
+
+                                        </td>
+                                    </tr>
                                     }
                                 </tbody>
                             </table>
