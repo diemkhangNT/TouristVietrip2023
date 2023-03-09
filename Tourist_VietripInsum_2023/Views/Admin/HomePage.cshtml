@@ -1,7 +1,112 @@
 ﻿@{
-    ViewBag.Title = "HomePage";
+    ViewBag.Title = "Home Page";
     Layout = "~/Views/Admin/AdminView.cshtml";
+    ViewBag.Name = "Home Page";
+}
+<style>
+    a :hover{
+        color: gray;
+        opacity: 80%;
+    }
+</style>
+
+@{
+    var checkMessage = TempData["AlertMessage"];
+    if (checkMessage == "Login sucess")
+    {
+        <script>
+            swal({
+                title: "Login success!",
+                text: "Welcome to your back!",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    }
 }
 
-<h2>HomePage</h2>
+<div class="row">
+    <!--Thông tin kho và số sản phẩm sắp hết hàng-->
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div class="row">
+            <!-- col-6 -->
+            <div class="col-lg-6 col-xs-12">
+                <a class="widget-small info coloured-icon @ViewBag.qlk" href="/Admin/ListOfTourManagers" style="text-decoration: none;">
+                    <i class='icon bx bxs-user-account fa-3x'></i>
+                    <div class="info">
+                        <h4>Tour Management Staff</h4>
+                        <p><b>Total @TempData["totaltourmanager"] tour managers</b></p>
+                        <p class="info-tong">Responsible for tour management: Add, delete, edit tours.</p>
+                    </div>
+                </a>
+            </div>
+            <!-- col-6 -->
+            <div class="col-lg-6 col-xs-12">
+                <a class="widget-small warning coloured-icon @ViewBag.hh" href="/Admin/ListOfOrderProcessing" style="text-decoration: none;">
+                    <i class='icon bx bxs-error-alt fa-3x'></i>
+                    <div class="info">
+                        <h4>Order Processing Staff</h4>
+                        <p><b>Total @TempData["totalorderpross"] staff processing orders</b></p>
+                        <p class="info-tong">Responsible for processing orders</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--Tổng sản phẩm và sản phẩm tồn kho-->
+    <div class="col-md-12 col-lg-12">
+        <div class="row">
+            <!-- col-6 -->
+            <div class="col-lg-6 col-xs-12">
+                <a class="widget-small primary coloured-icon #" href="/Admin/ListOfCustomers" style="text-decoration: none;">
+                    <i class='icon bx bxs-shopping-bag-alt fa-3x'></i>
+                    <div class="info">
+                        <h4>Customer</h4>
+                        <p><b>Total @TempData["totalcustomer"] customer</b></p>
+                        <p class="info-tong">including current customers and customers with accounts</p>
+                    </div>
+                </a>
+            </div>
+            <!-- col-6 -->
+            @*<div class="col-lg-6 col-xs-12">
+                    <a class="widget-small danger coloured-icon #" href="~/PhongKho/TonKho">
+                        <i class='icon bx bxs-tag-x fa-3x'></i>
+                        <div class="info">
+                            <h4>Sản phẩm tồn kho</h4>
+                            <p><b>@TempData["TongSPTK"] sản phẩm</b></p>
+                            <p class="info-tong">Tổng số sản phẩm tồn kho trong các kho.</p>
+                        </div>
+                    </a>
+                </div>*@
+        </div>
+    </div>
+    <!--Tổng phiếu xuất và tổng phiếu nhập-->
+    <!--div class="col-md-12 col-lg-12">
+       <div class="row">-->
+    <!-- col-6 -->
+    <!--<div class="col-lg-6 col-xs-12">
+        <a class="widget-small info coloured-icon #" href="~/PhongKho/NhapKho">
+            <i class='icon bx bxs-receipt fa-3x'></i>
+            <div class="info">
+                <h4>Phiếu nhập kho</h4>
+                <p><b>Tổng @TempData["Tongpn"] phiếu được tạo</b></p>
+                <p class="info-tong">Phiếu nhập hàng hóa vào kho.</p>
+            </div>
+        </a>
+    </div>-->
+    <!-- col-6 -->
+    <!--<div class="col-lg-6 col-xs-12">
+                <a class="widget-small primary coloured-icon #" href="~/PhongKho/NhapKho">
+                    <i class='icon bx bxs-info-circle fa-3x'></i>
+                    <div class="info">
+                        <h4>Phiếu xuất kho</h4>
+                        <p><b>Tổng @TempData["Tongpx"] phiếu được tạo</b></p>
+                        <p class="info-tong">Phiếu xuất hàng hóa ra khỏi kho.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>-->
+    <!--END-->
+</div>
 

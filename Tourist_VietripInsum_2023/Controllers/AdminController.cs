@@ -21,7 +21,33 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult HomePage()
         {
+            var tourmanagersff = db.Staffs.Where(s => s.IdPos == "TM").Count();
+            TempData["totaltourmanager"] = tourmanagersff;
+
+            var orderprosff = db.Staffs.Where(s => s.IdPos == "OP").Count();
+            TempData["totalorderpross"] = orderprosff;
+
+            var customer = db.Customer_Guest.ToList().Count;
+            TempData["totalcustomer"] = customer;
             return View();
+        }
+
+        public ActionResult ListOfTourManagers()
+        {
+            var listTourManagers = db.Staffs.Where(s => s.IdPos == "TM");
+            return View(listTourManagers);
+        }
+
+        public ActionResult ListOfOrderProcessing()
+        {
+            var listOrderProcessing = db.Staffs.Where(s => s.IdPos == "OP");
+            return View(listOrderProcessing);
+        }
+
+        public ActionResult ListOfCustomers()
+        {
+            var listCustomer = db.Customer_Guest.ToList();
+            return View(listCustomer);
         }
 
         public ActionResult Staffmanager()

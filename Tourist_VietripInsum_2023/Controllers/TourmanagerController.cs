@@ -64,11 +64,9 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
 
         // GET: Tours
-        //Trang hiển thị danh sách loại tour, tour
+        //Trang hiển thị danh sách loại tour, hotel, tour
         public ActionResult QuanLyTour()
         {
-            //var tours = db.Tours.Include(t => t.Schedule).Include(t => t.TourType);
-            //var tourstype = db.TourTypes.ToList();
             var tours = db.Tours.ToList().OrderByDescending(s => s.IdTour);
             return View(tours.ToList());
         }
@@ -147,8 +145,177 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             return View(tourType);
         }
+        [HttpPost, ActionName("DeleteTourType")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteTourTypeConfirmed(string id)
+        {
+            TourType tourType = db.TourTypes.Find(id);
+            db.TourTypes.Remove(tourType);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-        
+        //Chi tiết khách sạn
+        public ActionResult HotelDetails(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Hotel hotel = db.Hotels.Find(id);
+            if (hotel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(hotel);
+        }
+
+        //Tạo khách sạn
+        public ActionResult CreateHotel()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateHotel([Bind(Include = "IdHotel,LevelHotel,NameHotel,AddressHotel,ImgHotel")] Hotel hotel)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Hotels.Add(hotel);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(hotel);
+        }
+
+        //Sửa hotel
+        public ActionResult EditHotel(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Hotel hotel = db.Hotels.Find(id);
+            if (hotel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(hotel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditHotel([Bind(Include = "IdHotel,LevelHotel,NameHotel,AddressHotel,ImgHotel")] Hotel hotel)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(hotel).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(hotel);
+        }
+
+        //Xóa khách sạn
+        public ActionResult DeleteHotel(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Hotel hotel = db.Hotels.Find(id);
+            if (hotel == null)
+            {
+                return HttpNotFound();
+            }
+            return View(hotel);
+        }
+        // POST: Hotels/Delete/5
+        [HttpPost, ActionName("DeleteHotel")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteHotelConfirmed(string id)
+        {
+            Hotel hotel = db.Hotels.Find(id);
+            db.Hotels.Remove(hotel);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        //Chi tiết địa điểm tham quan
+        public ActionResult VistLocationsDetails(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            VistLocation vistLocation = db.VistLocations.Find(id);
+            if (vistLocation == null)
+            {
+                return HttpNotFound();
+            }
+            return View(vistLocation);
+        }
+
+        //Tạo địa điểm tham quan
+        public ActionResult CreateVisitLocations()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateVisitLocations([Bind(Include = "IdVistLocat,NameVist,ImageLocation,Des_Location,Loca_address")] VistLocation vistLocation)
+        {
+            if (ModelState.IsValid)
+            {
+                db.VistLocations.Add(vistLocation);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(vistLocation);
+        }
+
+        //Chỉnh sửa địa điểm tham quan
+        public ActionResult EditVisitLocations(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            VistLocation vistLocation = db.VistLocations.Find(id);
+            if (vistLocation == null)
+            {
+                return HttpNotFound();
+            }
+            return View(vistLocation);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditVisitLocations([Bind(Include = "IdVistLocat,NameVist,ImageLocation,Des_Location,Loca_address")] VistLocation vistLocation)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(vistLocation).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(vistLocation);
+        }
+
+        //Xóa địa điểm tham quan
+        public ActionResult DeleteVisitLocations(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            VistLocation vistLocation = db.VistLocations.Find(id);
+            if (vistLocation == null)
+            {
+                return HttpNotFound();
+            }
+            return View(vistLocation);
+        }
 
      //Hotel
      public ActionResult HotelManager(string id)
@@ -325,9 +492,9 @@ namespace Tourist_VietripInsum_2023.Controllers
 
 
         // POST: Tours/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteTour")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteTourConfirmed(string id)
         {
             Tour tour = db.Tours.Find(id);
             db.Tours.Remove(tour);
@@ -343,10 +510,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             base.Dispose(disposing);
         }
-        public ActionResult Profile()
-        {
-            return View(); 
-        }
+        
         // GET: Staffs/Details/5
       
 

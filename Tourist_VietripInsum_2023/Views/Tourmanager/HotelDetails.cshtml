@@ -1,0 +1,52 @@
+﻿@model Tourist_VietripInsum_2023.Models.Hotel
+
+@{
+    ViewBag.Title = "HotelDetails";
+    Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+    ViewBag.Name = "Hotel Detail Page";
+}
+
+<h2>HotelDetails</h2>
+
+<div>
+    <h4>Hotel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LevelHotel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LevelHotel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NameHotel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameHotel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddressHotel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddressHotel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImgHotel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImgHotel)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdHotel }) |
+    @Html.ActionLink("Back to List", "QuanLyTour")
+</p>
