@@ -152,7 +152,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             TourType tourType = db.TourTypes.Find(id);
             db.TourTypes.Remove(tourType);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("QuanLyTour");
         }
 
         //Chi tiết khách sạn
@@ -183,7 +183,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 db.Hotels.Add(hotel);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("QuanLyTour");
             }
 
             return View(hotel);
@@ -211,7 +211,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 db.Entry(hotel).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("QuanLyTour");
             }
             return View(hotel);
         }
@@ -238,7 +238,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             Hotel hotel = db.Hotels.Find(id);
             db.Hotels.Remove(hotel);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("QuanLyTour");
         }
 
         //Chi tiết địa điểm tham quan
@@ -269,9 +269,8 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 db.VistLocations.Add(vistLocation);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("QuanLyTour");
             }
-
             return View(vistLocation);
         }
 
@@ -297,7 +296,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 db.Entry(vistLocation).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("QuanLyTour");
             }
             return View(vistLocation);
         }
@@ -501,7 +500,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             Tour tour = db.Tours.Find(id);
             db.Tours.Remove(tour);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("QuanLyTour");
         }
         
         protected override void Dispose(bool disposing)
