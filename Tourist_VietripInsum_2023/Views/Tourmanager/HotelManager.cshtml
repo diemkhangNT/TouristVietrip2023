@@ -3,56 +3,146 @@
 @{
     ViewBag.Title = "HotelManager";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+    ViewBag.Name = "Hotel Manager";
+    ViewBag.qlt = "active";
 }
 
-<h2>HotelManager</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IdHotel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LevelHotel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NameHotel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AddressHotel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImgHotel)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdHotel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LevelHotel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NameHotel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddressHotel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImgHotel)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
+@{
+    var checkdata = TempData["noti"];
+    if (checkdata == "createhotel error")
+    {
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: '<a href="">Why do I have this issue?</a>'
+            })
+        </script>
+    }
+    else
+    {
+        <script>
+            Swal.fire({
+                
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
+    }
 }
+<div class="col-md-12">
+    <div class="tile">
+        <div class="tile-body">
 
-</table>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="/Tourmanager/QuanLyTour">Tour</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Hotel</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Transport</a>
+                </li>
+
+            </ul>
+
+            <div class="row" style="padding:10px">
+                <div class="col-sm-2">
+                    <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateHotel">
+                        Create hotel
+                    </a>
+                </div>
+            </div>
+
+
+
+
+            <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                            @*//Phần render từng dòng trong C#*@
+                            <thead style="background-color: #ffd43b;">
+                                <tr>
+
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Id Hotel</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 100px;">Hotel Name</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Level</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 80px;">Address</th>
+
+
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 50px;">Function</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+
+                                    <tr>
+
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IdHotel)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NameHotel)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.LevelHotel)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AddressHotel)
+                                        </td>
+
+
+                                        <td style="text-align:center">
+                                            <a href="/Tourmanager/EditHotel/@item.IdHotel" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+
+                                            <a class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete" onclick="check()">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                            <script>
+                                                function check() {
+                                                    swal({
+                                                        title: "Are you sure?",
+                                                        text: "Once deleted, you will not be able to recover this imaginary file!",
+                                                        icon: "warning",
+                                                        buttons: true,
+                                                        dangerMode: true,
+                                                    })
+                                                        .then((willDelete) => {
+                                                            if (willDelete) {
+                                                                url: "/Tourmanager/DeleteHotel/@item.IdHotel";
+                                                            } else {
+                                                                swal("Your imaginary file is safe!");
+                                                            }
+                                                        });
+                                                }
+                                            </script>
+
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

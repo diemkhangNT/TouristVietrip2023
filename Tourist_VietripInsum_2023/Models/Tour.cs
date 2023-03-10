@@ -11,7 +11,8 @@ namespace Tourist_VietripInsum_2023.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Tour
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,15 +25,34 @@ namespace Tourist_VietripInsum_2023.Models
         public string IdTour { get; set; }
         public string Id_TypeTour { get; set; }
         public string ImagerTour { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter data")]
         public Nullable<System.DateTime> Departure { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter data")]
         public Nullable<int> TimeTour { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter data")]
         public string DeparturePlace { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter data")]
         public Nullable<int> NumberAvailable { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter data")]
         public Nullable<decimal> PriceChildren { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter data")]
         public Nullable<decimal> PriceAdult { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter data")]
         public Nullable<System.DateTime> DeadlineOrder { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter name tour")]
         public string TourName { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter data")]
         public string Destination { get; set; }
+
         public string Mota { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
