@@ -3,110 +3,211 @@
 @{
     ViewBag.Title = "CreateTours";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+    ViewBag.Name = "Create Tour";
+    ViewBag.qlt = "active";
 }
 
-<h2>CreateTours</h2>
+<div class="tile">
+    <h4 class="tile-title">THÊM MỚI TOUR</h4>
+    <div class="tile-body">
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Tour</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.HiddenFor(model => model.IdTour)
-    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Id_TypeTour, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Id_TypeTour, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Id_TypeTour, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <form class="row" method="post" enctype="multipart/form-data" action="~/Tourmanager/CreateTours">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Id_detailTour, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Id_detailTour, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Id_detailTour, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.IdTour)
 
-        <div class="form-group">
+                <div class="col-sm-3" style="text-align:center">
+                    <label class="control-label">Chọn hình ảnh</label>
+                    @Html.TextBox("ImagerTour", "", new { type = "file" })
+                    <br />
+                    <img id="preview" src="#" width="220" height="200" style="visibility:hidden;"/>
+                    <br />
+                </div>
+                <div class="col-sm-9">
+                    <div class="form-group col-sm-6">
+                        <strong>Tour Name</strong>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.TourName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TourName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <strong>Type Tour</strong>
+                        <div class="col-md-12">
+                            <select class="form-control" id="Id_TypeTour" name="Id_TypeTour">
+                                <option>LT01</option>
+                                <option>LT02</option>
+                                <option>LT03</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.Id_TypeTour, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
             @Html.LabelFor(model => model.ImagerTour, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ImagerTour, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ImagerTour, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
+                    <div class="form-group col-sm-6">
+                        <strong>Nơi khởi hành:</strong>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.DeparturePlace, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DeparturePlace, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Departure, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Departure, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Departure, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group col-sm-6">
+                        <strong>Điểm đến</strong>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Destination, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Destination, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReturnDay, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ReturnDay, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ReturnDay, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group col-sm-6">
+                        <strong>Ngày khỏi hành</strong>
+                        <div class="col-md-12">
+                            @{ 
+                                var mindate = DateTime.Today;
+                            }
+                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field StaffBirthday must be a date." id="Departure" name="Departure"  type="Date" value=""  min="@mindate">
+                            @Html.ValidationMessageFor(model => model.Departure, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TimeTour, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TimeTour, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TimeTour, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group col-sm-3">
+                        <strong>Số ngày</strong>
+                        <div class="col-md-12">
+                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field must be a date." id="TimeTour" name="TimeTour" type="number" min="0" value="0">
+                            @Html.ValidationMessageFor(model => model.TimeTour, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <strong>Số chổ</strong>
+                        <div class="col-md-12">
+                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field must be a date." id="NumberAvailable" name="NumberAvailable" type="number" min="0" value="0">
+                            @Html.ValidationMessageFor(model => model.NumberAvailable, "", new { @class = "text-danger" })
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DeparturePlace, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DeparturePlace, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DeparturePlace, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <strong>Hạn đặt</strong>
+                        <div class="col-md-12">
+                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field StaffBirthday must be a date." id="DeadlineOrder" name="DeadlineOrder" type="date" value="">
+                            @Html.ValidationMessageFor(model => model.DeadlineOrder, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NumberAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NumberAvailable, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NumberAvailable, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group col-sm-3">
+                        <strong>Vé người lớn</strong>
+                        <div class="col-md-12">
+                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field must be a date." id="PriceAdult" name="PriceAdult" type="number" min="0" value="0">
+                            @Html.ValidationMessageFor(model => model.PriceAdult, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <strong>Vé trẻ em</strong>
+                        <div class="col-md-12">
+                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field must be a date." id="PriceChildren" name="PriceChildren" type="number" min="0" value="0">
+                            @Html.ValidationMessageFor(model => model.PriceChildren, "", new { @class = "text-danger" })
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DeadlineOrder, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DeadlineOrder, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DeadlineOrder, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <p><strong>Mô tả</strong></p>
+                        <div class="col-sm-12">
+                            @Html.TextAreaFor(model => model.Mota, new { @class = "form-control content-editor" })
+                            @*@Html.EditorFor(model=> model.Content, new { htmlAttributes = new { @class ="form-control" } })*@
+                            @Html.ValidationMessageFor(model => model.Mota, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+
+                </div>
+
+
             </div>
+            <div class="form-group ">
+                <div class="col-sm-2 col-md-10">
+                    <input type="submit" value="Create Tour" class="btn btn-success btn-sm" />
+                </div>
+            </div>
+        </form>
+
+        <div>
+            @Html.ActionLink("Back to List", "QuanLyTour")
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+<script>
+    ImagerTour.onchange = evt => {
+        const [file] = ImagerTour.files
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            document.getElementById("preview").style.visibility = "visible";
+        }
+    }
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#Mota').Mota({
+            placeholder: 'Enter content....',
+            tabsize: 2,
+            height: 200,
+            minHeight: 100,
+            maxHeight: 300,
+            focus: true,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
+            popover: {
+                image: [
+                    ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
+                    ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                    ['remove', ['removeMedia']]
+                ],
+                link: [
+                    ['link', ['linkDialogShow', 'unlink']]
+                ],
+                table: [
+                    ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
+                    ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
+                ],
+                air: [
+                    ['color', ['color']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['para', ['ul', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture']]
+                ]
+            },
+            codemirror: {
+                theme: 'monokai'
+            }
+        });
+
+    });
+</script>
+
+
+
+

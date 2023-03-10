@@ -17,15 +17,12 @@ namespace Tourist_VietripInsum_2023.Models
     {
         public string IdDetailTour { get; set; }
         public string IdTour { get; set; }
-        public string IdSchedule { get; set; }
         public string IdHotel { get; set; }
         public string Describe { get; set; }
         public string IdVistLocat { get; set; }
         public string IdTrans { get; set; }
         public string Image { get; set; }
         public string InfoConcentrate { get; set; }
-        public Nullable<int> Stt { get; set; }
-        public string IdTour { get; set; }
     
         public virtual Tour Tour { get; set; }
         public virtual Transport Transport { get; set; }
