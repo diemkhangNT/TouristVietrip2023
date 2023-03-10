@@ -4,20 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="44855535c95149e28888e32ce7b8c866" Name="Diagram1">
+      <Diagram DiagramId="f728e6a7940640cd831b6b0497f77534" Name="Diagram1">
         <EntityTypeShape EntityType="TouristModel.Customer_Guest" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.DetailTour" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.Hotel" Width="1.5" PointX="3" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.Hotel" Width="1.5" PointX="3" PointY="16.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.OrderCu" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.Position" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.Staff" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.Ticket" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.Tour" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.TourType" Width="1.5" PointX="0.75" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.Transport" Width="1.5" PointX="3" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.TourType" Width="1.5" PointX="0.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.Transport" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.TypeCu" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.TypeTicket" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.VistLocation" Width="1.5" PointX="3" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.VistLocation" Width="1.5" PointX="3" PointY="22.125" IsExpanded="true" />
         <AssociationConnector Association="TouristModel.FK_Customer_Guest_TypeCus" ManuallyRouted="false" />
         <AssociationConnector Association="TouristModel.FK_OrderCus_Customer_Guest" ManuallyRouted="false" />
         <AssociationConnector Association="TouristModel.FK_DetailTour_Tour" ManuallyRouted="false" />
