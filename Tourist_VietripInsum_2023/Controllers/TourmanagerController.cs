@@ -16,13 +16,13 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult HomePageTM()
         {
-            //tính tổng số kho
+            //tính tổng số tour
             var totalT = 0;
-            totalT = db.Tours.ToList().Count;
+            //totalT = db.Tours.ToList().Count;
             TempData["tongTour"] = totalT;
-            //tính tổng sản phẩm sắp hết hàng
+            //tính tổng số loại tour
             var totalTT = 0;
-            totalTT = db.TourTypes.ToList().Count;
+            //totalTT = db.TourTypes.ToList().Count;
             TempData["tongLT"] = totalTT;
 
             ////tính tổng số sản phẩm
@@ -57,18 +57,19 @@ namespace Tourist_VietripInsum_2023.Controllers
             //}
             //TempData["TongSPTK"] = total3;
 
-            return View(db.Tours.ToList());
+            //return View(db.Tours.ToList());
+            return View();
         }
 
         // GET: Tours
         //Trang hiển thị danh sách loại tour, tour
-        public ActionResult QuanLyTour()
-        {
-            //var tours = db.Tours.Include(t => t.Schedule).Include(t => t.TourType);
-            //var tourstype = db.TourTypes.ToList();
-            var tours = db.Tours.ToList().OrderByDescending(s => s.IdTour);
-            return View(tours.ToList());
-        }
+        //public ActionResult QuanLyTour()
+        //{
+        //    //var tours = db.Tours.Include(t => t.Schedule).Include(t => t.TourType);
+        //    //var tourstype = db.TourTypes.ToList();
+        //    var tours = db.Tours.ToList().OrderByDescending(s => s.IdTour);
+        //    return View(tours.ToList());
+        //}
 
         //Chi tiết loại tour
         public ActionResult TourTypeDetails(string id)
@@ -170,118 +171,118 @@ namespace Tourist_VietripInsum_2023.Controllers
         //    return View(tour);
         //}
 
-        public ActionResult CreateTours()
-        {
+        //public ActionResult CreateTours()
+        //{
             
-            return View();
-        }
+        //    return View();
+        //}
 
-        [HttpPost]
-        public ActionResult CreateTours(Tour tour)
-        {
+        //[HttpPost]
+        //public ActionResult CreateTours(Tour tour)
+        //{
 
-            Random rd = new Random();
-            var idtour = "T" + rd.Next(1, 1000);
-            tour.IdTour = idtour;
+        //    Random rd = new Random();
+        //    var idtour = "T" + rd.Next(1, 1000);
+        //    tour.IdTour = idtour;
 
            
-            db.Tours.Add(tour);
-            db.SaveChanges();
-            return RedirectToAction("QuanLyTour");
-        }
+        //    db.Tours.Add(tour);
+        //    db.SaveChanges();
+        //    return RedirectToAction("QuanLyTour");
+        //}
 
-        //Chi tiết tour
-        public ActionResult TourDetails(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tour tour = db.Tours.Where(s => s.IdTour == id).FirstOrDefault();
-            if (tour == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tour);
-        }
-        public ActionResult CreateSchedule(string id)
-        {
-            return View(db.Schedules.Where(s => s.IdSchedule == id).FirstOrDefault());
-        }
-        [HttpPost]
-        public ActionResult CreateSchedule(Schedule schedules, Tour tour, string id)
-        {
-            tour = db.Tours.Where(s => s.IdTour == id).FirstOrDefault();
+        ////Chi tiết tour
+        //public ActionResult TourDetails(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Tour tour = db.Tours.Where(s => s.IdTour == id).FirstOrDefault();
+        //    if (tour == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(tour);
+        //}
+        //public ActionResult CreateSchedule(string id)
+        //{
+        //    return View(db.Schedules.Where(s => s.IdSchedule == id).FirstOrDefault());
+        //}
+        //[HttpPost]
+        //public ActionResult CreateSchedule(Schedule schedules, Tour tour, string id)
+        //{
+        //    tour = db.Tours.Where(s => s.IdTour == id).FirstOrDefault();
 
-            Random rd = new Random();
-            var idschedule = "S" + rd.Next(1, 1000);
-            schedules.IdSchedule = idschedule;
+        //    Random rd = new Random();
+        //    var idschedule = "S" + rd.Next(1, 1000);
+        //    schedules.IdSchedule = idschedule;
 
-            var idtour = tour.IdTour;
+        //    var idtour = tour.IdTour;
 
 
-            db.Schedules.Add(schedules);
-            db.SaveChanges();
-            return RedirectToAction("QuanLyTour");
-        }
+        //    db.Schedules.Add(schedules);
+        //    db.SaveChanges();
+        //    return RedirectToAction("QuanLyTour");
+        //}
 
 
         //Sửa tour
-        public ActionResult EditTour(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tour tour = db.Tours.Find(id);
-            if (tour == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Id_detailTour = new SelectList(db.Schedules, "IdSchedule", "IdHotel", tour.Id_detailTour);
-            ViewBag.Id_TypeTour = new SelectList(db.TourTypes, "IdType", "TypeName", tour.Id_TypeTour);
-            return View(tour);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditTour([Bind(Include = "IdTour,Id_TypeTour,Id_detailTour,ImagerTour,Departure,ReturnDay,TimeTour,DeparturePlace,NumberAvailable,Price,DeadlineOrder")] Tour tour)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(tour).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.Id_detailTour = new SelectList(db.Schedules, "IdSchedule", "IdHotel", tour.Id_detailTour);
-            ViewBag.Id_TypeTour = new SelectList(db.TourTypes, "IdType", "TypeName", tour.Id_TypeTour);
-            return View(tour);
-        }
+        //public ActionResult EditTour(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Tour tour = db.Tours.Find(id);
+        //    if (tour == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.Id_detailTour = new SelectList(db.Schedules, "IdSchedule", "IdHotel", tour.Id_detailTour);
+        //    ViewBag.Id_TypeTour = new SelectList(db.TourTypes, "IdType", "TypeName", tour.Id_TypeTour);
+        //    return View(tour);
+        //}
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult EditTour([Bind(Include = "IdTour,Id_TypeTour,Id_detailTour,ImagerTour,Departure,ReturnDay,TimeTour,DeparturePlace,NumberAvailable,Price,DeadlineOrder")] Tour tour)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(tour).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.Id_detailTour = new SelectList(db.Schedules, "IdSchedule", "IdHotel", tour.Id_detailTour);
+        //    ViewBag.Id_TypeTour = new SelectList(db.TourTypes, "IdType", "TypeName", tour.Id_TypeTour);
+        //    return View(tour);
+        //}
 
-        //Xóa tour
-        public ActionResult DeleteTour(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tour tour = db.Tours.Find(id);
-            if (tour == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tour);
-        }
+        ////Xóa tour
+        //public ActionResult DeleteTour(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Tour tour = db.Tours.Find(id);
+        //    if (tour == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(tour);
+        //}
 
-        // POST: Tours/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            Tour tour = db.Tours.Find(id);
-            db.Tours.Remove(tour);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: Tours/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(string id)
+        //{
+        //    Tour tour = db.Tours.Find(id);
+        //    db.Tours.Remove(tour);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

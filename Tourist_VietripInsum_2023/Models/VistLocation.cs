@@ -17,7 +17,7 @@ namespace Tourist_VietripInsum_2023.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public VistLocation()
         {
-            this.DetailSchedules = new HashSet<DetailSchedule>();
+            this.DetailTours = new HashSet<DetailTour>();
         }
     
         public string IdVistLocat { get; set; }
@@ -27,6 +27,6 @@ namespace Tourist_VietripInsum_2023.Models
         public string Loca_address { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetailSchedule> DetailSchedules { get; set; }
+        public virtual ICollection<DetailTour> DetailTours { get; set; }
     }
 }

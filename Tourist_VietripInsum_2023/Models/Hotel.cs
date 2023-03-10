@@ -17,7 +17,7 @@ namespace Tourist_VietripInsum_2023.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Hotel()
         {
-            this.Schedules = new HashSet<Schedule>();
+            this.DetailTours = new HashSet<DetailTour>();
         }
     
         public string IdHotel { get; set; }
@@ -27,6 +27,6 @@ namespace Tourist_VietripInsum_2023.Models
         public string ImgHotel { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Schedule> Schedules { get; set; }
+        public virtual ICollection<DetailTour> DetailTours { get; set; }
     }
 }

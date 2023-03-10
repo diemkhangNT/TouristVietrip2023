@@ -12,13 +12,20 @@ namespace Tourist_VietripInsum_2023.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DetailSchedule
+    public partial class DetailTour
     {
-        public int stt { get; set; }
-        public string idSchedule { get; set; }
-        public string idVitsLocal { get; set; }
+        public string IdDetailTour { get; set; }
+        public string IdTour { get; set; }
+        public string IdHotel { get; set; }
+        public string Describe { get; set; }
+        public string IdVistLocat { get; set; }
+        public string IdTrans { get; set; }
+        public string Image { get; set; }
+        public string InfoConcentrate { get; set; }
     
-        public virtual Schedule Schedule { get; set; }
+        public virtual Tour Tour { get; set; }
+        public virtual Transport Transport { get; set; }
         public virtual VistLocation VistLocation { get; set; }
+        public virtual Hotel Hotel { get; set; }
     }
 }
