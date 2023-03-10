@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Tourist_VietripInsum_2023.App_Start;
 using Tourist_VietripInsum_2023.Models;
 
@@ -185,14 +186,47 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             return View();
         }
+
+        //public JsonResult AddHotel(Hotel hotel,string cityaddress,string districtaddress,string staddress,string namehotel, string id,int leveltour)
+        //{
+
+        //        Random rd = new Random();
+        //        var idHotel = "H" + rd.Next(1, 1000);
+        //        hotel.IdHotel = idHotel;
+        //        hotel.NameHotel = namehotel;
+        //        hotel.LevelHotel = leveltour;
+        //        hotel.AddressHotel = staddress + ", " + districtaddress + ", " + cityaddress;
+
+        //        db.Hotels.Add(hotel);
+        //        db.SaveChanges();
+
+        //    return new JsonResult("save");
+
+
+
+
+        //}
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateHotel([Bind(Include = "IdHotel,LevelHotel,NameHotel,AddressHotel,ImgHotel")] Hotel hotel)
+        public ActionResult CreateHotel(Hotel hotel, string cityaddress, string districtaddress, string staddress, int levelht)
         {
-            if (ModelState.IsValid)
-            {
+           if(hotel!=null)
+            { 
+                Random rd = new Random();
+                var idHotel = "H" + rd.Next(1, 1000);
+                hotel.IdHotel = idHotel;
+                hotel.LevelHotel = levelht;
+                
+              
+                hotel.AddressHotel = staddress + ", " + districtaddress + ", " + cityaddress;
+
                 db.Hotels.Add(hotel);
+                TempData["noti"] = "createhotel oke";
                 db.SaveChanges();
+                return RedirectToAction("HotelManager");
+            }
+            else
+            {
+                TempData["noti"] = "createhotel error";
                 return RedirectToAction("QuanLyTour");
             }
 
@@ -221,35 +255,42 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 db.Entry(hotel).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("QuanLyTour");
+                return RedirectToAction("HotelManager");
             }
             return View(hotel);
         }
 
         //Xóa khách sạn
-        public ActionResult DeleteHotel(string id)
+        [HttpPost]
+        public JsonResult DeleteHotel(string id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                Hotel hotel = db.Hotels.Where(s => s.IdHotel == id).FirstOrDefault();
+                db.Hotels.Remove(hotel);
+                TempData["messageAlert"] = "Đã xóa staff";
+                db.SaveChanges();
+                return Json("Delete");
             }
-            Hotel hotel = db.Hotels.Find(id);
-            if (hotel == null)
+            catch
             {
-                return HttpNotFound();
+                return Json("Error");
             }
-            return View(hotel);
+
         }
-        // POST: Hotels/Delete/5
-        [HttpPost, ActionName("DeleteHotel")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteHotelConfirmed(string id)
-        {
-            Hotel hotel = db.Hotels.Find(id);
-            db.Hotels.Remove(hotel);
-            db.SaveChanges();
-            return RedirectToAction("QuanLyTour");
-        }
+        
+            
+        
+        //// POST: Hotels/Delete/5
+        //[HttpPost, ActionName("DeleteHotel")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteHotelConfirmed(string id)
+        //{
+        //    Hotel hotel = db.Hotels.Find(id);
+        //    db.Hotels.Remove(hotel);
+        //    db.SaveChanges();
+        //    return RedirectToAction("QuanLyTour");
+        //}
 
         //Chi tiết địa điểm tham quan
         public ActionResult VistLocationsDetails(string id)
@@ -327,36 +368,14 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
 
      //Hotel
-     //public ActionResult HotelManager(string id)
-     //   {
-     //       var ht = db.Hotels.ToList().OrderByDescending(s => s.IdHotel);
-     //       return View(ht.ToList());
-     //   }
-     //   public ActionResult CreateHotel(string id)
-     //   {
-     //       return View();
-     //   }
-     //   [HttpPost]
-     //   public ActionResult CreateHotel(Hotel hotel,HttpPostedFileBase Image )
-     //   {
-     //       //LuuAnh(detail, Image);
-     //       Random rd = new Random();
-     //       var idhotel = "H" + rd.Next(1, 1000);
-     //       hotel.IdHotel = idhotel;
-
-            
+     public ActionResult HotelManager(string id)
+        {
+            var ht = db.Hotels.ToList().OrderByDescending(s => s.IdHotel);
+            return View(ht.ToList());
+        }
 
 
-
-
-     //       db.Hotels.Add(hotel);
-     //       db.SaveChanges();
-     //       return RedirectToAction("QuanLyTour");
-     //   }
-        //public ActionResult EditHotel(string id)
-        //{
-        //    return View();
-        //}
+     
         public ActionResult DeleteManager(string id)
         {
             return View();
@@ -416,31 +435,19 @@ namespace Tourist_VietripInsum_2023.Controllers
         [HttpPost]
         public ActionResult CreateTours(Tour tour,HttpPostedFileBase ImagerTour)
         {
-            if(tour==null)
+            if (!ModelState.IsValid)
             {
-                TempData["noti"] = "thieu";
-                return RedirectToAction("QuanLyTour");
-               
+                return View(tour);
             }
-            else
-            {
-                LuuImage(tour, ImagerTour);
+            LuuImage(tour, ImagerTour);
                 Random rd = new Random();
                 var idtour = "Tour" + rd.Next(1, 1000);
                 tour.IdTour = idtour;
                 db.Tours.Add(tour);
                 db.SaveChanges();
                 return RedirectToAction("QuanLyTour");
-            }
-            return View(tour);
             
-
-
-
-
-
-
-
+           
         }
         //[HttpPost]
         //public ActionResult CreateTours(Tour tour)
@@ -487,19 +494,30 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
 
         //Xóa tour
-        public ActionResult DeleteTour(string id,Tour tour,DetailTour detailTour)
+        [HttpPost]
+        public JsonResult DeleteTour(string id)
         {
-            tour = db.Tours.Where(s => s.IdTour == id).FirstOrDefault();
-            detailTour = db.DetailTours.Where(s => s.IdTour == id).FirstOrDefault();
-            db.Tours.Remove(tour);
-            if(detailTour!=null)
+            try
             {
-                db.DetailTours.Remove(detailTour);
-            }    
-           
-            TempData["messageAlert"] = "";
-            db.SaveChanges();
-            return RedirectToAction("QuanLyTour");
+                Tour tour = db.Tours.Where(s => s.IdTour == id).FirstOrDefault();
+                DetailTour detailTour = db.DetailTours.Where(s => s.IdTour == id).FirstOrDefault();
+                db.Tours.Remove(tour);
+                if (detailTour != null)
+                {
+                    db.DetailTours.Remove(detailTour);
+                }
+
+                TempData["messageAlert"] = "";
+                db.SaveChanges();
+               
+                return Json("Delete");
+            }
+            catch
+            {
+                return Json("Error");
+            }
+
+            
         }
         //DetailTour
 
@@ -512,8 +530,9 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult CreateDetailTour(string id)
         {
-            ViewBag.IdHotel = new SelectList(db.Hotels, "IdHotel", "IdHotel");
-            ViewBag.IdTrans = new SelectList(db.Transports, "IdTrans", "IdTrans");
+            ViewBag.IdHotel = new SelectList(db.Hotels, "IdHotel", "NameHotel");
+            ViewBag.IdTrans = new SelectList(db.Transports, "IdTrans", "NameTrans");
+
             return View();
         }
         [HttpPost]
@@ -542,9 +561,17 @@ namespace Tourist_VietripInsum_2023.Controllers
         //public ActionResult CreateSchedule(Schedule schedules, Tour tour, string id)
         //{
         //    tour = db.Tours.Where(s => s.IdTour == id).FirstOrDefault();
+        public ActionResult CreateDetailTour(string id,DetailTour detailTour)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(detailTour);
+            }
+            Tour tour = db.Tours.Where(s => s.IdTour == id).FirstOrDefault();
 
             Random rd = new Random();
-            var idDetail = "DTOUR"+ rd.Next(1, 1000);
+            var idDetail = "DT" + rd.Next(1, 1000);
             detailTour.IdSchedule = idDetail;
             detailTour.IdTour = id;
         //    Random rd = new Random();
@@ -554,10 +581,14 @@ namespace Tourist_VietripInsum_2023.Controllers
             
         //    var idtour = tour.IdTour;
 
+            detailTour.Stt = 1;
 
             db.DetailTours.Add(detailTour);
             db.SaveChanges();
-            return RedirectToAction("QuanLyTour");
+            return RedirectToAction("ListDeTailTour", new RouteValueDictionary(
+                                   new { controller = "Tourmanager", action = "ListDetailTour", Id = id }));
+
+
         }
         //    db.Schedules.Add(schedules);
         //    db.SaveChanges();
@@ -575,7 +606,8 @@ namespace Tourist_VietripInsum_2023.Controllers
             db.Entry(dt).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             TempData["noti"] = "oke";
-            return RedirectToAction("QuanLyTour");
+            return RedirectToAction("ListDeTailTour", new RouteValueDictionary(
+                                   new { controller = "Tourmanager", action = "ListDetailTour", Id = id }));
         }
 
         //Sửa tour

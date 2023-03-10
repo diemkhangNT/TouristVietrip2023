@@ -1,0 +1,91 @@
+﻿@model Tourist_VietripInsum_2023.Models.DetailTour
+
+@{
+    ViewBag.Title = "DetailTourDetail";
+    Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+}
+
+<h2>DetailTourDetail</h2>
+
+<div>
+    <h4>DetailTour</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdSchedule)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdSchedule)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdHotel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdHotel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Describe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Describe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdVistLocat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdVistLocat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdTrans)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdTrans)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InfoConcentrate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InfoConcentrate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdTour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdTour)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
