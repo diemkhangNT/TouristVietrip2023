@@ -19,33 +19,43 @@
                 <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                     <h1 style="text-align: center; color: rgb(0, 28, 64);">
                         STAFF INFORMATION
-
                     </h1>
-                    <div class="staffinfo">
-                        <div class="staff-img">
-                          
-                            <img src="@Model.Avatar" class="rounded-circle" alt="Cinque Terre" width="100" height="100" style="margin-top:30px;">
-                        </div>
-                        <div class="staff-content">
-                            <h2 class="nameuser">@Html.DisplayFor(modelItem => Model.FullName)</h2>
-                            <p>
-                                <span>
-                                    <i class="fa fas-person-lines-fill"></i>
-                                    <strong>Id Staff: </strong> @Html.DisplayFor(modelItem => Model.IdStaff)
-                                </span>
-                                @{
-                                    var pos = db.Positions.Where(s => s.IdPos == Model.IdPos).FirstOrDefault();
+                    <div class="staffinfo row">
+                        <div class="staff-img col-md-4">
+                            @{ 
+                                var img = Model.Avatar;
+                                if (img == null) 
+                                { 
+                                    <img src="~/Content/Images/account.png" class="rounded-circle" alt="Cinque Terre" width="200" height="200" style="margin-top:30px;">
                                 }
-                                <span>
-                                    @Html.DisplayFor(modelItem => Model.IdPos) - @Html.DisplayFor(modelItem => pos.NamePos)
-                                </span>
+                                else
+                                {
+                                    <img src="@Model.Avatar" class="rounded-circle" alt="Cinque Terre" width="200" height="200" style="margin-top:30px;">
+                                }
+                            }
+                        </div>
+                        <div class="staff-content col-md-8">
+                            <p>
+                                <h4 style="display: flex;">@Html.DisplayFor(modelItem => Model.FullName)</h4>
+                                <div>
+                                    <span>
+                                        <strong>Id Staff: </strong> @Html.DisplayFor(modelItem => Model.IdStaff)
+                                    </span>
+                                    @{
+                                        var pos = db.Positions.Where(s => s.IdPos == Model.IdPos).FirstOrDefault();
+                                    }
+                                    <span>
+                                        @Html.DisplayFor(modelItem => Model.IdPos) - @Html.DisplayFor(modelItem => pos.NamePos)
+                                    </span>
+                                </div>
                             </p>
                             <p>
                                 <span>
                                     <strong>Gender:</strong> @Html.DisplayFor(modelItem => Model.Gender)
                                 </span>
                                 <span>
-                                    <strong>Birthday:</strong> @Html.DisplayFor(modelItem => Model.StaffBirthday)
+                                    @{ var birthday = string.Format("{0: dd-MM-yyyy}", Model.StaffBirthday);}
+                                    <strong>Birthday:</strong> @Html.DisplayFor(modelItem => birthday)
                                 </span>
                             </p>
                             <p>
@@ -55,38 +65,32 @@
                             </p>
                             <p>
                                 <span>
-                                    <strong>Username:</strong> @Html.DisplayFor(modelItem => Model.Username)
+                                    <strong>User Name:</strong> @Html.DisplayFor(modelItem => Model.Username)
                                 </span>
                             </p>
                             <p>
                                 <span>
-                                    <strong>Contact:</strong> @Html.DisplayFor(modelItem => Model.NumberPhone) - @Html.DisplayFor(modelItem => Model.StaffEmail)
+                                    <strong>Contact:</strong> @Html.DisplayFor(modelItem => Model.NumberPhone) 
+                                </span>
+                                <span>
+                                    <strong>Email: </strong> @Html.DisplayFor(modelItem => Model.StaffEmail)
                                 </span>
                             </p>
                             <p>
                                 <span>
-                                    <strong>Tinh trang:</strong>
+                                    <strong>Status:</strong>
                                 </span>
                             </p>
-
                         </div>
-
-
                     </div>
                 </div>
-
-
-
-                </div>
-
-
-
             </div>
-        <div class="row element-button" style="padding-left:10px">
+        </div>
+        <div class="row element-button" style="padding-left:10px; border: 0px;">
             <div class="col-sm-2">
-                <a class="btn btn-danger btn-sm " type="button" title="DeleteStaff" href="/Admin/DeleteStaff/@Model.IdStaff" >
+                <a class="btn btn-danger btn-sm " type="button" title="DeleteStaff" href="/Admin/DeleteStaff/@Model.IdStaff" onclick="showMessage">
                     Delete Account
-                    @*<script>
+                    <script>
                         function showMessage() {
                             swal({
                                 title: "Are you sure?",
@@ -98,7 +102,7 @@
                                 .then((willDelete) => {
                                     if (willDelete) {
                                         $.ajax({
-                                            url: "/Admin/DeleteStaff" +@Model.IdStaff;
+                                            @Url.Action("DeleteStaff","Admin")
                                         });
 
                                     } else {
@@ -106,7 +110,7 @@
                                     }
                                 });
                         }
-                    </script>*@
+                    </script>
                 </a>
             </div>
             <div class="col-sm-2">
@@ -115,16 +119,13 @@
                 </a>
             </div>
             <div class="col-sm-2">
-                <a class="btn btn-warning btn-sm " type="button" title="Back" href="/Admin/Staffmanager">
+                <a class="btn btn-warning btn-sm " type="button" title="Back" href="/Admin/ListOfStaff">
                     Back to list
                 </a>
             </div>
         </div>
     </div>
 </div>
-
-
-
 <script>
     //In dữ liệu
     var myApp = new function () {
@@ -136,14 +137,9 @@
             win.print();
         }
     }
-
     oTable = $('#sampleTable').dataTable();
     $('#all').click(function (e) {
         $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
         e.stopImmediatePropagation();
     });
-
-    
-    
-
-    </script>
+</script>

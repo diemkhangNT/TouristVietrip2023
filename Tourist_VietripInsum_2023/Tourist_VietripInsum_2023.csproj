@@ -202,6 +202,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\main-AD.css" />
     <Content Include="Content\style_profile.css" />
     <Content Include="Content\Images\account.png" />
     <Content Include="Content\Images\bg_login.jpg" />
@@ -214,6 +215,7 @@
     <Content Include="Content\styleLogin.css" />
     <Content Include="Content\style_contact.css" />
     <Content Include="Content\style_order.css" />
+    <Content Include="Content\tourmanager.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Forms\Order.html" />
@@ -269,16 +271,12 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\Tourmanager\CreateSchedule.cshtml" />
-    <Content Include="Views\Tourmanager\CreateTours.cshtml" />
     <Content Include="Views\Tourmanager\CreateTourType.cshtml" />
-    <Content Include="Views\Tourmanager\DeleteTour.cshtml" />
-    <Content Include="Views\Tourmanager\EditTour.cshtml" />
     <Content Include="Views\Tourmanager\EditTourType.cshtml" />
     <Content Include="Views\Tourmanager\HomePageTM.cshtml" />
     <Content Include="Views\Tourmanager\LayoutTM\_ViewTM.cshtml" />
     <Content Include="Views\Tourmanager\Profile.cshtml" />
     <Content Include="Views\Tourmanager\QuanLyTour.cshtml" />
-    <Content Include="Views\Tourmanager\TourDetails.cshtml" />
     <Content Include="Views\Tourmanager\TourTypeDetails.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -298,11 +296,23 @@
     <Content Include="Views\LoginStaff\Login.cshtml" />
     <Content Include="Views\Admin\AdminView.cshtml" />
     <Content Include="Views\Admin\HomePage.cshtml" />
-    <Content Include="Views\Admin\Staffmanager.cshtml" />
     <Content Include="Views\Admin\CreateStaff.cshtml" />
     <Content Include="Views\Admin\DetailStaff.cshtml" />
     <Content Include="Views\Admin\DeleteStaff.cshtml" />
     <Content Include="Views\Admin\EditStaff.cshtml" />
+    <Content Include="Views\OrderProcessing\HomePageOP.cshtml" />
+    <Content Include="Views\Staffs\Create.cshtml" />
+    <Content Include="Views\Staffs\Delete.cshtml" />
+    <Content Include="Views\Staffs\Edit.cshtml" />
+    <Content Include="Views\Staffs\Index.cshtml" />
+    <Content Include="Views\Tourmanager\CreateTours.cshtml" />
+    <Content Include="Views\Tourmanager\TourDetails.cshtml" />
+    <Content Include="Views\Tourmanager\CreateHotel.cshtml" />
+    <Content Include="Views\Tourmanager\HotelManager.cshtml" />
+    <Content Include="Views\Tourmanager\ListDetailTour.cshtml" />
+    <Content Include="Views\Tourmanager\EditTour.cshtml" />
+    <Content Include="Views\Tourmanager\CreateDetailTour.cshtml" />
+    <Content Include="Views\Tourmanager\EditDetailTour.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

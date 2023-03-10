@@ -15,19 +15,23 @@ namespace Tourist_VietripInsum_2023.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-
         TouristEntities1 db = new TouristEntities1();
-
 
         public ActionResult HomePage()
         {
             return View();
         }
 
-        public ActionResult Staffmanager()
+        public ActionResult ListOfStaff()
         {
-            var staff = db.Staffs.ToList().OrderByDescending(s => s.IdStaff);
-            return View(staff.ToList());
+            var listTourManagers = db.Staffs.ToList();
+            return View(listTourManagers);
+        }
+
+        public ActionResult ListOfCustomers()
+        {
+            var listCustomer = db.Customer_Guest.ToList();
+            return View(listCustomer);
         }
 
         public JsonResult CheckUsernameAvailability(string userdata)
@@ -107,7 +111,6 @@ namespace Tourist_VietripInsum_2023.Controllers
         [HttpPost]
         public ActionResult CreateStaff(Staff staff,HttpPostedFileBase Avatar,string id)
         {
-           
             LuuAnh(staff, Avatar);
             Random rd = new Random();
             var idstaff = "ST" + rd.Next(1, 1000);
@@ -116,18 +119,10 @@ namespace Tourist_VietripInsum_2023.Controllers
             var pas = "123456";
             staff.UserPassword = pas;
 
-     
             TempData["noti"] = "oke";
             db.Staffs.Add(staff);
             db.SaveChanges();
-            return RedirectToAction("Staffmanager");
-           
-
-
-
-
-
-            
+            return RedirectToAction("ListOfStaff");            
         }
         //[HttpPost]
         //public JsonResult CheckUsername(string username)
@@ -166,7 +161,6 @@ namespace Tourist_VietripInsum_2023.Controllers
         //    return flg;
         //}
 
-       
         public ActionResult DetailStaff(string id)
         {
             if (id == null)
@@ -192,20 +186,16 @@ namespace Tourist_VietripInsum_2023.Controllers
             db.Entry(nv).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             TempData["noti"] = "oke";
-            return RedirectToAction("Staffmanager");
+            return RedirectToAction("ListOfStaff");
         }
         
-       
         public ActionResult DeleteStaff(string id, Staff st)
         {
-           
-                st = db.Staffs.Where(s => s.IdStaff == id).FirstOrDefault();
-                db.Staffs.Remove(st);
-                TempData["messageAlert"] = "Đã xóa staff";             
-                db.SaveChanges();
-                return RedirectToAction("Staffmanager");
-
-           
+            st = db.Staffs.Where(s => s.IdStaff == id).FirstOrDefault();
+            db.Staffs.Remove(st);
+            TempData["messageAlert"] = "Đã xóa staff";
+            db.SaveChanges();
+            return RedirectToAction("ListOfStaff");
         }
     }
 }
