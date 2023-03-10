@@ -11,9 +11,7 @@ namespace Tourist_VietripInsum_2023.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
-
+    
     public partial class Staff
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,8 +22,6 @@ namespace Tourist_VietripInsum_2023.Models
     
         public string IdStaff { get; set; }
         public string IdPos { get; set; }
-
-       
         public string Username { get; set; }
         public string UserPassword { get; set; }
         public string FullName { get; set; }
