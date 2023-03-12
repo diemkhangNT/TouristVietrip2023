@@ -212,7 +212,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 hotel.AddressHotel = staddress + ", " + districtaddress + ", " + cityaddress;
 
                 db.Hotels.Add(hotel);
-            TempData["notihotel"] = "add";
+            TempData["noti"] = "add";
             db.SaveChanges();
                 return RedirectToAction("HotelManager");
           
@@ -238,7 +238,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             if (ModelState.IsValid)
             {
-                TempData["notihotel"] = "edit";
+                TempData["noti"] = "edit";
                 db.Entry(hotel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("HotelManager");
@@ -267,12 +267,12 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             if(count>0)
             {
-                TempData["notihotel"] = "delete-false";
+                TempData["noti"] = "delete-false";
                 return RedirectToAction("HotelManager");
             }
             else
             {
-                TempData["notihotel"] = "delete-true";
+                TempData["noti"] = "delete-true";
                 db.Hotels.Remove(ht);
                 db.SaveChanges();
                 return RedirectToAction("HotelManager");
@@ -295,6 +295,105 @@ namespace Tourist_VietripInsum_2023.Controllers
         //}
 
         //Chi tiết địa điểm tham quan
+
+        public ActionResult TransportManager()
+        {
+            var ts = db.Transports.ToList().OrderByDescending(s => s.IdTrans);
+            return View(ts.ToList());
+        }
+
+        public ActionResult CreateTrans()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateTrans(Transport trans)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(trans);
+            }
+            Random rd = new Random();
+            var idTrans = "T" + rd.Next(1, 1000);
+            trans.IdTrans = idTrans;
+
+            db.Transports.Add(trans);
+            TempData["noti"] = "addtrans";
+            db.SaveChanges();
+            return RedirectToAction("HotelManager");
+
+        }
+
+        public ActionResult EditTrans(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Transport transport = db.Transports.Find(id);
+            if (transport == null)
+            {
+                return HttpNotFound();
+            }
+            return View(transport);
+        }
+        [HttpPost]
+        
+        public ActionResult EditTrans(Transport transport)
+        {
+            if (ModelState.IsValid)
+            {
+                TempData["noti"] = "edittrans";
+                db.Entry(transport).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("HotelManager");
+            }
+            return View(transport);
+        }
+
+
+
+        public ActionResult DeleteTrans(string id, Transport trans)
+        {
+            trans = db.Transports.Where(s => s.IdTrans == id).FirstOrDefault();
+            var detail = db.DetailTours.ToList();
+            var count = 0;
+            for (int i = 0; i < detail.Count; i++)
+            {
+                if (trans.IdTrans == detail[i].IdTrans)
+                {
+                    count++;
+                }
+            }
+            if (count > 0)
+            {
+                TempData["noti"] = "deletetrans-false";
+                return RedirectToAction("HotelManager");
+            }
+            else
+            {
+                TempData["noti"] = "deletetrans-true";
+                db.Transports.Remove(trans);
+                db.SaveChanges();
+                return RedirectToAction("HotelManager");
+            }
+            return View(trans);
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         public ActionResult VistLocationsDetails(string id)
         {
             if (id == null)
@@ -314,6 +413,12 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             return View();
         }
+
+
+
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateVisitLocations([Bind(Include = "IdVistLocat,NameVist,ImageLocation,Des_Location,Loca_address")] VistLocation vistLocation)

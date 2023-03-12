@@ -320,6 +320,9 @@
     <Content Include="Views\Tourmanager\EditHotel.cshtml" />
     <Content Include="Views\Tourmanager\DetailTourDetail.cshtml" />
     <Content Include="Views\Tourmanager\DetailHotel.cshtml" />
+    <Content Include="Views\Tourmanager\TransportManager.cshtml" />
+    <Content Include="Views\Tourmanager\CreateTrans.cshtml" />
+    <Content Include="Views\Tourmanager\EditTrans.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,14 +1,17 @@
 ﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.Hotel>
+@using Tourist_VietripInsum_2023.Models
 
 @{
     ViewBag.Title = "HotelManager";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
     ViewBag.Name = "Hotel Manager";
     ViewBag.qlt = "active";
+    TouristEntities1 db = new TouristEntities1();
+    List<Transport> listTrans = db.Transports.ToList();
 }
 
 @{
-    var checkdata = TempData["notihotel"];
+    var checkdata = TempData["noti"];
     if (checkdata == "delete-false")
     {
         <script>
@@ -27,12 +30,37 @@
             swal("Good job!", "You have successfully edited the hotel information!", "success");
         </script>
     }
-    else if (checkdata=="add")
+    else if (checkdata == "add")
     {
         <script>
             swal("Good job!", "You have created hotel information!", "success");
         </script>
     }
+    else if (checkdata == "addtrans")
+    {
+        <script>
+            swal("Good job!", "You have created transport information!", "success");
+        </script>
+    }
+    else if (checkdata == "edittrans")
+    {
+        <script>
+            swal("Good job!", "You have successfully edited the transport information!", "success");
+        </script>
+    }
+    if (checkdata == "deletetrans-false")
+    {
+        <script>
+            swal("The transport is being used in the current tour!!!")
+        </script>
+    }
+    else if (checkdata == "deletetrans-true")
+    {
+        <script>
+            swal("Good job!", "You deleted the transport!", "success");
+        </script>
+    }
+
 }
 <div class="col-md-12">
     <div class="tile">
@@ -43,11 +71,11 @@
                     <a class="nav-link" href="/Tourmanager/QuanLyTour">Tour</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Hotel</a>
+                    <a class="nav-link active" aria-current="page" href="#">Hotel - Transport</a>
 
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Transport</a>
+                    <a class="nav-link" href="#">Location</a>
                 </li>
 
             </ul>
@@ -118,18 +146,18 @@
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
 
-                                                        Modal Header
+
                                                         <div class="modal-header">
                                                             <h3>!!!!</h3>
                                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                         </div>
 
-                                                        Modal body
+
                                                         <div class="modal-body">
                                                             Are you sure to delete the hotel ?!
                                                         </div>
 
-                                                        Modal footer
+
                                                         <div class="modal-footer">
                                                             <a type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</a>
                                                             <a type="button" class="btn btn-danger btn-sm" href="/Tourmanager/DeleteHotel/@item.IdHotel">Delete</a>
@@ -151,6 +179,105 @@
         </div>
     </div>
 </div>
+
+<div class="col-md-12">
+    <div class="tile">
+        <div class="tile-body">
+            <div class="row" style="padding:10px">
+                <div class="col-sm-2">
+                    <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTrans">
+                        Create new transport
+                    </a>
+                </div>
+            </div>
+
+            <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                            @*//Phần render từng dòng trong C#*@
+                            <thead style="background-color: #ffd43b;">
+                                <tr>
+
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Id Trans</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 100px;">Trans Name</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 100px;">Company</th>
+
+
+
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 50px;">Function</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @{
+                                    for (int i = 0; i < listTrans.Count; i++)
+                                    {
+
+                                        <tr>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => listTrans[i].IdTrans)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => listTrans[i].NameTrans)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => listTrans[i].TheFirm)
+                                            </td>
+                                            @{
+                                                var a = listTrans[i].IdTrans;
+                                            }
+                                            <td style="text-align:center">
+                                                <a href="/Tourmanager/EditTrans/@listTrans[i].IdTrans" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+
+                                                <a class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete" data-toggle="modal" data-target="#myModal">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                                <div class="modal" id="myModal">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+
+
+                                                            <div class="modal-header">
+                                                                <h3>!!!!</h3>
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            </div>
+
+
+                                                            <div class="modal-body">
+                                                                Are you sure to delete the transport ?!
+                                                            </div>
+
+
+                                                            <div class="modal-footer">
+                                                                <a type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</a>
+                                                                <a type="button" class="btn btn-danger btn-sm" href="/Tourmanager/DeleteTrans/@listTrans[i].IdTrans">Delete</a>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 
 
