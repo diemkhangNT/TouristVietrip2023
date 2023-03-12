@@ -204,6 +204,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\FormTour.css" />
     <Content Include="Content\imghidden.js" />
     <Content Include="Content\main-AD.css" />
     <Content Include="Content\style_profile.css" />
@@ -318,6 +319,7 @@
     <Content Include="Views\Tourmanager\EditDetailTour.cshtml" />
     <Content Include="Views\Tourmanager\EditHotel.cshtml" />
     <Content Include="Views\Tourmanager\DetailTourDetail.cshtml" />
+    <Content Include="Views\Tourmanager\DetailHotel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

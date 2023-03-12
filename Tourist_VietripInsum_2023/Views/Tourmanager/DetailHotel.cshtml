@@ -1,17 +1,26 @@
 ﻿@model Tourist_VietripInsum_2023.Models.Hotel
 
 @{
-    ViewBag.Title = "DeleteHotel";
+    ViewBag.Title = "DetailHotel";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+    ViewBag.Name = "Hotel Manager";
+    ViewBag.qlt = "active";
 }
 
-<h2>DeleteHotel</h2>
+<h2>DetailHotel</h2>
 
-<h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Hotel</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdHotel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdHotel)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.LevelHotel)
         </dt>
@@ -45,13 +54,11 @@
         </dd>
 
     </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "QuanLyTour")
-        </div>
-    }
 </div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+    <a type="button" class="btn-danger btn-sm"  >Delete</a>
+</p>
+

@@ -11,6 +11,7 @@
 <style>
     .info div{
         padding-top:10px;
+        padding-left:50px;
     }
 </style>
 <div class="tile">
@@ -20,19 +21,20 @@
 
         <div class="row element-button">
             <div class="col-sm-2">
-                <a class="btn btn-warning btn-sm " type="button" title="Back" href="/Tourmanager/ListDetailTour/@Model.IdTour">
+                <a class="btn btn-warning btn-sm " type="button" title="List Detail" href="/Tourmanager/ListDetailTour/@Model.IdTour">
                     Danh sách lịch trình
                 </a>
             </div>
             @*<div class="col-sm-2">
-                    <a class="btn btn-success btn-sm " type="button" title="Back" href="/Tourmanager/CreateDetailTour/@Model.IdTour">
-                        Thêm lịch trình
-                    </a>
-                </div>*@
+                <a class="btn btn-success btn-sm " type="button" title="Back" href="/Tourmanager/CreateDetailTour/@Model.IdTour">
+                    Thêm lịch trình
+                </a>
+            </div>*@
             <div class="col-sm-2">
-                <a class="btn btn-danger btn-sm " type="button" title="Back" onclick="checkdelete()">
+                <a class="btn btn-danger btn-sm" type="button" title="DeleteTour" data-toggle="modal" data-target="#myModal">
                     Xóa tour
                 </a>
+
             </div>
         </div>
 
@@ -40,12 +42,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-3 " style="text-align:center;padding-top:40px;">
-                    <img class="img-rounded" src="@Model.ImagerTour" width="200" height="150" />
+                    <img src="@Model.ImagerTour" width="250" height="180" />
                 </div>
                 <div class="info col-sm-9">
                     <h3>THÔNG TIN TOUR</h3>
-                    <div class="col-sm-4">
-                        <strong>Id Tour: </strong>@Html.DisplayFor(model => model.IdTour)
+                    <div class=" col-sm-4">
+                        <span id="idtourc">
+                            <strong>
+                                Name Tour:
+                            </strong>  @Html.DisplayFor(model => model.IdTour)
+
+                        </span>
                     </div>
                     <div class="col-sm-4">
                         <strong>Type Tour: </strong>@Html.DisplayFor(model => model.Id_TypeTour)
@@ -85,7 +92,7 @@
                         <table>
                             @*//Phần render từng dòng trong C#*@
                             <thead>
-                                <tr style="background-color:antiquewhite;">
+                                <tr style="background-color: #ffd43b;">
                                     <th>Vé người lớn</th>
                                     <th>Vé trẻ em</th>
 
@@ -116,45 +123,82 @@
                 @Html.ActionLink("Back to List", "QuanLyTour")
             </div>
         </div>
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h3>!!!!</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        Are you sure to delete the tour ?!
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <a type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</a>
+                        <a type="button" class="btn btn-danger btn-sm" href="/Tourmanager/DeleteTour/@Model.IdTour">Delete</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
+ 
+   
+
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
-    <script>
-        function checkdelete() {
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-             swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this imaginary file!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    $.ajax({
-                type: "POST",
-                url: "/Tourmanager/DeleteTour/@Model.IdTour",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    swal("Poof! Your profile has been deleted!", {
-                        icon: "success",
-                    }).then(function () {
-                        window.location.href = "/Tourmanager/QuanLyTour"
+
+
+
+
+    @*<script type="text/javascript">
+            function remove() {
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover your profile!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        debugger
+                        if (willDelete) {
+                            var idt = document.getElementById("idtourc").innerText;
+                            $.ajax({
+                                type: "POST",
+                                data: { id: idt },
+                                url: "/Tourmanager/DeleteTour" + idt,
+                                dataType: "json",
+
+                                success: function (response) {
+                                    swal("Poof! Your profile has been deleted!", {
+                                        icon: "success",
+                                    }).then(function () {
+                                        window.location.href = "/Tourmanager/QuanLyTour"
+                                    });
+
+                                },
+                                failure: function (response) {
+                                    alert("error")
+                                },
+                                error: function (response) {
+                                    alert("error")
+                                }
+                            });
+
+                            //alert("hahaha"+idt);
+                        }
+                        else {
+                            swal("Your profil is safe!");
+                        }
                     });
-
-                },
-                failure: function (response) {
-                    window.location.href = "/Tourmanager/QuanLyTour"
-                },
-                error: function (response) {
-                    alert("BUG");
-                }
-            });
-                } else {
-                    swal("Your imaginary file is safe!");
-                }
-            });
             }
-
-    </script>
+        </script>*@

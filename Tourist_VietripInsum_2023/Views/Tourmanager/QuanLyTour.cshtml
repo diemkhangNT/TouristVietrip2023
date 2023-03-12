@@ -3,12 +3,12 @@
 @{
     ViewBag.Title = "Tour manager";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
-    ViewBag.Name = "Hotel Manager";
+    ViewBag.Name = "Tour Manager";
     ViewBag.qlt = "active";
     TouristEntities1 db = new TouristEntities1();
     List<Tour> t = db.Tours.ToList();
 }
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @{
     var checkMessage = TempData["noti"];
     if (checkMessage == "thieu")
@@ -22,6 +22,12 @@
             });
         </script>
     }
+    else if(checkMessage=="oke")
+            {
+        <script>
+            swal("Good job!", "You clicked the button!", "success");
+        </script>
+            }
 }
 <div class="row">
     <div class="col-md-12">
@@ -53,7 +59,7 @@
                         <div class="col-sm-12">
                             <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
                                 @*//Phần render từng dòng trong C#*@
-                                <thead style="background-color:antiquewhite;">
+                                <thead style="background-color: #ffd43b;">
                                     <tr>
 
                                         <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">IdTour</th>
@@ -112,10 +118,10 @@
                                                 <a href="/Tourmanager/TourDetails/@item.IdTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
                                                     <i class="fas fa-train"></i>
                                                 </a>
-                                                @*<a href="#" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                        <i class="fas fa-trash"></i>
-                                                    </a>*@
-
+                                                @*<a href="/Tourmanager/DeleteTour/@item.IdTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                <i class="fas fa-trash"></i>
+                                            </a*@
+                                            
                                             </td>
                                         </tr>
                                     }
@@ -125,6 +131,9 @@
                     </div>
                 </div>
             </div>
+
+        
+        </div>
         </div>
     </div>
-</div>
+

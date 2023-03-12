@@ -11,7 +11,8 @@ namespace Tourist_VietripInsum_2023.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Hotel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,6 +23,7 @@ namespace Tourist_VietripInsum_2023.Models
     
         public string IdHotel { get; set; }
         public Nullable<int> LevelHotel { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter data")]
         public string NameHotel { get; set; }
         public string AddressHotel { get; set; }
         public string ImgHotel { get; set; }

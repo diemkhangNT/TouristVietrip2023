@@ -8,28 +8,29 @@
 }
 
 @{
-    var checkdata = TempData["noti"];
-    if (checkdata == "createhotel error")
+    var checkdata = TempData["notihotel"];
+    if (checkdata == "delete-false")
     {
         <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong!',
-                footer: '<a href="">Why do I have this issue?</a>'
-            })
+            swal("The hotel is being used in the current tour!!!")
         </script>
     }
-    else
+    else if (checkdata == "delete-true")
     {
         <script>
-            Swal.fire({
-                
-                icon: 'success',
-                title: 'Your work has been saved',
-                showConfirmButton: false,
-                timer: 1500
-            })
+            swal("Good job!", "You deleted the hotel!", "success");
+        </script>
+    }
+    else if (checkdata == "edit")
+    {
+        <script>
+            swal("Good job!", "You have successfully edited the hotel information!", "success");
+        </script>
+    }
+    else if (checkdata=="add")
+    {
+        <script>
+            swal("Good job!", "You have created hotel information!", "success");
         </script>
     }
 }
@@ -102,33 +103,41 @@
                                             @Html.DisplayFor(modelItem => item.AddressHotel)
                                         </td>
 
-
+                                        @{
+                                            var a = item.IdHotel;
+                                        }
                                         <td style="text-align:center">
                                             <a href="/Tourmanager/EditHotel/@item.IdHotel" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
 
-                                            <a class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete" onclick="check()">
+                                            <a class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete" data-toggle="modal" data-target="#myModal">
                                                 <i class="fas fa-trash"></i>
                                             </a>
-                                            <script>
-                                                function check() {
-                                                    swal({
-                                                        title: "Are you sure?",
-                                                        text: "Once deleted, you will not be able to recover this imaginary file!",
-                                                        icon: "warning",
-                                                        buttons: true,
-                                                        dangerMode: true,
-                                                    })
-                                                        .then((willDelete) => {
-                                                            if (willDelete) {
-                                                                url: "/Tourmanager/DeleteHotel/@item.IdHotel";
-                                                            } else {
-                                                                swal("Your imaginary file is safe!");
-                                                            }
-                                                        });
-                                                }
-                                            </script>
+                                            <div class="modal" id="myModal">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+
+                                                        Modal Header
+                                                        <div class="modal-header">
+                                                            <h3>!!!!</h3>
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+
+                                                        Modal body
+                                                        <div class="modal-body">
+                                                            Are you sure to delete the hotel ?!
+                                                        </div>
+
+                                                        Modal footer
+                                                        <div class="modal-footer">
+                                                            <a type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</a>
+                                                            <a type="button" class="btn btn-danger btn-sm" href="/Tourmanager/DeleteHotel/@item.IdHotel">Delete</a>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
 
 
                                         </td>

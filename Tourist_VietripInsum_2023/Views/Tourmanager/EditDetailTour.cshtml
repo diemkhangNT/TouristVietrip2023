@@ -6,11 +6,104 @@
     ViewBag.Name = "Edit Detail Tour";
     ViewBag.qlt = "active";
 }
-
 <div class="tile">
-    @*<h5 class="tile-title">THÔNG TIN TOUR</h5>*@
+    <h3 class="tile-title">THÔNG TIN TOUR</h3>
 
     <div class="tile-body">
+
+        <form method="post" enctype="multipart/form-data" action="~/Tourmanager/EditDetailTour">
+
+            <div class="container">
+                <div class="row">
+
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.IdSchedule)
+                    @Html.HiddenFor(model => model.IdTour)
+                    <div class="col-sm-8">
+                        <div class="form-group col-sm-4">
+                            <strong>STT</strong>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Stt, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Stt, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <strong>Chọn phương tiện</strong>
+                            <div class="col-md-12">
+
+                                @Html.DropDownList("IdTrans", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IdTrans, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <strong>Địa điểm</strong>
+                            <div class="col-md-12">
+                                @Html.DropDownList("IdVistLocat", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IdVistLocat, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <strong>Chọn khách sạn</strong>
+                            <div class="col-md-12">
+                                @Html.DropDownList("IdHotel", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IdHotel, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <strong>Địa điểm tập trung:</strong>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.InfoConcentrate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.InfoConcentrate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <strong>Mô tả</strong>
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(model => model.Describe, new { @class = "form-control content-editor" })
+                                @Html.ValidationMessageFor(model => model.Describe, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-sm-12" style="padding-bottom:20px;">
+                    <label class="control-label">Chọn hình ảnh</label>
+                    @Html.TextBox("Imager", "", new { type = "file" })
+                    <br />
+                    <img id="preview" src="#" width="80%" height="200" style="visibility:hidden" />
+                    <br />
+                </div>
+
+            </div>
+
+           
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-success btn-sm" />
+                    </div>
+                </div>
+            
+        </form>
+
+
+    </div>
+    <div>
+        @Html.ActionLink("Back to List", "ListDeTailTour", new RouteValueDictionary(
+                        new { controller = "Tourmanager", action = "ListDetailTour", Id = Model.IdTour }))
+    </div>
+</div>
+
+
+<!--<div class="tile">-->
+    @*<h5 class="tile-title">THÔNG TIN TOUR</h5>*@
+
+    <!--<div class="tile-body">
 
         @using (Html.BeginForm())
         {
@@ -71,11 +164,7 @@
 
 
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-success btn-sm" />
-                    </div>
-                </div>
+                
             </div>
         }
 
@@ -84,4 +173,13 @@
                             new { controller = "Tourmanager", action = "ListDetailTour", Id = Model.IdTour }))
         </div>
     </div>
-</div>
+</div>-->
+<script>
+    Imager.onchange = evt => {
+        const [file] = Imager.files
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            document.getElementById("preview").style.visibility = "visible";
+        }
+    }
+</script>
