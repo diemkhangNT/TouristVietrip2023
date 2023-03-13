@@ -1,0 +1,158 @@
+﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.Transport>
+
+@{
+    ViewBag.Title = "TransportManager";
+    Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+    ViewBag.Name = "Transport Manager";
+    ViewBag.qlt = "active";
+}
+
+@*@{
+    var checkdata = TempData["notihotel"];
+    if (checkdata == "delete-false")
+    {
+        <script>
+            swal("The hotel is being used in the current tour!!!")
+        </script>
+    }
+    else if (checkdata == "delete-true")
+    {
+        <script>
+            swal("Good job!", "You deleted the hotel!", "success");
+        </script>
+    }
+    else if (checkdata == "edit")
+    {
+        <script>
+            swal("Good job!", "You have successfully edited the hotel information!", "success");
+        </script>
+    }
+    else if (checkdata=="add")
+    {
+        <script>
+            swal("Good job!", "You have created hotel information!", "success");
+        </script>
+    }
+}*@
+<div class="col-md-12">
+    <div class="tile">
+        <div class="tile-body">
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="/Tourmanager/QuanLyTour">Tour</a>
+                </li>
+                <li class="nav-item">
+
+                    <a class="nav-link" href="/Tourmanager/HotelManager">Hotel</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Transport</a>
+                    
+                </li>
+
+            </ul>
+
+            <div class="row" style="padding:10px">
+                <div class="col-sm-2">
+                    <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateHotel">
+                        Create transport
+                    </a>
+                </div>
+            </div>
+
+
+
+
+            <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                            @*//Phần render từng dòng trong C#*@
+                            <thead style="background-color: #ffd43b;">
+                                <tr>
+
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Id Hotel</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 100px;">Hotel Name</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Level</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 80px;">Address</th>
+
+
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 50px;">Function</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+
+                                    <tr>
+
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IdHotel)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NameHotel)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.LevelHotel)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AddressHotel)
+                                        </td>
+
+                                        @{
+                                            var a = item.IdHotel;
+                                        }
+                                        <td style="text-align:center">
+                                            <a href="/Tourmanager/EditHotel/@item.IdHotel" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+
+                                            <a class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete" data-toggle="modal" data-target="#myModal">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                            <div class="modal" id="myModal">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+
+                                                        Modal Header
+                                                        <div class="modal-header">
+                                                            <h3>!!!!</h3>
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+
+                                                        Modal body
+                                                        <div class="modal-body">
+                                                            Are you sure to delete the hotel ?!
+                                                        </div>
+
+                                                        Modal footer
+                                                        <div class="modal-footer">
+                                                            <a type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</a>
+                                                            <a type="button" class="btn btn-danger btn-sm" href="/Tourmanager/DeleteHotel/@item.IdHotel">Delete</a>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -197,30 +197,25 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         //}
         [HttpPost]
-        public ActionResult CreateHotel(Hotel hotel, string cityaddress, string districtaddress, string staddress, int levelht)
+        public ActionResult CreateHotel(Hotel hotel, string cityaddress, string districtaddress, string staddress)
         {
-            if (hotel != null)
+            if (!ModelState.IsValid)
             {
-                Random rd = new Random();
+                return View(hotel);
+            }
+            Random rd = new Random();
                 var idHotel = "H" + rd.Next(1, 1000);
                 hotel.IdHotel = idHotel;
-                hotel.LevelHotel = levelht;
-
-
+               
+                
+              
                 hotel.AddressHotel = staddress + ", " + districtaddress + ", " + cityaddress;
 
                 db.Hotels.Add(hotel);
-                TempData["noti"] = "createhotel oke";
-                db.SaveChanges();
+            TempData["noti"] = "add";
+            db.SaveChanges();
                 return RedirectToAction("HotelManager");
-            }
-            else
-            {
-                TempData["noti"] = "createhotel error";
-                return RedirectToAction("QuanLyTour");
-            }
-
-            return View(hotel);
+          
         }
 
         //Sửa hotel
@@ -243,6 +238,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             if (ModelState.IsValid)
             {
+                TempData["noti"] = "edit";
                 db.Entry(hotel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("HotelManager");
@@ -251,24 +247,40 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
 
         //Xóa khách sạn
-        [HttpPost]
-        public JsonResult DeleteHotel(string id)
+       public ActionResult DetailHotel (string id)
         {
-            try
-            {
-                Hotel hotel = db.Hotels.Where(s => s.IdHotel == id).FirstOrDefault();
-                db.Hotels.Remove(hotel);
-                TempData["messageAlert"] = "Đã xóa staff";
-                db.SaveChanges();
-                return Json("Delete");
-            }
-            catch
-            {
-                return Json("Error");
-            }
-
+            return View(db.Hotels.Where(s => s.IdHotel == id).FirstOrDefault());
         }
 
+
+        public ActionResult DeleteHotel(string id, Hotel ht)
+        {
+            ht = db.Hotels.Where(s => s.IdHotel == id).FirstOrDefault();
+            var detail = db.DetailTours.ToList();
+            var count = 0;
+            for (int i = 0; i < detail.Count; i++)
+            {
+                if (ht.IdHotel == detail[i].IdHotel)
+                {
+                    count++;
+                }
+            }
+            if(count>0)
+            {
+                TempData["noti"] = "delete-false";
+                return RedirectToAction("HotelManager");
+            }
+            else
+            {
+                TempData["noti"] = "delete-true";
+                db.Hotels.Remove(ht);
+                db.SaveChanges();
+                return RedirectToAction("HotelManager");
+            }
+            return View(ht);
+            
+
+        }
 
 
         //// POST: Hotels/Delete/5
@@ -283,6 +295,105 @@ namespace Tourist_VietripInsum_2023.Controllers
         //}
 
         //Chi tiết địa điểm tham quan
+
+        public ActionResult TransportManager()
+        {
+            var ts = db.Transports.ToList().OrderByDescending(s => s.IdTrans);
+            return View(ts.ToList());
+        }
+
+        public ActionResult CreateTrans()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateTrans(Transport trans)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(trans);
+            }
+            Random rd = new Random();
+            var idTrans = "T" + rd.Next(1, 1000);
+            trans.IdTrans = idTrans;
+
+            db.Transports.Add(trans);
+            TempData["noti"] = "addtrans";
+            db.SaveChanges();
+            return RedirectToAction("HotelManager");
+
+        }
+
+        public ActionResult EditTrans(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Transport transport = db.Transports.Find(id);
+            if (transport == null)
+            {
+                return HttpNotFound();
+            }
+            return View(transport);
+        }
+        [HttpPost]
+        
+        public ActionResult EditTrans(Transport transport)
+        {
+            if (ModelState.IsValid)
+            {
+                TempData["noti"] = "edittrans";
+                db.Entry(transport).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("HotelManager");
+            }
+            return View(transport);
+        }
+
+
+
+        public ActionResult DeleteTrans(string id, Transport trans)
+        {
+            trans = db.Transports.Where(s => s.IdTrans == id).FirstOrDefault();
+            var detail = db.DetailTours.ToList();
+            var count = 0;
+            for (int i = 0; i < detail.Count; i++)
+            {
+                if (trans.IdTrans == detail[i].IdTrans)
+                {
+                    count++;
+                }
+            }
+            if (count > 0)
+            {
+                TempData["noti"] = "deletetrans-false";
+                return RedirectToAction("HotelManager");
+            }
+            else
+            {
+                TempData["noti"] = "deletetrans-true";
+                db.Transports.Remove(trans);
+                db.SaveChanges();
+                return RedirectToAction("HotelManager");
+            }
+            return View(trans);
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         public ActionResult VistLocationsDetails(string id)
         {
             if (id == null)
@@ -302,6 +413,12 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             return View();
         }
+
+
+
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateVisitLocations([Bind(Include = "IdVistLocat,NameVist,ImageLocation,Des_Location,Loca_address")] VistLocation vistLocation)
@@ -425,14 +542,15 @@ namespace Tourist_VietripInsum_2023.Controllers
                 return View(tour);
             }
             LuuImage(tour, ImagerTour);
-            Random rd = new Random();
-            var idtour = "Tour" + rd.Next(1, 1000);
-            tour.IdTour = idtour;
-            db.Tours.Add(tour);
-            db.SaveChanges();
+                Random rd = new Random();
+                var idtour = "Tour" + rd.Next(1, 1000);
+                tour.IdTour = idtour;
+                db.Tours.Add(tour);
+                db.SaveChanges();
+            TempData["noti"] = "oke";
             return RedirectToAction("QuanLyTour");
-
-
+            
+           
         }
 
         //Chi tiết tour
@@ -465,85 +583,176 @@ namespace Tourist_VietripInsum_2023.Controllers
             return RedirectToAction("QuanLyTour");
         }
 
-        //Xóa tour
-        [HttpPost]
-        public JsonResult DeleteTour(string id)
+        public ActionResult Demo()
         {
-            try
+            return View();
+        }
+        public ActionResult DeleteTour(string id, Tour tour)
+        {
+            tour = db.Tours.Where(s => s.IdTour == id).FirstOrDefault();
+            var detail = db.DetailTours.ToList();
+            for(int i=0;i<detail.Count;i++)
             {
-                Tour tour = db.Tours.Where(s => s.IdTour == id).FirstOrDefault();
-                DetailTour detailTour = db.DetailTours.Where(s => s.IdTour == id).FirstOrDefault();
-                db.Tours.Remove(tour);
-                if (detailTour != null)
+                if(tour.IdTour==detail[i].IdTour)
                 {
-                    db.DetailTours.Remove(detailTour);
-                }
-
-                TempData["messageAlert"] = "";
-                db.SaveChanges();
-
-                return Json("Delete");
-            }
-            catch
-            {
-                return Json("Error");
-            }
-
+                    db.DetailTours.Remove(detail[i]);
+                }    
+            }    
+            db.Tours.Remove(tour);
+            db.SaveChanges();
+            return RedirectToAction("QuanLyTour");
 
         }
+
+        //public JsonResult DeleteTour(string id)
+        //{
+
+        //    bool result;
+        //    Tour tour = db.Tours.Where(s => s.IdTour == id).FirstOrDefault();
+        //    DetailTour detailTour = db.DetailTours.Where(s => s.IdTour == id).FirstOrDefault();
+        //    if (tour != null)
+        //    {
+        //        db.Tours.Remove(tour);
+        //        if (detailTour != null)
+        //        {
+        //            db.DetailTours.Remove(detailTour);
+        //        }
+
+
+        //        db.SaveChanges();
+        //        result = true;
+        //    }
+        //    else
+        //    {
+        //        result = false;
+        //    }
+
+
+        //    return Json(result, JsonRequestBehavior.AllowGet);
+
+
+
+        //}
+
+        public void SaveImagerDetail(DetailTour dt, HttpPostedFileBase img)
+        {
+            #region Hình ảnh
+
+            if (img == null)
+            {
+                dt.Image = "/images/profile-user.png";
+            }
+            else
+            {
+                //Xác định đường dẫn lưu file : Url tương đói => tuyệt đói
+                var urlTuongdoi = "/images/";
+                var urlTuyetDoi = Server.MapPath(urlTuongdoi);// Lấy đường dẫn lưu file trên server
+
+                //Check trùng tên file => Đổi tên file  = tên file cũ (ko kèm đuôi)
+                //Ảnh.jpg = > ảnh + "-" + 1 + ".jpg" => ảnh-1.jpg
+
+                string fullDuongDan = urlTuyetDoi + img.FileName;
+
+
+                int i = 1;
+                while (System.IO.File.Exists(fullDuongDan) == true)
+                {
+                    // 1. Tách tên và đuôi 
+                    var ten = Path.GetFileNameWithoutExtension(img.FileName);
+                    var duoi = Path.GetExtension(img.FileName);
+                    // 2. Sử dụng biến i để chạy và cộng vào tên file mới
+                    fullDuongDan = urlTuyetDoi + ten + "-" + i + duoi;
+                    i++;
+                    // 3. Check lại 
+                }
+                #endregion
+                //Lưu file (Kiểm tra trùng file)
+                img.SaveAs(fullDuongDan);
+                dt.Image = urlTuongdoi + Path.GetFileName(fullDuongDan);
+
+
+
+            }
+          
+        }
+
         //DetailTour
 
         public ActionResult ListDetailTour(string id)
         {
-            var dt = db.DetailTours.Where(s => s.IdTour == id).ToList();
-            ViewBag.idt = id;
-            return View(dt);
+            Session["tempdata"] = id;
+            return View(db.DetailTours.Where(s => s.IdTour == id).ToList());
         }
 
         public ActionResult CreateDetailTour(string id)
         {
             ViewBag.IdHotel = new SelectList(db.Hotels, "IdHotel", "NameHotel");
             ViewBag.IdTrans = new SelectList(db.Transports, "IdTrans", "NameTrans");
+            ViewBag.IdVistLocat = new SelectList(db.VistLocations, "IdVistLocat", "NameVist");
+            ViewBag.idtour = id;
 
             return View();
         }
         [HttpPost]
-        public ActionResult CreateDetailTour(string id, DetailTour detailTour)
+        public ActionResult CreateDetailTour(string id,DetailTour detailTour,HttpPostedFileBase Imager)
         {
 
             if (!ModelState.IsValid)
             {
                 return View(detailTour);
             }
+            SaveImagerDetail(detailTour, Imager);
             Tour tour = db.Tours.Where(s => s.IdTour == id).FirstOrDefault();
 
             Random rd = new Random();
             var idDetail = "DT" + rd.Next(1, 1000);
             detailTour.IdSchedule = idDetail;
-            detailTour.IdTour = id;
-            detailTour.Stt = 1;
 
+            detailTour.IdTour = (string)Session["tempdata"];
+            
+            var c= (string)Session["tempdata"]; 
             db.DetailTours.Add(detailTour);
             db.SaveChanges();
             return RedirectToAction("ListDeTailTour", new RouteValueDictionary(
-                                   new { controller = "Tourmanager", action = "ListDetailTour", Id = id }));
+                                   new { controller = "Tourmanager", action = "ListDetailTour", Id = c }));
 
 
         }
 
         public ActionResult EditDetailTour(string id)
         {
-            return View(db.DetailTours.Where(s => s.IdSchedule == id).FirstOrDefault());
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            DetailTour dt = db.DetailTours.Find(id);
+            if (dt == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.IdHotel = new SelectList(db.Hotels, "IdHotel", "NameHotel", dt.IdHotel);
+            ViewBag.IdTrans = new SelectList(db.Transports, "IdTrans", "NameTrans", dt.IdTrans);
+            ViewBag.IdVistLocat = new SelectList(db.VistLocations, "IdVistLocat", "NameVist", dt.IdVistLocat);
+            
+
+            return View(dt);
         }
         [HttpPost]
-        public ActionResult EditDetailTour(string id, HttpPostedFileBase ImagerTour, DetailTour dt)
+        public ActionResult EditDetailTour(string id, HttpPostedFileBase Imager, DetailTour dt)
         {
+            SaveImagerDetail(dt, Imager);
             //LuuImage(tour, ImagerTour);
             db.Entry(dt).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             TempData["noti"] = "oke";
+            ViewBag.IdHotel = new SelectList(db.Hotels, "IdHotel", "NameHotel",dt.IdHotel);
+            ViewBag.IdTrans = new SelectList(db.Transports, "IdTrans", "NameTrans",dt.IdTrans);
+            ViewBag.IdVistLocat = new SelectList(db.VistLocations, "IdVistLocat", "NameVist",dt.IdVistLocat);
+            
+
+            var c = (string)Session["tempdata"];
             return RedirectToAction("ListDeTailTour", new RouteValueDictionary(
-                                   new { controller = "Tourmanager", action = "ListDetailTour", Id = id }));
+                                   new { controller = "Tourmanager", action = "ListDetailTour", Id = c }));
         }
 
         public ActionResult DetailTourDetail(string id)
@@ -562,28 +771,23 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult DeleteDetailTour(string id, DetailTour dt)
         {
+            
             dt = db.DetailTours.Where(s => s.IdSchedule == id).FirstOrDefault();
             db.DetailTours.Remove(dt);
             TempData["messageAlert"] = "Đã xóa staff";
             db.SaveChanges();
-            return RedirectToAction("QuanLyTour");
+            var c = (string)Session["tempdata"];
+            return RedirectToAction("ListDeTailTour", new RouteValueDictionary(
+                                   new { controller = "Tourmanager", action = "ListDetailTour", Id = c }));
+
         }
 
 
 
 
 
-        // POST: Tours/Delete/5
-        [HttpPost, ActionName("DeleteTour")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteTourConfirmed(string id)
-        {
-            Tour tour = db.Tours.Find(id);
-            db.Tours.Remove(tour);
-            db.SaveChanges();
-            return RedirectToAction("QuanLyTour");
-        }
-
+        
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
