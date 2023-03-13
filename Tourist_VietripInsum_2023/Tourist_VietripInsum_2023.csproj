@@ -203,6 +203,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\imghidden.js" />
     <Content Include="Content\main-AD.css" />
+    <Content Include="Content\searchtour.css" />
     <Content Include="Content\style_profile.css" />
     <Content Include="Content\Images\account.png" />
     <Content Include="Content\Images\bg_login.jpg" />
@@ -256,6 +257,7 @@
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\pace.min.js" />
+    <Content Include="Scripts\searchtour.js" />
     <Content Include="Views\LoginStaff\ForgotPassword.cshtml" />
     <Content Include="Forms\Contact\Index.cshtml" />
     <Content Include="Forms\Login\Index.cshtml" />

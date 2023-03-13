@@ -23,6 +23,7 @@
         </script>
     }
 }
+<link href="~/Content/searchtour.css" rel="stylesheet" />
 <div class="row">
     <div class="col-md-12">
         <div class="tile">
@@ -42,14 +43,29 @@
                 </ul>
 
                 <div class="row" style="padding:10px">
-                    <div class="col-sm-2">
+                    <div class="col-md-2 col-sm-2">
                         <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTours">
                             Create Tour
                         </a>
                     </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-6 ">
+                        <div class="form-input pull-right">
+                            <i class="fas fa-search"></i>
+                            <input type="text"
+                                   id="filter"
+                                   placeholder="Search tour...." />
+                        </div>
+
+                        <div class="products" hidden>
+                            <div>
+                                <h3>Loading...</h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                    <div class="row">
+                    <div class="row" id="tourlist">
                         <div class="col-sm-12">
                             <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
                                 @*//Phần render từng dòng trong C#*@
@@ -128,3 +144,4 @@
         </div>
     </div>
 </div>
+<script src="~/Scripts/searchtour.js"></script>

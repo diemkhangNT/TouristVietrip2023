@@ -11,19 +11,15 @@ namespace Tourist_VietripInsum_2023.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class DetailTour
     {
         public string IdSchedule { get; set; }
         public string IdHotel { get; set; }
-        
         public string Describe { get; set; }
-        
         public string IdVistLocat { get; set; }
         public string IdTrans { get; set; }
         public string Image { get; set; }
-        
         public string InfoConcentrate { get; set; }
         public Nullable<int> Stt { get; set; }
         public string IdTour { get; set; }
