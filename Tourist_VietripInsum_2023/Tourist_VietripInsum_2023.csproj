@@ -135,6 +135,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginStaffController.cs" />
     <Compile Include="Controllers\TourmanagerController.cs" />
@@ -203,7 +204,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\FormTour.css" />
-    <Content Include="Content\imghidden.js" />
+    <Content Include="Content\Guest.css" />
+    <Content Include="Content\Guest.js" />
     <Content Include="Content\main-AD.css" />
     <Content Include="Content\ModalDialog.css" />
     <Content Include="Content\style_profile.css" />
@@ -412,6 +414,8 @@
     <Content Include="Views\Tourmanager\LocationManager.cshtml" />
     <Content Include="Views\Tourmanager\CreateVisitLocations.cshtml" />
     <Content Include="Views\Tourmanager\EditVisitLocations.cshtml" />
+    <Content Include="Views\Guest\ViewGuest\Guest.cshtml" />
+    <Content Include="Views\Guest\HomePageGuest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
