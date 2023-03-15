@@ -3,3 +3,8 @@
 .info{
     padding-top:200px;
 }
+.btn btn-backtolist{
+    background-color: burlywood;
+    color: white;
+    font-size: 30px;
+}

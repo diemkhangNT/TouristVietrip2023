@@ -25,17 +25,19 @@
                 </h3>
                 <div class="row rounded-lg d-block d-sm-flex">
                     <div class="col-lg-4 col-md-3 col-sm-12 profile-tab-nav border-right">
-                        <div class="p-4">
+                        <div class="p-4" style="margin-top:80px">
                             <div class="img text-center mb-3">
-                                <img style="width: 100px;height: 100px;border-radius: 50%" src="@Model.Avatar" alt="Image" class="shadow">
+                                <img style="width: 150px;height: 150px;border-radius: 50%" src="~/Content/Images/DiemKhang.jpg" alt="Image" class="shadow">
                             </div>
                             <h2 class="text-center">
                                 @{var user1 = (Tourist_VietripInsum_2023.Models.Staff)HttpContext.Current.Session["user"];
                                     @user1.FullName}
                             </h2>
                             <div class="nav flex-column nav-pills online" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <p>
-                                    <i class=' bx bxs-circle text-success'></i><span class="app-menu__label">Online</span>
+                                <p style="text-align:center">
+                                    <i class=' bx bxs-circle text-success'></i>
+                                    <br />
+                                    <span class="app-menu__label">Online</span>
                                 </p>
                             </div>
                             <br />
@@ -48,24 +50,24 @@
                     </div>
                     <div class="col-lg-8 col-md-9 col-sm-12 tab-content" id="v-pills-tabContent">
                         <div class="" id="account" role="tabpanel" aria-labelledby="account-tab">
-                            <h2 class="title_acc text-danger">General</h2>
+                            <h2 class="title_acc text-danger" style="font-size:40px">General</h2>
                             @{
                                 var user = (Tourist_VietripInsum_2023.Models.Staff)HttpContext.Current.Session["user"];
                                 <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group">
+                                    <div class="col-md-6">
+                                        <div class="form-group" style="margin-left:32px">
                                             <label>Position</label>
                                             <h2>@user.Position.NamePos</h2>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-6">
                                         <div class="form-group">
                                             <label>ID Staff</label>
                                             <h2>@user.IdStaff</h2>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group">
+                                        <div class="form-group" style="margin-left:32px">
                                             <label>Phone number</label>
                                             <h2>@user.NumberPhone</h2>
                                         </div>
@@ -77,7 +79,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group">
+                                        <div class="form-group" style="margin-left:32px">
                                             <label>Email</label>
                                             <h2>@user.StaffEmail</h2>
                                         </div>
@@ -89,7 +91,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group">
+                                        <div class="form-group" style="margin-left:32px">
                                             <label>Gender</label>
                                             <h2>@user.Gender</h2>
                                         </div>
@@ -97,12 +99,12 @@
                                 </div>
                                 <hr />
                             }
-                            <h2 class="title_acc text-danger">Login</h2>
+                            <h2 class="title_acc text-danger" style="font-size:40px">Acount</h2>
                             @{
                                 var user2 = (Tourist_VietripInsum_2023.Models.Staff)HttpContext.Current.Session["user"];
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group">
+                                        <div class="form-group" style="margin-left:32px">
                                             <label>Username</label>
                                             <h2>@user2.Username</h2>
 

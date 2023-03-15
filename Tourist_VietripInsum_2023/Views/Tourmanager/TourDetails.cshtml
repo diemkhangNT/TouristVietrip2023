@@ -12,6 +12,15 @@
     .info div{
         padding-top:10px;
     }
+    .btn-backtolist{
+        background-color: burlywood;
+        font-size: 10px;
+        color: white;
+    }
+    .container{
+        width: 100%;
+        margin: 0 0 0 0;
+    }
 </style>
 <div class="tile">
     @*<h5 class="tile-title">THÔNG TIN TOUR</h5>*@
@@ -29,8 +38,8 @@
                     Thêm lịch trình
                 </a>
             </div>*@
-            <div class="col-sm-2">
-                <a class="btn btn-danger btn-sm " type="button" title="Back" href="/Tourmanager/DeleteTour/@Model.IdTour">
+            <div class="col-sm-4">
+                <a class="btn btn-danger btn-sm " style ="text-align: center; margin-left: 500px" type="button" title="Back" href="/Tourmanager/DeleteTour/@Model.IdTour">
                     Xóa tour
                 </a>
             </div>
@@ -38,12 +47,12 @@
 
 
         <div class="container">
-            <div class="row">
-                <div class="col-sm-3 " style="text-align:center;padding-top:40px;">
-                    <img class="img-rounded" src="@Model.ImagerTour" width="200" height="150" />
+            <div class="row" style="width=100%">
+                <div class="col-sm-2" style="padding-top:40px;">
+                    <img class="img-rounded" src="~/Content/Images/bg_login.jpg" width="200" height="200" />
                 </div>
-                <div class="info col-sm-9" >
-                    <h3>THÔNG TIN TOUR</h3>
+                <div class="info col-sm-9" style="margin-left: 60px" >
+                    <h3 style="font-size: 30px; text-align: center">THÔNG TIN TOUR</h3>
                     <div class="col-sm-4">
                         <strong>Id Tour: </strong>@Html.DisplayFor(model => model.IdTour)
                     </div>
@@ -52,7 +61,8 @@
                     </div>
                     <div class="col-sm-4">
                     </div>
-                    <div class="col-sm-12">
+                    <br />
+                    <div class="col-sm-12" style="text-align: center; font-size : 20px; color:chocolate">
                         <strong>Tour Name: </strong>@Html.DisplayFor(model => model.TourName)
                     </div>
                     <div class="col-sm-4">
@@ -113,7 +123,9 @@
 
             </div>
             <div>
-                @Html.ActionLink("Back to List", "QuanLyTour")
+                <a class="btn btn-backtolist" type="button",  title="Back" href="/Tourmanager/ListDetailTour/@Model.IdTour">
+                   Back to List
+                </a>
             </div>
         </div>
     </div>
