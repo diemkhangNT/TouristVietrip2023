@@ -172,6 +172,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
 
         //Tạo khách sạn
+        [HttpGet]
         public ActionResult CreateHotel()
         {
             return View();
@@ -253,6 +254,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
 
 
+        [HttpPost]
         public ActionResult DeleteHotel(string id, Hotel ht)
         {
             ht = db.Hotels.Where(s => s.IdHotel == id).FirstOrDefault();
@@ -353,9 +355,10 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
 
 
-
-        public ActionResult DeleteTrans(string id, Transport trans)
+        [HttpPost]
+        public ActionResult DeleteTrans( string id, Transport trans)
         {
+            
             trans = db.Transports.Where(s => s.IdTrans == id).FirstOrDefault();
             var detail = db.DetailTours.ToList();
             var count = 0;
@@ -378,9 +381,15 @@ namespace Tourist_VietripInsum_2023.Controllers
                 db.SaveChanges();
                 return RedirectToAction("HotelManager");
             }
+           
             return View(trans);
 
 
+        }
+
+        public ActionResult DetailTrans(string id)
+        {
+            return View(db.Transports.Where(s => s.IdTrans == id).FirstOrDefault());
         }
 
 
@@ -389,9 +398,11 @@ namespace Tourist_VietripInsum_2023.Controllers
 
 
 
-
-
-
+        public ActionResult LocationManager()
+        {
+            var lc = db.VistLocations.ToList().OrderByDescending(s => s.IdVistLocat);
+            return View(lc.ToList());
+        }
 
 
         public ActionResult VistLocationsDetails(string id)
@@ -414,11 +425,6 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View();
         }
 
-
-
-
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateVisitLocations([Bind(Include = "IdVistLocat,NameVist,ImageLocation,Des_Location,Loca_address")] VistLocation vistLocation)
@@ -427,7 +433,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 db.VistLocations.Add(vistLocation);
                 db.SaveChanges();
-                return RedirectToAction("QuanLyTour");
+                return RedirectToAction("LocationManager");
             }
             return View(vistLocation);
         }
@@ -454,7 +460,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 db.Entry(vistLocation).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("QuanLyTour");
+                return RedirectToAction("LocationManager");
             }
             return View(vistLocation);
         }
@@ -474,6 +480,11 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(vistLocation);
         }
 
+
+
+
+
+
      //Hotel
      public ActionResult HotelManager(string id)
         {
@@ -490,6 +501,7 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         //tour
 
+        
         public ActionResult CreateTours()
         {
             return View();
@@ -696,7 +708,9 @@ namespace Tourist_VietripInsum_2023.Controllers
         [HttpPost]
         public ActionResult CreateDetailTour(string id,DetailTour detailTour,HttpPostedFileBase Imager)
         {
-
+            ViewBag.IdHotel = new SelectList(db.Hotels, "IdHotel", "NameHotel");
+            ViewBag.IdTrans = new SelectList(db.Transports, "IdTrans", "NameTrans");
+            ViewBag.IdVistLocat = new SelectList(db.VistLocations, "IdVistLocat", "NameVist");
             if (!ModelState.IsValid)
             {
                 return View(detailTour);
