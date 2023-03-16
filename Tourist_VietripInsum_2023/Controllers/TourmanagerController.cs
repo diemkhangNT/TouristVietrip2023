@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -68,9 +69,46 @@ namespace Tourist_VietripInsum_2023.Controllers
         //Trang hiển thị danh sách loại tour, hotel, tour
         public ActionResult QuanLyTour()
         {
-            var tours = db.Tours.ToList().OrderByDescending(s => s.IdTour);
-            return View(tours.ToList());
+            List<Tour> listTour = db.Tours.ToList();
+            //var tours = db.Tours.ToList().OrderByDescending(s => s.IdTour);
+            return View(listTour);
         }
+
+        //search view
+        [HttpPost]
+        public ActionResult QuanLyTour(string option, string search)
+        {
+
+            //if a user choose the radio button option as Subject  
+            if (option == "IDTour")
+            {
+                //Index action method will return a view with a student records based on what a user specify the value in textbox  
+                return View(db.Tours.Where(x => x.IdTour.StartsWith(search) || search == null).ToList());
+            }
+            else if (option == "Tourname")
+            {
+                return View(db.Tours.Where(x => x.TourName.StartsWith(search) || search == null).ToList());
+            }
+            else
+            {
+                return View(db.Tours.Where(x => x.Id_TypeTour.StartsWith(search) || search == null).ToList());
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //Chi tiết loại tour
         public ActionResult TourTypeDetails(string id)
@@ -811,6 +849,8 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             return View(staff);
         }
+
+
 
     }
 }
