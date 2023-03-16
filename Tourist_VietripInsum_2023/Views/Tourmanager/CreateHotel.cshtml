@@ -6,19 +6,15 @@
     ViewBag.Name = "Hotel Manager";
     ViewBag.qlt = "active";
 }
-<style>
-    .info div{
-        padding-bottom:5px;
-    }
-</style>
-<script src="~/Content/imghidden.js"></script>
+
+
 <div class="col-md-12">
     <div class="tile">
         <h4 class="tile-title"> CREATE NEW HOTEL</h4>
         <div class="tile-body">
 
 
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("CreateHotel","Tourmanager"))
             {
                 @Html.AntiForgeryToken()
                 <div class="container">
@@ -34,40 +30,44 @@
                             <img id="preview" src="#" width="220" height="200" style="visibility:hidden;" />
                             <br />
                         </div>*@
-                        <div class="info col-sm-12">
-                            @Html.HiddenFor(model => model.IdHotel)
-
-                            <div class="form-group col-sm-4">
-                                <strong>Level</strong>
-                                <div class="col-md-12">
-                                    <input class="form-control text-box single-line" data-val="true" data-val-date="The field must be a number." id="LevelHotel" name="LevelHotel" type="number" min="0" value="">
-                                    @Html.ValidationMessageFor(model => model.LevelHotel, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
+                        <div class="row">
                             <div class="form-group col-sm-8">
-                                <strong>Hotel Name</strong>
-                                <div class="col-md-12">
+                                @*<strong>Hotel Name</strong>
+                                    <div class="col-md-12">
                                     @Html.EditorFor(model => model.NameHotel, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.NameHotel, "", new { @class = "text-danger" })
-                                </div>
+                                     @Html.ValidationMessageFor(model => model.NameHotel, "", new { @class = "text-danger" })
+                                 </div>*@
+                                <label for="nameht">Hotel Name: </label>
+                                @Html.TextBox("NameHotel", null, new { @class = "form-control col-sm-12", @id = "nameht", required = "required" })
                             </div>
+                            @Html.HiddenFor(model => model.IdHotel)
+                            <div class="form-group col-sm-1"></div>
+                            <div class="form-group col-sm-3">
+                                <label for="levelht">Level </label>
+                                @Html.TextBox("LevelHotel", null, new { @class = "form-control col-sm-12", @id = "levelht", required = "required" })
+
+                                @*<input class="form-control text-box single-line" data-val="true" data-val-date="The field must be a number." id="LevelHotel" name="LevelHotel" type="number" min="0" value="">*@
+                                @*@Html.ValidationMessageFor(model => model.LevelHotel, "", new { @class = "text-danger" })*@
+
+                            </div>
+
                             <div class="form-group col-sm-4">
-                                <strong>City</strong>
+                                <label for="cityaddres">City </label>
                                 <div class="col-md-12">
-                                    <input type="text" id="cityaddress" name="cityaddress" class="form-control" />
+                                    <input type="text" id="cityaddress" name="cityaddress" class="form-control" required = "required"  />
                                 </div>
                             </div>
 
                             <div class="form-group col-sm-4">
-                                <strong>District </strong>
+                                <label for="districtaddress">District </label>
                                 <div class="col-md-12">
-                                    <input type="text" id="districtaddress" name="districtaddress" class="form-control" />
+                                    <input type="text" id="districtaddress" name="districtaddress" class="form-control" required = "required"  />
                                 </div>
                             </div>
                             <div class="form-group col-sm-4">
-                                <strong>Address </strong>
+                                <label for="staddress">Stadd </label>
                                 <div class="col-md-12">
-                                    <input type="text" id="staddress" name="staddress" class="form-control" />
+                                    <input type="text" id="staddress" name="staddress" class="form-control" required = "required"  />
                                 </div>
                             </div>
 

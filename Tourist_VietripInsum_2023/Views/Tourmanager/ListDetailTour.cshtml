@@ -14,7 +14,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="tile">
-            <h4 class="tile-title"> LIST DETAIL TOUR @ViewBag.idt</h4>
+            <h4 class="tile-title"> LIST DETAIL TOUR @Session["tempdata"] </h4>
             <div class="tile-body">
                 <div class="row">
                     <div class="col-sm-2">
@@ -117,7 +117,7 @@
                                 </tr>
 
 
-                                }
+                                        }
                             </tbody>
                         </table>
                     </div>
@@ -129,8 +129,11 @@
 </div>
 
 <div>
-    @Html.ActionLink("Back to Tour", "TourDetails", new RouteValueDictionary(
-                    new { controller = "Tourmanager", action = "TourDetails", Id = ViewBag.idt }))
+    <a class="btn btn-outline-danger btn-sm" href="~/Tourmanager/Tourdetails/@Session["tempdata"] "><i class="fas fa-retweet"> 
+        
+        
+        
+        Back to list tour</i></a>
 </div>
 
 
