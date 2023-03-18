@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.Customer_Guest>
+﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.KhachHang>
 
 @{
     ViewBag.Title = "ListOfCustomers";
@@ -23,17 +23,17 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.AvatarCus)
+                @Html.DisplayFor(modelItem => item.HinhDaiDien)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdCus)
+                @Html.DisplayFor(modelItem => item.MaKH)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Fullname)
+                @Html.DisplayFor(modelItem => item.HoTenKH)
             </td>
             
             <td>
-                @Html.DisplayFor(modelItem => item.TypeCu.NameTypeCus)
+                @Html.DisplayFor(modelItem => item.LoaiKH.TenLoaiKH)
             </td>
             <td>
 

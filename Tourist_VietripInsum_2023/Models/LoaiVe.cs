@@ -12,19 +12,19 @@ namespace Tourist_VietripInsum_2023.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TypeTicket
+    public partial class LoaiVe
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TypeTicket()
+        public LoaiVe()
         {
-            this.Tickets = new HashSet<Ticket>();
+            this.Ves = new HashSet<Ve>();
         }
     
-        public string IdTypeticket { get; set; }
-        public string NameTypeTicket { get; set; }
-        public Nullable<double> Discount { get; set; }
+        public string MaLoaiVe { get; set; }
+        public string TenLVe { get; set; }
+        public Nullable<double> ChietKhau { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ticket> Tickets { get; set; }
+        public virtual ICollection<Ve> Ves { get; set; }
     }
 }

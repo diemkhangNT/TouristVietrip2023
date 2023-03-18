@@ -25,19 +25,20 @@ namespace Tourist_VietripInsum_2023.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Customer_Guest> Customer_Guest { get; set; }
-        public virtual DbSet<DetailTour> DetailTours { get; set; }
+        public virtual DbSet<ChiTietTour> ChiTietTours { get; set; }
+        public virtual DbSet<ChucVu> ChucVus { get; set; }
+        public virtual DbSet<DiaDiemThamQuan> DiaDiemThamQuans { get; set; }
+        public virtual DbSet<DonHang> DonHangs { get; set; }
         public virtual DbSet<Hotel> Hotels { get; set; }
-        public virtual DbSet<OrderCu> OrderCus { get; set; }
-        public virtual DbSet<Position> Positions { get; set; }
-        public virtual DbSet<Staff> Staffs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<Ticket> Tickets { get; set; }
+        public virtual DbSet<KhachHang> KhachHangs { get; set; }
+        public virtual DbSet<LoaiKH> LoaiKHs { get; set; }
+        public virtual DbSet<LoaiTour> LoaiTours { get; set; }
+        public virtual DbSet<LoaiVe> LoaiVes { get; set; }
+        public virtual DbSet<NhanVien> NhanViens { get; set; }
+        public virtual DbSet<PhanHoi> PhanHois { get; set; }
+        public virtual DbSet<PhuongTien> PhuongTiens { get; set; }
+        public virtual DbSet<TinhThanh> TinhThanhs { get; set; }
         public virtual DbSet<Tour> Tours { get; set; }
-        public virtual DbSet<TourType> TourTypes { get; set; }
-        public virtual DbSet<Transport> Transports { get; set; }
-        public virtual DbSet<TypeCu> TypeCus { get; set; }
-        public virtual DbSet<TypeTicket> TypeTickets { get; set; }
-        public virtual DbSet<VistLocation> VistLocations { get; set; }
+        public virtual DbSet<Ve> Ves { get; set; }
     }
 }

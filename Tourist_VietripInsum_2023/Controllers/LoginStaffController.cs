@@ -22,8 +22,8 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             var tm = "TM"; var op = "OP"; var ad = "AD";
 
-            var data = database.Staffs.Where(s => s.Username== username && s.UserPassword == password).FirstOrDefault();
-            var taikhoan = database.Staffs.SingleOrDefault(s => s.Username == username && s.UserPassword == password);
+            var data = database.NhanViens.Where(s => s.Username == username && s.UserPassword == password).FirstOrDefault();
+            var taikhoan = database.NhanViens.SingleOrDefault(s => s.Username == username && s.UserPassword == password);
             if (taikhoan == null)
             {
                 TempData["error"] = "err";
@@ -34,7 +34,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 //add session
                 database.Configuration.ValidateOnSaveEnabled = false;
                 Session["user"] = taikhoan;
-                var user = data.IdPos.ToString();
+                var user = data.MaCV.ToString();
                 if (user == tm)
                 {
                     TempData["AlertMessage"] = "Login sucess";

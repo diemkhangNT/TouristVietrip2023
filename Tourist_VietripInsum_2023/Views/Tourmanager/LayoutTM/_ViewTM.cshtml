@@ -7,6 +7,7 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
     <!-- Main CSS-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!-- or -->
@@ -54,8 +55,8 @@
                 <p class="app-sidebar__user-name">
                     <b>
                         @{
-                            var user = (Tourist_VietripInsum_2023.Models.Staff)HttpContext.Current.Session["user"];
-                            @user.FullName}
+                            var user = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Current.Session["user"];
+                            @user.HoTen}
                     </b>
                 </p>
                 <p class="app-sidebar__user-designation">You are part of the company!</p>
@@ -91,7 +92,7 @@
                 </a>
             </li>
             <li>
-                <a class="app-menu__item  @ViewBag.prf" href="/Tourmanager/Profile/@user.IdStaff">
+                <a class="app-menu__item  @ViewBag.prf" href="/Tourmanager/Profile/@user.MaNV">
                     <i class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Profile</span>
                 </a>
             </li>
@@ -117,11 +118,11 @@
         <div>
             @RenderBody()
         </div>
-       
+       @RenderSection("script", false)
     </main>
     <!--dialog_message -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    
+    @*  *@
 
     <script type="text/javascript">
         //Thời Gian

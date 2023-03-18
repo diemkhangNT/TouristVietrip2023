@@ -12,28 +12,28 @@ namespace Tourist_VietripInsum_2023.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderCu
+    public partial class NhanVien
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OrderCu()
+        public NhanVien()
         {
-            this.Tickets = new HashSet<Ticket>();
+            this.DonHangs = new HashSet<DonHang>();
         }
     
-        public string IdOrder { get; set; }
-        public string IdCus { get; set; }
-        public string IdStaff { get; set; }
-        public string IdTour { get; set; }
-        public Nullable<System.DateTime> DateCreate { get; set; }
-        public string StatusOrder { get; set; }
-        public Nullable<decimal> TotalPrice { get; set; }
-        public Nullable<int> Quantity { get; set; }
-        public string NumberPhone_Cus { get; set; }
+        public string MaNV { get; set; }
+        public string MaCV { get; set; }
+        public string Username { get; set; }
+        public string UserPassword { get; set; }
+        public string HoTen { get; set; }
+        public string Sdt { get; set; }
+        public string DiaChi { get; set; }
+        public string Email { get; set; }
+        public Nullable<System.DateTime> NgaySinh { get; set; }
+        public string GioiTinh { get; set; }
+        public string HinhDaiDien { get; set; }
     
-        public virtual Customer_Guest Customer_Guest { get; set; }
-        public virtual Staff Staff { get; set; }
-        public virtual Tour Tour { get; set; }
+        public virtual ChucVu ChucVu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ticket> Tickets { get; set; }
+        public virtual ICollection<DonHang> DonHangs { get; set; }
     }
 }

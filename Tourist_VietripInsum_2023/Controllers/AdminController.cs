@@ -15,7 +15,9 @@ namespace Tourist_VietripInsum_2023.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
+
         TouristEntities1 db = new TouristEntities1();
+
 
         public ActionResult HomePage()
         {
@@ -24,20 +26,20 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult ListOfStaff()
         {
-            var listTourManagers = db.Staffs.ToList();
+            var listTourManagers = db.NhanViens.ToList();
             return View(listTourManagers);
         }
 
         public ActionResult ListOfCustomers()
         {
-            var listCustomer = db.Customer_Guest.ToList();
+            var listCustomer = db.KhachHangs.ToList();
             return View(listCustomer);
         }
 
         public JsonResult CheckUsernameAvailability(string userdata)
         {
             System.Threading.Thread.Sleep(200);
-            var SeachData = db.Staffs.Where(x => x.Username == userdata).SingleOrDefault();
+            var SeachData = db.NhanViens.Where(x => x.Username == userdata).SingleOrDefault();
             if (SeachData != null)
             {
                 return Json(1);
@@ -69,13 +71,13 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View();
         }
        
-        public void LuuAnh(Staff st, HttpPostedFileBase Avatar)
+        public void LuuAnh(NhanVien st, HttpPostedFileBase Avatar)
         {
             #region Hình ảnh
 
             if(Avatar==null)
             {
-                st.Avatar = "/images/profile-user.png";
+                st.HinhDaiDien = "/images/profile-user.png";
             }
             else
             {
@@ -104,23 +106,23 @@ namespace Tourist_VietripInsum_2023.Controllers
                 #endregion
                 //Lưu file (Kiểm tra trùng file)
                 Avatar.SaveAs(fullDuongDan);
-                st.Avatar = urlTuongdoi + Path.GetFileName(fullDuongDan);
+                st.HinhDaiDien = urlTuongdoi + Path.GetFileName(fullDuongDan);
             }    
         }
 
         [HttpPost]
-        public ActionResult CreateStaff(Staff staff,HttpPostedFileBase Avatar,string id)
+        public ActionResult CreateStaff(NhanVien staff,HttpPostedFileBase Avatar,string id)
         {
             LuuAnh(staff, Avatar);
             Random rd = new Random();
             var idstaff = "ST" + rd.Next(1, 1000);
-            staff.IdStaff = idstaff;
+            staff.MaNV= idstaff;
 
             var pas = "123456";
             staff.UserPassword = pas;
 
             TempData["noti"] = "oke";
-            db.Staffs.Add(staff);
+            db.NhanViens.Add(staff);
             db.SaveChanges();
             return RedirectToAction("ListOfStaff");            
         }
@@ -167,7 +169,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff st = db.Staffs.Where(s => s.IdStaff == id).FirstOrDefault();
+            NhanVien st = db.NhanViens.Where(s => s.MaNV == id).FirstOrDefault();
             if (st == null)
             {
                 return HttpNotFound();
@@ -177,10 +179,10 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult EditStaff(string id)
         {
-            return View(db.Staffs.Where(s => s.IdStaff == id).FirstOrDefault());
+            return View(db.NhanViens.Where(s => s.MaNV == id).FirstOrDefault());
         }
         [HttpPost]
-        public ActionResult EditStaff(string id,Staff nv, HttpPostedFileBase Avatar)
+        public ActionResult EditStaff(string id, NhanVien nv, HttpPostedFileBase Avatar)
         {
             LuuAnh(nv, Avatar);
             db.Entry(nv).State = System.Data.Entity.EntityState.Modified;
@@ -189,10 +191,10 @@ namespace Tourist_VietripInsum_2023.Controllers
             return RedirectToAction("ListOfStaff");
         }
         
-        public ActionResult DeleteStaff(string id, Staff st)
+        public ActionResult DeleteStaff(string id, NhanVien st)
         {
-            st = db.Staffs.Where(s => s.IdStaff == id).FirstOrDefault();
-            db.Staffs.Remove(st);
+            st = db.NhanViens.Where(s => s.MaNV == id).FirstOrDefault();
+            db.NhanViens.Remove(st);
             TempData["messageAlert"] = "Đã xóa staff";
             db.SaveChanges();
             return RedirectToAction("ListOfStaff");

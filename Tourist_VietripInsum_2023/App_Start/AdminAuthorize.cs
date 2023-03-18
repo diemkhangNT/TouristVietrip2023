@@ -15,7 +15,7 @@ namespace Tourist_VietripInsum_2023.App_Start
         {
             //ktra sesstion dang nhap=> thuc hien dang nhap
             //nguoc lai => trang dang nhap
-            Staff nvSession = (Staff)HttpContext.Current.Session["user"];
+            NhanVien nvSession = (NhanVien)HttpContext.Current.Session["user"];
 
             if(nvSession!=null)
             {
@@ -23,7 +23,7 @@ namespace Tourist_VietripInsum_2023.App_Start
 
                 TouristEntities1 db = new TouristEntities1();
 
-                var count = db.Staffs.Count(m => m.IdStaff == nvSession.IdStaff && m.IdPos == idPos);
+                var count = db.NhanViens.Count(m => m.MaNV == nvSession.MaNV && m.MaCV == idPos);
 
                 if (count != 0)
                 {

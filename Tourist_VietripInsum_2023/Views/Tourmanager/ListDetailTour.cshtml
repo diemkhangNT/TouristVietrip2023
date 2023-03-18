@@ -1,5 +1,5 @@
 ﻿@*@model Tourist_VietripInsum_2023.Models.DetailTour*@
-@model IEnumerable<Tourist_VietripInsum_2023.Models.DetailTour>
+@model IEnumerable<Tourist_VietripInsum_2023.Models.ChiTietTour>
 @using Tourist_VietripInsum_2023.Models
 @{
     ViewBag.Title = "ListDetailTour";
@@ -32,14 +32,14 @@
                             @*//Phần render từng dòng trong C#*@
                             <thead>
                                 <tr style="background-color: #ffd43b">
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 10px;">Image</th>
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Stt</th>
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 40px;">Địa điểm</th>
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 40px;">Khách sạn</th>
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Phương tiện</th>
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 80px;">Điểm tập trung</th>
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 100px;">Describe</th>
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 50px;">Chức năng</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Hình minh họa</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">STT</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã Tour</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Tiêu đề</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Mô tả chi tiết</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Địa điểm tham quan</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Phương tiện</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Chức năng</th>
 
                                 </tr>
                             </thead>
@@ -52,34 +52,29 @@
                                     //{
                                 <tr>
                                     <td>
-                                        <img height="100" width="100" src="@item.Image" />
+                                        <img height="100" width="100" src="@item.DiaDiemThamQuan.HinhMinhHoa_D" />
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Stt)
-                                    </td>
-                                    @{
-                                        var ht = db.Hotels.Where(s => s.IdHotel == item.IdHotel).FirstOrDefault();
-                                        var vist = db.VistLocations.Where(s => s.IdVistLocat == item.IdVistLocat).FirstOrDefault();
-                                        var trans = db.Transports.Where(s => s.IdTrans == item.IdTrans).FirstOrDefault();
-                                    }
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IdVistLocat)-@Html.DisplayFor(modelItem => vist.NameVist)
+                                        @Html.DisplayFor(modelItem => item.STT)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => ht.NameHotel)
+                                        @Html.DisplayFor(modelItem => item.MaTour)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.IdTrans)-@Html.DisplayFor(modelItem => trans.NameTrans)
+                                        @Html.DisplayFor(modelItem => item.TieuDe)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.InfoConcentrate)
+                                        @Html.DisplayFor(model => item.MotaChitiet)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Describe)
+                                        @Html.DisplayFor(modelItem => item.DiaDiemThamQuan.MaDDTQ)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PhuongTien.MaPTien)
                                     </td>
 
                                     <td style="text-align:center">
-                                        <a href="/Tourmanager/EditDetailTour/@item.IdSchedule" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                        <a href="/Tourmanager/EditDetailTour/@item.STT" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         @*<a href="/Tourmanager/DetailTourDetail/@item.IdSchedule" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
@@ -106,7 +101,7 @@
                                                     <!-- Modal footer -->
                                                     <div class="modal-footer">
                                                         <a type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</a>
-                                                        <a type="button" class="btn btn-danger btn-sm" href="/Tourmanager/DeleteDetailTour/@item.IdSchedule">Delete</a>
+                                                        <a type="button" class="btn btn-danger btn-sm" href="/Tourmanager/DeleteDetailTour/@item.STT">Delete</a>
                                                     </div>
 
                                                 </div>

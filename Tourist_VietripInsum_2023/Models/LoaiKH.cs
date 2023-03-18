@@ -12,19 +12,18 @@ namespace Tourist_VietripInsum_2023.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Transport
+    public partial class LoaiKH
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Transport()
+        public LoaiKH()
         {
-            this.DetailTours = new HashSet<DetailTour>();
+            this.KhachHangs = new HashSet<KhachHang>();
         }
     
-        public string IdTrans { get; set; }
-        public string NameTrans { get; set; }
-        public string TheFirm { get; set; }
+        public string MaLoaiKH { get; set; }
+        public string TenLoaiKH { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetailTour> DetailTours { get; set; }
+        public virtual ICollection<KhachHang> KhachHangs { get; set; }
     }
 }
