@@ -3,71 +3,103 @@
 @{
     ViewBag.Title = "CreateHotel";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+    ViewBag.Name = "Hotel Manager";
+    ViewBag.qlt = "active";
 }
 
-<h2>CreateHotel</h2>
+
+<div class="col-md-12">
+    <div class="tile">
+        <h4 class="tile-title"> CREATE NEW HOTEL</h4>
+        <div class="tile-body">
 
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Hotel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdHotel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IdHotel, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IdHotel, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            @using (Html.BeginForm("CreateHotel","Tourmanager"))
+            {
+                @Html.AntiForgeryToken()
+                <div class="container">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LevelHotel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LevelHotel, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LevelHotel, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NameHotel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NameHotel, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NameHotel, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-horizontal">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AddressHotel, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @*<div class="col-sm-4" style="text-align:center">
+                            <label class="control-label">Chọn hình ảnh</label>
+                            @Html.TextBox("ImgHotel", "", new { type = "file" })
+                            <br />
+                            <img id="preview" src="#" width="220" height="200" style="visibility:hidden;" />
+                            <br />
+                        </div>*@
+                        <div class="row">
+                            <div class="form-group col-sm-8">
+                                @*<strong>Hotel Name</strong>
+                                    <div class="col-md-12">
+                                    @Html.EditorFor(model => model.NameHotel, new { htmlAttributes = new { @class = "form-control" } })
+                                     @Html.ValidationMessageFor(model => model.NameHotel, "", new { @class = "text-danger" })
+                                 </div>*@
+                                <label for="nameht">Hotel Name: </label>
+                                @Html.TextBox("NameHotel", null, new { @class = "form-control col-sm-12", @id = "nameht", required = "required" })
+                            </div>
+                            @Html.HiddenFor(model => model.IdHotel)
+                            <div class="form-group col-sm-1"></div>
+                            <div class="form-group col-sm-3">
+                                <label for="levelht">Level </label>
+                                @Html.TextBox("LevelHotel", null, new { @class = "form-control col-sm-12", @id = "levelht", required = "required" })
+
+                                @*<input class="form-control text-box single-line" data-val="true" data-val-date="The field must be a number." id="LevelHotel" name="LevelHotel" type="number" min="0" value="">*@
+                                @*@Html.ValidationMessageFor(model => model.LevelHotel, "", new { @class = "text-danger" })*@
+
+                            </div>
+
+                            <div class="form-group col-sm-4">
+                                <label for="cityaddres">City </label>
+                                <div class="col-md-12">
+                                    <input type="text" id="cityaddress" name="cityaddress" class="form-control" required = "required"  />
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-4">
+                                <label for="districtaddress">District </label>
+                                <div class="col-md-12">
+                                    <input type="text" id="districtaddress" name="districtaddress" class="form-control" required = "required"  />
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="staddress">Stadd </label>
+                                <div class="col-md-12">
+                                    <input type="text" id="staddress" name="staddress" class="form-control" required = "required"  />
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            @*<div class="form-group col-sm-6">
+            <strong>Hotel Address</strong>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.AddressHotel, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.AddressHotel, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ImgHotel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ImgHotel, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ImgHotel, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <input type="submit" value="Create Hotel" class="btn btn-success btn-sm" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div>
+                @Html.ActionLink("Back to List", "Hotelmanager")
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
-@*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@
+

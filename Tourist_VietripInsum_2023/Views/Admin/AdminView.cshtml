@@ -40,20 +40,20 @@
             <a class="logout_item" href="@Url.Action("Logout", "LoginStaff")"><i class='bx bx-log-out bx-rotate-180'></i></a>
         </ul>
         @{
-            var user = (Tourist_VietripInsum_2023.Models.Staff)HttpContext.Current.Session["user"];
+            var user = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Current.Session["user"];
            }
     </header>
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <!--<aside class="app-sidebar">
         <div class="app-sidebar__user">
-            <img class="app-sidebar__user-avatar" src="@user.Avatar" width="50px" height="70px" alt="User Image">
+            <img class="app-sidebar__user-avatar" src="@user.HinhDaiDien" width="50px" height="70px" alt="User Image">
             <div>
                 <p class="app-sidebar__user-name">
                     <b>
                         @{
                            
-                            @user.FullName}
+                            @user.HoTen}
                     </b>
                 </p>
                 <p class="app-sidebar__user-designation">You are part of the company!</p>

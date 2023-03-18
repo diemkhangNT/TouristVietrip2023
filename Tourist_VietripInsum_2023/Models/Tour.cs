@@ -11,14 +11,15 @@ namespace Tourist_VietripInsum_2023.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Tour
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tour()
         {
-            this.DetailTours = new HashSet<DetailTour>();
-            this.OrderCus = new HashSet<OrderCu>();
+            this.ChiTietTours = new HashSet<ChiTietTour>();
+            this.DonHangs = new HashSet<DonHang>();
         }
     
         public string IdTour { get; set; }
@@ -37,9 +38,10 @@ namespace Tourist_VietripInsum_2023.Models
         public string Mota { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetailTour> DetailTours { get; set; }
+        public virtual ICollection<ChiTietTour> ChiTietTours { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderCu> OrderCus { get; set; }
-        public virtual TourType TourType { get; set; }
+        public virtual ICollection<DonHang> DonHangs { get; set; }
+        public virtual Hotel Hotel { get; set; }
+        public virtual LoaiTour LoaiTour { get; set; }
     }
 }

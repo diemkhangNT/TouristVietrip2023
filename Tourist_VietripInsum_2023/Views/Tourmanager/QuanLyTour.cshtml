@@ -6,111 +6,165 @@
     ViewBag.Name = "Tour Manager";
     ViewBag.qlt = "active";
     TouristEntities1 db = new TouristEntities1();
-    var dsLT = db.TourTypes.ToList();
-    var dsHT = db.Hotels.ToList();
-    var dsTQ = db.VistLocations.ToList();
+    List<Tour> t = db.Tours.ToList();
 }
-
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@{
+    var checkMessage = TempData["noti"];
+    if (checkMessage == "thieu")
+    {
+        <script>
+            swal({
+                title: "erorr",
+                text: "Welcome to your back!",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    }
+    else if (checkMessage == "oke")
+    {
+        <script>
+            swal("Good job!", "You clicked the button!", "success");
+        </script>
+    }
+}
+<link href="~/Content/searchtour.css" rel="stylesheet" />
 <div class="row">
     <div class="col-md-12">
         <div class="tile">
-            <div class="tile-body"> 
-
+            <div class="tile-body">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Tour</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Tourmanager/HotelManager">Hotel</a>
+                        <a class="nav-link" href="/Tourmanager/HotelManager">Hotel - Transport</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Transport</a>
+                        <a class="nav-link" href="/Tourmanager/LocationManager">Location</a>
                     </li>
 
                 </ul>
 
-                <div class="row element-button" style="padding:10px">
-                    <div class="col-sm-2">
+                <div class="row" style="padding:10px">
+                    <div class="col-md-2 col-sm-2">
                         <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTours">
                             Create Tour
                         </a>
                     </div>
-                </div>
-                <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                    <div class="row" >
-                        <div class="col-sm-12">
-                            <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
-                                @*//Phần render từng dòng trong C#*@
-                                <thead style="background-color:antiquewhite;">
-                                    <tr>
-                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">IdTour</th>
-                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 40px;">Type Tour</th>
-                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 100px;">Tour Name</th>
-                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Chổ</th>
-                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 80px;">Thời gian tour</th>
-                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 50px;">Hạn</th>
-                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 50px;">Chức năng</th>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8 ">
+                        <div class="pull-right">
+                            @using (Html.BeginForm("QuanLyTour", "Tourmanager", FormMethod.Post))
+                            {
+                                //the following are search options
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    @foreach (var item in Model)
-                                    {
-                                    <tr>
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.IdTour)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Id_TypeTour)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TourName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.NumberAvailable)
-                                        </td>
-                                        @{
-                                            //DateTime timetour = (DateTime)item.Departure;
-                                            //int i = (int)item.TimeTour;
-                                            //DateTime timend = timetour.AddDays(i);
-                                            var bd = String.Format("{0:d/M/yyyy}", item.Departure);
-                                            //var en = String.Format("{0:d/M/yyyy}", timend);
-                                        }
-                                        <td>
-
-                                           @Html.DisplayFor(modelItem => bd)
-                                        </td>
-
-                                        <td>
-                                            @{
-                                                var day = String.Format("{0:d/M/yyyy}", item.DeadlineOrder);
-                                            }
-                                            @Html.DisplayFor(modelItem => day)
-                                        </td>
-
-                                        <td style="text-align:center">
-                                            <a href="/Tourmanager/EditTour/@item.IdTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a href="/Tourmanager/TourDetails/@item.IdTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
-                                                <i class="fas fa-train"></i>
-                                            </a>
-                                            @*<a href="#" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                <i class="fas fa-trash"></i>
-            </a>*@
-
-                                        </td>
-                                    </tr>
-                                    }
-                                </tbody>
-                            </table>
+                                <b>Search Option: </b>
+                                @Html.RadioButton("option", "IDTour") <text>ID tour</text>
+                                @Html.RadioButton("option", "Tourname") <text >Tour name</text>
+                                @Html.RadioButton("option", "TimeTour")<text>ID type tour</text>
+                                @Html.TextBox("search")
+                                <input type="submit"
+                                       name="submit"
+                                       value="Search" />
+                            }
                         </div>
+
+
                     </div>
                 </div>
+                <div class="row">
+
+                </div>
+
+                <div class="row" id="grdTours">
+                    <div class="col-sm-12">
+                        <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                            @*//Phần render từng dòng trong C#*@
+                            <thead style="background-color: #ffd43b;">
+                                <tr>
+
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã tour</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã tỉnh</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Loại tour</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Tên tour</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Thông tin khởi hành</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Số chỗ trống</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Hạn chót</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Chức năng</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Count() == 0)
+                                {
+                                    <tr>
+                                        <td colspan="7" class="text-center"> Records not found </td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.MaTour)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Hotel.MaTinh)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.LoaiTour.TenLTour)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TenTour)
+                                            </td>
+
+                                            @*@{
+                                                //DateTime timetour = (DateTime)item.Departure;
+                                                //int i = (int)item.TimeTour;
+                                                //DateTime timend = timetour.AddDays(i);
+                                                var bd = String.Format("{0:d/M/yyyy}", item.NgayKhoihanh);
+                                                //var en = String.Format("{0:d/M/yyyy}", timend);
+                                            }*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NgayKhoihanh)
+                                                <p>Địa điểm: @Html.DisplayFor(modelItem => item.NoiKhoiHanh)</p>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SoChoNull)
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var day = String.Format("{0:d/M/yyyy}", item.HanChotDatVe);
+                                                }
+                                                @Html.DisplayFor(modelItem => day)
+                                            </td>
+                                            <td style="text-align:center">
+                                                <a href="/Tourmanager/EditTour/@item.MaTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="/Tourmanager/TourDetails/@item.MaTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
+                                                    <i class="fas fa-train"></i>
+                                                </a>
+                                                @*<a href="/Tourmanager/DeleteTour/@item.IdTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+            <i class="fas fa-trash"></i>
+        </a*@
+
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
             </div>
+
         </div>
     </div>
+
+
 </div>

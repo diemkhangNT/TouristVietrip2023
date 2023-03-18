@@ -1,0 +1,59 @@
+﻿@model Tourist_VietripInsum_2023.Models.ChiTietTour
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ChiTietTour</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TieuDe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TieuDe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MotaChitiet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MotaChitiet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaDiemThamQuan.MaTinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaDiemThamQuan.MaTinh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhuongTien.TenPTien)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhuongTien.TenPTien)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tour.MaLTour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tour.MaLTour)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,98 +1,107 @@
-﻿@model Tourist_VietripInsum_2023.Models.DetailTour
+﻿@model Tourist_VietripInsum_2023.Models.ChiTietTour
 
 @{
     ViewBag.Title = "CreateDetailTour";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
-    ViewBag.Name = "Create Detail Tourr";
+    ViewBag.Name = "Create Detail Tour";
     ViewBag.qlt = "active";
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="tile">
-            <div class="tile-body">
-                <div class="container">
-                    <h3>DetailTour</h3>
+<div class="tile">
+    <h3 class="tile-title">THÔNG TIN TOUR</h3>
 
-                    <form class="row" method="post" enctype="multipart/form-data" action="~/Tourmanager/CreateTours">
-                        <div class="container">
-                            <div class="form-horizontal">
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                @Html.HiddenFor(model => model.IdSchedule)
+    <div class="tile-body">
 
-                                <div class="form-group col-sm-6">
-                                    <strong>STT</strong>
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.Stt, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Stt, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <strong>Địa điểm</strong>
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.IdVistLocat, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.IdVistLocat, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <strong>Hotel</strong>
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.IdHotel, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.IdHotel, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
+        <form method="post" enctype="multipart/form-data" action="~/Tourmanager/CreateDetailTour">
+
+            <div class="container">
+                <div class="row">
 
 
-
-
-
-                                <div class="form-group col-sm-6">
-                                    <strong>Phương tiện</strong>
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.IdTrans, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.IdTrans, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-
-
-                                <div class="form-group col-sm-6">
-                                    <strong>Địa điểm tập trung</strong>
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.InfoConcentrate, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.InfoConcentrate, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-sm-6">
-                                    <strong>Image</strong>
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <strong>Mô tả</strong>
-                                    <div class="col-md-12">
-                                        @Html.TextAreaFor(model => model.Describe, new { @class = "form-control content-editor" })
-                                        @Html.ValidationMessageFor(model => model.Describe, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Tạo lịch trình" class="btn btn-success btn-sm" />
-                                </div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.IdSchedule)
+                    @Html.HiddenFor(model => model.IdTour)
+                    <div class="col-sm-8">
+                        <div class="form-group col-sm-4">
+                            <strong>STT</strong>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Stt, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Stt, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        </form>
-
-                        <div>
-                            @Html.ActionLink("Back to List", "Index")
+                        <div class="form-group col-sm-4">
+                            <strong>Chọn phương tiện</strong>
+                            <div class="col-md-12">
+                                @Html.DropDownList("IdTrans", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IdTrans, "", new { @class = "text-danger" })
+                            </div>
                         </div>
+                        <div class="form-group col-sm-4">
+                            <strong>Địa điểm</strong>
+                            <div class="col-md-12">
+                                @Html.DropDownList("IdVistLocat", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IdVistLocat, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <strong>Chọn khách sạn</strong>
+                            <div class="col-md-12">
+                                @Html.DropDownList("IdHotel", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IdHotel, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <strong>Địa điểm tập trung:</strong>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.InfoConcentrate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.InfoConcentrate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <strong>Mô tả</strong>
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(model => model.Describe, new { @class = "form-control content-editor" })
+                                @Html.ValidationMessageFor(model => model.Describe, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-sm-12" style="padding-bottom:20px;">
+                    <label class="control-label">Chọn hình ảnh</label>
+                    @Html.TextBox("Imager", "", new { type = "file" })
+                    <br />
+                    <img id="preview" src="#" width="80%" height="200" style="visibility:hidden" />
+                    <br />
+                </div>
+
+            </div>
+
+            <div class="col-sm-2">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create Detail" class="btn btn-success btn-sm" />
+                </div>
+            </div>
+            </form>
+
+
 </div>
-        </div>
+    <div>
+        @Html.ActionLink("Back to List", "ListDeTailTour", new RouteValueDictionary(
+                        new { controller = "Tourmanager", action = "ListDetailTour", Id = ViewBag.idtours }))
     </div>
-
+</div>
+<script>
+    Imager.onchange = evt => {
+        const [file] = Imager.files
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            document.getElementById("preview").style.visibility = "visible";
+        }
+    }
+</script>

@@ -1,0 +1,127 @@
+﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.VistLocation>
+
+@{
+    ViewBag.Title = "LocationManager";
+    Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+    ViewBag.Name = "Location Manager";
+    ViewBag.qlt = "active";
+    
+}
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@{
+    var checkMessage = TempData["noti"];
+    if (checkMessage == "thieu")
+    {
+        <script>
+            swal({
+                title: "erorr",
+                text: "Welcome to your back!",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    }
+    else if (checkMessage == "oke")
+    {
+        <script>
+            swal("Good job!", "You clicked the button!", "success");
+        </script>
+    }
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Tourmanager/QuanLyTour">Tour</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Tourmanager/HotelManager">Hotel - Transport</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/Tourmanager/LocationManager">Location</a>
+                    </li>
+
+                </ul>
+
+                <div class="row" style="padding:10px">
+                    <div class="col-sm-2">
+                        <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateVisitLocations">
+                            Add more location
+                        </a>
+                    </div>
+                </div>
+                <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                @*//Phần render từng dòng trong C#*@
+                                <thead style="background-color: #ffd43b;">
+                                    <tr>
+
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Id Location</th>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 40px;">Image</th>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 100px;">Name</th>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 80px;">Address</th>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Des</th>
+                                    
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 50px;">Chức năng</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model)
+                                    {
+
+                                        <tr>
+
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.IdVistLocat)
+                                            </td>
+                                            <td>
+                                               <img src="@item.IdVistLocat" width="100px" height="100px" />
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NameVist)
+                                            </td>
+
+                                          
+                                            <td>
+
+                                                @Html.DisplayFor(modelItem => item.Des_Location)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Loca_address)
+                                            </td>
+                                            
+
+                                            <td style="text-align:center">
+                                                <a href="/Tourmanager/EditVisitLocations/@item.IdVistLocat" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="/Tourmanager/" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
+                                                    <i class="fas fa-train"></i>
+                                                </a>
+                                              
+
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+

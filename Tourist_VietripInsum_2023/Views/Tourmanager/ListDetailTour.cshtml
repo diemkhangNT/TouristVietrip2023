@@ -1,10 +1,12 @@
 ﻿@*@model Tourist_VietripInsum_2023.Models.DetailTour*@
-@model IEnumerable<Tourist_VietripInsum_2023.Models.DetailTour>
+@model IEnumerable<Tourist_VietripInsum_2023.Models.ChiTietTour>
 @using Tourist_VietripInsum_2023.Models
 @{
     ViewBag.Title = "ListDetailTour";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
     TouristEntities1 db = new TouristEntities1();
+    ViewBag.Name = "List Detail";
+    ViewBag.qlt = "active";
 
 
 }
@@ -12,78 +14,121 @@
 <div class="row">
     <div class="col-md-12">
         <div class="tile">
+            <h4 class="tile-title"> LIST DETAIL TOUR @Session["tempdata"] </h4>
             <div class="tile-body">
-                <div class="row element-button" style="padding:10px">
+                <div class="row">
                     <div class="col-sm-2">
-                        <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateDetailTour">
-                            Create Tour
+                        <a class="btn btn-success btn-sm " type="button" title="Create Detail" href="/Tourmanager/CreateDetailTour">
+                            Thêm Lịch trình
                         </a>
                     </div>
                 </div>
-                <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
-                                @*//Phần render từng dòng trong C#*@
-                                <thead>
-                                    <tr>
-                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Stt</th>
-                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 40px;">Địa điểm</th>
-                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 100px;">Khách sạn</th>
-                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Phương tiện</th>
-                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 80px;">Điểm tập trung</th>
-                                        <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 50px;">Chức năng</th>
+            </div>
+            
+            <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                            @*//Phần render từng dòng trong C#*@
+                            <thead>
+                                <tr style="background-color: #ffd43b">
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Hình minh họa</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">STT</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã Tour</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Tiêu đề</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Mô tả chi tiết</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Địa điểm tham quan</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Phương tiện</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Chức năng</th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                                    @foreach( var item in Model)
-                                    {
-                                        //var check = dtour[i];
-                                        //if (dtour[i].IdTour == Model.IdTour)
-                                        //{
-                                            <tr>
+                                @foreach (var item in Model)
+                                {
+                                    //var check = dtour[i];
+                                    //if (dtour[i].IdTour == Model.IdTour)
+                                    //{
+                                <tr>
+                                    <td>
+                                        <img height="100" width="100" src="@item.DiaDiemThamQuan.HinhMinhHoa_D" />
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.STT)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MaTour)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TieuDe)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.MotaChitiet)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DiaDiemThamQuan.MaDDTQ)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PhuongTien.MaPTien)
+                                    </td>
 
-                                                <td>
-                                                    @Html.DisplayFor(modelItem =>item.Stt)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.IdVistLocat)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.IdHotel)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.IdTrans)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.InfoConcentrate)
-                                                </td>
+                                    <td style="text-align:center">
+                                        <a href="/Tourmanager/EditDetailTour/@item.STT" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        @*<a href="/Tourmanager/DetailTourDetail/@item.IdSchedule" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                            <i class="fas fa-train"></i>
+                                        </a>*@
+                                        <a class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete" data-toggle="modal" data-target="#myModal">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        <div class="modal" id="myModal">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
 
-                                                <td style="text-align:center">
-                                                    <a href="/Tourmanager/" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <a href="/Tourmanager/r" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                        <i class="fas fa-train"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                        <i class="fas fa-trash"></i>
-                                                    </a>
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h3>!!!!</h3>
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
 
-                                                </td>
-                                            </tr>
-                                        
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body">
+                                                        Are you sure to delete the tour ?!
+                                                    </div>
 
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+                                                        <a type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</a>
+                                                        <a type="button" class="btn btn-danger btn-sm" href="/Tourmanager/DeleteDetailTour/@item.STT">Delete</a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+
+
+                                        }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
+
+<div>
+    <a class="btn btn-outline-danger btn-sm" href="~/Tourmanager/Tourdetails/@Session["tempdata"] "><i class="fas fa-retweet"> 
+        
+        
+        
+        Back to list tour</i></a>
+</div>
+
 

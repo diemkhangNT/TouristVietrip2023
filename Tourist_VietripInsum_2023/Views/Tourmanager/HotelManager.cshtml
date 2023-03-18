@@ -1,58 +1,311 @@
 ﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.Hotel>
+@using Tourist_VietripInsum_2023.Models
 
 @{
     ViewBag.Title = "HotelManager";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+    ViewBag.Name = "Hotel Manager";
+    ViewBag.qlt = "active";
+    TouristEntities1 db = new TouristEntities1();
+    List<Transport> listTrans = db.Transports.ToList();
 }
 
-<h2>HotelManager</h2>
+@{
+    var checkdata = TempData["noti"];
+    if (checkdata == "delete-false")
+    {
+        <script>
+            swal("The hotel is being used in the current tour!!!")
+        </script>
+    }
+    else if (checkdata == "delete-true")
+    {
+        <script>
+            swal("Good job!", "You deleted the hotel!", "success");
+        </script>
+    }
+    else if (checkdata == "edit")
+    {
+        <script>
+            swal("Good job!", "You have successfully edited the hotel information!", "success");
+        </script>
+    }
+    else if (checkdata == "add")
+    {
+        <script>
+            swal("Good job!", "You have created hotel information!", "success");
+        </script>
+    }
+    else if (checkdata == "addtrans")
+    {
+        <script>
+            swal("Good job!", "You have created transport information!", "success");
+        </script>
+    }
+    else if (checkdata == "edittrans")
+    {
+        <script>
+            swal("Good job!", "You have successfully edited the transport information!", "success");
+        </script>
+    }
+    if (checkdata == "deletetrans-false")
+    {
+        <script>
+            swal("The transport is being used in the current tour!!!")
+        </script>
+    }
+    else if (checkdata == "deletetrans-true")
+    {
+        <script>
+            swal("Good job!", "You deleted the transport!", "success");
+        </script>
+    }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IdHotel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LevelHotel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NameHotel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AddressHotel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImgHotel)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdHotel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LevelHotel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NameHotel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddressHotel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImgHotel)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
 }
 
-</table>
+<div class="col-md-12">
+    <div class="tile">
+        <div class="tile-body">
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="/Tourmanager/QuanLyTour">Tour</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/Tourmanager/HotelManager">Hotel - Transport</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Tourmanager/LocationManager">Location</a>
+                </li>
+
+            </ul>
+
+            <div class="row" style="padding:10px">
+                <div class="col-sm-2">
+                    <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateHotel">
+                        Create hotel
+                    </a>
+                </div>
+            </div>
+
+
+
+
+            <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                            @*//Phần render từng dòng trong C#*@
+                            <thead style="background-color: #ffd43b;">
+                                <tr>
+
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Id Hotel</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 100px;">Hotel Name</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Level</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 80px;">Address</th>
+
+
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 50px;">Function</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+                                    
+                                    <tr>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IdHotel)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NameHotel)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.LevelHotel)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AddressHotel)
+                                        </td>
+
+
+                                        <td style="text-align:center">
+                                            <a href="/Tourmanager/EditHotel/@item.IdHotel" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+
+
+                                            <a class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete" data-target="#DeleteModal-@item.IdHotel" data-toggle="modal">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                            @using (Html.BeginForm("DeleteHotel/" + item.IdHotel, "Tourmanager", FormMethod.Post, null))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <div class="modal" tabindex="-1" role="dialog" id="DeleteModal-@item.IdHotel">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Delete Confirmation</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>Are you sure you want to delete this customer?</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                                <button type="submit" class="btn btn-danger">Yes</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="col-md-12">
+    <div class="tile">
+        <div class="tile-body">
+            <div class="row" style="padding:10px">
+                <div class="col-sm-2">
+                    <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTrans">
+                        Create new transport
+                    </a>
+                </div>
+            </div>
+
+            <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                            @*//Phần render từng dòng trong C#*@
+                            <thead style="background-color: #ffd43b;">
+                                <tr>
+
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 20px;">Id Trans</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 100px;">Trans Name</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 100px;">Company</th>
+
+
+
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" style="width: 50px;">Function</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @{
+                                    for (int i = 0; i < listTrans.Count; i++)
+                                    {
+
+                                        <tr>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => listTrans[i].IdTrans)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => listTrans[i].NameTrans)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => listTrans[i].TheFirm)
+                                            </td>
+
+                                            <td style="text-align:center">
+                                                <a href="/Tourmanager/EditTrans/@listTrans[i].IdTrans" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+
+
+                                                <a class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete" data-target="#DeleteModalTrans-@listTrans[i].IdTrans" data-toggle="modal">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                                @using (Html.BeginForm("DeleteTrans/" + listTrans[i].IdTrans, "Tourmanager", FormMethod.Post, null))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <div class="modal" tabindex="-1" role="dialog" id="DeleteModalTrans-@listTrans[i].IdTrans">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Delete Confirmation</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p>Are you sure you want to delete this TRANSPORT?</p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                                    <button type="submit" class="btn btn-danger">Yes</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+
+
+
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+    function OpenDeleteModal() {
+        $("#myModalHotel").modal('show');
+        
+    }
+
+    function DeleteHotel() {
+        var data = document.getElementById("a").innerHTML;
+        alert(data);
+        //$.ajax(
+        //    {
+        //        type: 'GET',
+        //        url: '/Home/Delete',
+        //        contentType: 'application/json; charset=utf=8',
+        //        data: data,
+        //        success: function (result) {
+        //            $('#modal-delete-content').html(result);
+        //            $('#modal-delete').modal('show');
+        //        },
+        //        error: function (er) {
+        //            alert(er);
+        //        }
+        //    });
+    }
+    
+</script>
+
+
+
+
+
