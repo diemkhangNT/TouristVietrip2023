@@ -1,5 +1,4 @@
-﻿@model Tourist_VietripInsum_2023.Models.Staff
-
+﻿@model Tourist_VietripInsum_2023.Models.NhanVien
 @{
     ViewBag.Title = "Profile";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
@@ -27,11 +26,11 @@
                     <div class="col-lg-4 col-md-3 col-sm-12 profile-tab-nav border-right">
                         <div class="p-4">
                             <div class="img text-center mb-3">
-                                <img style="width: 100px;height: 100px;border-radius: 50%" src="@Model.Avatar" alt="Image" class="shadow">
+                                <img style="width: 100px;height: 100px;border-radius: 50%" src="@Model.HinhDaiDien" alt="Image" class="shadow">
                             </div>
                             <h2 class="text-center">
-                                @{var user1 = (Tourist_VietripInsum_2023.Models.Staff)HttpContext.Current.Session["user"];
-                                    @user1.FullName}
+                                @{var user1 = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Current.Session["user"];
+                                    @user1.HoTen}
                             </h2>
                             <div class="nav flex-column nav-pills online" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 <p>
@@ -50,48 +49,48 @@
                         <div class="" id="account" role="tabpanel" aria-labelledby="account-tab">
                             <h2 class="title_acc text-danger">General</h2>
                             @{
-                                var user = (Tourist_VietripInsum_2023.Models.Staff)HttpContext.Current.Session["user"];
+                                var user = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Current.Session["user"];
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Position</label>
-                                            <h2>@user.Position.NamePos</h2>
+                                            <h2>@user.ChucVu</h2>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>ID Staff</label>
-                                            <h2>@user.IdStaff</h2>
+                                            <h2>@user.MaNV</h2>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Phone number</label>
-                                            <h2>@user.NumberPhone</h2>
+                                            <h2>@user.Sdt</h2>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Address</label>
-                                            <h2>@user.StaffAddress</h2>
+                                            <h2>@user.DiaChi</h2>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <h2>@user.StaffEmail</h2>
+                                            <h2>@user.Email</h2>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Birthday</label>
-                                            <h2>@user.StaffBirthday</h2>
+                                            <h2>@user.NgaySinh</h2>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Gender</label>
-                                            <h2>@user.Gender</h2>
+                                            <h2>@user.GioiTinh</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -99,7 +98,7 @@
                             }
                             <h2 class="title_acc text-danger">Login</h2>
                             @{
-                                var user2 = (Tourist_VietripInsum_2023.Models.Staff)HttpContext.Current.Session["user"];
+                                var user2 = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Current.Session["user"];
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -125,7 +124,6 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>
 

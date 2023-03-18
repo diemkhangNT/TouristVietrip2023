@@ -21,8 +21,8 @@
 
         <div class="row element-button">
             <div class="col-sm-2">
-                <a class="btn btn-warning btn-sm " type="button" title="List Detail" href="/Tourmanager/ListDetailTour/@Model.IdTour">
-                    Danh sách lịch trình
+                <a class="btn btn-warning btn-sm " type="button" title="List Detail" href="/Tourmanager/ListDetailTour/@Model.MaTour">
+                    Địa điểm tham quan
                 </a>
             </div>
             @*<div class="col-sm-2">
@@ -42,51 +42,62 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-3 " style="text-align:center;padding-top:40px;">
-                    <img src="@Model.ImagerTour" width="250" height="180" />
+                    <img src="@Model.HinhMinhHoa_T" width="250" height="180" />
                 </div>
                 <div class="info col-sm-9">
                     <h3>THÔNG TIN TOUR</h3>
                     <div class=" col-sm-4">
                         <span id="idtourc">
                             <strong>
-                                Name Tour:
-                            </strong>  @Html.DisplayFor(model => model.IdTour)
+                                ID Tour:
+                            </strong>  @Html.DisplayFor(model => model.MaTour)
 
                         </span>
                     </div>
                     <div class="col-sm-4">
-                        <strong>Type Tour: </strong>@Html.DisplayFor(model => model.Id_TypeTour)
+                        <strong>Type Tour: </strong>@Html.DisplayFor(model => model.MaLTour)_@Html.DisplayFor(model => model.LoaiTour.TenLTour)
                     </div>
                     <div class="col-sm-4">
                     </div>
                     <div class="col-sm-12">
-                        <strong>Tour Name: </strong>@Html.DisplayFor(model => model.TourName)
+                        <strong>Tour Name: </strong>@Html.DisplayFor(model => model.TenTour)
                     </div>
                     <div class="col-sm-4">
-                        <strong>Điểm đi: </strong>@Html.DisplayFor(model => model.DeparturePlace)
-                    </div>
-                    <div class="col-sm-4">
-                        <strong>Điểm đến: </strong>@Html.DisplayFor(model => model.DeparturePlace)
-                    </div>
-                    <div class="col-sm-4">
-                        <strong>Số chổ: </strong>@Html.DisplayFor(model => model.NumberAvailable)
+                        <strong>Điểm đi: </strong>@Html.DisplayFor(model => model.NoiKhoiHanh)
                     </div>
                     @{
-                        var han = String.Format("{0:d/M/yyyy}", Model.DeadlineOrder);
-                        var ngay = String.Format("{0:d/M/yyyy}", Model.Departure);
+                        var han = String.Format("{0:d/M/yyyy}", Model.HanChotDatVe);
+                        var ngaydi = String.Format("{0:d/M/yyyy}", Model.NgayKhoihanh);
+                        var ngayve = String.Format("{0:d/M/yyyy}", Model.NgayTroVe);
                     }
                     <div class="col-sm-4">
-                        <strong>Ngày khởi hành: </strong>@Html.DisplayFor(model => ngay)
+                        <strong>Ngày khởi hành: </strong>@Html.DisplayFor(model => ngaydi)
+                    </div>
+                    <div class="col-sm-4">
+                        <strong>Ngày về: </strong>@Html.DisplayFor(model => ngayve)
                     </div>
 
                     <div class="col-sm-4">
-                        <strong>Thời gian đi: </strong>@Html.DisplayFor(model => model.TimeTour)
+                        <strong>Hạn đặt: </strong>@Html.DisplayFor(model => han)
+                    </div>
+
+                    <div class="col-sm-4">
+                        <strong>Số ngày: </strong>@Html.DisplayFor(model => model.SoNgay)
                     </div>
                     <div class="col-sm-4">
                         <strong>Hạn đặt: </strong>@Html.DisplayFor(model => han)
                     </div>
                     <div class="col-sm-12">
-                        <strong>Mô tả: </strong>@Html.DisplayFor(model => model.Mota)
+                        <strong>Số chỗ trống: </strong>@Html.DisplayFor(model => model.SoChoNull)
+                    </div>
+                    <div class="col-sm-12">
+                        <strong>Tour nổi bật: </strong> @Html.DisplayFor(model => model.TourNoiBat.HasValue)
+                    </div>
+                    <div class="col-sm-12">
+                        <strong>Mã tỉnh: </strong> @Html.DisplayNameFor(model => model.Hotel.MaTinh)
+                    </div>
+                    <div class="col-sm-12">
+                        <strong>Loại tour: </strong>@Html.DisplayFor(model => model.LoaiTour.TenLTour)
                     </div>
                     <div class="col-sm-12">
                         <table>
@@ -102,10 +113,10 @@
                                 <tr>
 
                                     <td>
-                                        @Html.DisplayFor(modelItem => Model.PriceAdult)
+                                        @Html.DisplayNameFor(model => model.GiaNguoiLon)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => Model.PriceChildren)
+                                        @Html.DisplayFor(model => model.GiaTreEm)
                                     </td>
 
                                 </tr>
@@ -141,7 +152,7 @@
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <a type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</a>
-                        <a type="button" class="btn btn-danger btn-sm" href="/Tourmanager/DeleteTour/@Model.IdTour">Delete</a>
+                        <a type="button" class="btn btn-danger btn-sm" href="/Tourmanager/DeleteTour/@Model.MaTour">Delete</a>
                     </div>
 
                 </div>
@@ -149,7 +160,7 @@
         </div>
     </div>
  
-   
+ </div>  
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>

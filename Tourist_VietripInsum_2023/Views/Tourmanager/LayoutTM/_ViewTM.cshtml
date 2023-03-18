@@ -55,8 +55,8 @@
                 <p class="app-sidebar__user-name">
                     <b>
                         @{
-                            var user = (Tourist_VietripInsum_2023.Models.Staff)HttpContext.Current.Session["user"];
-                            @user.FullName}
+                            var user = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Current.Session["user"];
+                            @user.HoTen}
                     </b>
                 </p>
                 <p class="app-sidebar__user-designation">You are part of the company!</p>
@@ -92,7 +92,7 @@
                 </a>
             </li>
             <li>
-                <a class="app-menu__item  @ViewBag.prf" href="/Tourmanager/Profile/@user.IdStaff">
+                <a class="app-menu__item  @ViewBag.prf" href="/Tourmanager/Profile/@user.MaNV">
                     <i class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Profile</span>
                 </a>
             </li>

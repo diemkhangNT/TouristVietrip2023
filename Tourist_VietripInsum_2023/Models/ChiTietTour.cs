@@ -12,18 +12,17 @@ namespace Tourist_VietripInsum_2023.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Position
+    public partial class ChiTietTour
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Position()
-        {
-            this.Staffs = new HashSet<Staff>();
-        }
+        public int STT { get; set; }
+        public string MaDDTQ { get; set; }
+        public string MaTour { get; set; }
+        public string MaPTien { get; set; }
+        public string TieuDe { get; set; }
+        public string MotaChitiet { get; set; }
     
-        public string IdPos { get; set; }
-        public string NamePos { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Staff> Staffs { get; set; }
+        public virtual DiaDiemThamQuan DiaDiemThamQuan { get; set; }
+        public virtual PhuongTien PhuongTien { get; set; }
+        public virtual Tour Tour { get; set; }
     }
 }

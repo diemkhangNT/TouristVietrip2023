@@ -12,18 +12,21 @@ namespace Tourist_VietripInsum_2023.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TypeCu
+    public partial class TinhThanh
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TypeCu()
+        public TinhThanh()
         {
-            this.Customer_Guest = new HashSet<Customer_Guest>();
+            this.DiaDiemThamQuans = new HashSet<DiaDiemThamQuan>();
+            this.Hotels = new HashSet<Hotel>();
         }
     
-        public string IdTypeCus { get; set; }
-        public string NameTypeCus { get; set; }
+        public string MaTinh { get; set; }
+        public string TenTinh { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer_Guest> Customer_Guest { get; set; }
+        public virtual ICollection<DiaDiemThamQuan> DiaDiemThamQuans { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Hotel> Hotels { get; set; }
     }
 }
