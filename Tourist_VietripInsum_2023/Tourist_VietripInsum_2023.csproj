@@ -232,8 +232,11 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\FormTour.css" />
-    <Content Include="Content\Guest.css" />
     <Content Include="Content\Guest.js" />
+    <Content Include="Content\Images\dânng.jpg" />
+    <Content Include="Content\Images\mientay.png" />
+    <Content Include="Content\Images\tourhanoi.jpg" />
+    <Content Include="Content\layoutGuest.css" />
     <Content Include="Content\main-AD.css" />
     <Content Include="Content\ModalDialog.css" />
     <Content Include="Content\style_profile.css" />
@@ -482,6 +485,7 @@
     <Content Include="Views\Tourmanager\DeleteVisitLocations.cshtml" />
     <Content Include="Views\Tourmanager\VistLocationsDetails.cshtml" />
     <Content Include="Views\Tourmanager\HotelDetails.cshtml" />
+    <Content Include="Views\Guest\Tourinfomation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

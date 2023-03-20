@@ -1,9 +1,12 @@
-﻿
+﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.Tour>
+@using Tourist_VietripInsum_2023.Models
 @{
     ViewBag.Title = "HomePageGuest";
     Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
+    TouristEntities1 db = new TouristEntities1();
+    List<DiaDiemThamQuan> diaDiems = db.DiaDiemThamQuans.ToList();
+    List<Tour> tour = db.Tours.ToList();
 }
-
 
 
 
@@ -27,7 +30,6 @@
 </div>
 
 <!-- home section starts  -->
-
 <!-- CAROUSEL  -->
 <div id="demo" class="carousel slide" data-bs-ride="carousel">
 
@@ -41,10 +43,10 @@
     <!-- The slideshow/carousel -->
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="~/Content/Images/DiemKhang.jpg" alt="carousel-inner" class="d-block" style="width:100%;height:400px">
+            <img src="~/Content/Images/mientay.png" alt="carousel-inner" class="d-block" style="width:100%;height:490px">
         </div>
         <div class="carousel-item">
-            <img src="~/Content/Images/DiemKhang.jpg" alt="Chicago" class="d-block" style="width: 100%; height: 400px">
+            <img src="~/Content/Images/dânng.jpg" alt="Chicago" class="d-block" style="width: 100%; height: 490px">
         </div>
 
     </div>
@@ -73,7 +75,7 @@
                     <i class="bi bi-chevron-right"></i>
                 </a>
                 <a href="" target="#" class="btn btn-outline-success">
-                    <span>Liên hệ</span>
+                    <span style="color: white;">Liên hệ</span>
                     <i class="bi bi-chevron-right"></i>
                 </a>
 
@@ -96,107 +98,64 @@
         TOUR NỔI BẬT
     </h1>
 
+
     <div class="box-container">
 
-        <div class="box">
-            <img src="images/p-1.jpg" alt="">
-            <div class="content">
-                <div class="daytour">
-                    <span>Ngay di</span> -
-                    <span>So ngay</span>
-                </div>
-                <p class="nametour">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, nam!</p>
-                <div class="info-tour">
-                    <p>Noi khoi hanh: <span>HCM</span></p>
-                    <p>So ghe con: <span>5</span></p>
+        @foreach (var item in tour)
+        {
+            if (item.TourNoiBat == true)
+            {
 
-                </div>
+                <div class="box">
+                    <img src="~/Content/Images/tourhanoi.jpg" alt="">
+                    <div class="content">
+                        @{ 
+                            var ngay = String.Format("{0:d/M/yyyy}", item.NgayKhoihanh);
+                        }
+                        <div class="daytour">
+                            <span>@ngay</span> -
+                            <span>@item.SoNgay Ngày</span>
+                        </div>
+                        <a></a>
+                        <p class="tour-titlename">
+                            <a href="/Guest/DetailTour" title="">
+                                @item.TenTour
+                            </a>
+                        </p>
+                        <div class="info-tour">
+                            <p>Địa điểm khởi hành: <span>@item.NoiKhoiHanh</span></p>
+                            @*p>Số ghế trống: <span>5</span></p>*@
 
-                <div class="price">
-                    <div class="pricesale">
-                        <span>120.000đ</span>
-                        <span class="sale">Sale 30%</span>
+                        </div>
+                        @{ 
+                            var tien = string.Format("{0:#,##0}", item.GiaNguoiLon);
+                            var loaitour = db.LoaiTours.Where(s => s.MaLTour == item.MaLTour).FirstOrDefault();
+                            var price = (double)item.GiaNguoiLon * (1 - loaitour.ChietKhau);
+                            var tiensale= string.Format("{0:#,##0}", price);
+                        }
+                        <div class="tour-item__price">
+                            <div class="tour-item_pricebefore">
+                                Giá :
+                                <span>@tien</span> đ
+                            </div>
+                            @{ 
+                                
+                            }
+                            <div class="tour-item_pricecurrent">
+                                <span class="tour-pricecurrent">@tiensale đ</span>
+                                <span class="tour-discount">@loaitour.ChietKhau GIẢM</span>
+                            </div>
+
+                        </div>
+
+
                     </div>
-
-                    <p>900.000d</p>
-
                 </div>
-                <div class="btnbuytour">
-                    <button class="btnbuy">Mua Ngay</button>
+            }
+        }
 
-                </div>
-
-            </div>
+       
         </div>
-
-
-
-
-
-        <div class="box">
-            <img src="images/p-1.jpg" alt="">
-            <div class="content">
-                <div class="daytour">
-                    <span>Ngay di</span> -
-                    <span>So ngay</span>
-                </div>
-                <p class="nametour">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, nam!</p>
-                <div class="info-tour">
-                    <p>Noi khoi hanh: <span>HCM</span></p>
-                    <p>So ghe con: <span>5</span></p>
-
-                </div>
-
-                <div class="price">
-                    <div class="pricesale">
-                        <span>120.000đ</span>
-                        <span class="sale">Sale 30%</span>
-                    </div>
-
-                    <p>900.000d</p>
-
-                </div>
-
-                <button class="btnbuy">Mua Ngay</button>
-
-            </div>
-        </div>
-
-        <div class="box">
-            <img src="images/p-1.jpg" alt="">
-            <div class="content">
-                <div class="daytour">
-                    <span>Ngay di</span> -
-                    <span>So ngay</span>
-                </div>
-                <p class="nametour">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, nam!</p>
-                <div class="info-tour">
-                    <p>Noi khoi hanh: <span>HCM</span></p>
-                    <p>So ghe con: <span>5</span></p>
-
-                </div>
-
-                <div class="price">
-                    <div class="pricesale">
-                        <span>Gia: 120.000đ</span>
-                        <span class="sale">Sale 30%</span>
-                    </div>
-
-                    <p>900.000d</p>
-
-                </div>
-                <button class="btnbuy">Mua Ngay</button>
-
-            </div>
-        </div>
-
-
-
-
-    </div>
-    <div class="btnmore">
-        <button class="moretour">Tất cả tour</button>
-    </div>
 
 
 
@@ -211,55 +170,19 @@
     </h1>
 
     <div class="box-container">
+        @for (int i = 0; i < diaDiems.Count; i++)
+        {
+            <div class="box">
+                <img src="~/Content/Images/tourhanoi.jpg" alt="">
+                <div class="content">
+                    <h3>@diaDiems[i].TenDDTQ</h3>
+                    <p>@diaDiems[i].MoTa</p>
+                    <a href="#" class="btn">see more</a>
+                </div>
+            </div>
+        }
 
-        <div class="box">
-            <img src="images/g-1.jpg" alt="">
-            <div class="content">
-                <h3>amazing places</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, tenetur.</p>
-                <a href="#" class="btn">see more</a>
-            </div>
-        </div>
-        <div class="box">
-            <img src="images/g-2.jpg" alt="">
-            <div class="content">
-                <h3>amazing places</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, tenetur.</p>
-                <a href="#" class="btn">see more</a>
-            </div>
-        </div>
-        <div class="box">
-            <img src="images/g-3.jpg" alt="">
-            <div class="content">
-                <h3>amazing places</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, tenetur.</p>
-                <a href="#" class="btn">see more</a>
-            </div>
-        </div>
-        <div class="box">
-            <img src="images/g-4.jpg" alt="">
-            <div class="content">
-                <h3>amazing places</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, tenetur.</p>
-                <a href="#" class="btn">see more</a>
-            </div>
-        </div>
-        <div class="box">
-            <img src="images/g-5.jpg" alt="">
-            <div class="content">
-                <h3>amazing places</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, tenetur.</p>
-                <a href="#" class="btn">see more</a>
-            </div>
-        </div>
-        <div class="box">
-            <img src="images/g-6.jpg" alt="">
-            <div class="content">
-                <h3>amazing places</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, tenetur.</p>
-                <a href="#" class="btn">see more</a>
-            </div>
-        </div>
+        
 
 
     </div>
@@ -270,8 +193,8 @@
     <div class="row">
         <div class="pr-left col-sm-3">
             <h2>
-                <strong>VÌ SAO CHỌN</strong></h3>
-                <h1><STRONG>VIETRIP INSUM</STRONG></h1>
+                <strong>VÌ SAO CHỌN</strong></h2>
+                <h2><STRONG>VIETRIP INSUM</STRONG></h2>
         </div>
         <div class="pr-right col-sm-9">
             <div class="col-pr">

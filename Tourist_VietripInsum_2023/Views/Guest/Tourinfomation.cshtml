@@ -1,0 +1,139 @@
+﻿@model Tourist_VietripInsum_2023.Models.Tour
+
+@{
+    ViewBag.Title = "Tourinfomation";
+    Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
+}
+
+<h2>Tourinfomation</h2>
+
+<div>
+    <h4>Tour</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaTour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaTour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaLTour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaLTour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaKS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaKS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenTour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenTour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GioiThieu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GioiThieu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HinhMinhHoa_T)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HinhMinhHoa_T)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayKhoihanh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayKhoihanh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayTroVe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayTroVe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoNgay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoNgay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NoiKhoiHanh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoiKhoiHanh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoChoNull)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoChoNull)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GiaTreEm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GiaTreEm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GiaNguoiLon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GiaNguoiLon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TourNoiBat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TourNoiBat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HanChotDatVe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HanChotDatVe)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
