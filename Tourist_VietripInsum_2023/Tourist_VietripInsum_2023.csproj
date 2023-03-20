@@ -146,9 +146,7 @@
     <Compile Include="Controllers\ChiTietToursController.cs" />
     <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\HotelsController.cs" />
     <Compile Include="Controllers\LoginStaffController.cs" />
-    <Compile Include="Controllers\PhuongTiensController.cs" />
     <Compile Include="Controllers\TourmanagerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -487,16 +485,6 @@
     <Content Include="Views\Tourmanager\DeleteVisitLocations.cshtml" />
     <Content Include="Views\Tourmanager\VistLocationsDetails.cshtml" />
     <Content Include="Views\Tourmanager\HotelDetails.cshtml" />
-    <Content Include="Views\Hotels\Create.cshtml" />
-    <Content Include="Views\Hotels\Delete.cshtml" />
-    <Content Include="Views\Hotels\Details.cshtml" />
-    <Content Include="Views\Hotels\Edit.cshtml" />
-    <Content Include="Views\Hotels\Index.cshtml" />
-    <Content Include="Views\PhuongTiens\Create.cshtml" />
-    <Content Include="Views\PhuongTiens\Delete.cshtml" />
-    <Content Include="Views\PhuongTiens\Details.cshtml" />
-    <Content Include="Views\PhuongTiens\Edit.cshtml" />
-    <Content Include="Views\PhuongTiens\Index.cshtml" />
     <Content Include="Views\Tourmanager\IndexHotel.cshtml" />
   </ItemGroup>
   <ItemGroup>
