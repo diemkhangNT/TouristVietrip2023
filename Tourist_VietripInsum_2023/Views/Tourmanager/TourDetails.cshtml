@@ -22,7 +22,7 @@
         <div class="row element-button">
             <div class="col-sm-2">
                 <a class="btn btn-warning btn-sm " type="button" title="List Detail" href="/Tourmanager/ListDetailTour/@Model.MaTour">
-                    Địa điểm tham quan
+                    Chi tiết tour
                 </a>
             </div>
             @*<div class="col-sm-2">
@@ -45,61 +45,50 @@
                     <img src="@Model.HinhMinhHoa_T" width="250" height="180" />
                 </div>
                 <div class="info col-sm-9">
-                    <h3>THÔNG TIN TOUR</h3>
-                    <div class=" col-sm-4">
-                        <span id="idtourc">
-                            <strong>
-                                ID Tour:
-                            </strong>  @Html.DisplayFor(model => model.MaTour)
-
-                        </span>
-                    </div>
+                    <h3>THÔNG TIN TOUR @Html.DisplayFor(model => model.MaTour)</h3>
                     <div class="col-sm-4">
-                        <strong>Type Tour: </strong>@Html.DisplayFor(model => model.MaLTour)_@Html.DisplayFor(model => model.LoaiTour.TenLTour)
-                    </div>
-                    <div class="col-sm-4">
+                        <strong>Type Tour: </strong>@Html.DisplayFor(model => model.MaLTour)-@Html.DisplayFor(model => model.LoaiTour.TenLTour)
                     </div>
                     <div class="col-sm-12">
                         <strong>Tour Name: </strong>@Html.DisplayFor(model => model.TenTour)
-                    </div>
-                    <div class="col-sm-4">
-                        <strong>Điểm đi: </strong>@Html.DisplayFor(model => model.NoiKhoiHanh)
-                    </div>
-                    @{
-                        var han = String.Format("{0:d/M/yyyy}", Model.HanChotDatVe);
-                        var ngaydi = String.Format("{0:d/M/yyyy}", Model.NgayKhoihanh);
-                        var ngayve = String.Format("{0:d/M/yyyy}", Model.NgayTroVe);
-                    }
-                    <div class="col-sm-4">
-                        <strong>Ngày khởi hành: </strong>@Html.DisplayFor(model => ngaydi)
-                    </div>
-                    <div class="col-sm-4">
-                        <strong>Ngày về: </strong>@Html.DisplayFor(model => ngayve)
-                    </div>
-
-                    <div class="col-sm-4">
-                        <strong>Hạn đặt: </strong>@Html.DisplayFor(model => han)
                     </div>
 
                     <div class="col-sm-4">
                         <strong>Số ngày: </strong>@Html.DisplayFor(model => model.SoNgay)
                     </div>
                     <div class="col-sm-4">
-                        <strong>Hạn đặt: </strong>@Html.DisplayFor(model => han)
+                        <strong>Hạn đặt: </strong>@Html.DisplayFor(model => model.HanChotDatVe)
                     </div>
                     <div class="col-sm-12">
-                        <strong>Số chỗ trống: </strong>@Html.DisplayFor(model => model.SoChoNull)
+                        <strong>Số chỗ còn nhận: </strong>@Html.DisplayFor(model => model.SoChoNull)
                     </div>
                     <div class="col-sm-12">
-                        <strong>Tour nổi bật: </strong> @Html.DisplayFor(model => model.TourNoiBat.HasValue)
+                        <strong>Tour nổi bật: </strong>
+                        @{ var ck = "";
+                            if (Model.TourNoiBat == true)
+                            {
+                                ck = "Yes";
+                            }
+                            else
+                            {
+                                ck = "No";
+                            }
+
+                        } @Html.DisplayFor(model => ck)
                     </div>
                     <div class="col-sm-12">
-                        <strong>Mã tỉnh: </strong> @Html.DisplayNameFor(model => model.Hotel.MaTinh)
+                        <strong>Mã Khách sạn: </strong>
+                        @Html.DisplayFor(model => model.MaKS) <span>(</span>@Html.DisplayFor(model => model.Hotel.TenKS))
                     </div>
                     <div class="col-sm-12">
-                        <strong>Loại tour: </strong>@Html.DisplayFor(model => model.LoaiTour.TenLTour)
+                        <strong>Mã tỉnh: </strong>
+                        @Html.DisplayFor(model => model.Hotel.MaTinh) <span>(</span>@Html.DisplayFor(model => model.Hotel.TinhThanh.TenTinh))
                     </div>
-                    <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <strong>Ngày về: </strong>@Html.DisplayFor(model => model.NgayTroVe)
+                    </div>
+                    <div class="col-sm-6">
+                        <strong>Giá vé: </strong>
                         <table>
                             @*//Phần render từng dòng trong C#*@
                             <thead>
@@ -111,9 +100,8 @@
                             </thead>
                             <tbody>
                                 <tr>
-
                                     <td>
-                                        @Html.DisplayNameFor(model => model.GiaNguoiLon)
+                                        @Html.DisplayFor(model => model.GiaNguoiLon)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(model => model.GiaTreEm)
@@ -124,7 +112,43 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="row">
+                        <strong>Thông tin tậpp trung: </strong>
+                        <div class="col-sm-12">
 
+                            <table>
+                                @*//Phần render từng dòng trong C#*@
+                                <thead>
+                                    <tr style="background-color: #09493352;">
+                                        <th>Nơi khởi hành</th>
+                                        <th>Ngày tập trung</th>
+                                        <th>Giờ đi</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        @{
+                                            var ngaytt = String.Format("{0:d/M/yyyy}", Model.NgayKhoihanh);
+                                            var giott = String.Format("{0:T}", Model.NgayKhoihanh);
+                                        }
+
+                                        <td>
+                                            Sân bay Tân Sơn Nhất, @Html.DisplayFor(model => model.NoiKhoiHanh)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => ngaytt)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => giott)
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div>

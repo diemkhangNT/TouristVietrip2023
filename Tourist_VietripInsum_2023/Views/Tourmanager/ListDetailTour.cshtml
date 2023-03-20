@@ -19,12 +19,12 @@
                 <div class="row">
                     <div class="col-sm-2">
                         <a class="btn btn-success btn-sm " type="button" title="Create Detail" href="/Tourmanager/CreateDetailTour">
-                            Thêm Lịch trình
+                            Thêm chi tiết tour
                         </a>
                     </div>
                 </div>
             </div>
-            
+
             <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                 <div class="row">
                     <div class="col-sm-12">
@@ -50,69 +50,69 @@
                                     //var check = dtour[i];
                                     //if (dtour[i].IdTour == Model.IdTour)
                                     //{
-                                <tr>
-                                    <td>
-                                        <img height="100" width="100" src="@item.DiaDiemThamQuan.HinhMinhHoa_D" />
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.STT)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.MaTour)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.TieuDe)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(model => item.MotaChitiet)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DiaDiemThamQuan.MaDDTQ)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.PhuongTien.MaPTien)
-                                    </td>
+                                    <tr>
+                                        <td>
+                                            <img height="100" width="100" src="@item.DiaDiemThamQuan.HinhMinhHoa_D" />
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.STT)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.MaTour)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TieuDe)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.MotaChitiet)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DiaDiemThamQuan.MaDDTQ)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PhuongTien.MaPTien)
+                                        </td>
 
-                                    <td style="text-align:center">
-                                        <a href="/Tourmanager/EditDetailTour/@item.STT" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        @*<a href="/Tourmanager/DetailTourDetail/@item.IdSchedule" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                            <i class="fas fa-train"></i>
-                                        </a>*@
-                                        <a class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete" data-toggle="modal" data-target="#myModal">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                        <div class="modal" id="myModal">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
+                                        <td style="text-align:center">
+                                            <a href="/Tourmanager/EditDetailTour/@item.STT" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            @*<a href="/Tourmanager/DetailTourDetail/@item.IdSchedule" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-train"></i>
+                                                </a>*@
+                                            <a class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete" data-toggle="modal" data-target="#myModal">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                            <div class="modal" id="myModal">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
 
-                                                    <!-- Modal Header -->
-                                                    <div class="modal-header">
-                                                        <h3>!!!!</h3>
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <!-- Modal Header -->
+                                                        <div class="modal-header">
+                                                            <h3>!!!!</h3>
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+
+                                                        <!-- Modal body -->
+                                                        <div class="modal-body">
+                                                            Are you sure to delete the tour ?!
+                                                        </div>
+
+                                                        <!-- Modal footer -->
+                                                        <div class="modal-footer">
+                                                            <a type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</a>
+                                                            <a type="button" class="btn btn-danger btn-sm" href="/Tourmanager/DeleteDetailTour/@item.STT">Delete</a>
+                                                        </div>
+
                                                     </div>
-
-                                                    <!-- Modal body -->
-                                                    <div class="modal-body">
-                                                        Are you sure to delete the tour ?!
-                                                    </div>
-
-                                                    <!-- Modal footer -->
-                                                    <div class="modal-footer">
-                                                        <a type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</a>
-                                                        <a type="button" class="btn btn-danger btn-sm" href="/Tourmanager/DeleteDetailTour/@item.STT">Delete</a>
-                                                    </div>
-
                                                 </div>
                                             </div>
-                                        </div>
 
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
 
 
-                                        }
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -124,11 +124,14 @@
 </div>
 
 <div>
-    <a class="btn btn-outline-danger btn-sm" href="~/Tourmanager/Tourdetails/@Session["tempdata"] "><i class="fas fa-retweet"> 
-        
-        
-        
-        Back to list tour</i></a>
+    <a class="btn btn-outline-danger btn-sm" href="~/Tourmanager/Tourdetails/@Session["tempdata"] ">
+        <i class="fas fa-retweet">
+
+
+
+            Back to list tour
+        </i>
+    </a>
 </div>
 
 

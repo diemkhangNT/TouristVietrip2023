@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.Hotel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateHotel")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenKS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TinhThanh.TenTinh)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenKS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TinhThanh.TenTinh)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditHotel", new { id = item.MaKS }) |
+                @Html.ActionLink("Details", "DetailsHotel", new { id = item.MaKS }) |
+                @Html.ActionLink("Delete", "DeleteHotel", new { id = item.MaKS })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -133,6 +133,16 @@
           <Property Name="HangXe" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="ChiTiet" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="TinhThanh">
           <Key>
             <PropertyRef Name="MaTinh" />
@@ -145,20 +155,20 @@
             <PropertyRef Name="MaTour" />
           </Key>
           <Property Name="MaTour" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="MaLTour" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaLTour" Type="varchar" MaxLength="10" />
           <Property Name="MaKS" Type="varchar" MaxLength="10" />
-          <Property Name="TenTour" Type="nchar" MaxLength="10" />
-          <Property Name="GioiThieu" Type="ntext" />
+          <Property Name="TenTour" Type="nvarchar" MaxLength="100" />
+          <Property Name="GioiThieu" Type="nvarchar" MaxLength="500" />
           <Property Name="HinhMinhHoa_T" Type="varchar" MaxLength="100" />
-          <Property Name="NgayKhoihanh" Type="smalldatetime" />
-          <Property Name="NgayTroVe" Type="smalldatetime" />
+          <Property Name="NgayKhoihanh" Type="datetime" />
+          <Property Name="NgayTroVe" Type="datetime" />
           <Property Name="SoNgay" Type="int" />
           <Property Name="NoiKhoiHanh" Type="nvarchar" MaxLength="50" />
           <Property Name="SoChoNull" Type="int" />
           <Property Name="GiaTreEm" Type="decimal" Precision="9" Scale="2" />
           <Property Name="GiaNguoiLon" Type="decimal" Precision="9" Scale="2" />
           <Property Name="TourNoiBat" Type="bit" />
-          <Property Name="HanChotDatVe" Type="smalldatetime" />
+          <Property Name="HanChotDatVe" Type="datetime" />
         </EntityType>
         <EntityType Name="Ve">
           <Key>
@@ -347,7 +357,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tour_LoaiTour1">
-          <End Role="LoaiTour" Type="Self.LoaiTour" Multiplicity="1" />
+          <End Role="LoaiTour" Type="Self.LoaiTour" Multiplicity="0..1" />
           <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LoaiTour">
@@ -371,6 +381,7 @@
           <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhanHoi" EntityType="Self.PhanHoi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhuongTien" EntityType="Self.PhuongTien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TinhThanh" EntityType="Self.TinhThanh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ve" EntityType="Self.Ve" Schema="dbo" store:Type="Tables" />
@@ -590,6 +601,16 @@
           <Property Name="ChiTiet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ChiTietTours" Relationship="Self.FK_ChiTietTour_PhuongTien" FromRole="PhuongTien" ToRole="ChiTietTour" />
         </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="TinhThanh">
           <Key>
             <PropertyRef Name="MaTinh" />
@@ -604,20 +625,20 @@
             <PropertyRef Name="MaTour" />
           </Key>
           <Property Name="MaTour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MaLTour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaLTour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="MaKS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="TenTour" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="GioiThieu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TenTour" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GioiThieu" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="HinhMinhHoa_T" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="NgayKhoihanh" Type="DateTime" Precision="0" />
-          <Property Name="NgayTroVe" Type="DateTime" Precision="0" />
+          <Property Name="NgayKhoihanh" Type="DateTime" Precision="3" />
+          <Property Name="NgayTroVe" Type="DateTime" Precision="3" />
           <Property Name="SoNgay" Type="Int32" />
           <Property Name="NoiKhoiHanh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SoChoNull" Type="Int32" />
           <Property Name="GiaTreEm" Type="Decimal" Precision="9" Scale="2" />
           <Property Name="GiaNguoiLon" Type="Decimal" Precision="9" Scale="2" />
           <Property Name="TourNoiBat" Type="Boolean" />
-          <Property Name="HanChotDatVe" Type="DateTime" Precision="0" />
+          <Property Name="HanChotDatVe" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ChiTietTours" Relationship="Self.FK_ChiTietTour_Tour" FromRole="Tour" ToRole="ChiTietTour" />
           <NavigationProperty Name="DonHangs" Relationship="Self.FK_OrderCus_Tour" FromRole="Tour" ToRole="DonHang" />
           <NavigationProperty Name="Hotel" Relationship="Self.FK_Tour_Hotel" FromRole="Tour" ToRole="Hotel" />
@@ -800,7 +821,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tour_LoaiTour1">
-          <End Role="LoaiTour" Type="Self.LoaiTour" Multiplicity="1" />
+          <End Role="LoaiTour" Type="Self.LoaiTour" Multiplicity="0..1" />
           <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LoaiTour">
@@ -836,6 +857,7 @@
           <EntitySet Name="NhanViens" EntityType="Self.NhanVien" />
           <EntitySet Name="PhanHois" EntityType="Self.PhanHoi" />
           <EntitySet Name="PhuongTiens" EntityType="Self.PhuongTien" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TinhThanhs" EntityType="Self.TinhThanh" />
           <EntitySet Name="Tours" EntityType="Self.Tour" />
           <EntitySet Name="Ves" EntityType="Self.Ve" />
@@ -1040,6 +1062,17 @@
                 <ScalarProperty Name="TenPTien" ColumnName="TenPTien" />
                 <ScalarProperty Name="HangXe" ColumnName="HangXe" />
                 <ScalarProperty Name="ChiTiet" ColumnName="ChiTiet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TouristModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,0 +1,43 @@
+﻿@model Tourist_VietripInsum_2023.Models.Hotel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Hotel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenKS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenKS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TinhThanh.TenTinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TinhThanh.TenTinh)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaKS }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

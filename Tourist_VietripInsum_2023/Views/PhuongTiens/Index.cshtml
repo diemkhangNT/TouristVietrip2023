@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.PhuongTien>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenPTien)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HangXe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChiTiet)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenPTien)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HangXe)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChiTiet)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaPTien }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaPTien }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaPTien })
+        </td>
+    </tr>
+}
+
+</table>

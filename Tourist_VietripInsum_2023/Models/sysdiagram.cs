@@ -12,23 +12,6 @@ namespace Tourist_VietripInsum_2023.Models
     using System;
     using System.Collections.Generic;
     
-<<<<<<<< HEAD:Tourist_VietripInsum_2023/Models/DetailTour.cs
-    public partial class DetailTour
-    {
-        public string IdDetailTour { get; set; }
-        public string IdTour { get; set; }
-        public string IdHotel { get; set; }
-        public string Describe { get; set; }
-        public string IdVistLocat { get; set; }
-        public string IdTrans { get; set; }
-        public string Image { get; set; }
-        public string InfoConcentrate { get; set; }
-    
-        public virtual Tour Tour { get; set; }
-        public virtual Transport Transport { get; set; }
-        public virtual VistLocation VistLocation { get; set; }
-        public virtual Hotel Hotel { get; set; }
-========
     public partial class sysdiagram
     {
         public string name { get; set; }
@@ -36,6 +19,5 @@ namespace Tourist_VietripInsum_2023.Models
         public int diagram_id { get; set; }
         public Nullable<int> version { get; set; }
         public byte[] definition { get; set; }
->>>>>>>> origin/Diem_Quynh:Tourist_VietripInsum_2023/Models/sysdiagram.cs
     }
 }
