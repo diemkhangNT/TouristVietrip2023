@@ -15,6 +15,7 @@
 
     <!-- custom css file link  -->
 
+    <link href="~/Content/Guest/MainGuest.css" rel="stylesheet" />
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -22,39 +23,68 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
-    <link href="~/Content/layoutGuest.css" rel="stylesheet" />
+
+
 
 </head>
 <body>
     <div>
         <!-- header section starts  -->
 
-        <header>
+        <header class="header">
 
-            <div id="menu-bar" class="fas fa-bars"></div>
+            <nav class="navbar navbar-expand-lg " style="background:white">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
 
-            <a href="#" class="logo" ><span>V</span>iet<span>T</span>rip</a>
+                        <span>VIETRIP INSUM</span>
 
-            <nav class="navbar">
-                @*<a href="#home">Trang chủ</a>*@
-                <a href="#book">Tin tức</a>
-                <a href="#packages">Tour du lịch</a>
-                <a href="#services">Cẩm nang du lịch</a>
-                <a href="#gallery">Khuyến mãi</a>
-                <a href="#review">Liên hệ</a>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link " aria-current="page" href="#">Du Lịch</a>
+                            </li>
 
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Tin tức
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/tin-moi.aspx">Tin mới</a></li>
+                                    <li><a class="dropdown-item" href="/tin-tuc-du-lich.aspx">Tin tức du lịch</a></li>
+                                    <li><a class="dropdown-item" href="/du-lich-bang-hinh-anh.aspx">Cẩm nang du lịch</a></li>
+                                    <li><a class="dropdown-item" href="/kinh-nghiem-du-lich.aspx">Kinh nghiệm du lịch</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Tour Nổi Bật</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Liên Hệ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"></a>
+                            </li>
+                        </ul>
+                        <form class="d-flex">
+                            <input class="search-mn form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success btnsearchdetail" type="submit">Search</button>
+                        </form>
+                        <div class="group-features">
+                            <div class="account item">
+                                <a href="">
+                                    <i class="fas fa-user"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </nav>
-
-            <div class="icons">
-                <i class="fas fa-search" id="search-btn"></i>
-                <i class="fas fa-user" id="login-btn"></i>
-            </div>
-
-            <form action="" class="search-bar-container">
-                <input type="search" id="search-bar" placeholder="search here...">
-                <label for="search-bar" class="fas fa-search"></label>
-            </form>
-
         </header>
 
         <!-- header section ends -->
@@ -64,6 +94,47 @@
 
     <div>
         @RenderBody()
+    </div>
+    <!-- footer section  -->
+
+    <div>
+        <div class="footer">
+            <div class="container">
+
+                <div class="box-container">
+                    <div class="box">
+                        <h2>CÔNG TY CỔ PHẦN THƯƠNG MẠI DU LỊCH VIETRIP INSUM</h2>
+                        <p>MST: 1801511350. Ngày cấp giấy phép: 24/01/2017</p>
+                        <p>VP HCM chi nhánh Q3: 10 Hai Bà Trưng, Q.3, TP.HCM</p>
+                        <p>VP HCM chi nhánh Q1: 45 Đinh Tiên Hoàng, P. Bến Nghé, Q1, TP. HCM</p>
+                        <p>VP Hà Nội: 123 Cầu Giấy, Quận Hoàn Kiếm, Hà Nội</p>
+                        <p>Liên hệ: 012345678</p>
+                    </div>
+
+                    <div class="box">
+                        <h2>LIÊN KẾT</h2>
+                        <p>
+                            <a href="#">Trang Facebook</a>
+                        </p>
+                        <p>
+                            <a href="#">Instagram</a>
+                        </p>
+                        <P>
+                            <a href="#">Twitter</a>
+                        </P>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
     </div>
 </body>
 </html>

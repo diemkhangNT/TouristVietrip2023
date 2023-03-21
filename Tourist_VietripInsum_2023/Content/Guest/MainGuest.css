@@ -1,0 +1,97 @@
+﻿.header .navbar {
+    padding: 12px 20px;
+    background:white;
+}
+
+.nav-item {
+    margin: 0 8px;
+}
+
+.navbar-nav .nav-link {
+    color: #2d4271;
+    font-size: 17PX;
+    font-weight: 600;
+}
+
+.navbar-brand span {
+    color: #2d4271;
+    font-size: 15PX;
+    font-weight: 800;
+}
+
+.list-menutourvist {
+    padding-left: 0;
+    list-style: none;
+}
+
+.group-features {
+    padding-left: 20px;
+    ;
+}
+
+@media screen and (max-width: 991px) {
+    .group-features .item {
+        cursor: pointer;
+        padding: 0px 11px;
+    }
+}
+
+.header .navbar .group-features .item i {
+    font-size: 22px;
+    color: rgb(45, 66, 113);
+}
+
+/* FOOTER */
+.footer {
+    background: rgb(232, 232, 232);
+}
+
+    .footer .box-container {
+        display: flex;
+        flex-wrap: wrap;
+        padding-top: 20px;
+    }
+
+        .footer .box-container .box {
+            padding: 1rem 0;
+            flex: 1 1 25rem;
+        }
+
+            .footer .box-container .box h2 {
+                font-size: 16px;
+                font-weight: 500;
+                color: #67a448;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .footer .box-container .box p {
+                font-size: 16px;
+                color: black;
+            }
+
+            .footer .box-container .box a {
+                display: block;
+                font-size: 16px;
+                text-decoration: none;
+                color: black;
+            }
+
+                .footer .box-container .box a:hover {
+                    color: var(--orange);
+                    text-decoration: underline;
+                }
+
+    .footer .credit {
+        text-align: center;
+        padding: 2rem 1rem;
+        margin-top: 1rem;
+        font-size: 2rem;
+        font-weight: normal;
+        color: #fff;
+        border-top: .1rem solid rgba(255,255,255,.2);
+    }
+
+        .footer .credit span {
+            color: var(--orange);
+        }
