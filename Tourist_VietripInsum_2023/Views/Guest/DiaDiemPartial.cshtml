@@ -1,0 +1,21 @@
+﻿@using Tourist_VietripInsum_2023.Models
+@model IEnumerable<TinhThanh>
+
+<div class="title">Du lịch khắp đất nước</div>
+<ul class="list-group">
+    <div class="row">
+        @foreach (var d in Model)
+        {
+        <div class="col-sm-3">
+            <a href="@Url.Action("DiaDiemPartial", "Guest", new { id=d.MaTinh })">
+                @d.TenTinh
+            </a>
+        </div>
+
+           
+        }
+
+
+    </div>
+    
+</ul>

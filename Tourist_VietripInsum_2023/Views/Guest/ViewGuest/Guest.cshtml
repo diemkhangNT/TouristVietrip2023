@@ -45,8 +45,13 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="#">Du Lịch</a>
+                            <!-- Mega Menu -->
+                            <li class="nav-item dropdown has-megamenu">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"> Du lịch </a>
+                                <div class="dropdown-menu megamenu" role="menu">
+                                    @Html.Action("DiaDiemPartial", "Guest")
+
+                                </div> <!-- dropdown-mega-menu.// -->
                             </li>
 
 
@@ -70,6 +75,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#"></a>
                             </li>
+
                         </ul>
                         <form class="d-flex">
                             <input class="search-mn form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -140,4 +146,5 @@
 </html>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="~/Content/Guest.js"></script>
+
 

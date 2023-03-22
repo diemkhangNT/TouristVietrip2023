@@ -16,6 +16,11 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             return View();
         }
+        public ActionResult DiaDiemPartial()
+        {
+            var tinhThanhs = db.TinhThanhs.ToList();
+            return PartialView(tinhThanhs);
+        }
 
         public ActionResult Tourinfomation(string id)
         {

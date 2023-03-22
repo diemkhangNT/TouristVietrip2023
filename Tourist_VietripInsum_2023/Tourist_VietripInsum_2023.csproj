@@ -488,6 +488,7 @@
     <Content Include="Views\Tourmanager\HotelDetails.cshtml" />
     <Content Include="Views\Guest\HomePageGuest.cshtml" />
     <Content Include="Views\Guest\Tourinfomation.cshtml" />
+    <Content Include="Views\Guest\DiaDiemPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
