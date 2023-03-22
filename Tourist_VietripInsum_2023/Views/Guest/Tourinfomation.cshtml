@@ -58,7 +58,7 @@
         </div>
 
     </section>
-
+    @*HINH*@
     <section class="content-2">
         <div class="container">
             <div class="row">
@@ -113,10 +113,11 @@
                             DateTime ngaydi = (DateTime)Model.NgayKhoihanh;
                             TimeSpan aInterval = new System.TimeSpan(0, 1, 1, 0);
                             DateTime newTime = ngaydi.Subtract(aInterval);
+                            var ngaykhoihanh_1= String.Format("{0:g}", ngaydi);
                         }
                         <div class="box-order">
                             <div class="time">
-                                <p>Khởi hành: <b>@Model.NgayKhoihanh</b></p>
+                                <p>Khởi hành: <b>@ngaykhoihanh_1</b></p>
                                 <p>Tập trung: <b>@newTime</b></p>
                                 <p>Thời gian: <b>@Model.SoNgay ngày</b></p>
                                 <p>Nơi khởi hành: <b>@Model.NoiKhoiHanh</b></p>
@@ -140,16 +141,34 @@
                                 <label>Thời gian</label>
                                 <p>@Model.SoNgay Ngày</p>
                             </div>
+                            @{
+                                var diadiem = db.ChiTietTours.Where(s => s.MaTour == Model.MaTour).ToList();
+                               
+                                var diemthamquan = 0;
+
+                                foreach(var item in diadiem)
+                                {
+                                    if(item.MaTour==Model.MaTour)
+                                    {
+                                        diemthamquan++;
+                                        
+
+                                    }
+                                }
+                            }
                             <div class="item">
                                 <i class="fas fa-bus"></i>
                                 <label>Phương tiện di chuyển</label>
-                                <p></p>
+                                <p>
+                                    @diemthamquan
+                                </p>
                             </div>
+
                             <div class="item">
                                 <i class="fas fa-map"></i>
                                 <label>Điểm tham quan</label>
                                 <p>
-
+                                    @diemthamquan
                                 </p>
                             </div>
                             <div class="item">
@@ -197,17 +216,27 @@
                     <div class="row">
                         <div class="lotrinh-left col-md-4 col-12 ">
                             <div class="go-tour">
-                                <div class="day day-01">
-                                    <div class="wrapper">
-                                        <span class="date-left"> Ngày </span>
-                                        <span class="date-center active">1</span>
-                                        <span class="date-right">
-                                            <span class="date">22/03/2023</span>
-                                            <span class="location">TP.HỒ CHÍ MINH - HUẾ - ĐẠI NỘI – CHÙA THIÊN MỤ Số bữa ăn: 02 (Ăn trưa, chiều)</span>
-                                        </span>
+                                @foreach(var ct in diadiem)
+                                {
+                                    
+                                    <div class="day">
+                                        <div class="wrapper">
+                                            <span class="date-left"> Ngày  </span>
+                                            <span class="date-center active">@ct.STT</span>
+                                            @{
+                                                
+                                                DateTime ttdate = (DateTime)ngaydi.AddDays(ct.STT);
+                                                
+                                            }
+                                            <span class="date-right">
+                                                <span class="date">@ttdate</span>
+                                                <span class="location">@ct.TieuDe</span>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="day day-02">
+                                }
+
+                                @*<div class="day day-02">
                                     <div class="wrapper">
                                         <span class="date-left"> Ngày </span>
                                         <span class="date-center active">2</span>
@@ -216,43 +245,44 @@
                                             <span class="location">HUẾ - ĐỘNG PHONG NHA &amp; THIÊN ĐƯỜNG – QUẢNG BÌNH Số bữa ăn: 03 (Ăn sáng, trưa, chiều)</span>
                                         </span>
                                     </div>
-                                </div>
+                                </div>*@
                             </div>
 
                         </div>
                         <div class="lotrinh-right col-md-8 col-12 right ">
                             <div>
-                                <h3 id="day-01">Ngày 1 - TP.HỒ CHÍ MINH - HUẾ - ĐẠI NỘI – CHÙA THIÊN MỤ Số bữa ăn: 02 (Ăn trưa, chiều)</h3>
-                                <div class="excerpt">
-                                    <span class="line"></span>
-                                    <title></title>
-                                    <p style="text-align:justify">
-                                        Quý khách tập trung tại Cột 5, Ga đi trong nước, sân bay Tân Sơn Nhất, hướng dẫn viên <a href="https://www.vietravel.com?utm_source=internalbl&amp;utm_medium=click&amp;utm_campaign=ATLinks" target="_blank">Vietravel</a> hỗ trợ làm thủ tục cho đoàn đáp chuyến bay đi Huế. Tại sân bay Phú Bài - Huế, xe và hướng dẫn viên đón đoàn đi tham quan: &nbsp;<br>
-                                        <strong>- Đại Nội:</strong> Hoàng cung xưa của 13 vị vua triều Nguyễn, tham quan Ngọ Môn, Điện Thái Hòa, Tử Cấm Thành, Thế Miếu, Hiển Lâm Các, Cửu Đình, Bảo tàng Cổ Vật cung đình Huế.&nbsp;<br>
-                                        <strong>- Lăng Tự Đức:</strong> Nơi có phong cảnh sơn thủy hữu tình và được cho là một trong những lăng tẩm có kiến trúc đẹp nhất của các vua chúa nhà Nguyễn&nbsp;<br>
-                                        <strong>- <a href="https://travel.com.vn/hue/tour-chua-thien-mu.aspx?utm_source=internalbl&amp;utm_medium=click&amp;utm_campaign=ATLinks" target="_blank">Chùa Thiên Mụ</a>: </strong>Ngôi chùa được xem là cổ nhất ở Huế và là nơi lưu giữ nhiều cổ vật quý giá không chỉ về mặt lịch sử mà còn cả về nghệ thuật<br>
-                                        Tự do dạo phố Huế về đêm, trải nghiệm một Huế không hề trầm mặc mà căng tràn nhựa sống tại Phố đi bộ ven sông Hương, tự do thưởng thức các món đường phố xứ Huế như bánh mì lọc, chè Huế, ngắm nhìn thuyền rồng ngược xuôi bên bến Tòa Khâm văng vẳng âm vang điệu hò Huế. Khám phá khu phố Tây sôi động về đêm với nhiều quán xá đông vui, những hàng quà lưu niệm.<br>
-                                        <br>
-                                        <strong>Nghỉ đêm tại Huế.</strong>
-                                    </p>
-                                </div>
-                                <div class="group-services hashCode d-none">
-                                    <div class="item">
-                                        <i class="icon icon--calendar"></i>
-                                        <label>Khách sạn</label>
-                                        <p>VinOasis Phú Quốc</p>
+                                @foreach (var dt in diadiem)
+                                {
+                                    <h3 id="day-01">Ngày @dt.STT- @dt.TieuDe</h3>
+                                    <div class="excerpt">
+                                        <span class="line"></span>
+                                        <title></title>
+                                        <p style="text-align:justify">
+                                            
+                                            @dt.MotaChitiet
+                                            <br>
+                                            @*strong>Nghỉ đêm tại Huế.</strong>*@
+                                        </p>
                                     </div>
-                                    <div class="item">
-                                        <i class="icon icon--fire"></i>
-                                        <label>Bữa ăn</label>
-                                        <p>1 bửa trưa, 1 bửa tối.</p>
+                                    <div class="group-services hashCode d-none">
+                                        @*<div class="item">
+                                            <i class="icon icon--calendar"></i>
+                                            <label>Khách sạn</label>
+                                            <p>VinOasis Phú Quốc</p>
+                                        </div>*@
+                                        <div class="item">
+                                            <i class="icon icon--fire"></i>
+                                            <label>Bữa ăn</label>
+                                            <p>1 bửa trưa, 1 bửa tối.</p>
+                                        </div>
+                                        <div class="item">
+                                            <i class="icon icon--map"></i>
+                                            <label>Điểm tham quan</label>
+                                            <p>1 địa điểm</p>
+                                        </div>
                                     </div>
-                                    <div class="item">
-                                        <i class="icon icon--map"></i>
-                                        <label>Điểm tham quan</label>
-                                        <p>1 địa điểm</p>
-                                    </div>
-                                </div>
+                                }
+
                             </div>
                             <div>
 

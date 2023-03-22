@@ -29,6 +29,14 @@ namespace Tourist_VietripInsum_2023.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Tour tour = db.Tours.Where(s => s.MaTour == id).FirstOrDefault();
+            //var diadiem = db.ChiTietTours.Where(s => s.MaTour == id).ToList();
+            //List<PhuongTien> pt = new List<PhuongTien>();
+            //foreach (var item in diadiem)
+            //{
+            //    pt.Add(item.MaPTien);
+
+
+            //}
             if (tour == null)
             {
                 return HttpNotFound();
