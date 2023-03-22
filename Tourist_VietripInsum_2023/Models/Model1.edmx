@@ -7,7 +7,6 @@
       <Schema Namespace="TouristModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ChiTietTour">
           <Key>
-            <PropertyRef Name="STT" />
             <PropertyRef Name="MaDDTQ" />
             <PropertyRef Name="MaTour" />
           </Key>
@@ -145,20 +144,20 @@
             <PropertyRef Name="MaTour" />
           </Key>
           <Property Name="MaTour" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="MaLTour" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaLTour" Type="varchar" MaxLength="10" />
           <Property Name="MaKS" Type="varchar" MaxLength="10" />
-          <Property Name="TenTour" Type="nchar" MaxLength="10" />
-          <Property Name="GioiThieu" Type="ntext" />
+          <Property Name="TenTour" Type="nvarchar" MaxLength="100" />
+          <Property Name="GioiThieu" Type="nvarchar" MaxLength="500" />
           <Property Name="HinhMinhHoa_T" Type="varchar" MaxLength="100" />
-          <Property Name="NgayKhoihanh" Type="smalldatetime" />
-          <Property Name="NgayTroVe" Type="smalldatetime" />
+          <Property Name="NgayKhoihanh" Type="datetime" />
+          <Property Name="NgayTroVe" Type="datetime" />
           <Property Name="SoNgay" Type="int" />
           <Property Name="NoiKhoiHanh" Type="nvarchar" MaxLength="50" />
           <Property Name="SoChoNull" Type="int" />
           <Property Name="GiaTreEm" Type="decimal" Precision="9" Scale="2" />
           <Property Name="GiaNguoiLon" Type="decimal" Precision="9" Scale="2" />
           <Property Name="TourNoiBat" Type="bit" />
-          <Property Name="HanChotDatVe" Type="smalldatetime" />
+          <Property Name="HanChotDatVe" Type="datetime" />
         </EntityType>
         <EntityType Name="Ve">
           <Key>
@@ -347,7 +346,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tour_LoaiTour1">
-          <End Role="LoaiTour" Type="Self.LoaiTour" Multiplicity="1" />
+          <End Role="LoaiTour" Type="Self.LoaiTour" Multiplicity="0..1" />
           <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LoaiTour">
@@ -442,7 +441,6 @@
       <Schema Namespace="TouristModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="ChiTietTour">
           <Key>
-            <PropertyRef Name="STT" />
             <PropertyRef Name="MaDDTQ" />
             <PropertyRef Name="MaTour" />
           </Key>
@@ -604,20 +602,20 @@
             <PropertyRef Name="MaTour" />
           </Key>
           <Property Name="MaTour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MaLTour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaLTour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="MaKS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="TenTour" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="GioiThieu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TenTour" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GioiThieu" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="HinhMinhHoa_T" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="NgayKhoihanh" Type="DateTime" Precision="0" />
-          <Property Name="NgayTroVe" Type="DateTime" Precision="0" />
+          <Property Name="NgayKhoihanh" Type="DateTime" Precision="3" />
+          <Property Name="NgayTroVe" Type="DateTime" Precision="3" />
           <Property Name="SoNgay" Type="Int32" />
           <Property Name="NoiKhoiHanh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SoChoNull" Type="Int32" />
           <Property Name="GiaTreEm" Type="Decimal" Precision="9" Scale="2" />
           <Property Name="GiaNguoiLon" Type="Decimal" Precision="9" Scale="2" />
           <Property Name="TourNoiBat" Type="Boolean" />
-          <Property Name="HanChotDatVe" Type="DateTime" Precision="0" />
+          <Property Name="HanChotDatVe" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ChiTietTours" Relationship="Self.FK_ChiTietTour_Tour" FromRole="Tour" ToRole="ChiTietTour" />
           <NavigationProperty Name="DonHangs" Relationship="Self.FK_OrderCus_Tour" FromRole="Tour" ToRole="DonHang" />
           <NavigationProperty Name="Hotel" Relationship="Self.FK_Tour_Hotel" FromRole="Tour" ToRole="Hotel" />
@@ -800,7 +798,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tour_LoaiTour1">
-          <End Role="LoaiTour" Type="Self.LoaiTour" Multiplicity="1" />
+          <End Role="LoaiTour" Type="Self.LoaiTour" Multiplicity="0..1" />
           <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LoaiTour">

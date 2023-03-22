@@ -56,7 +56,7 @@
                         <strong>Ngày khởi hành: </strong>
                         <div class="col-md-12">
                             @*<input class="form-control text-box single-line" data-val="true" data-val-date="The field StaffBirthday must be a date." id="Departure" name="Departure" type="date" value="@Model.Departure">*@
-                            @Html.EditorFor(model => model.NgayKhoihanh, new { htmlAttributes = new { @class = "form-control" } })
+                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field NgayNhap must be a date." id="NgayTroVe" name="NgayTroVe" type="date" required>
                             @Html.ValidationMessageFor(model => model.NgayKhoihanh, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                         <strong>Ngày trở về: </strong>
                         <div class="col-md-12">
                             @*<input class="form-control text-box single-line" data-val="true" data-val-date="The field must be a date." id="TimeTour" name="TimeTour" type="number" min="0" value="@Model.TimeTour">*@
-                            @Html.EditorFor(model => model.NgayTroVe, new { htmlAttributes = new { @class = "form-control" } })
+                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field NgayNhap must be a date." id="NgayTroVe" name="NgayTroVe" type="date" required>
                             @Html.ValidationMessageFor(model => model.NgayTroVe, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -115,14 +115,14 @@
                     <div class="form-group col-sm-6">
                         <p><strong>Hạn đặt chỗ: </strong></p>
                         <div class="col-sm-12">
-                            @Html.EditorFor(model => model.HanChotDatVe, new { htmlAttributes = new { @class = "form-control" } })
+                            <input class="form-control text-box single-line" data-val="true" data-val-date="The field NgayNhap must be a date." id="NgayTroVe" name="NgayTroVe" type="date" required>
                             @Html.ValidationMessageFor(model => model.HanChotDatVe, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group col-sm-6">
                         <p><strong>Tour nổi bật: </strong></p>
                         <div class="col-sm-12">
-                            @Html.EditorFor(model => model.TourNoiBat)
+                            @Html.EditorFor(model => model.TourNoiBat, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.TourNoiBat, "", new { @class = "text-danger" })
                         </div>
                     </div>

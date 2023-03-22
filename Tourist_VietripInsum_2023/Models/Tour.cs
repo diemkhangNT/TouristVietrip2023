@@ -11,8 +11,7 @@ namespace Tourist_VietripInsum_2023.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Tour
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,7 +22,6 @@ namespace Tourist_VietripInsum_2023.Models
         }
     
         public string MaTour { get; set; }
-
         public string MaLTour { get; set; }
         public string MaKS { get; set; }
         public string TenTour { get; set; }
