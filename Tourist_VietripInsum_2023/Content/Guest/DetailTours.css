@@ -1,17 +1,20 @@
 ﻿body {
-    background-color: #f9f9f9;
+    background-color: white;
 }
 
 .content-1 {
     padding-top: 10px;
     padding-bottom: 20px;
+    background-color: #f9f9f9;
 }
 
 .warp-mark {
     padding-top: 20px;
     color: #4d4aef;
-    font-size: 14px;
-    margin-bottom: 5px
+    font-size: 15px;
+    margin-bottom: 5px;
+    font-weight:500;
+    
 }
 
 .title-tour {
@@ -53,6 +56,7 @@
         line-height: 28px;
     }
 /* right */
+
 .group-add-cart {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -93,7 +97,7 @@
 
 /* HINH */
 .content-2 {
-    padding-bottom: 30px;
+    padding-bottom: 35px;
     background: #f9f9f9;
 }
 
@@ -178,9 +182,26 @@
             font-size: 16px;
         }
 
+.tour-des {
+    padding:25px 20px;
+    background: #fff;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    color: #2d4271;
+    font-size: 16px;
+    font-weight:500;
+}
+
+/*MOTA*/
+.mota-tour {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    background-color: #fff;
+}
 /* section-04 */
 .section-04 {
-    background: #fff;
+    background-color: white;
 }
 
 .lichtrinh {
@@ -188,15 +209,17 @@
     font-weight: 700;
     text-align: center;
     color: #2d4271;
+    padding:15px 0px;
 }
 
 /* SECTION5 */
 .section-05 {
-    background: #fff;
+    margin: 10px 0px;
+    background-color: #fff;
 }
 
     .section-05 .row {
-        background: #fff;
+        
         border: 1px solid #e7e7e7;
         border-radius: 10px;
     }
@@ -294,14 +317,14 @@
         padding-right: 10px;
     }
 
-.line {
+/*.line {
     height: calc(100% - 16px);
     border-left: 0.5px dashed #2d4271;
     position: absolute;
     top: 6px;
     left: 0;
     z-index: 1;
-}
+}*/
 
 .excerpt {
     padding-left: 33px;
@@ -331,28 +354,37 @@
 
 /* SECTION6 */
 .section-06 {
-    background-color: #fff;
+    background: white;
 }
 
-.pricetourdetail h2 {
-    font-weight: 700;
-    font-size: 22px;
-    line-height: 28px;
-    padding-top: 0px;
-    text-align: center;
+.pricetourdetail {
+    padding: 10px;
+    
 }
 
-.table-price {
+    .pricetourdetail h2 {
+        font-size: 25px;
+        font-weight: 700;
+        text-align: center;
+        color: #2d4271;
+        padding: 15px 0px;
+    }
+
+.table-price table{
     border-radius: 10px;
-    padding: 30px;
+    padding: 15px;
 }
 
     .table-price th {
-        padding: 10px 0;
+        paddi
+            
+            
+            ng: 10px 0;
     }
 /* SECTION7 */
 .section-07 {
-    padding-top: 20px;
+    margin-bottom: 20px;
+    
 }
 
     .section-07 h2 {
@@ -360,7 +392,8 @@
         font-size: 22px;
         line-height: 28px;
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 10px;
+        color: #2d4271;
     }
 
 
@@ -370,7 +403,7 @@
 
 .accordion {
     background-color: #f9f9f9;
-    ;
+    
     color: #2d4271;
     cursor: pointer;
     padding: 25px;
