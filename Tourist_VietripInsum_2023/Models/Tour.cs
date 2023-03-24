@@ -17,8 +17,8 @@ namespace Tourist_VietripInsum_2023.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tour()
         {
+            this.BookTours = new HashSet<BookTour>();
             this.ChiTietTours = new HashSet<ChiTietTour>();
-            this.DonHangs = new HashSet<DonHang>();
         }
     
         public string MaTour { get; set; }
@@ -34,13 +34,13 @@ namespace Tourist_VietripInsum_2023.Models
         public Nullable<int> SoChoNull { get; set; }
         public Nullable<decimal> GiaTreEm { get; set; }
         public Nullable<decimal> GiaNguoiLon { get; set; }
-        public Nullable<bool> TourNoiBat { get; set; }
+        public string TrangThai { get; set; }
         public Nullable<System.DateTime> HanChotDatVe { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietTour> ChiTietTours { get; set; }
+        public virtual ICollection<BookTour> BookTours { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonHang> DonHangs { get; set; }
+        public virtual ICollection<ChiTietTour> ChiTietTours { get; set; }
         public virtual Hotel Hotel { get; set; }
         public virtual LoaiTour LoaiTour { get; set; }
     }

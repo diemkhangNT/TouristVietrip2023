@@ -118,13 +118,30 @@
         <div>
             @RenderBody()
         </div>
-       @RenderSection("script", false)
+        @RenderSection("script", false)
     </main>
     <!--dialog_message -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @*  *@
+    <!--<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script src="src/jquery.table2excel.js"></script>
+    <script src="~/Scripts/main.js"></script>-->
+    <!-- The javascript plugin to display page loading on top-->
+    <!--<script src="~/Scripts/pace.min.js"></script>-->
+    <!-- Page specific javascripts-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>-->
+    @*//TimKiem*@
+    <!-- Data table plugin-->
+    <script src="~/Scripts/plugin/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/plugin/dataTables.bootstrap.min.js"></script>
+    @*//TimKiem*@
     <script type="text/javascript">
+        $('#sampleTable').DataTable(); //TimKiem
         //Thời Gian
         function time() {
             var today = new Date();
@@ -166,7 +183,7 @@
             }
         }
     </script>
-    
+
     <script type="text/javascript">
         var data = {
             labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],

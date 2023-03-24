@@ -588,6 +588,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         public ActionResult CreateTours()
         {
             ViewBag.MaKS = new SelectList(db.Hotels, "MaKS", "TenKS");
+            ViewBag.MaTinh = new SelectList(db.Hotels, "MaTinh", "TenTinh");
             ViewBag.MaLTour = new SelectList(db.LoaiTours, "MaLTour", "TenLTour");
             return View();
         }
@@ -640,19 +641,20 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             LuuImage(tour, ImagerTour);
             Random rd = new Random();
-            var idtour = "Tour" + rd.Next(1, 1000);
+            var idtour = "VNG" + rd.Next(1, 100000);
             tour.MaTour = idtour;
-            tour.TourNoiBat = true;
+            tour.TrangThai  = "Coming soon...";
+            DateTime startDate = (DateTime)tour.NgayKhoihanh;
+            DateTime endDate = (DateTime)tour.NgayTroVe;
 
-            //TimeSpan? songay = tour.NgayTroVe - tour.NgayKhoihanh;
-            //tour.SoNgay = Convert.ToInt32(songay);
+            TimeSpan span = endDate.Subtract(startDate);
+            int numOfDays = (int)span.TotalDays + 1;
+
+            tour.SoNgay = numOfDays;
             db.Tours.Add(tour);
             db.SaveChanges();
             TempData["noti"] = "oke";
             return RedirectToAction("QuanLyTour");
-
-
-
         }
 
         //Chi tiết tour
@@ -691,6 +693,11 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             LuuImage(tour, ImagerTour);
             db.Entry(tour).State = System.Data.Entity.EntityState.Modified;
+            DateTime startDate = (DateTime)tour.NgayKhoihanh;
+            DateTime endDate = (DateTime)tour.NgayTroVe;
+
+            TimeSpan span = endDate.Subtract(startDate);
+            int numOfDays = (int)span.TotalDays + 1;
             db.SaveChanges();
             TempData["noti"] = "oke";
             return RedirectToAction("QuanLyTour");

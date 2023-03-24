@@ -63,18 +63,8 @@
                         <strong>Số chỗ còn nhận: </strong>@Html.DisplayFor(model => model.SoChoNull)
                     </div>
                     <div class="col-sm-12">
-                        <strong>Tour nổi bật: </strong>
-                        @{ var ck = "";
-                            if (Model.TourNoiBat == true)
-                            {
-                                ck = "Yes";
-                            }
-                            else
-                            {
-                                ck = "No";
-                            }
-
-                        } @Html.DisplayFor(model => ck)
+                        <strong>Trạng thái: </strong>
+                        @Html.DisplayFor(model => model.TrangThai)
                     </div>
                     <div class="col-sm-12">
                         <strong>Mã Khách sạn: </strong>
