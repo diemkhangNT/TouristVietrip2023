@@ -1,12 +1,14 @@
-﻿@model Tourist_VietripInsum_2023.Models.Staff
+﻿
+
 @using Tourist_VietripInsum_2023.Models
+
 @{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Admin/AdminView.cshtml";
     ViewBag.Name = "Home Page";
-    TouristEntities1 db = new TouristEntities1();
-    var tourmanagersff = db.Staffs.ToList().Count();
-    var customer = db.Customer_Guest.ToList().Count();
+    TouristEntities db = new TouristEntities();
+    var tourmanagersff = db.NhanViens.ToList().Count();
+    var customer = db.KhachHangs.ToList().Count();
 }
 <link rel="stylesheet" type="text/css" href="~/Content/style_profile.css">
 <style>
@@ -71,8 +73,8 @@
                 <div class="row rounded-lg d-block d-sm-flex">
                     <div class="col-lg-4 col-md-3 col-sm-12 profile-tab-nav border-right">
                         <div class="p-4">
-                            @{var user1 = (Tourist_VietripInsum_2023.Models.Staff)HttpContext.Current.Session["user"];
-                                var img = user1.Avatar;
+                            @{var user1 = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Current.Session["user"];
+                                var img = user1.HinhDaiDien;
                                 if (img == null)
                                 {
                                     <div class="img text-center mb-3">
@@ -82,11 +84,11 @@
                                 else
                                 {
                                     <div class="img text-center mb-3">
-                                        <img style="width: 100px; height: 100px; border-radius: 50%" src="@user1.Avatar" alt="Image" class="shadow">
+                                        <img style="width: 100px; height: 100px; border-radius: 50%" src="@user1.HinhDaiDien" alt="Image" class="shadow">
                                     </div>
                                 }
                                 <h4 class="text-center">
-                                    @user1.FullName
+                                    @user1.HoTen
                                 </h4>
                             }
                             <div class="nav flex-column nav-pills online" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -106,48 +108,48 @@
                         <div class="" id="account" role="tabpanel" aria-labelledby="account-tab">
                             <h4 class="title_acc text-danger">General</h4>
                             @{
-                                var user = (Tourist_VietripInsum_2023.Models.Staff)HttpContext.Current.Session["user"];
+                                var user = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Current.Session["user"];
                                 <div class="row">
                                     <div class="col-12">
                                         <div>
                                             <label>Position</label>
-                                            <h6>@user.Position.NamePos</h6>
+                                            <h6>@user.MaCV</h6>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div>
                                             <label>ID Staff</label>
-                                            <h6>@user.IdStaff</h6>
+                                            <h6>@user.MaNV</h6>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div>
                                             <label>Phone number</label>
-                                            <h6>@user.NumberPhone</h6>
+                                            <h6>@user.Sdt</h6>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div>
                                             <label>Address</label>
-                                            <h6>@user.StaffAddress</h6>
+                                            <h6>@user.DiaChi</h6>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div>
                                             <label>Email</label>
-                                            <h6>@user.StaffEmail</h6>
+                                            <h6>@user.Email</h6>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div>
                                             <label>Birthday</label>
-                                            <h6>@user.StaffBirthday</h6>
+                                            <h6>@user.NgaySinh</h6>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div>
                                             <label>Gender</label>
-                                            <h6>@user.Gender</h6>
+                                            <h6>@user.GioiTinh</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -155,7 +157,7 @@
                             }
                             <h4 class="title_acc text-danger">Login</h4>
                             @{
-                                var user2 = (Tourist_VietripInsum_2023.Models.Staff)HttpContext.Current.Session["user"];
+                                var user2 = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Current.Session["user"];
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div>

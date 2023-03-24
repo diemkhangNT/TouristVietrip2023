@@ -1,0 +1,321 @@
+﻿/* BODY */
+
+.home-page_listtour {
+    margin-top: 20px;
+}
+
+.home-page_title {
+    font-weight: 700;
+    font-size: 30px;
+    color: #2d4271;
+    text-align: center;
+}
+
+.tour-item {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #dddfe2;
+}
+
+.tour-item__image {
+    position: relative;
+    overflow: hidden;
+    padding-top: 71.14285714%;
+    border-radius: 10px 10px 0 0;
+}
+
+    .tour-item__image img {
+        height: 100%;
+        width: 100%;
+        -webkit-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 10px 10px 0 0;
+    }
+
+.tour-item_date {
+    font-size: 16px;
+    color: #2d4271;
+    font-weight: 500;
+}
+
+tour-item_title {
+    min-height: 60px;
+    max-height: 60px;
+}
+
+.tour-item_title {
+    font-weight: 700;
+    font-size: 18px;
+    color: #2d4271;
+    line-height: 20px;
+    max-width: 100%;
+    min-height: 4rem;
+    max-height: 4rem;
+}
+
+    .tour-item_title a {
+        text-decoration: none;
+        color: #2d4271;
+    }
+
+.tour-item_code {
+    color: #2d4271;
+}
+
+    .tour-item_code span {
+        font-weight: 500;
+    }
+
+.tour-item_departure {
+    color: #2d4271;
+}
+
+    .tour-item_departure span {
+        font-weight: 500;
+    }
+
+.pricebefore {
+    color: #2d4271;
+}
+
+.tour-item_priceold {
+    font-weight: 500;
+    text-decoration: line-through;
+}
+
+.tour-item_price-new {
+    font-weight: 700;
+    color: #fd5056;
+    font-size: 19px;
+    margin-right: 40px;
+}
+
+.price-current {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.tour-item_discount {
+    Color: #fff;
+    background-color: #fd5056;
+    border-color: #fd5056;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.tour-item_btntour {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.btn-order {
+    color: #fff;
+    background-color: #fd5056;
+    border-color: #fd5056;
+    padding: 12px;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.btn-book i {
+    margin-right: 10px;
+}
+
+.btn-viewdetail {
+    border: 1px solid #4d4aef;
+    color: #4d4aef;
+    font-size: 15px;
+    padding: 12px;
+    border-radius: 5px;
+}
+
+.tour-item_footer {
+    background-color: #fff;
+    border-top: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.dateend-item {
+    font-size: 16px;
+    color: #2d4271;
+    font-weight: 500;
+}
+
+.seattour_item {
+    color: #2d4271;
+    font-weight: 500;
+}
+
+    .seattour_item span {
+        font-size: 20px;
+        color: #fd5056;
+    }
+
+/* lienhe */
+/* BANNER */
+.section-banner {
+    width: 100%;
+    height: 300px;
+    background-color: #F1F1F1;
+}
+
+    .section-banner .banner-left {
+        text-align: right;
+    }
+
+
+        .section-banner .banner-left h1 {
+            color: #67a448;
+        }
+
+    .section-banner .banner-left {
+        text-align: right;
+        margin-top: 3%;
+        padding: 50px;
+    }
+
+    .section-banner .banner-right {
+        padding: 20px;
+        margin-top: 3%;
+        text-align: left;
+        font-size: 19px;
+    }
+
+        .section-banner .banner-right span {
+            color: #67a448;
+            font-weight: 500;
+        }
+
+
+        .section-banner .banner-right .btn {
+            font-size: 15px;
+            padding: 8px 10px;
+            display: inline-block;
+            cursor: pointer;
+            position: relative;
+            text-align: center;
+            line-height: 2em;
+            margin-right: 10px;
+            border-radius: 2px solid;
+            font-weight: 7px;
+        }
+
+/* PR-COMPANY */
+.section-pr {
+    width: 100%;
+    padding: 20px;
+    background-color: whitesmoke;
+}
+
+
+    .section-pr .pr-left {
+        text-align: right;
+        margin-top: 50px;
+        padding-right: 10px;
+        padding: 0px;
+    }
+
+        .section-pr .pr-left h2 {
+            color: #67a448;
+        }
+
+
+    .section-pr .pr-right .col-pr {
+        background: rgb(255, 255, 255);
+        width: 240px;
+        margin: 10px 20px;
+    }
+
+    .section-pr .pr-right .col-text {
+        display: block;
+        color: rgb(36, 36, 36);
+        font-size: 14px;
+        padding: 15px 10px;
+        font-weight: 500;
+    }
+
+        .section-pr .pr-right .col-text h4 {
+            color: #67a448;
+        }
+
+
+/* điaiemnoibat */
+/* GALLERY */
+.gallery {
+    margin-bottom: 20px;
+}
+
+    .gallery .HEADING {
+        color: #17395c;
+        font-size: 30px;
+        text-align: center;
+        font-weight: 600;
+        padding: 10px;
+    }
+
+    .gallery .box-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+        .gallery .box-container .box {
+            overflow: hidden;
+            box-shadow: 0 1rem 2rem rgba(0,0,0,.1);
+            border: 1rem solid #fff;
+            border-radius: .5rem;
+            flex: 1 1 30rem;
+            height: 290px;
+            position: relative;
+        }
+
+            .gallery .box-container .box img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+
+            .gallery .box-container .box .content {
+                position: absolute;
+                top: -100%;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                text-align: center;
+                background: rgba(0,0,0,.7);
+                padding: 10px;
+            }
+
+            .gallery .box-container .box:hover .content {
+                top: 0;
+            }
+
+            .gallery .box-container .box .content h6 {
+                font-size: 25px;
+                color: orange;
+                padding-top: 10px;
+            }
+
+            .gallery .box-container .box .content p {
+                font-size: 17px;
+                color: white;
+            }
+
+            .gallery .box-container .box .content a {
+                color: #fff;
+                background-color: #fd5056;
+                border-color: #fd5056;
+                padding: 10px;
+                font-size: 15px;
+                border-radius: 5px;
+            }

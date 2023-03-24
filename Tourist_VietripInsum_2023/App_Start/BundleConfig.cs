@@ -27,7 +27,8 @@ namespace Tourist_VietripInsum_2023
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/main.css",
-                      "~/Content/stylefooter.css"
+                      "~/Content/stylefooter.css",
+                      "~/Content/Guest.css"
                       ));
         }
     }

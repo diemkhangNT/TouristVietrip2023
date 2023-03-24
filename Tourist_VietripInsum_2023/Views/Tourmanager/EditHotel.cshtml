@@ -5,63 +5,63 @@
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
 }
 
-<h2>EditHotel</h2>
+<div class="tile">
+    <h4 class="tile-title"> CREATE NEW HOTEL</h4>
+    <div class="tile-body">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.MaKS)
+            <div class="form-group">
+                @Html.LabelFor(model => model.MaTinh, "Tên tỉnh thành", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("MaTinh", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MaTinh, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TenKS, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TenKS, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TenKS, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Sao, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select typeof="dropdown">
+                        <option>1 sao</option>
+                        <option>2 sao</option>
+                        <option>3 sao</option>
+                        <option>4 sao</option>
+                        <option>5 sao</option>
+                    </select>
+                    @Html.EditorFor(model => model.Sao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Sao, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Hotel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IdHotel)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LevelHotel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LevelHotel, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LevelHotel, "", new { @class = "text-danger" })
+
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save Edit" class="btn btn-success" />
+                </div>
             </div>
         </div>
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NameHotel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NameHotel, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NameHotel, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AddressHotel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AddressHotel, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AddressHotel, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ImgHotel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ImgHotel, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ImgHotel, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+        <div>
+            @Html.ActionLink("Back to List", "HotelManager")
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "QuanLyTour")
 </div>
-
-@*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@

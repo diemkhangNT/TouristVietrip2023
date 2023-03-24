@@ -1,0 +1,148 @@
+﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.DiaDiemThamQuan>
+
+@{
+    ViewBag.Title = "LocationManager";
+    Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+    ViewBag.Name = "Location Manager";
+    ViewBag.qlt = "active";
+
+}
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@{
+    var checkdata = TempData["noti"];
+    if (checkdata == "edit")
+    {
+        <script>
+            swal("Good job!", "You have successfully edited the hotel information!", "success");
+        </script>
+    }
+    else if (checkdata == "add")
+    {
+        <script>
+            swal("Good job!", "You have created hotel information!", "success");
+        </script>
+    }
+    if (checkdata == "deletetrans-false")
+    {
+        <script>
+            swal("Warning!", "The transport is being used in the current tour!!!", "warning")
+        </script>
+    }
+    else if (checkdata == "deletetrans-true")
+    {
+        <script>
+            swal("Good job!", "You deleted the transport!", "success");
+        </script>
+    }
+
+}
+
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="/Tourmanager/QuanLyTour">Tour</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/Tourmanager/HotelManager">Hotel - Transport</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="/Tourmanager/LocationManager">Location</a>
+    </li>
+</ul>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div class="row" style="padding:10px">
+                    <div class="col-sm-2">
+                        <a class="btn btn-success btn-sm " type="button" title="New VisitLocation" href="/Tourmanager/CreateVisitLocations">
+                            Add more location
+                        </a>
+                    </div>
+                </div>
+                <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                @*//Phần render từng dòng trong C#*@
+                                <thead style="background-color: #ffd43b;">
+                                    <tr>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã địa điểm</th>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1">Tên địa điểm</th>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1">Hình minh họa</th>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1">Địa chỉ</th>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1">Tỉnh thành</th>
+                                        <th aria-controls="sampleTable" rowspan="1" colspan="1">Chức năng</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model)
+                                    {
+
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.MaDDTQ)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TenDDTQ)
+                                            </td>
+                                            <td>
+                                                <img src="@item.HinhMinhHoa_D" width="100px" height="100px" />
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DiaChi)
+                                            </td>
+                                            <td>
+
+                                                @Html.DisplayFor(modelItem => item.TinhThanh.TenTinh)
+                                            </td>
+                                            <td style="text-align:center">
+                                                <a href="/Tourmanager/EditVisitLocations/@item.MaDDTQ" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="/Tourmanager/VistLocationsDetails/@item.MaDDTQ" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
+                                                    <i class="fas fa-train"></i>
+                                                </a>
+                                                <a class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete" data-target="#DeleteModalTrans-@item.MaDDTQ" data-toggle="modal">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                                @using (Html.BeginForm("DeleteVisitLocations/" + item.MaDDTQ, "Tourmanager", FormMethod.Post, null))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <div class="modal" tabindex="-1" role="dialog" id="DeleteModalTrans-@item.MaDDTQ">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Delete Confirmation</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p>Are you sure you want to delete this VISIT LOCATION?</p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                                    <button type="submit" class="btn btn-danger">Yes</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

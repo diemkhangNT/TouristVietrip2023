@@ -1,0 +1,305 @@
+﻿@using Tourist_VietripInsum_2023.Models
+@{
+    ViewBag.Title = "HomePageGuest";
+    Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
+    ViewBag.Name = "Homepage Guest";
+
+    TouristEntities1 db = new TouristEntities1();
+    List<Tour> tours = db.Tours.ToList();
+    List<DiaDiemThamQuan> diaDiems = db.DiaDiemThamQuans.ToList();
+}
+
+<link href="~/Content/Guest/HomePage.css" rel="stylesheet" />
+
+@*CAROUSEL*@
+<div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+    <!-- Indicators/dots -->
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+    </div>
+
+    <!-- The slideshow/carousel -->
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="~/Content/Images/mientay.png" alt="Los Angeles" class="d-block" style="width:100%">
+        </div>
+        <div class="carousel-item">
+            <img src="~/Content/Images/dânng.jpg" alt="Chicago" class="d-block" style="width:100%">
+        </div>
+
+    </div>
+
+    <!-- Left and right controls/icons -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+@*BANNER*@
+<div class="section-banner">
+    <div class="row">
+        <div class="banner-left col-sm-4">
+            <h3><strong>VỀ</strong></h3>
+            <h1><STRONG>Saigon Travel</STRONG></h1>
+
+        </div>
+        <div class="banner-right col-sm-8">
+            <p> <span>Công ty Du lịch SaiGon Travel</span>  là công ty du lịch, dịch vụ chuyên nghiệp, uy tín, đáng tin cậy ở Thành Phố Hồ Chí Minh. Chúng tôi chuyên về các <span> tour du lịch trong nước</span>  với sự cam kết chất lượng dịch vụ tốt nhất dành cho khách hàng. Nụ cười của quý khách chính là niềm hạnh phúc, động lực lớn cho công ty để đem đến trải nghiệm tốt nhất cho khách hàng. </p>
+            <div class="contact-banner">
+                <a href="" target="#" class="btn btn-success">
+                    <span style="color: white;">Về chúng tôi</span>
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+                <a href="" target="#" class="btn btn-outline-success">
+                    <span>Liên hệ</span>
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- LIST-TOUR -->
+<section class="home-page_listtour mb-4">
+    <div class="container">
+        <h3 class="home-page_title mb-4">TOUR NỔI BẬT</h3>
+        <!-- <script src="/Content/Default/js/CoutDown/jquery.countdown.min.js"></script> -->
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var item in tours)
+            {
+                <div class="col">
+                    <div class="card tour-item">
+                        <div class="tour-item__image">
+                            <a href="#" title="">
+                                <img src="~/Content/Images/tourhanoi.jpg" class="card-img-top img-fluid" alt="" id="">
+                            </a>
+                        </div>
+                        @{
+                            var ngaykhoihanh = String.Format("{0:d/M/yyyy}", item.NgayKhoihanh);
+                        }
+                        <div class="card-body p-3">
+                            <p class="tour-item_date mb-1">@ngaykhoihanh- @item.SoNgay ngày</p>
+                            <p class="card-text tour-item_title mb-1">
+                                <a href="#" title=" ">
+                                    @item.TenTour
+                                </a>
+                            </p>
+                            <div class="tour-item_code">
+                                Mã tour:<span> @item.MaTour</span>
+                            </div>
+                            <p class="tour-item_departure mb-3">
+                                Nơi khởi hành: <span>
+                                    @item.NoiKhoiHanh
+                                </span>
+                            </p>
+                            @{
+                                var tien = string.Format("{0:#,##0}", item.GiaNguoiLon);
+                                var loaitour = db.LoaiTours.Where(s => s.MaLTour == item.MaLTour).FirstOrDefault();
+                                var pricesale = (double)item.GiaNguoiLon * (1 - loaitour.ChietKhau);
+                                var tiengiamgia = string.Format("{0:#,##0}", pricesale);
+                                var ck = loaitour.ChietKhau * 100;
+
+                            }
+                            <div class="tour-item_price mb-2 w-100">
+                                <div class="price__wrappertour">
+                                    <div class="pricebefore">
+                                        Giá
+                                        <span class="tour-item_priceold">@tien ₫</span>
+                                    </div>
+                                    <div class="price-current">
+                                        <span class="tour-item_price-new">@tiengiamgia ₫</span>
+                                        <span class="tour-item_discount small p-1">@ck% GIẢM</span>
+                                    </div>
+
+                                    <!-- TINH THOI GIAN -->
+                                    <!-- <div class="tour-item__price__timer py-2">
+                <span id="countDownDayNDSGN560-014-240323XE-V">Còn 00 ngày 21:39:50</span>
+                    <script type="text/javascript">
+                                jQuery(document).ready(function ($) {
+                                    var newYear = '2023' + '/' + '03' + '/' + '22' + ' ' + '12' + ':' + '01' + ':' + '23';
+                                    $('#countDownDayNDSGN560-014-240323XE-V').countdown(newYear, function (event) {
+                                        $(this).html(event.strftime('C&#242;n %D ng&#224;y %H:%M:%S'));
+                                    });
+                                })
+                    </script>
+                </div> -->
+                                    <div class="tour-item_btntour">
+                                        <div class="btn-book">
+                                            <a href="#" class="btn-order btn-sm " title="" value="" id="">
+                                                <i class="fas fa-shopping-cart"></i>
+                                                <label>
+                                                    Đặt ngay
+                                                </label>
+                                            </a>
+                                        </div>
+                                        <div class="btn-block">
+                                            <a href="/Guest/Tourinfomation/@item.MaTour" title="" class="btn-viewdetail">
+                                                <label>
+                                                    Xem chi tiết
+                                                </label>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @{
+                                var handat = String.Format("{0:d/M/yyyy}", item.HanChotDatVe);
+                            }
+                            <div class="tour-item_footer">
+                                <div class="dateend-item">
+                                    Hạn đặt: @handat
+                                </div>
+                                <div class="seattour_item">
+                                    Số chỗ còn:
+                                    <span>@item.SoChoNull</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+</section>
+<!-- DIA DIEM NOI BAT -->
+<section class="gallery" id="gallery">
+    <div class="container">
+        <h1 class="HEADING">
+            ĐỊA ĐIỂM NỔI BẬT
+        </h1>
+
+        <div class="row g-5 g-lg-3 d-none d-lg-flex">
+            @foreach (var diadiem in diaDiems)
+            {
+                <div class="col-4">
+                    <div class="card destination-item">
+                        <div class="box-container">
+                            <div class="box">
+                                <img src="~/Content/Images/tourhanoi.jpg" alt="">
+                                <div class="content">
+                                    <h6>@diadiem.TenDDTQ</h6>
+                                    <p>@diadiem.MoTa</p>
+                                    <a href="/Guest/List_Tour/@diadiem.MaDDTQ" class="btn">see more</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+
+
+</section>
+
+<section class="pr-company">
+    <div class="section-pr">
+        <div class="row">
+            <div class="pr-left col-sm-3">
+                <h4><strong>VÌ SAO CHỌN</strong></h4>
+                <h2><STRONG>SAIGON TRAVEL</STRONG></h2>
+            </div>
+            <div class="pr-right col-sm-9">
+                <div class="row">
+                    <div class="col-pr">
+                        <div class="col-text">
+                            <h4>
+                                1. Top công ty lữ hành nổi bật
+                            </h4>
+                            <p>
+                                Năm 2010, SaiGon Travel được trao chứng nhận “Trip Advisor 2019 Certificate of Excellence”.
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-pr">
+                        <div class="col-text">
+                            <h4>
+                                2. Bạn đồng hành đáng tin cậy
+                            </h4>
+                            <p>
+                                Làm việc với phương châm luôn đặt mình vào vị trí khách hàng để lắng nghe và thấu hiểu từ những điều nhỏ nhất.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-pr">
+                        <div class="col-text">
+                            <h4>
+                                3. Sản phẩm đa dạng - chất lượng
+                            </h4>
+                            <p>
+                                Ngoài các tour du lịch thông thường, chúng tôi còn hỗ trợ tổ chức các sự kiện, hoạt động teambuilding, du lịch hội thảo (MICE).
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-pr">
+                        <div class="col-text">
+                            <h4>
+                                4. Luôn có mức giá tốt nhất
+                            </h4>
+                            <p>
+                                Bất kể ngày thường hay mùa lễ Tết, SaiGon Travel luôn có mức giá tốt nhất với chất lượng dịch vụ không đổi.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-pr">
+                        <div class="col-text">
+                            <h4>
+                                5. Chương trình ưu đãi hấp dẫn
+                            </h4>
+                            <p>
+                                Công ty thường xuyên ra mắt các gói ưu đãi, chương trình khuyến mãi, gia tăng tối đa quyền lợi dành cho khách hàng.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-pr">
+                        <div class="col-text">
+                            <h4>
+                                6. Đội ngũ chuyên nghiệp
+                            </h4>
+                            <p>
+                                SaiGon Travel sở hữu đội ngũ lãnh đạo, nhân viên và hướng dẫn viên giỏi, thân thiện và tận tâm với công việc.
+                            </p>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+</section>
+

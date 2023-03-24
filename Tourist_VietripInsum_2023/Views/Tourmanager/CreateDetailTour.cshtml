@@ -1,4 +1,4 @@
-﻿@model Tourist_VietripInsum_2023.Models.DetailTour
+﻿@model Tourist_VietripInsum_2023.Models.ChiTietTour
 
 @{
     ViewBag.Title = "CreateDetailTour";
@@ -8,83 +8,102 @@
 }
 
 <div class="tile">
-    @*<h5 class="tile-title">THÔNG TIN TOUR</h5>*@
+    <h3 class="tile-title">THÔNG TIN Detail TOUR</h3>
 
     <div class="tile-body">
 
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+        <form method="post" enctype="multipart/form-data" action="~/Tourmanager/CreateDetailTour/@Session["temdata"]">
 
-        <div class="container">
-            <div class="form-horizontal">
-                <h4>Detail Tour</h4>
+            <div class="container">
+                <div class="row">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
 
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.IdSchedule)
-                @Html.HiddenFor(model => model.IdTour)
-                @Html.HiddenFor(model => model.Stt)
+                        <div class="form-horizontal">
+                            <h4>ChiTietTour</h4>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.STT, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.STT, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.STT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
-                <div class="form-group col-sm-4">
-                    <strong>Chọn khách sạn</strong>
-                    <div class="col-md-10">
-                        @Html.DropDownList("IdHotel", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.IdHotel, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <strong>Địa điểm</strong>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.IdVistLocat, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.IdVistLocat, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <
-                <div class="form-group col-sm-4">
-                    <strong>Chọn phương tiện</strong>
-                    <div class="col-md-10">
-                        @Html.DropDownList("IdTrans", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.IdTrans, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MaDDTQ, "MaDDTQ", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("MaDDTQ", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.MaDDTQ, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MaPTien, "MaPTien", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("MaPTien", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.MaPTien, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
-                <div class="form-group col-sm-4">
-                    <strong>Địa điểm tập trung:</strong>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.InfoConcentrate, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.InfoConcentrate, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <strong>stt:</strong>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Stt, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Stt, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group col-sm-6">
-                    <strong>Mô tả</strong>
-                    <div class="col-md-12">
-                        @Html.TextAreaFor(model => model.Describe, new { @class = "form-control content-editor" })
-                        @Html.ValidationMessageFor(model => model.Describe, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TieuDe, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.TieuDe, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.TieuDe, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MotaChitiet, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.MotaChitiet, new { @class = "form-control content-editor" })
+                                    @Html.ValidationMessageFor(model => model.MotaChitiet, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Create" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                    }
 
 
 
+                    @*<div class="col-sm-12" style="padding-bottom:20px;">
+                            <label class="control-label">Chọn hình ảnh</label>
+                            @Html.TextBox("Imager", "", new { type = "file" })
+                            <br />
+                            <img id="preview" src="#" width="80%" height="200" style="visibility:hidden" />
+                            <br />
+                        </div>*@
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create Detail" class="btn btn-success btn-sm" />
-                    </div>
                 </div>
             </div>
-        </div>
-        }
+            <div class="col-sm-2">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create Detail" class="btn btn-success btn-sm" />
+                </div>
+            </div>
+        </form>
 
-        <div>
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+
+    </div>
+    <div>
+        @Html.ActionLink("Back to List", "ListDeTailTour", new RouteValueDictionary(
+                        new { controller = "Tourmanager", action = "ListDetailTour", Id = ViewBag.idtours }))
     </div>
 </div>
+<script>
+    Imager.onchange = evt => {
+        const [file] = Imager.files
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            document.getElementById("preview").style.visibility = "visible";
+        }
+    }
+</script>
