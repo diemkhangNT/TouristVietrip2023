@@ -23,14 +23,14 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             //tính tổng số kho
             var totalT = 0;
-            //totalT = db.Tours.ToList().Count;
-            totalT = 0;
+            totalT = db.Tours.ToList().Count;
+            
             TempData["tongTour"] = totalT;
             //tính tổng sản phẩm sắp hết hàng
             var totalTT = 0;
             totalTT = db.LoaiTours.ToList().Count;
-            TempData["tongLT"] = totalTT;
-            return View(db.Tours.ToList());
+            /*empData["tongLT"] = totalTT;*/
+            return View(totalT);
         }
 
         //        // GET: Tours

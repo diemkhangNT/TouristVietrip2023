@@ -36,10 +36,12 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(listCustomer);
         }
 
-        public JsonResult CheckUsernameAvailability(string userdata)
+
+        public JsonResult CheckUsernameAvailability(string userdata,string usermail)
         {
             System.Threading.Thread.Sleep(200);
             var SeachData = db.NhanViens.Where(x => x.Username == userdata).SingleOrDefault();
+            var mailuser = db.NhanViens.Where(x => x.Email == usermail).SingleOrDefault();
             if (SeachData != null)
             {
                 return Json(1);
@@ -50,21 +52,36 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
 
         }
-        //public JsonResult checkmail(string userdata)
-        //{
-        //    System.Threading.Thread.Sleep(200);
-        //    var SeachDatas = db.Staffs.Where(x => x.StaffEmail == userdata).SingleOrDefault();
-        //    if (SeachDatas != null)
-        //    {
-        //        return Json(1);
-        //    }
-        //    else
-        //    {
-        //        return Json(0);
-        //    }
+        public JsonResult CheckEmailAvailability(string usermail)
+        {
+            System.Threading.Thread.Sleep(200);
+            
+            var mailuser = db.NhanViens.Where(x => x.Email == usermail).SingleOrDefault();
+            if (mailuser != null)
+            {
+                return Json(1);
+            }
+            else
+            {
+                return Json(0);
+            }
 
-        //}
+        }
+        public JsonResult CheckSDTAvailability(string userSDT)
+        {
+            System.Threading.Thread.Sleep(200);
 
+            var SDTuser = db.NhanViens.Where(x => x.Sdt == userSDT).SingleOrDefault();
+            if (SDTuser != null)
+            {
+                return Json(1);
+            }
+            else
+            {
+                return Json(0);
+            }
+
+        }
 
         public ActionResult CreateStaff ()
         {
@@ -113,55 +130,47 @@ namespace Tourist_VietripInsum_2023.Controllers
         [HttpPost]
         public ActionResult CreateStaff(NhanVien staff,HttpPostedFileBase Avatar,string id)
         {
-            LuuAnh(staff, Avatar);
-            Random rd = new Random();
-            var idstaff = "ST" + rd.Next(1, 1000);
-            staff.MaNV= idstaff;
 
-            var pas = "123456";
-            staff.UserPassword = pas;
+            var usernamecheck = db.NhanViens.FirstOrDefault(k => k.Username == staff.Username);
+            var std = db.NhanViens.FirstOrDefault(k => k.Sdt == staff.Sdt);
+            var emailcheck = db.NhanViens.FirstOrDefault(k => k.Email == staff.Email);
+            if (usernamecheck != null)
+            { ModelState.AddModelError(string.Empty, "Đã có tên đăng nhập !!!");
+            }
+            if (std != null)
+            {
+                ModelState.AddModelError(string.Empty, "Đã có SDT trong hệ thống !!!");
+            }
+            if (emailcheck != null)
+            {
+                ModelState.AddModelError(string.Empty, "Đã có email trong hệ thống !!!");
+            }
 
-            TempData["noti"] = "oke";
-            db.NhanViens.Add(staff);
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                LuuAnh(staff, Avatar);
+                Random rd = new Random();
+                var idstaff = "ST" + rd.Next(1, 1000);
+                staff.MaNV = idstaff;
+
+                var pas = "123456";
+                staff.UserPassword = pas;
+
+                TempData["noti"] = "oke";
+                db.NhanViens.Add(staff);
+                db.SaveChanges();
+            }
+            else
+            {
+                return View();
+
+            }
+
+           
+            
             return RedirectToAction("ListOfStaff");            
         }
-        //[HttpPost]
-        //public JsonResult CheckUsername(string username)
-        //{
-
-        //    bool isValid = !db.Staffs.ToList().Exists(p => p.Username.Equals(username, StringComparison.CurrentCultureIgnoreCase));
-        //    return Json(isValid);
-        //}
-
-        //public JsonResult IsAlreadySigned(string UserName)
-        //{
-
-        //    return Json(IsUserAvailable(UserName));
-
-        //}
-        //public bool IsUserAvailable(string EmailId)
-        //{
-        //    List<Staff> lis = db.Staffs.ToList();
-        //    var c = db.Staffs.Where(x => x.Username == EmailId).SingleOrDefault();
-        //    bool status = false;
-        //    bool flg= false;
-        //    for (int i=0;i<lis.Count;i++)
-        //    {
-
-        //        if (c.Username==lis[i].Username)
-        //        {
-        //            //Already registered  
-        //            status = false;
-        //        }
-        //        else //Available to use  
-        //            status = true;
-
-        //    }
-        //    flg = status;
-
-        //    return flg;
-        //}
+        
 
         public ActionResult DetailStaff(string id)
         {
@@ -182,13 +191,17 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(db.NhanViens.Where(s => s.MaNV == id).FirstOrDefault());
         }
         [HttpPost]
-        public ActionResult EditStaff(string id, NhanVien nv, HttpPostedFileBase Avatar)
+        public ActionResult EditStaff( NhanVien nv, HttpPostedFileBase Avatar)
         {
-            LuuAnh(nv, Avatar);
-            db.Entry(nv).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-            TempData["noti"] = "oke";
-            return RedirectToAction("ListOfStaff");
+            if (ModelState.IsValid)
+            {
+                LuuAnh(nv, Avatar);
+                db.Entry(nv).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ListOfStaff");
+            }
+            return View(nv);
+
         }
         
         public ActionResult DeleteStaff(string id, NhanVien st)

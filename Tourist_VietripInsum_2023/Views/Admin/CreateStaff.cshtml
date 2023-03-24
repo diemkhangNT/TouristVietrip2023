@@ -4,15 +4,15 @@
 @{
     ViewBag.Title = "CreateUser";
     Layout = "~/Views/Admin/AdminView.cshtml";
-    TouristEntities db = new TouristEntities();
+    TouristEntities1 db = new TouristEntities1();
     ViewBag.qlstaff = "active";
     List<NhanVien> litst = db.NhanViens.ToList();
     ViewBag.name = "Create Staff";
 }
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @{
-    var ktr = TempData["noti"];
-    if (ktr == "erruser")
+    var ktr = TempData["noti_nhanvien"];
+    if (ktr == "trunguser")
     {
         <script>
             swal({
@@ -24,106 +24,113 @@
         </script>
     }
 }
-<div class="tile">
+
+
+<div class="tile" style="margin:10px 20px;">
     <h3 class="tile-title">CREATE NEW ACCOUNT</h3>
-    <div class="tile-body">
+    <div class="tile-body contenner">
         @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.MaNV)
         <form class="row" method="post" enctype="multipart/form-data" action="~/Admin/CreateStaff">
-            <div class="col-sm-4" style="text-align:center;padding-left:40px;">
-                <label class="control-label">Chọn hình ảnh</label>
-                @Html.TextBox("Avatar", "", new { type = "file" })
-                <br />
-                <img id="preview" class="rounded-circle " src="#" width="150" height="150" />
-                <br />
+          
+            <div class="imgstaff col-sm-5" style="padding-left:40px;">
+                <div class="col-sm-12" style="text-align: center;">
+                    <label class="control-label">Chọn hình ảnh</label>
+                    @Html.TextBox("Avatar", "", new { type = "file" })
+                    <br />
+                    <img id="preview" class="rounded-circle " src="#" width="230" height="230" style="margin-bottom: 8px; text-align: center;" />
+                    <br />
+                </div>
+                <h5>ĐĂNG KÍ TÀI KHOẢN</h5>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.MaCV, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <select class="form-control" id="MaCV" name="MaCV">
+                            <option>TM</option>
+                            <option>OP</option>
+                            <option>AD</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.MaCV, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", required = "required", @id = "Username", onchange = "UserCheck()" } })
+                        @*<input class="form-control" type="text" id="Username" name="Username" required="required"/>*@
+                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                        <span id="status"></span>
+
+                    </div>
+                </div>
+
+
+
             </div>
-            <div class="col-sm-4">
-                <div class="form-group col-md-12">
-                    @Html.LabelFor(model => model.MaCV, htmlAttributes: new { @class = "control-label col-md-3" })
-                    <select class="form-control" id="MaCV" name="MaCV">
-                        <option>TM</option>
-                        <option>OP</option>
-                        <option>AD</option>
-                    </select>
-                    @Html.ValidationMessageFor(model => model.MaCV, "", new { @class = "text-danger" })
-                </div>
+            <div class="info-staff col-sm-6">
+                <h5>THÔNG TIN CÁ NHÂN</h5>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.HoTen, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.NgaySinh, htmlAttributes: new { @class = "control-label" })
+                        <input class="form-control text-box single-line" data-val="true" data-val-date="The field NgaySinh must be a date." id="NgaySinh" name="NgaySinh" type="date" required="required" value="">
+                        @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+                    </div>
 
-                <div class="form-group col-md-12">
-                    @Html.LabelFor(model => model.Sdt, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.Sdt, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Sdt, "", new { @class = "text-danger" })
-                </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.GioiTinh, htmlAttributes: new { @class = "control-label" })
+                        <select class="form-control" id="GioiTinh" name="GioiTinh">
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger", required = "required" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.Sdt, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Sdt, new { htmlAttributes = new { @class = "form-control", required = "required", @id = "Sdt", onchange = " SDTCheck()" } })
+                        @*@Html.ValidationMessageFor(model => model.Sdt, "", new { @class = "text-danger" })*@
+                        <span id="noti"></span>
+                    </div>
 
-                <div class="form-group col-md-12">
-                    @Html.LabelFor(model => model.NgaySinh, htmlAttributes: new { @class = "control-label" })
-                    <input class="form-control text-box single-line" data-val="true" data-val-date="The field NgaySinh must be a date." id="NgaySinh" name="NgaySinh" type="datetime-local" value="">
-                    @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group col-md-12">
-                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
-                    <input class="form-control" type="text" id="Email" name="Email" />
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                    <span id="mess"></span>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <input type="submit" value="Save Account" class="btn btn-success btn-sm" />
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", required = "required", @id = "Email", onchange = "EmailCheck()" } })
+                        @*@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })*@
+                        <span id="mess"></span>
                     </div>
                 </div>
             </div>
-                
-            <div class="col-sm-4">
-                <div class="form-group col-md-12">
-                    @Html.LabelFor(model => model.HoTen, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
-                </div>
-                
-                <div class="form-group col-md-12">
-                    @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
-                </div>
-                
-                <div class="form-group col-md-12">
-                    @Html.LabelFor(model => model.GioiTinh, htmlAttributes: new { @class = "control-label" })
-                    <select class="form-control" id="GioiTinh" name="GioiTinh">
-                        <option>Male</option>
-                        <option>Female</option>
-                    </select>
-                    @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
-                </div>
-                
-                <div class="form-group col-md-12">
-                    @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label" })
-                    <input class="form-control" type="text" id="Username" name="Username" onchange="UserCheck()" />
-                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-                    <span id="status"></span>
-
-                </div>
-                <div class="form-group col-md-4">
-
-                </div>
+            <div class="col-sm-5">
                
-                <div class="form-group">
-                    <div class="col-md-10">
+                    <p> @Html.ValidationSummary(true, "", new { @class = "text-danger" })</p>
+                
+            </div>
+            <div class="col-sm-5">
+                <div class="row">
+                    <div class="col-sm-4">
                         <input type="submit" value="Save Account" class="btn btn-success btn-sm" />
                     </div>
+                    <div class="col-sm-">
+                        <a href="/Admin/ListOfStaff" class="btn btn-warning btn-sm">Quay lại danh sách</a>
+                    </div>
+
                 </div>
             </div>
         </form>
     </div>
+   
+        
+   
 </div>
-<div class="row element-button" style="padding-left:10px">
-    <div class="col-sm-2">
-        <a class="btn btn-warning btn-sm " type="button" title="Back" href="/Admin/ListOfStaff" >
-            Back to list
-        </a>
-    </div>
-</div>
+
+
 @* script của upload *@
 
 <script>
@@ -156,15 +163,15 @@
             }
         )
     }
-    @*function EmailCheck() {
-        $("#mess").html("check ...");
-        $.post("@Url.Action("checkmail", "Admin")",
-            {
-                userdata: $("#Email").val()
 
+     function EmailCheck() {
+        $("#mess").html("check ...");
+        $.post("@Url.Action("CheckEmailAvailability", "Admin")",
+            {
+                usermail: $("#Email").val()
             },
-            function (datas) {
-                if (datas == 0) {
+            function (data) {
+                if (data == 0) {
                     $("#mess").html('<font color="Green">Available!</font>');
                     $("#Email").css("border-color", "Green");
                 }
@@ -174,5 +181,24 @@
                 }
             }
         )
-    }*@
+    }
+    function SDTCheck() {
+        $("#noti").html("check ...");
+        $.post("@Url.Action("CheckSDTAvailability", "Admin")",
+            {
+                userSDT: $("#Sdt").val()
+            },
+            function (data) {
+                if (data == 0) {
+                    $("#noti").html('<font color="Green">Available!</font>');
+                    $("#Sdt").css("border-color", "Green");
+                }
+                else {
+                    $("#noti").html('<font color="Red">That name is taken. Try another !!</font>');
+                    $("#Sdt").css("border-color", "Red");
+                }
+            }
+        )
+    }
+
 </script>

@@ -6,7 +6,7 @@
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Admin/AdminView.cshtml";
     ViewBag.Name = "Home Page";
-    TouristEntities db = new TouristEntities();
+    TouristEntities1 db = new TouristEntities1();
     var tourmanagersff = db.NhanViens.ToList().Count();
     var customer = db.KhachHangs.ToList().Count();
 }
