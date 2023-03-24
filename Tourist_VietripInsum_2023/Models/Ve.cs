@@ -22,7 +22,7 @@ namespace Tourist_VietripInsum_2023.Models
         public Nullable<System.DateTime> NgaySinh { get; set; }
         public string LuuY { get; set; }
     
-        public virtual DonHang DonHang { get; set; }
+        public virtual BookTour BookTour { get; set; }
         public virtual LoaiVe LoaiVe { get; set; }
     }
 }

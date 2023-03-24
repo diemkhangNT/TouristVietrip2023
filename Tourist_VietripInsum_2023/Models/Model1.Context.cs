@@ -25,10 +25,10 @@ namespace Tourist_VietripInsum_2023.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<BookTour> BookTours { get; set; }
         public virtual DbSet<ChiTietTour> ChiTietTours { get; set; }
         public virtual DbSet<ChucVu> ChucVus { get; set; }
         public virtual DbSet<DiaDiemThamQuan> DiaDiemThamQuans { get; set; }
-        public virtual DbSet<DonHang> DonHangs { get; set; }
         public virtual DbSet<Hotel> Hotels { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<LoaiKH> LoaiKHs { get; set; }
