@@ -12,28 +12,19 @@ namespace Tourist_VietripInsum_2023.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer_Guest
+    public partial class LoaiTour
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Customer_Guest()
+        public LoaiTour()
         {
-            this.OrderCus = new HashSet<OrderCu>();
+            this.Tours = new HashSet<Tour>();
         }
     
-        public string IdCus { get; set; }
-        public string NoPhone { get; set; }
-        public string IdTypeCus { get; set; }
-        public string Username { get; set; }
-        public string Userpassword { get; set; }
-        public string Fullname { get; set; }
-        public string Useraddress { get; set; }
-        public string Email { get; set; }
-        public Nullable<System.DateTime> Birthday { get; set; }
-        public string Gender { get; set; }
-        public string AvatarCus { get; set; }
+        public string MaLTour { get; set; }
+        public string TenLTour { get; set; }
+        public Nullable<double> ChietKhau { get; set; }
     
-        public virtual TypeCu TypeCu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderCu> OrderCus { get; set; }
+        public virtual ICollection<Tour> Tours { get; set; }
     }
 }

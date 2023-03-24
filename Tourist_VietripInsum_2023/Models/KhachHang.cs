@@ -12,36 +12,31 @@ namespace Tourist_VietripInsum_2023.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tour
+    public partial class KhachHang
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tour()
+        public KhachHang()
         {
             this.BookTours = new HashSet<BookTour>();
-            this.ChiTietTours = new HashSet<ChiTietTour>();
+            this.PhanHois = new HashSet<PhanHoi>();
         }
     
-        public string MaTour { get; set; }
-        public string MaLTour { get; set; }
-        public string MaKS { get; set; }
-        public string TenTour { get; set; }
-        public string GioiThieu { get; set; }
-        public string HinhMinhHoa_T { get; set; }
-        public Nullable<System.DateTime> NgayKhoihanh { get; set; }
-        public Nullable<System.DateTime> NgayTroVe { get; set; }
-        public Nullable<int> SoNgay { get; set; }
-        public string NoiKhoiHanh { get; set; }
-        public Nullable<int> SoChoNull { get; set; }
-        public Nullable<decimal> GiaTreEm { get; set; }
-        public Nullable<decimal> GiaNguoiLon { get; set; }
-        public string TrangThai { get; set; }
-        public Nullable<System.DateTime> HanChotDatVe { get; set; }
+        public string MaKH { get; set; }
+        public string SDT { get; set; }
+        public string MaLoaiKH { get; set; }
+        public string Username { get; set; }
+        public string UserPassword { get; set; }
+        public string HoTenKH { get; set; }
+        public string DiaChi { get; set; }
+        public string Email { get; set; }
+        public Nullable<System.DateTime> NgaySinh { get; set; }
+        public string GioiTinh { get; set; }
+        public string HinhDaiDien { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookTour> BookTours { get; set; }
+        public virtual LoaiKH LoaiKH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietTour> ChiTietTours { get; set; }
-        public virtual Hotel Hotel { get; set; }
-        public virtual LoaiTour LoaiTour { get; set; }
+        public virtual ICollection<PhanHoi> PhanHois { get; set; }
     }
 }

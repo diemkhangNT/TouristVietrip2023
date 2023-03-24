@@ -12,21 +12,18 @@ namespace Tourist_VietripInsum_2023.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Hotel
+    public partial class ChucVu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Hotel()
+        public ChucVu()
         {
-            this.Tours = new HashSet<Tour>();
+            this.NhanViens = new HashSet<NhanVien>();
         }
     
-        public string MaKS { get; set; }
-        public string MaTinh { get; set; }
-        public string TenKS { get; set; }
-        public string Sao { get; set; }
+        public string MaCV { get; set; }
+        public string TenCV { get; set; }
     
-        public virtual TinhThanh TinhThanh { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tour> Tours { get; set; }
+        public virtual ICollection<NhanVien> NhanViens { get; set; }
     }
 }
