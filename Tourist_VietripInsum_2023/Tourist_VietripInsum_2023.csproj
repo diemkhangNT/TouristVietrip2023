@@ -234,7 +234,8 @@
     <Content Include="Content\Guest.js" />
     <Content Include="Content\Guest\DetailTours.css" />
     <Content Include="Content\Guest\HomePage.css" />
-    <Content Include="Content\Guest\MainGuest.css" />
+    <Content Include="Content\Guest\ListTour.css" />
+    <Content Include="Content\Guest\MainLayoutGuest.css" />
     <Content Include="Content\Images\dânng.jpg" />
     <Content Include="Content\Images\mientay.png" />
     <Content Include="Content\Images\tourhanoi.jpg" />
@@ -483,6 +484,8 @@
     <Content Include="Views\Guest\HomePageGuest.cshtml" />
     <Content Include="Views\Guest\Tourinfomation.cshtml" />
     <Content Include="Views\Guest\DiaDiemPartial.cshtml" />
+    <Content Include="Views\Guest\ListTour.cshtml" />
+    <Content Include="Views\Guest\List_Tour.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

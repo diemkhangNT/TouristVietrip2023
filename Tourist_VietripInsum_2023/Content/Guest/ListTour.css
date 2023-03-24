@@ -1,0 +1,171 @@
+﻿
+.tour-item {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #dddfe2;
+}
+
+.tour-item__image {
+    position: relative;
+    overflow: hidden;
+    padding-top: 71.14285714%;
+    border-radius: 10px 10px 0 0;
+}
+
+    .tour-item__image img {
+        height: 100%;
+        width: 100%;
+        -webkit-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 10px 10px 0 0;
+    }
+
+.tour-item_date {
+    font-size: 16px;
+    color: #2d4271;
+    font-weight: 500;
+}
+
+tour-item_title {
+    min-height: 60px;
+    max-height: 70px;
+}
+
+.tour-item_title {
+    font-weight: 700;
+    font-size: 18px;
+    color: #2d4271;
+    line-height: 20px;
+    max-width: 100%;
+    min-height: 4rem;
+    max-height: 4rem;
+}
+
+    .tour-item_title a {
+        text-decoration: none;
+        color: #2d4271;
+    }
+
+.tour-item_code {
+    margin-top: 20px;
+    color: #2d4271;
+}
+
+    .tour-item_code span {
+        font-weight: 500;
+    }
+
+.tour-item_departure {
+    color: #2d4271;
+}
+
+    .tour-item_departure span {
+        font-weight: 500;
+    }
+
+.pricebefore {
+    color: #2d4271;
+}
+
+.tour-item_price {
+    margin-top: -15px;
+}
+
+.tour-item_priceold {
+    font-weight: 500;
+    text-decoration: line-through;
+}
+
+.tour-item_price-new {
+    font-weight: 700;
+    color: #fd5056;
+    font-size: 19px;
+    margin-right: 40px;
+}
+
+.price-current {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.tour-item_discount {
+    Color: #fff;
+    background-color: #fd5056;
+    border-color: #fd5056;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.tour-item_btntour {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.btn-order {
+    color: #fff;
+    background-color: #fd5056;
+    border-color: #fd5056;
+    padding: 12px;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.btn-book i {
+    margin-right: 10px;
+}
+
+.btn-viewdetail {
+    border: 1px solid #4d4aef;
+    color: #4d4aef;
+    font-size: 15px;
+    padding: 12px;
+    border-radius: 5px;
+}
+
+.tour-item_footer {
+    background-color: #fff;
+    border-top: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.dateend-item {
+    font-size: 16px;
+    color: #2d4271;
+    font-weight: 500;
+}
+
+.seattour_item {
+    color: #2d4271;
+    font-weight: 500;
+}
+
+    .seattour_item span {
+        font-size: 20px;
+        color: #fd5056;
+    }
+
+/* LISTTOUR */
+.tour-searchlist {
+    color: #2d4271;
+    padding: 20px 0px;
+}
+
+.pr-tinhthanh h3 {
+    font-weight: 600;
+    text-align: center;
+    padding: 10px 0px;
+}
+
+.pr-tinhthanh span {
+    font-weight: 600;
+}
