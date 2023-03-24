@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "DetailStaff";
     Layout = "~/Views/Admin/AdminView.cshtml";
-    TouristEntities db = new TouristEntities();
+    TouristEntities1 db = new TouristEntities1();
     ViewBag.qlstaff = "active";
 
     ViewBag.name = "Detail Staff";
@@ -22,10 +22,10 @@
                     </h1>
                     <div class="staffinfo row">
                         <div class="staff-img col-md-4">
-                            @{ 
+                            @{
                                 var img = Model.HinhDaiDien;
-                                if (img == null) 
-                                { 
+                                if (img == null)
+                                {
                                     <img src="~/Content/Images/account.png" class="rounded-circle" alt="Cinque Terre" width="200" height="200" style="margin-top:30px;">
                                 }
                                 else
@@ -70,16 +70,14 @@
                             </p>
                             <p>
                                 <span>
-                                    <strong>Contact:</strong> @Html.DisplayFor(modelItem => Model.Sdt) 
+                                    <strong>Contact:</strong> @Html.DisplayFor(modelItem => Model.Sdt)
                                 </span>
                                 <span>
                                     <strong>Email: </strong> @Html.DisplayFor(modelItem => Model.Email)
                                 </span>
                             </p>
                             <p>
-                                <span>
-                                    <strong>Status:</strong>
-                                </span>
+
                             </p>
                         </div>
                     </div>
@@ -88,30 +86,13 @@
         </div>
         <div class="row element-button" style="padding-left:10px; border: 0px;">
             <div class="col-sm-2">
-                <a class="btn btn-danger btn-sm " type="button" title="DeleteStaff" href="/Admin/DeleteStaff/@Model.MaNV" onclick="showMessage()">
-                    Delete Account
-                    <script>
-                        function showMessage() {
-                            swal({
-                                title: "Are you sure?",
-                                text: "Once deleted, you will not be able to recover this imaginary file!",
-                                icon: "warning",
-                                buttons: true,
-                                dangerMode: true,
-                            })
-                                .then((willDelete) => {
-                                    if (willDelete) {
-                                        $.ajax({
-                                            @Url.Action("DeleteStaff","Admin")
-                                        });
-
-                                    } else {
-                                        swal("Your imaginary file is safe!");
-                                    }
-                                });
-                        }
-                    </script>
+                <a class="btn btn-danger btn-sm" ata-toggle="tooltip" title="Delete" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fas fa-trash"></i>
+                    Xóa nhân viên
                 </a>
+
+
+
             </div>
             <div class="col-sm-2">
                 <a class="btn btn-delete btn-sm print-file" title="In" onclick="myApp.printTable()">
@@ -122,6 +103,25 @@
                 <a class="btn btn-warning btn-sm " type="button" title="Back" href="/Admin/ListOfStaff">
                     Back to list
                 </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-body">
+                <p style="text-align:center;padding:20px 0px;">
+                    Bạn có chắc xóa nhân viên ?!!
+                </p>
+                
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-secondary" data-dismiss="modal">Close</a>
+                <a class="btn btn-danger" href="/Admin/DeleteStaffs/@Model.MaNV">Xóa</a>
             </div>
         </div>
     </div>

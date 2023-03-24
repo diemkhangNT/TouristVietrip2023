@@ -156,7 +156,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 var pas = "123456";
                 staff.UserPassword = pas;
 
-                TempData["noti"] = "oke";
+                TempData["messageAlert"] = "createoke";
                 db.NhanViens.Add(staff);
                 db.SaveChanges();
             }
@@ -195,22 +195,33 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 LuuAnh(nv, Avatar);
                 db.Entry(nv).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
+                TempData["messageAlert"] = "editoke";
                 return RedirectToAction("ListOfStaff");
             }
             return View(nv);
 
         }
         
-        public ActionResult DeleteStaff(string id, NhanVien st)
+        public ActionResult DeleteStaffs(string id)
         {
-            st = db.NhanViens.Where(s => s.MaNV == id).FirstOrDefault();
-            db.NhanViens.Remove(st);
-            TempData["messageAlert"] = "Đã xóa staff";
-            db.SaveChanges();
+            var st = db.NhanViens.Where(s => s.MaNV == id).FirstOrDefault();
+            if(st!=null)
+            {
+                db.NhanViens.Remove(st);
+                TempData["messageAlert"] = "deletestaff";
+                db.SaveChanges();
+                
+            }
+            else
+            {
+                TempData["messageAlert"] = "khongcostaff";
+            }
             return RedirectToAction("ListOfStaff");
+
         }
     }
 }

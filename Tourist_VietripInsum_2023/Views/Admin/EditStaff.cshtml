@@ -20,7 +20,7 @@
                     <label class="control-label">Chọn hình ảnh</label>
                     <input type="file" name="Avatar" value="@Model.HinhDaiDien" />
                     <br />
-                    <img id="preview" class="rounded-circle " src="" width="150" height="150" style="margin-bottom: 14px; text-align: center;" />
+                    <img id="preview" class="rounded-circle " src="@Model.HinhDaiDien" width="150" height="150" style="margin-bottom: 14px; text-align: center;" />
                     <br />
                 </div>
                 <h5>THÔNG TIN TÀI KHOẢN</h5>
@@ -50,9 +50,9 @@
 
                     </div>
                     @*<div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.UserPassword, htmlAttributes: new { @class = "control-label col-md-3" })
-                    <input id="repassword" name="repassword" type="password" class="form-control" />
-                </div>*@
+                            @Html.LabelFor(model => model.UserPassword, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <input id="repassword" name="repassword" type="password" class="form-control" />
+                        </div>*@
 
                 </div>
 
@@ -110,7 +110,7 @@
             <div class="col-sm-5">
                 <div class="row">
                     <div class="col-sm-4">
-                        <input type="submit" value="Save Update" class="btn btn-success btn-sm"/>
+                        <input type="submit" value="Save Update" class="btn btn-success btn-sm" />
                     </div>
                     <div class="col-sm-">
                         <a href="/Admin/ListOfStaff" class="btn btn-warning btn-sm">Quay lại danh sách</a>
@@ -197,7 +197,3 @@
     }
 
 </script>
-
-
-
-
