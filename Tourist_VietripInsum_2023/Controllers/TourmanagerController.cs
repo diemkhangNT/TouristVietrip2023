@@ -859,16 +859,20 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
-            ChiTietTour chiTietTour = db.ChiTietTours.Where(s => s.MaDDTQ == id).FirstOrDefault() ;
-            
+            var chiTietTour = db.ChiTietTours.Where(s => s.MaDDTQ == id).ToList() ;
             if (chiTietTour == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.MaDDTQ = new SelectList(db.DiaDiemThamQuans, "MaDDTQ", "MaTinh", chiTietTour.MaDDTQ);
-            ViewBag.MaPTien = new SelectList(db.PhuongTiens, "MaPTien", "TenPTien", chiTietTour.MaPTien);
-            ViewBag.MaTour = new SelectList(db.Tours, "MaTour", "MaLTour", chiTietTour.MaTour);
-            return View(chiTietTour);
+            foreach(var item in chiTietTour)
+            {
+                if(item.MaTour == (string)Session["tempdata"])
+                {
+                    return View(chiTietTour);
+                }
+            }
+            return View();
+            
         }
         [HttpPost]
         public ActionResult EditDetailTour(ChiTietTour dt)

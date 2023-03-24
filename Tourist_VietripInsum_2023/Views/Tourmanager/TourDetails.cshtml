@@ -1,35 +1,32 @@
 ﻿@model Tourist_VietripInsum_2023.Models.Tour
-
+@using Tourist_VietripInsum_2023.Models
 @{
     ViewBag.Title = "TourDetails";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
     ViewBag.Name = "Tour Manager";
     ViewBag.qlt = "active";
+    TouristEntities1 db = new TouristEntities1();
+    var detailstour = db.ChiTietTours.Where(model => model.MaTour == Model.MaTour).ToList();
 }
 
 
 <style>
-    .info div{
-        padding-top:10px;
-        padding-left:50px;
+    .info div {
+        padding-top: 10px;
+        padding-left: 50px;
     }
 </style>
 <div class="tile">
     @*<h5 class="tile-title">THÔNG TIN TOUR</h5>*@
 
+    <h2 class="tile-title text-center">Thông tin tour @Html.DisplayFor(model => model.MaTour)</h2>
     <div class="tile-body">
-
         <div class="row element-button">
             <div class="col-sm-2">
                 <a class="btn btn-warning btn-sm " type="button" title="List Detail" href="/Tourmanager/ListDetailTour/@Model.MaTour">
                     Chi tiết tour
                 </a>
             </div>
-            @*<div class="col-sm-2">
-                <a class="btn btn-success btn-sm " type="button" title="Back" href="/Tourmanager/CreateDetailTour/@Model.IdTour">
-                    Thêm lịch trình
-                </a>
-            </div>*@
             <div class="col-sm-2">
                 <a class="btn btn-danger btn-sm" type="button" title="DeleteTour" data-toggle="modal" data-target="#myModal">
                     Xóa tour
@@ -38,63 +35,78 @@
             </div>
         </div>
 
-
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-3 " style="text-align:center;padding-top:40px;">
-                    <img src="@Model.HinhMinhHoa_T" width="250" height="180" />
+        <div class="row">
+            <div class="col-sm-3 " style="text-align:center;padding-top:40px;">
+                <h5 class="tile-title">Hình minh họa</h5>
+                <img src="@Model.HinhMinhHoa_T" width="100%" height="auto" />
+            </div>
+            <div class="info col-sm-5">
+                <div class="col-sm-12">
+                    <strong>Tour Name: </strong>@Html.DisplayFor(model => model.TenTour)
                 </div>
-                <div class="info col-sm-9">
-                    <h3>THÔNG TIN TOUR @Html.DisplayFor(model => model.MaTour)</h3>
-                    <div class="col-sm-4">
-                        <strong>Type Tour: </strong>@Html.DisplayFor(model => model.MaLTour)-@Html.DisplayFor(model => model.LoaiTour.TenLTour)
-                    </div>
-                    <div class="col-sm-12">
-                        <strong>Tour Name: </strong>@Html.DisplayFor(model => model.TenTour)
-                    </div>
+                <div class="col-sm-12">
+                    <strong>GioiThieu: </strong>@Html.DisplayFor(model => model.GioiThieu)
+                </div>
+                <div class="col-sm-12">
+                    <strong>Type Tour: </strong>@Html.DisplayFor(model => model.MaLTour) - @Html.DisplayFor(model => model.LoaiTour.TenLTour)
+                </div>
+                <div class="col-sm-12">
+                    <strong>Hạn đặt: </strong>@Html.DisplayFor(model => model.HanChotDatVe)
+                </div>
+                <div class="col-sm-12">
+                    <strong>Số ngày: </strong>@Html.DisplayFor(model => model.SoNgay)
+                </div>
+                <div class="col-sm-12">
+                    <strong>Ngày về: </strong>@Html.DisplayFor(model => model.NgayTroVe)
+                </div>
+                <div class="col-sm-12">
+                    <strong>Số chỗ còn nhận: </strong>@Html.DisplayFor(model => model.SoChoNull)
+                </div>
+                <div class="col-sm-12">
+                    <strong>Trạng thái: </strong>
+                    @Html.DisplayFor(model => model.TrangThai)
+                </div>
 
-                    <div class="col-sm-4">
-                        <strong>Số ngày: </strong>@Html.DisplayFor(model => model.SoNgay)
-                    </div>
-                    <div class="col-sm-4">
-                        <strong>Hạn đặt: </strong>@Html.DisplayFor(model => model.HanChotDatVe)
-                    </div>
+                <div class="col-sm-12">
+                    <strong>Mã tỉnh: </strong>
+                    @Html.DisplayFor(model => model.Hotel.MaTinh) <span>(</span>@Html.DisplayFor(model => model.Hotel.TinhThanh.TenTinh))
+                </div>
+                <div class="col-sm-12">
+                    <strong>Mã Khách sạn: </strong>
+                    @Html.DisplayFor(model => model.MaKS) <span>(</span>@Html.DisplayFor(model => model.Hotel.TenKS))
+                </div>
+
+            </div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <strong>Thông tin tập trung: </strong>
                     <div class="col-sm-12">
-                        <strong>Số chỗ còn nhận: </strong>@Html.DisplayFor(model => model.SoChoNull)
-                    </div>
-                    <div class="col-sm-12">
-                        <strong>Trạng thái: </strong>
-                        @Html.DisplayFor(model => model.TrangThai)
-                    </div>
-                    <div class="col-sm-12">
-                        <strong>Mã Khách sạn: </strong>
-                        @Html.DisplayFor(model => model.MaKS) <span>(</span>@Html.DisplayFor(model => model.Hotel.TenKS))
-                    </div>
-                    <div class="col-sm-12">
-                        <strong>Mã tỉnh: </strong>
-                        @Html.DisplayFor(model => model.Hotel.MaTinh) <span>(</span>@Html.DisplayFor(model => model.Hotel.TinhThanh.TenTinh))
-                    </div>
-                    <div class="col-sm-4">
-                        <strong>Ngày về: </strong>@Html.DisplayFor(model => model.NgayTroVe)
-                    </div>
-                    <div class="col-sm-6">
-                        <strong>Giá vé: </strong>
+
                         <table>
                             @*//Phần render từng dòng trong C#*@
                             <thead>
-                                <tr style="background-color: #ffd43b;">
-                                    <th>Vé người lớn</th>
-                                    <th>Vé trẻ em</th>
+                                <tr style="background-color: #09493352;">
+                                    <th>Nơi khởi hành</th>
+                                    <th>Ngày tập trung</th>
+                                    <th>Giờ đi</th>
 
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
+                                    @{
+                                        var ngaytt = String.Format("{0:d/M/yyyy}", Model.NgayKhoihanh);
+                                        var giott = String.Format("{0:T}", Model.NgayKhoihanh);
+                                    }
+
                                     <td>
-                                        @Html.DisplayFor(model => model.GiaNguoiLon)
+                                        @Html.DisplayFor(model => model.NoiKhoiHanh)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(model => model.GiaTreEm)
+                                        @Html.DisplayFor(model => ngaytt)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => giott)
                                     </td>
 
                                 </tr>
@@ -102,51 +114,41 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row">
-                        <strong>Thông tin tậpp trung: </strong>
-                        <div class="col-sm-12">
+                </div>
 
-                            <table>
-                                @*//Phần render từng dòng trong C#*@
-                                <thead>
-                                    <tr style="background-color: #09493352;">
-                                        <th>Nơi khởi hành</th>
-                                        <th>Ngày tập trung</th>
-                                        <th>Giờ đi</th>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <br />
+                        <br />
+                        <strong>Giá vé: </strong>
+                        <table>
+                            @*//Phần render từng dòng trong C#*@
+                            <thead>
+                                <tr style="background-color: #ffd43b;">
+                                    <th>Vé người lớn</th>
+                                    <th>Vé trẻ em</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        $@Html.DisplayFor(model => model.GiaNguoiLon)
+                                    </td>
+                                    <td>
+                                        $@Html.DisplayFor(model => model.GiaTreEm)
+                                    </td>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        @{
-                                            var ngaytt = String.Format("{0:d/M/yyyy}", Model.NgayKhoihanh);
-                                            var giott = String.Format("{0:T}", Model.NgayKhoihanh);
-                                        }
+                                </tr>
 
-                                        <td>
-                                            Sân bay Tân Sơn Nhất, @Html.DisplayFor(model => model.NoiKhoiHanh)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(model => ngaytt)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(model => giott)
-                                        </td>
-
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div>
+        </div>
 
-            </div>
-            <div>
-                @Html.ActionLink("Back to List", "QuanLyTour")
-            </div>
+        <div>
+            @Html.ActionLink("Back to List", "QuanLyTour")
         </div>
         <div class="modal" id="myModal">
             <div class="modal-dialog">
@@ -173,57 +175,83 @@
             </div>
         </div>
     </div>
- 
- </div>  
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</div>
+<div class="">
+    <h2 class="tile-title text-center">CHI TIẾT</h2>
+    <div class="container-fluid">
+        @foreach (var item in detailstour)
+        {
+            <div class="row">
+                <div class="col-md-4 col-12 left">
+                    <img src="@item.DiaDiemThamQuan.HinhMinhHoa_D" width="80%" height="auto" />
+                </div>
+                <div class=" tile col-md-8 col-12">
+                    <h2 class="tile-title">
+                        @*Ngày: @Html.DisplayFor(modelItem => item.STT),*@
+                        @Html.DisplayFor(modelItem => item.TieuDe)
+                    </h2>
+                    <p>Phương tiện di chuyển: @Html.DisplayFor(modelItem => item.PhuongTien.TenPTien)</p>
+                    <h3>@Html.DisplayFor(modelItem => item.MotaChitiet)</h3>
+                    <p>
+                        @Html.DisplayFor(modelItem => item.DiaDiemThamQuan.MoTa)
+                    </p>
+                </div>
+            </div>
+
+        }
+    </div>
+
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 
 
 
-    @*<script type="text/javascript">
-            function remove() {
-                swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover your profile!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                    .then((willDelete) => {
-                        debugger
-                        if (willDelete) {
-                            var idt = document.getElementById("idtourc").innerText;
-                            $.ajax({
-                                type: "POST",
-                                data: { id: idt },
-                                url: "/Tourmanager/DeleteTour" + idt,
-                                dataType: "json",
+@*<script type="text/javascript">
+        function remove() {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover your profile!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    debugger
+                    if (willDelete) {
+                        var idt = document.getElementById("idtourc").innerText;
+                        $.ajax({
+                            type: "POST",
+                            data: { id: idt },
+                            url: "/Tourmanager/DeleteTour" + idt,
+                            dataType: "json",
 
-                                success: function (response) {
-                                    swal("Poof! Your profile has been deleted!", {
-                                        icon: "success",
-                                    }).then(function () {
-                                        window.location.href = "/Tourmanager/QuanLyTour"
-                                    });
+                            success: function (response) {
+                                swal("Poof! Your profile has been deleted!", {
+                                    icon: "success",
+                                }).then(function () {
+                                    window.location.href = "/Tourmanager/QuanLyTour"
+                                });
 
-                                },
-                                failure: function (response) {
-                                    alert("error")
-                                },
-                                error: function (response) {
-                                    alert("error")
-                                }
-                            });
+                            },
+                            failure: function (response) {
+                                alert("error")
+                            },
+                            error: function (response) {
+                                alert("error")
+                            }
+                        });
 
-                            //alert("hahaha"+idt);
-                        }
-                        else {
-                            swal("Your profil is safe!");
-                        }
-                    });
-            }
-        </script>*@
+                        //alert("hahaha"+idt);
+                    }
+                    else {
+                        swal("Your profil is safe!");
+                    }
+                });
+        }
+    </script>*@

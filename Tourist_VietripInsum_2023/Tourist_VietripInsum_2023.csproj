@@ -143,6 +143,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ChiTietToursController.cs" />
     <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginStaffController.cs" />
@@ -479,6 +480,11 @@
     <Content Include="Views\Tourmanager\VistLocationsDetails.cshtml" />
     <Content Include="Views\Tourmanager\HotelDetails.cshtml" />
     <Content Include="Views\Tourmanager\IndexHotel.cshtml" />
+    <Content Include="Views\ChiTietTours\Create.cshtml" />
+    <Content Include="Views\ChiTietTours\Delete.cshtml" />
+    <Content Include="Views\ChiTietTours\Details.cshtml" />
+    <Content Include="Views\ChiTietTours\Edit.cshtml" />
+    <Content Include="Views\ChiTietTours\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
