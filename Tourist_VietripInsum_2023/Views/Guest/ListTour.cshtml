@@ -9,7 +9,9 @@
    
     List<DiaDiemThamQuan> diaDiems = db.DiaDiemThamQuans.ToList();
 }
-<link href="~/Content/Guest/ListTour.css" rel="stylesheet" />
+
+<link href="~/Content/Guest/ListTour-Option.css" rel="stylesheet" />
+
 <div class="tour-searchlist" style="background-color: #f9f9f9">
     <div class="container">
         <form action="#" method="post">
@@ -71,45 +73,40 @@
                                                     }
                                                     <div class="tour-item_price">
                                                         <div class="price__wrappertour">
-                                                            <div class="pricebefore">
-                                                                Giá
-                                                                <span class="tour-item_priceold">@tien ₫</span>
-                                                            </div>
-                                                            @if (ck != 0)
-                                                            {
-                                                                <div class="price-current">
-                                                                    <span class="tour-item_price-new">@tiengiamgia₫</span>
+                                                            @{
+                                                                if (ck == 0)
+                                                                {
+                                                                    <div class="price-current">
+                                                                        <span class="tour-item_price-new">@tiengiamgia ₫</span>
 
-                                                                    <span class="tour-item_discount small p-1">@ck% GIẢM</span>
-                                                                </div>}
+                                                                    </div>
 
-
-                                                            <!-- TINH THOI GIAN -->
-                                                            <!-- <div class="tour-item__price__timer py-2">
-                                    <span id="countDownDayNDSGN560-014-240323XE-V">Còn 00 ngày 21:39:50</span>
-                                        <script type="text/javascript">
-                                                    jQuery(document).ready(function ($) {
-                                                        var newYear = '2023' + '/' + '03' + '/' + '22' + ' ' + '12' + ':' + '01' + ':' + '23';
-                                                        $('#countDownDayNDSGN560-014-240323XE-V').countdown(newYear, function (event) {
-                                                            $(this).html(event.strftime('C&#242;n %D ng&#224;y %H:%M:%S'));
-                                                        });
-                                                    })
-                                        </script>
-                                    </div> -->
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="pricebefore">
+                                                                        Giá
+                                                                        <span class="tour-item_priceold">@tien ₫</span>
+                                                                    </div>
+                                                                    <div class="price-current">
+                                                                        <span class="tour-item_price-new">@tiengiamgia ₫</span>
+                                                                        <span class="tour-item_discount small p-1">@ck% GIẢM</span>
+                                                                    </div>
+                                                                }
+                                                            }
                                                             <div class="tour-item_btntour">
                                                                 <div class="btn-book">
                                                                     <a href="#" class="btn-order btn-sm " title="" value="" id="">
                                                                         <i class="fas fa-shopping-cart"></i>
-                                                                        <label>
-                                                                            Đặt ngay
-                                                                        </label>
+                                                                        Đặt ngay
+                                                                        
                                                                     </a>
                                                                 </div>
                                                                 <div class="btn-block">
-                                                                    <a href="" title="" class="btn-viewdetail">
-                                                                        <label>
+                                                                    <a href="/Guest/Tourinfomation/@tour.MaTour" title="@tour.TenTour" class="btn-viewdetail">
+                                                                       
                                                                             Xem chi tiết
-                                                                        </label>
+                                                                        
                                                                     </a>
                                                                 </div>
                                                             </div>

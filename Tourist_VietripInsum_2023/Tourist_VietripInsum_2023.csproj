@@ -234,8 +234,8 @@
     <Content Include="Content\FormTour.css" />
     <Content Include="Content\Guest.js" />
     <Content Include="Content\Guest\DetailTours.css" />
-    <Content Include="Content\Guest\HomePage.css" />
-    <Content Include="Content\Guest\ListTour.css" />
+    <Content Include="Content\Guest\homepageGuest.css" />
+    <Content Include="Content\Guest\ListTour-Option.css" />
     <Content Include="Content\Guest\MainLayoutGuest.css" />
     <Content Include="Content\Images\dânng.jpg" />
     <Content Include="Content\Images\mientay.png" />
