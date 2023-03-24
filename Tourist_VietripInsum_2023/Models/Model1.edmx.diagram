@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="115b2da9b51747138d1f595873d0ed39" Name="Diagram1">
+      <Diagram DiagramId="a2ec1aab07f243b19e840eea6ac037f4" Name="Diagram1">
+        <EntityTypeShape EntityType="TouristModel.BookTour" Width="1.5" PointX="7.5" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.ChiTietTour" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.ChucVu" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.DiaDiemThamQuan" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.DonHang" Width="1.5" PointX="7.5" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.Hotel" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.KhachHang" Width="1.5" PointX="5.25" PointY="14.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.LoaiKH" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
@@ -20,15 +20,15 @@
         <EntityTypeShape EntityType="TouristModel.TinhThanh" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.Tour" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.Ve" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="TouristModel.FK_DonHang_NhanVien" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_OrderCus_Customer_Guest" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_OrderCus_Tour" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_Ticket_Order" ManuallyRouted="false" />
         <AssociationConnector Association="TouristModel.FK_ChiTietTour_DiaDiemThamQuan1" ManuallyRouted="false" />
         <AssociationConnector Association="TouristModel.FK_ChiTietTour_PhuongTien" ManuallyRouted="false" />
         <AssociationConnector Association="TouristModel.FK_ChiTietTour_Tour" ManuallyRouted="false" />
         <AssociationConnector Association="TouristModel.FK_Staff_Position" ManuallyRouted="false" />
         <AssociationConnector Association="TouristModel.FK_DiaDiemThamQuan_TinhThanh" ManuallyRouted="false" />
-        <AssociationConnector Association="TouristModel.FK_DonHang_NhanVien" ManuallyRouted="false" />
-        <AssociationConnector Association="TouristModel.FK_OrderCus_Customer_Guest" ManuallyRouted="false" />
-        <AssociationConnector Association="TouristModel.FK_OrderCus_Tour" ManuallyRouted="false" />
-        <AssociationConnector Association="TouristModel.FK_Ticket_Order" ManuallyRouted="false" />
         <AssociationConnector Association="TouristModel.FK_Hotel_TinhThanh" ManuallyRouted="false" />
         <AssociationConnector Association="TouristModel.FK_Tour_Hotel" ManuallyRouted="false" />
         <AssociationConnector Association="TouristModel.FK_Customer_Guest_TypeCus" ManuallyRouted="false" />

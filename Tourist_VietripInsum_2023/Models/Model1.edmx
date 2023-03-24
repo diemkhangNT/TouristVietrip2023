@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TouristModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BookTour">
           <Key>
             <PropertyRef Name="MaDH" />
@@ -357,7 +357,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Model1StoreContainer">
+        <EntityContainer Name="TouristModelStoreContainer">
           <EntitySet Name="BookTour" EntityType="Self.BookTour" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietTour" EntityType="Self.ChiTietTour" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChucVu" EntityType="Self.ChucVu" Schema="dbo" store:Type="Tables" />
@@ -438,7 +438,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="TouristModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="BookTour">
           <Key>
             <PropertyRef Name="MaDH" />
@@ -903,9 +903,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="TouristEntities1">
+        <EntityContainerMapping StorageEntityContainer="TouristModelStoreContainer" CdmEntityContainer="TouristEntities1">
           <EntitySetMapping Name="BookTours">
-            <EntityTypeMapping TypeName="Model1.BookTour">
+            <EntityTypeMapping TypeName="TouristModel.BookTour">
               <MappingFragment StoreEntitySet="BookTour">
                 <ScalarProperty Name="MaDH" ColumnName="MaDH" />
                 <ScalarProperty Name="MaNVLap" ColumnName="MaNVLap" />
@@ -919,7 +919,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ChiTietTours">
-            <EntityTypeMapping TypeName="Model1.ChiTietTour">
+            <EntityTypeMapping TypeName="TouristModel.ChiTietTour">
               <MappingFragment StoreEntitySet="ChiTietTour">
                 <ScalarProperty Name="STT" ColumnName="STT" />
                 <ScalarProperty Name="MaDDTQ" ColumnName="MaDDTQ" />
@@ -931,7 +931,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ChucVus">
-            <EntityTypeMapping TypeName="Model1.ChucVu">
+            <EntityTypeMapping TypeName="TouristModel.ChucVu">
               <MappingFragment StoreEntitySet="ChucVu">
                 <ScalarProperty Name="MaCV" ColumnName="MaCV" />
                 <ScalarProperty Name="TenCV" ColumnName="TenCV" />
@@ -939,7 +939,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DiaDiemThamQuans">
-            <EntityTypeMapping TypeName="Model1.DiaDiemThamQuan">
+            <EntityTypeMapping TypeName="TouristModel.DiaDiemThamQuan">
               <MappingFragment StoreEntitySet="DiaDiemThamQuan">
                 <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />
                 <ScalarProperty Name="MaDDTQ" ColumnName="MaDDTQ" />
@@ -951,7 +951,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Hotels">
-            <EntityTypeMapping TypeName="Model1.Hotel">
+            <EntityTypeMapping TypeName="TouristModel.Hotel">
               <MappingFragment StoreEntitySet="Hotel">
                 <ScalarProperty Name="MaKS" ColumnName="MaKS" />
                 <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />
@@ -961,7 +961,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KhachHangs">
-            <EntityTypeMapping TypeName="Model1.KhachHang">
+            <EntityTypeMapping TypeName="TouristModel.KhachHang">
               <MappingFragment StoreEntitySet="KhachHang">
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
                 <ScalarProperty Name="SDT" ColumnName="SDT" />
@@ -978,7 +978,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiKHs">
-            <EntityTypeMapping TypeName="Model1.LoaiKH">
+            <EntityTypeMapping TypeName="TouristModel.LoaiKH">
               <MappingFragment StoreEntitySet="LoaiKH">
                 <ScalarProperty Name="MaLoaiKH" ColumnName="MaLoaiKH" />
                 <ScalarProperty Name="TenLoaiKH" ColumnName="TenLoaiKH" />
@@ -986,7 +986,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiTours">
-            <EntityTypeMapping TypeName="Model1.LoaiTour">
+            <EntityTypeMapping TypeName="TouristModel.LoaiTour">
               <MappingFragment StoreEntitySet="LoaiTour">
                 <ScalarProperty Name="MaLTour" ColumnName="MaLTour" />
                 <ScalarProperty Name="TenLTour" ColumnName="TenLTour" />
@@ -995,7 +995,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiVes">
-            <EntityTypeMapping TypeName="Model1.LoaiVe">
+            <EntityTypeMapping TypeName="TouristModel.LoaiVe">
               <MappingFragment StoreEntitySet="LoaiVe">
                 <ScalarProperty Name="MaLoaiVe" ColumnName="MaLoaiVe" />
                 <ScalarProperty Name="TenLVe" ColumnName="TenLVe" />
@@ -1004,7 +1004,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NhanViens">
-            <EntityTypeMapping TypeName="Model1.NhanVien">
+            <EntityTypeMapping TypeName="TouristModel.NhanVien">
               <MappingFragment StoreEntitySet="NhanVien">
                 <ScalarProperty Name="MaNV" ColumnName="MaNV" />
                 <ScalarProperty Name="MaCV" ColumnName="MaCV" />
@@ -1021,7 +1021,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PhanHois">
-            <EntityTypeMapping TypeName="Model1.PhanHoi">
+            <EntityTypeMapping TypeName="TouristModel.PhanHoi">
               <MappingFragment StoreEntitySet="PhanHoi">
                 <ScalarProperty Name="MaPhanHoi" ColumnName="MaPhanHoi" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
@@ -1032,7 +1032,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PhuongTiens">
-            <EntityTypeMapping TypeName="Model1.PhuongTien">
+            <EntityTypeMapping TypeName="TouristModel.PhuongTien">
               <MappingFragment StoreEntitySet="PhuongTien">
                 <ScalarProperty Name="MaPTien" ColumnName="MaPTien" />
                 <ScalarProperty Name="TenPTien" ColumnName="TenPTien" />
@@ -1042,7 +1042,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TinhThanhs">
-            <EntityTypeMapping TypeName="Model1.TinhThanh">
+            <EntityTypeMapping TypeName="TouristModel.TinhThanh">
               <MappingFragment StoreEntitySet="TinhThanh">
                 <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />
                 <ScalarProperty Name="TenTinh" ColumnName="TenTinh" />
@@ -1050,7 +1050,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tours">
-            <EntityTypeMapping TypeName="Model1.Tour">
+            <EntityTypeMapping TypeName="TouristModel.Tour">
               <MappingFragment StoreEntitySet="Tour">
                 <ScalarProperty Name="MaTour" ColumnName="MaTour" />
                 <ScalarProperty Name="MaLTour" ColumnName="MaLTour" />
@@ -1071,7 +1071,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Ves">
-            <EntityTypeMapping TypeName="Model1.Ve">
+            <EntityTypeMapping TypeName="TouristModel.Ve">
               <MappingFragment StoreEntitySet="Ve">
                 <ScalarProperty Name="MaVe" ColumnName="MaVe" />
                 <ScalarProperty Name="MaDH" ColumnName="MaDH" />

@@ -95,6 +95,17 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(listtourDD);
         }
 
-
+        public ActionResult LienHe()
+        {
+            return View();
+        }
+        public ActionResult VeChungToi()
+        {
+            return View();
+        }
+        public ActionResult TinTuc()
+        {
+            return View();
+        }
     }
     }
