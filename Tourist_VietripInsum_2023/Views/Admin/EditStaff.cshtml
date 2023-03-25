@@ -18,9 +18,10 @@
             <div class="imgstaff col-sm-5" style="padding-left:40px;">
                 <div class="col-sm-12" style="text-align: center;">
                     <label class="control-label">Chọn hình ảnh</label>
-                    <input type="file" name="Avatar" value="@Model.HinhDaiDien" />
+                    @*@Html.TextBox("Avatar", "", new { type = "file", @class = "fas fa-cloud-upload-alt", value = "@Model.HinhDaiDien" })*@
+                    <input class="fas fa-cloud-upload-alt" id="Avatar" name="Avatar" type="file">
                     <br />
-                    <img id="preview" class="rounded-circle " src="@Model.HinhDaiDien" width="150" height="150" style="margin-bottom: 14px; text-align: center;" />
+                    <img src="@Model.HinhDaiDien"  id="preview" class="rounded-circle " width="150" height="150" style="margin-bottom: 14px; text-align: center;" />
                     <br />
                 </div>
                 <h5>THÔNG TIN TÀI KHOẢN</h5>
@@ -133,7 +134,7 @@
         const [file] = Avatar.files
         if (file) {
             preview.src = URL.createObjectURL(file);
-            $("#preview").removeClass("hidden");
+            document.getElementById("preview").style.visibility = "visible";
         }
     }
 </script>

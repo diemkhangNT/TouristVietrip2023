@@ -8,25 +8,14 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @{
-    var checkdata = TempData["messageAlert"];
-    if (checkdata == "deletestaff")
+    var data = TempData["thongbao"];
+    if (data == "taothanhcong")
     {
         <script>
-            swal("Good job!", "Bạn đã xóa nhân viên", "success");
+            swal("Good job!", "Bạn đã tạo tài khoản nhân viên", "success");
         </script>
     }
-    else if (checkdata == "createoke")
-    {
-        <script>
-            swal("Good job!", "Bạn đã tạo mới tài khoản nhân viên", "success");
-        </script>
-    }
-    else
-    {
-        <script>
-            swal("Good job!", "Bạn đã cập nhật tài khoản nhân viên", "success");
-        </script>
-    }
+  
 
 
 }
@@ -60,17 +49,7 @@
                     {
                         <tr>
                             <td style="text-align: center">
-                                @{
-                                    var img = item.HinhDaiDien;
-                                    if (img == null)
-                                    {
-                                        <img src="~/Content/Images/account.png" width="50" height="50" />
-                                    }
-                                    else
-                                    {
                                         <img src="@item.HinhDaiDien" width="50" height="50" />
-                                    }
-                                }
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.MaNV)

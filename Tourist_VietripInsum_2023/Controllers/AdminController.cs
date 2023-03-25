@@ -94,7 +94,8 @@ namespace Tourist_VietripInsum_2023.Controllers
 
             if(Avatar==null)
             {
-                st.HinhDaiDien = "/images/profile-user.png";
+                var dd = st.HinhDaiDien;
+                st.HinhDaiDien = dd;
             }
             else
             {
@@ -156,7 +157,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 var pas = "123456";
                 staff.UserPassword = pas;
 
-                TempData["messageAlert"] = "createoke";
+                TempData["thongbao"] = "taothanhcong";
                 db.NhanViens.Add(staff);
                 db.SaveChanges();
             }
@@ -195,11 +196,10 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 LuuAnh(nv, Avatar);
                 db.Entry(nv).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                TempData["messageAlert"] = "editoke";
+                TempData["thongbao"] = "edithanhcong";
                 return RedirectToAction("ListOfStaff");
             }
             return View(nv);
