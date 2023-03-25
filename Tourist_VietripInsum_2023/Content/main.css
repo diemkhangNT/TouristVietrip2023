@@ -893,7 +893,7 @@ pre {
     }
 
     .col-sm-2 {
-        max-width: 0%;
+        max-width: 100%;
         display: table;
     }
 

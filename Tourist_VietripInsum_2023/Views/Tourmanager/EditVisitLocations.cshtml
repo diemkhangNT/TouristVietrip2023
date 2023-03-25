@@ -3,73 +3,96 @@
 @{
     ViewBag.Title = "EditVisitLocations";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+    ViewBag.Name = "Location Manager";
+    ViewBag.qlt = "active";
 }
 
 <div class="col-md-12">
-    <div class="tile">
-        <h4 class="tile-title"> EDIT INFOMATION LOCATION</h4>
+    <div class="">
+        
         <div class="tile-body">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("EditVisitLocations", "Tourmanager", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-                <h4>VistLocation</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.MaTinh, "MaTinh", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("MaTinh", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.MaTinh, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                <div class="form-horizontal">
 
-                @Html.HiddenFor(model => model.MaDDTQ)
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-sm-4 tile">
+                            <h3 class="tile-title">Chỉnh sửa hình ảnh</h3>
+                            <div style="width: 100%; height: auto; border-radius: 50px 20px; text-align: center;">
+                                <br />
+                                @Html.TextBox("ImagerVis", "", new { type = "file", @class = "form-control text-center text-danger" })
+                                <br />
+                                <img src="@Model.HinhMinhHoa_D" id="preview" width="100%" height="auto" />
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <h4 style="writing-mode: vertical-rl;"> _____________EDIT INFOMATION LOCATION_____________</h4>
+                        </div>
+                        <div class="col-sm-7 tile">
+                            <h3 class="tile-title">Chỉnh sửa thông tin</h3>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    @Html.LabelFor(model => model.MaTinh, "MaTinh", htmlAttributes: new { @class = "control-label col-md-12" })
+                                    <div class="col-md-12">
+                                        @Html.DropDownList("MaTinh", null, htmlAttributes: new { @class = "form-control col-md-12" })
+                                        @Html.ValidationMessageFor(model => model.MaTinh, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.TenDDTQ, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.TenDDTQ, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.TenDDTQ, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                                @Html.HiddenFor(model => model.MaDDTQ)
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.MoTa, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                                <div class="form-group col-md-6">
+                                    @Html.LabelFor(model => model.TenDDTQ, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.TenDDTQ, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+                                        @Html.ValidationMessageFor(model => model.TenDDTQ, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MoTa, htmlAttributes: new { @class = "control-label col-md-12" })
+                                <div class="col-md-12">
+                                    @Html.TextAreaFor(model => model.MoTa, new { @class = "form-control content-editor col-md-12" })
+                                    @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.HinhMinhHoa_D, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.HinhMinhHoa_D, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.HinhMinhHoa_D, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-md-12" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+                                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-default" />
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Save" class="btn btn-outline-dark" />
+                                    <a href="/Tourmanager/LocationManager" value="Back to list" class="btn btn-outline-success">Back to list</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
-            </div>
 
             }
         </div>
     </div>
 </div>
-            <div>
-                @Html.ActionLink("Back to List", "LocationManager")
-            </div>
+<script>
+    ImagerVis.onchange = evt => {
+        const [file] = ImagerVis.files
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            document.getElementById("preview").style.visibility = "visible";
+        }
+    }
+</script>

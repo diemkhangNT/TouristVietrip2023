@@ -143,7 +143,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\ChiTietToursController.cs" />
     <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginStaffController.cs" />
@@ -410,14 +409,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Views\Tourmanager\CreateSchedule.cshtml" />
-    <Content Include="Views\Tourmanager\CreateTourType.cshtml" />
-    <Content Include="Views\Tourmanager\EditTourType.cshtml" />
     <Content Include="Views\Tourmanager\HomePageTM.cshtml" />
     <Content Include="Views\Tourmanager\LayoutTM\_ViewTM.cshtml" />
     <Content Include="Views\Tourmanager\Profile.cshtml" />
     <Content Include="Views\Tourmanager\QuanLyTour.cshtml" />
-    <Content Include="Views\Tourmanager\TourTypeDetails.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -440,10 +435,6 @@
     <Content Include="Views\Admin\DetailStaff.cshtml" />
     <Content Include="Views\Admin\DeleteStaff.cshtml" />
     <Content Include="Views\Admin\EditStaff.cshtml" />
-    <Content Include="Views\Staffs\Create.cshtml" />
-    <Content Include="Views\Staffs\Delete.cshtml" />
-    <Content Include="Views\Staffs\Edit.cshtml" />
-    <Content Include="Views\Staffs\Index.cshtml" />
     <Content Include="Views\Tourmanager\CreateTours.cshtml" />
     <Content Include="Views\Tourmanager\TourDetails.cshtml" />
     <Content Include="Views\Tourmanager\CreateHotel.cshtml" />
@@ -453,9 +444,6 @@
     <Content Include="Views\Tourmanager\CreateDetailTour.cshtml" />
     <Content Include="Views\Tourmanager\EditDetailTour.cshtml" />
     <Content Include="Views\Tourmanager\EditHotel.cshtml" />
-    <Content Include="Views\Tourmanager\DetailTourDetail.cshtml" />
-    <Content Include="Views\Tourmanager\DetailHotel.cshtml" />
-    <Content Include="Views\Tourmanager\TransportManager.cshtml" />
     <Content Include="Views\Tourmanager\CreateTrans.cshtml" />
     <Content Include="Views\Tourmanager\EditTrans.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
@@ -475,16 +463,10 @@
     <Content Include="Views\Guest\HomePageGuest.cshtml" />
     <Content Include="Views\Admin\ListOfStaff.cshtml" />
     <Content Include="Views\Admin\ListOfCustomers.cshtml" />
-    <Content Include="Views\Tourmanager\DeleteTourType.cshtml" />
-    <Content Include="Views\Tourmanager\DeleteVisitLocations.cshtml" />
     <Content Include="Views\Tourmanager\VistLocationsDetails.cshtml" />
-    <Content Include="Views\Tourmanager\HotelDetails.cshtml" />
-    <Content Include="Views\Tourmanager\IndexHotel.cshtml" />
-    <Content Include="Views\ChiTietTours\Create.cshtml" />
-    <Content Include="Views\ChiTietTours\Delete.cshtml" />
-    <Content Include="Views\ChiTietTours\Details.cshtml" />
-    <Content Include="Views\ChiTietTours\Edit.cshtml" />
-    <Content Include="Views\ChiTietTours\Index.cshtml" />
+    <Content Include="Views\Tourmanager\IndexLoaiTour.cshtml" />
+    <Content Include="Views\Tourmanager\CreateLoaiTour.cshtml" />
+    <Content Include="Views\Tourmanager\EditLoaiTour.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
