@@ -16,9 +16,54 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             return View();
         }
+
+        private List<DiaDiemThamQuan> Lay_DiaDiem()
+        {
+            List<DiaDiemThamQuan> diaDiemThamQuans = db.DiaDiemThamQuans.ToList();
+            List<ChiTietTour> chiTietTours = db.ChiTietTours.ToList();
+
+            var nhanvien = (from s in diaDiemThamQuans
+
+                            join a in chiTietTours on s.MaDDTQ equals a.MaDDTQ
+                            group s by s.MaDDTQ into g
+                            select new
+                            {
+                                MaDD = g.FirstOrDefault().MaDDTQ,
+
+                            }).ToList();
+            List<DiaDiemThamQuan> d = new List<DiaDiemThamQuan>();
+
+            foreach (var i in nhanvien)
+            {
+                foreach (var item in diaDiemThamQuans)
+                {
+                    if (item.MaDDTQ == i.MaDD)
+                    {
+                        d.Add(item);
+                    }
+                }
+
+            }
+            return d;
+        }
+        public ActionResult DiaDiemTour()
+        {
+            List<DiaDiemThamQuan> diadiemtim = Lay_DiaDiem();
+            return PartialView(diadiemtim);
+        }
         public ActionResult DiaDiemPartial()
         {
-            var tinhThanhs = db.TinhThanhs.ToList();
+
+            List<DiaDiemThamQuan> diadiemtim = Lay_DiaDiem();
+
+            List<TinhThanh> tinhThanhs = new List<TinhThanh>();
+
+            foreach(var item in diadiemtim)
+            {
+                var c = db.TinhThanhs.Where(t => t.MaTinh == item.MaTinh).FirstOrDefault();
+                tinhThanhs.Add(c);
+            }    
+            
             return PartialView(tinhThanhs);
         }
 
@@ -28,15 +73,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tour tour = db.Tours.Where(s => s.MaTour == id).FirstOrDefault();
-            //var diadiem = db.ChiTietTours.Where(s => s.MaTour == id).ToList();
-            //List<PhuongTien> pt = new List<PhuongTien>();
-            //foreach (var item in diadiem)
-            //{
-            //    pt.Add(item.MaPTien);
-
-
-            //}
+            Tour tour = db.Tours.Where(s => s.MaTour == id).FirstOrDefault();       
             if (tour == null)
             {
                 return HttpNotFound();
@@ -46,53 +83,52 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         //List tour tinh thanh
 
-        public List<Tour> Laytour(string id)
+       
+        private List<Tour> lay_Tour(string id)
         {
-            var tinhthanh = db.DiaDiemThamQuans.Where(t => t.MaTinh == id).FirstOrDefault();
-
-            List<ChiTietTour> ct = db.ChiTietTours.Where(t => t.MaDDTQ == tinhthanh.MaDDTQ).ToList();
-
-            List<Tour> listtour = new List<Tour>();
+            List<Tour> tour = new List<Tour>();
+            List<ChiTietTour> ct = db.ChiTietTours.Where(c => c.MaDDTQ == id).ToList();
             foreach (var item in ct)
             {
-                if(item.STT==1)
-                {
-                    var t = db.Tours.Where(m => m.MaTour == item.MaTour).FirstOrDefault();
-                    listtour.Add(t);
-                }    
+                var tourchon = db.Tours.Where(t => t.MaTour == item.MaTour).FirstOrDefault();
+                tour.Add(tourchon);
             }
-            return listtour;
+            return tour;
         }
-
-        public List<Tour> Lay_tourtheo(string id)
+       
+        public ActionResult ListTourTinhThanh(string id)
         {
-            List<Hotel> hotels = db.Hotels.Where(t => t.MaTinh == id).ToList();
-            var tinhthanh = db.TinhThanhs.Where(t => t.MaTinh == id).FirstOrDefault();
-            Session["tentinh"] = tinhthanh.TenTinh;
-            List<Tour> listtour = new List<Tour>();
-            foreach (var item in hotels)
+            var tinhthanh = db.DiaDiemThamQuans.Where(t => t.MaTinh == id).FirstOrDefault();
+            List<Tour> tour = new List<Tour>();
+            List<DiaDiemThamQuan> diaDiems = db.DiaDiemThamQuans.Where(c => c.MaTinh == id).ToList();
+            
+
+            foreach (var item in diaDiems)
             {
-
-                var t = db.Tours.Where(m => m.MaKS == item.MaKS).FirstOrDefault();
-                listtour.Add(t);
-
+                List<Tour> t = lay_Tour(item.MaDDTQ);
+                foreach (var a in t)
+                {
+                    
+                    tour.Add(a);
+                }
             }
-            return listtour;
-        }
-        public ActionResult ListTour(string id)
-        {
-            //var tinhthanh = db.DiaDiemThamQuans.Where(t => t.MaTinh == id).FirstOrDefault();
 
-            var listtourTinh = Lay_tourtheo(id);
-            return View(listtourTinh);
+
+            return View(tour);
         }
+
+
+
+
         //dia danh
 
-        public ActionResult List_Tour(string id)
+        public ActionResult ListTour_DiaDiem(string id)
         {
-            var tinhthanh = db.DiaDiemThamQuans.Where(t => t.MaDDTQ == id).FirstOrDefault();
-            var listtourDD = Lay_tourtheo(tinhthanh.MaTinh);
-            return View(listtourDD);
+            var iddiadiem = db.DiaDiemThamQuans.Where(d => d.MaDDTQ == id).FirstOrDefault();
+            List<Tour> tour = lay_Tour(id);
+            
+            Session["tendiadiem"] = iddiadiem.TenDDTQ;
+            return View(tour);
         }
 
 

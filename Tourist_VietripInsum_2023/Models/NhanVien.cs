@@ -22,7 +22,6 @@ namespace Tourist_VietripInsum_2023.Models
     
         public string MaNV { get; set; }
         public string MaCV { get; set; }
-
         public string Username { get; set; }
         public string UserPassword { get; set; }
         public string HoTen { get; set; }

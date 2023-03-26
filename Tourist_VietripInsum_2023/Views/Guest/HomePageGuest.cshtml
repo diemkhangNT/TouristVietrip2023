@@ -84,7 +84,7 @@
                     <div class="card tour-item">
                         <div class="tour-item__image">
                             <a href="#" title="">
-                                <img src="~/Content/Images/tourhanoi.jpg" class="card-img-top img-fluid" alt="@item.TenTour" id="">
+                                <img src="@item.HinhMinhHoa_T" class="card-img-top img-fluid" alt="@item.TenTour" id="">
                             </a>
                         </div>
                         @{
@@ -188,30 +188,8 @@
         <h1 class="HEADING">
             ĐỊA ĐIỂM NỔI BẬT
         </h1>
-
-        <div class="row g-5 g-lg-3 d-none d-lg-flex">
-            @foreach (var diadiem in diaDiems)
-            {
-                <div class="col-4">
-                    <div class="card destination-item">
-                        <div class="box-container">
-                            <div class="box">
-                                <img src="~/Content/Images/tourhanoi.jpg" alt="">
-                                <div class="content">
-                                    <h6>@diadiem.TenDDTQ</h6>
-                                    <p></p>
-                                    <a href="/Guest/List_Tour/@diadiem.MaDDTQ" class="btn">see more</a>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-            }
-
-
-        </div>
+        @Html.Action("DiaDiemTour", "Guest")
+       
     </div>
 
 
