@@ -143,13 +143,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\ChiTietToursController.cs" />
     <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginStaffController.cs" />
+    <Compile Include="Controllers\OrderProcessingController.cs" />
     <Compile Include="Controllers\TourmanagerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BookTour.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ChiTietTour.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -158,9 +161,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DiaDiemThamQuan.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DonHang.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Hotel.cs">
@@ -202,7 +202,7 @@
     <Compile Include="Models\PhuongTien.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Ticket.cs">
+    <Compile Include="Models\TinhThanh.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tour.cs">
@@ -438,17 +438,31 @@
     <Content Include="Views\Admin\DetailStaff.cshtml" />
     <Content Include="Views\Admin\DeleteStaff.cshtml" />
     <Content Include="Views\Admin\EditStaff.cshtml" />
-    <Content Include="Views\OrderProcessing\HomePageOP.cshtml" />
-    <Content Include="Views\Staffs\Create.cshtml" />
-    <Content Include="Views\Staffs\Delete.cshtml" />
-    <Content Include="Views\Staffs\Edit.cshtml" />
-    <Content Include="Views\Staffs\Index.cshtml" />
     <Content Include="Views\Tourmanager\CreateTours.cshtml" />
     <Content Include="Views\Tourmanager\TourDetails.cshtml" />
     <Content Include="Views\Tourmanager\CreateHotel.cshtml" />
     <Content Include="Views\Tourmanager\HotelManager.cshtml" />
     <Content Include="Views\Tourmanager\ListDetailTour.cshtml" />
     <Content Include="Views\Tourmanager\EditTour.cshtml" />
+    <Content Include="Views\OrderProcessing\LayoutOP\_ViewOP.cshtml" />
+    <Content Include="Views\OrderProcessing\HomePageOP.cshtml" />
+    <Content Include="Views\OrderProcessing\Profile.cshtml" />
+    <Content Include="Views\Admin\ListOfCustomers.cshtml" />
+    <Content Include="Views\Admin\ListOfStaff.cshtml" />
+    <Content Include="Views\OrderProcessing\EditOrder.cshtml" />
+    <Content Include="Views\OrderProcessing\FeedBack.cshtml" />
+    <Content Include="Views\OrderProcessing\ListOfCustomers.cshtml" />
+    <Content Include="Views\OrderProcessing\ManageTourOrders.cshtml" />
+    <Content Include="Views\OrderProcessing\CheckCusInfo.cshtml" />
+    <Content Include="Views\OrderProcessing\CreateTickets.cshtml" />
+    <Content Include="Views\OrderProcessing\CreateOrder.cshtml" />
+    <Content Include="Views\OrderProcessing\EditOrdering.cshtml" />
+    <Content Include="Views\Guest\HomePageGuest.cshtml" />
+    <Content Include="Views\Guest\ViewGuest\Guest.cshtml" />
+    <Content Include="Views\OrderProcessing\DeleteOrder.cshtml" />
+    <Content Include="Views\OrderProcessing\BookTourDetail.cshtml" />
+    <Content Include="Views\OrderProcessing\TicketEdit.cshtml" />
+    <Content Include="Views\OrderProcessing\OrderingInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

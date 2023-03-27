@@ -1,0 +1,153 @@
+﻿@using Tourist_VietripInsum_2023.Models
+@model IEnumerable<BookTour>
+@{
+    ViewBag.Title = "HomePageOP";
+    Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
+    ViewBag.Name = "Home Page";
+    ViewBag.home = "active";
+}
+
+@{
+    var checkMessage = TempData["AlertMessage"];
+    if (checkMessage == "Login sucess")
+    {
+        <script>
+            swal({
+                title: "Login success!",
+                text: "Welcome to your back!",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    }
+}
+<html>
+
+<body>
+
+    <div class="row">
+        <!--Thông tin kho và số sản phẩm sắp hết hàng-->
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <!-- col-6 -->
+                <div class="col-lg-6 col-xs-12">
+                    <a class="widget-small info coloured-icon @ViewBag.qlk" href="/OrderProcessing/ManageTourOrders">
+                        <i class='icon bx bxs-user-account fa-3x'></i>
+                        <div class="info">
+                            <h4>Thông tin đặt tour</h4>
+                            <p><b>Tổng @TempData["TongDonDat"] đơn đặt tour được quản lý</b></p>
+                            <p class="info-tong">Tổng số đơn đặt tour được tạo</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- col-6 -->
+                <div class="col-lg-6 col-xs-12">
+                    <a class="widget-small warning coloured-icon @ViewBag.hh" href="#">
+                        <i class='icon bx bxs-receipt fa-3x'></i>
+                        <div class="info">
+                            <h4>Loại tour</h4>
+                            <p><b>Tổng  loại tour</b></p>
+                            <p class="info-tong">Tổng số loại tour được tạo</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                        @*//Phần render từng dòng trong C#*@
+                        <thead style="background-color: #ffd43b;">
+                            <tr>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã đơn hàng</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">NV Lập</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã Tour</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Ngày Lập</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Trạng Thái</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Tổng tiền</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Số chỗ</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">SĐT Khách Hàng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Count() == 0)
+                            {
+                                <tr>
+                                    <td colspan="8" class="text-center"> Records not found </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                foreach (var donhang in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => donhang.MaDH)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => donhang.MaNVLap)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => donhang.MaTour)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => donhang.NgayLap)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => donhang.TrangThaiTT)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => donhang.TotalPrice)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => donhang.SoCho)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => donhang.SdtKH)
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="tile">
+                <h3 class="tile-title">
+                    <i class="bx bxs-map"></i>
+                    Visitors
+                </h3>
+                <div class="">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15739731.94178454!2d96.86731624837675!3d15.607242742130582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31157a4d736a1e5f%3A0xb03bb0c9e2fe62be!2zVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1677896157419!5m2!1svi!2s" width="100%" height="280px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 ">
+            <div class="tile">
+                <h3 class="tile-title">
+                    Dữ liệu 6 tháng đầu năm
+                </h3>
+                <div>
+                    <canvas class=" embed-responsive-item" id="barChartDemo"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/main.js"></script>
+    <script src="~/Scripts/chart.js"></script>
+    <script src="~/Scripts/pace.min.js"></script>
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+</body>
+</html>
+

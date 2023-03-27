@@ -4,32 +4,37 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="12d660c9971349fa8b215634b2f93ac7" Name="Diagram1">
-        <EntityTypeShape EntityType="TouristModel.Customer_Guest" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.DetailTour" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.Hotel" Width="1.5" PointX="3" PointY="16.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.OrderCu" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.Position" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.Staff" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.Ticket" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.Tour" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.TourType" Width="1.5" PointX="0.75" PointY="12.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.Transport" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.TypeCu" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.TypeTicket" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.VistLocation" Width="1.5" PointX="3" PointY="22.125" IsExpanded="true" />
-        <AssociationConnector Association="TouristModel.FK_Customer_Guest_TypeCus" ManuallyRouted="false" />
-        <AssociationConnector Association="TouristModel.FK_OrderCus_Customer_Guest" ManuallyRouted="false" />
-        <AssociationConnector Association="TouristModel.FK_DetailTour_Tour" ManuallyRouted="false" />
-        <AssociationConnector Association="TouristModel.FK_DetailTour_Transport" ManuallyRouted="false" />
-        <AssociationConnector Association="TouristModel.FK_DetailTour_VistLocation" ManuallyRouted="false" />
-        <AssociationConnector Association="TouristModel.FK_Schedule_Hotel" ManuallyRouted="false" />
-        <AssociationConnector Association="TouristModel.FK_OrderCus_Staff" ManuallyRouted="false" />
+      <Diagram DiagramId="74d6413475254e14a18b51ae80302a35" Name="Diagram1">
+        <EntityTypeShape EntityType="TouristModel.BookTour" Width="1.5" PointX="7.5" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.ChiTietTour" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.ChucVu" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.DiaDiemThamQuan" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.Hotel" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.KhachHang" Width="1.5" PointX="5.25" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.LoaiKH" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.LoaiTour" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.LoaiVe" Width="1.5" PointX="7.5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.NhanVien" Width="1.5" PointX="5.25" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.PhanHoi" Width="1.5" PointX="7.5" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.PhuongTien" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.TinhThanh" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.Tour" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.Ve" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="TouristModel.FK_BookTour_KhachHang" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_DonHang_NhanVien" ManuallyRouted="false" />
         <AssociationConnector Association="TouristModel.FK_OrderCus_Tour" ManuallyRouted="false" />
         <AssociationConnector Association="TouristModel.FK_Ticket_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_ChiTietTour_DiaDiemThamQuan" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_ChiTietTour_PhuongTien" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_ChiTietTour_Tour" ManuallyRouted="false" />
         <AssociationConnector Association="TouristModel.FK_Staff_Position" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_DiaDiemThamQuan_TinhThanh" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_Hotel_TinhThanh" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_Tour_Hotel" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_Customer_Guest_TypeCus" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_PhanHoi_KhachHang" ManuallyRouted="false" />
+        <AssociationConnector Association="TouristModel.FK_Tour_LoaiTour1" ManuallyRouted="false" />
         <AssociationConnector Association="TouristModel.FK_Ticket_TypeTicket" ManuallyRouted="false" />
-        <AssociationConnector Association="TouristModel.FK_Tour_TourType" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,10 +12,10 @@ namespace Tourist_VietripInsum_2023.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DonHang
+    public partial class BookTour
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DonHang()
+        public BookTour()
         {
             this.Ves = new HashSet<Ve>();
         }
@@ -28,9 +28,10 @@ namespace Tourist_VietripInsum_2023.Models
         public Nullable<decimal> TotalPrice { get; set; }
         public Nullable<int> SoCho { get; set; }
         public string SdtKH { get; set; }
+        public string MaKH { get; set; }
     
-        public virtual NhanVien NhanVien { get; set; }
         public virtual KhachHang KhachHang { get; set; }
+        public virtual NhanVien NhanVien { get; set; }
         public virtual Tour Tour { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ve> Ves { get; set; }

@@ -17,7 +17,7 @@ namespace Tourist_VietripInsum_2023.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NhanVien()
         {
-            this.DonHangs = new HashSet<DonHang>();
+            this.BookTours = new HashSet<BookTour>();
         }
     
         public string MaNV { get; set; }
@@ -32,8 +32,8 @@ namespace Tourist_VietripInsum_2023.Models
         public string GioiTinh { get; set; }
         public string HinhDaiDien { get; set; }
     
-        public virtual ChucVu ChucVu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonHang> DonHangs { get; set; }
+        public virtual ICollection<BookTour> BookTours { get; set; }
+        public virtual ChucVu ChucVu { get; set; }
     }
 }

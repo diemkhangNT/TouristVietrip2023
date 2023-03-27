@@ -14,12 +14,13 @@ namespace Tourist_VietripInsum_2023.Models
     
     public partial class ChiTietTour
     {
+        public string MaCTT { get; set; }
         public int STT { get; set; }
-        public string MaDDTQ { get; set; }
         public string MaTour { get; set; }
         public string MaPTien { get; set; }
         public string TieuDe { get; set; }
         public string MotaChitiet { get; set; }
+        public string MaDDTQ { get; set; }
     
         public virtual DiaDiemThamQuan DiaDiemThamQuan { get; set; }
         public virtual PhuongTien PhuongTien { get; set; }

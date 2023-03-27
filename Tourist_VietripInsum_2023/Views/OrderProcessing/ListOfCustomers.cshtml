@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.KhachHang>
+
+@{
+    ViewBag.Title = "ListOfCustomers";
+    Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
+    ViewBag.Name = "List Of Customers";
+    ViewBag.order = "active";
+}
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="/OrderProcessing/ManageTourOrders">Orders List</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="/OrderProcessing/ListOfCustomers">List Of Customers</a>
+    </li>
+</ul>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div class="row element-button" style="padding-left:10px">
+                    <div class="row" style="padding-bottom: 20px;">
+                        <div class="col-sm-2">
+                            <a class="btn btn-success btn-sm " type="button" title="Create Order" href="/OrderProcessing/CheckCusInfo">
+                                Create Order
+                            </a>
+                        </div>
+                        <form class="col-sm-10" method="get">
+                            <div>
+                                <input class="btn-sm" type="search" name="search" placeholder="Enter phone number" style="width: 250px;" />
+                                <input class="btn btn-success btn-sm" type="submit" value="Search" />
+                            </div>
+                        </form>
+                    </div>
+                    <table class="table">
+                        <thead style="background-color: #ffd43b;">
+                            <tr>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">ID Cus</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Number Phone</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Full Name</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Address</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Email</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Birthday</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Gender</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @if (Model.Count() == 0)
+                            {
+                                <tr>
+                                    <td colspan="9" class="text-center"> Records not found </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.MaKH)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SDT)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.HoTenKH)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DiaChi)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NgaySinh)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.GioiTinh)
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

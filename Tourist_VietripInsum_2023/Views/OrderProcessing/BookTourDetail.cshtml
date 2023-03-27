@@ -1,0 +1,92 @@
+﻿@model Tourist_VietripInsum_2023.Models.BookTour
+@using Tourist_VietripInsum_2023.Models
+@{
+    ViewBag.Title = "BookTourDetail";
+    Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
+    ViewBag.Name = "Book Tour Detail";
+    ViewBag.order = "active";
+
+    TouristEntities1 db = new TouristEntities1();
+    string maDH = Session["MaBT"].ToString();
+    var listTickets = db.Ves.Where(s => s.MaDH == maDH).ToList();
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="tile">
+            <h3 class="tile-title" style="text-align: center;">BOOK TOUR DETAIL @ViewBag.MaBT</h3>
+            <div class="tile-body">
+                <div class="element-button">
+                    <div style="text-align: center;">
+                        <b>Tour Name: </b> @Html.DisplayFor(model => model.Tour.TenTour)
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <b>Full Name: </b> @Html.DisplayFor(model => model.KhachHang.HoTenKH)
+                        <b style="margin-left: 15px;">Number Phone: </b> @Html.DisplayFor(model => model.SdtKH)
+                        <b style="margin-left: 15px;">Date Create: </b>@Html.DisplayFor(model => model.NgayLap)
+                        <b style="margin-left: 15px;">Số chỗ: </b>@Html.DisplayFor(model => model.SoCho)
+                        <b style="margin-left: 15px;">Total Price: </b> @Html.DisplayFor(model => model.TotalPrice)
+                    </div>
+                </div>
+            </div>
+
+            <div class="element-button" style="margin-top: 20px;">
+                <table class="table">
+                    <thead style="background-color: #ffd43b;">
+                        <tr>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">ID Ticket</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Ticket Type</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Full Name</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Gender</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Birthday</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Lưu ý</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (listTickets.Count() == 0)
+                        {
+                            <tr>
+                                <td colspan="9" class="text-center"> Records not found </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in listTickets)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MaVe)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LoaiVe.TenLVe)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Hoten_KH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.GioiTinh)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NgaySinh)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LuuY)
+                                    </td>
+                                    <td>
+                                        <a href="/OrderProcessing/TicketEdit/@item.MaVe" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                <a class="btn btn-cancel btn-sm" href="/OrderProcessing/ManageTourOrders">Back</a>
+            </p>
+        </div>
+    </div>
+</div>
