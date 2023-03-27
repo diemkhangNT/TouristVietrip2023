@@ -11,10 +11,25 @@ import * as Popper from '@popperjs/core';
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 const MAX_UID = 1000000;
 const MILLISECONDS_MULTIPLIER = 1000;
 const TRANSITION_END = 'transitionend'; // Shout-out Angus Croll (https://goo.gl/pxwQGp)
 
+/**
+ * Properly escape IDs selectors to handle weird IDs
+ * @param {string} selector
+ * @returns {string}
+ */
+const parseSelector = selector => {
+  if (selector && window.CSS && window.CSS.escape) {
+    // document.querySelector needs escaping to handle IDs (html5+) containing for instance /
+    selector = selector.replace(/#([^\s"#']+)/g, (match, id) => `#${CSS.escape(id)}`);
+  }
+  return selector;
+};
+
+// Shout-out Angus Croll (https://goo.gl/pxwQGp)
 const toType = object => {
   if (object === null || object === undefined) {
     return `${object}`;
@@ -22,6 +37,7 @@ const toType = object => {
 
   return Object.prototype.toString.call(object).match(/\s([a-z]+)/i)[1].toLowerCase();
 };
+
 /**
  * Public Util API
  */
@@ -87,6 +103,7 @@ const getTransitionDurationFromElement = element => {
   const floatTransitionDuration = Number.parseFloat(transitionDuration);
   const floatTransitionDelay = Number.parseFloat(transitionDelay); // Return 0 if element or transition duration is not found
 
+  // Return 0 if element or transition duration is not found
   if (!floatTransitionDuration && !floatTransitionDelay) {
     return 0;
   } // If multiple durations are defined, take the first
@@ -194,6 +211,7 @@ const findShadowRoot = element => {
 };
 
 const noop = () => {};
+
 /**
  * Trick to restart an element's animation
  *
@@ -291,6 +309,7 @@ const executeAfterTransition = (callback, transitionElement, waitForTransition =
     }
   }, emulatedDuration);
 };
+
 /**
  * Return the previous/next element of a list.
  *
@@ -307,6 +326,8 @@ const getNextActiveElement = (list, activeElement, shouldGetNext, isCycleAllowed
   let index = list.indexOf(activeElement); // if the element does not exist in the list return an element
   // depending on the direction and if cycle is allowed
 
+  // if the element does not exist in the list return an element
+  // depending on the direction and if cycle is allowed
   if (index === -1) {
     return !shouldGetNext && isCycleAllowed ? list[listLength - 1] : list[0];
   }
@@ -326,6 +347,7 @@ const getNextActiveElement = (list, activeElement, shouldGetNext, isCycleAllowed
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -341,6 +363,7 @@ const customEvents = {
   mouseleave: 'mouseout'
 };
 const nativeEvents = new Set(['click', 'dblclick', 'mouseup', 'mousedown', 'contextmenu', 'mousewheel', 'DOMMouseScroll', 'mouseover', 'mouseout', 'mousemove', 'selectstart', 'selectend', 'keydown', 'keypress', 'keyup', 'orientationchange', 'touchstart', 'touchmove', 'touchend', 'touchcancel', 'pointerdown', 'pointermove', 'pointerup', 'pointerleave', 'pointercancel', 'gesturestart', 'gesturechange', 'gestureend', 'focus', 'blur', 'change', 'reset', 'select', 'submit', 'focusin', 'focusout', 'load', 'unload', 'beforeunload', 'resize', 'move', 'DOMContentLoaded', 'readystatechange', 'error', 'abort', 'scroll']);
+
 /**
  * Private methods
  */
@@ -417,6 +440,7 @@ function addHandler(element, originalTypeEvent, handler, delegationFunction, one
   if (typeof originalTypeEvent !== 'string' || !element) {
     return;
   }
+  let [isDelegated, callable, typeEvent] = normalizeParameters(originalTypeEvent, handler, delegationFunction);
 
   let [isDelegated, callable, typeEvent] = normalizeParameters(originalTypeEvent, handler, delegationFunction); // in case of mouseenter or mouseleave wrap the handler within a function that checks for its DOM position
   // this prevents the handler from being dispatched the same way as mouseover or mouseout does
@@ -599,12 +623,14 @@ function hydrateObj(obj, meta) {
 /**
  * Constants
  */
+
 const elementMap = new Map();
 const Data = {
   set(element, key, instance) {
     if (!elementMap.has(element)) {
       elementMap.set(element, new Map());
     }
+    const instanceMap = elementMap.get(element);
 
     const instanceMap = elementMap.get(element); // make it clear we only want one instance per element
     // can be removed later when multiple key/instances are fine to be used
@@ -634,6 +660,7 @@ const Data = {
     const instanceMap = elementMap.get(element);
     instanceMap.delete(key); // free up element references if there are no instances left for an element
 
+    // free up element references if there are no instances left for an element
     if (instanceMap.size === 0) {
       elementMap.delete(element);
     }
@@ -647,6 +674,7 @@ const Data = {
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 function normalizeData(value) {
   if (value === 'true') {
     return true;
@@ -717,6 +745,7 @@ const Manipulator = {
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Class definition
  */
@@ -778,6 +807,7 @@ class Config {
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -857,7 +887,94 @@ class BaseComponent extends Config {
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+const getSelector = element => {
+  let selector = element.getAttribute('data-bs-target');
+  if (!selector || selector === '#') {
+    let hrefAttribute = element.getAttribute('href');
 
+    // The only valid content that could double as a selector are IDs or classes,
+    // so everything starting with `#` or `.`. If a "real" URL is used as the selector,
+    // `document.querySelector` will rightfully complain it is invalid.
+    // See https://github.com/twbs/bootstrap/issues/32273
+    if (!hrefAttribute || !hrefAttribute.includes('#') && !hrefAttribute.startsWith('.')) {
+      return null;
+    }
+
+    // Just in case some CMS puts out a full URL with the anchor appended
+    if (hrefAttribute.includes('#') && !hrefAttribute.startsWith('#')) {
+      hrefAttribute = `#${hrefAttribute.split('#')[1]}`;
+    }
+    selector = hrefAttribute && hrefAttribute !== '#' ? hrefAttribute.trim() : null;
+  }
+  return parseSelector(selector);
+};
+const SelectorEngine = {
+  find(selector, element = document.documentElement) {
+    return [].concat(...Element.prototype.querySelectorAll.call(element, selector));
+  },
+  findOne(selector, element = document.documentElement) {
+    return Element.prototype.querySelector.call(element, selector);
+  },
+  children(element, selector) {
+    return [].concat(...element.children).filter(child => child.matches(selector));
+  },
+  parents(element, selector) {
+    const parents = [];
+    let ancestor = element.parentNode.closest(selector);
+    while (ancestor) {
+      parents.push(ancestor);
+      ancestor = ancestor.parentNode.closest(selector);
+    }
+    return parents;
+  },
+  prev(element, selector) {
+    let previous = element.previousElementSibling;
+    while (previous) {
+      if (previous.matches(selector)) {
+        return [previous];
+      }
+      previous = previous.previousElementSibling;
+    }
+    return [];
+  },
+  // TODO: this is now unused; remove later along with prev()
+  next(element, selector) {
+    let next = element.nextElementSibling;
+    while (next) {
+      if (next.matches(selector)) {
+        return [next];
+      }
+      next = next.nextElementSibling;
+    }
+    return [];
+  },
+  focusableChildren(element) {
+    const focusables = ['a', 'button', 'input', 'textarea', 'select', 'details', '[tabindex]', '[contenteditable="true"]'].map(selector => `${selector}:not([tabindex^="-"])`).join(',');
+    return this.find(focusables, element).filter(el => !isDisabled(el) && isVisible(el));
+  },
+  getSelectorFromElement(element) {
+    const selector = getSelector(element);
+    if (selector) {
+      return SelectorEngine.findOne(selector) ? selector : null;
+    }
+    return null;
+  },
+  getElementFromSelector(element) {
+    const selector = getSelector(element);
+    return selector ? SelectorEngine.findOne(selector) : null;
+  },
+  getMultipleElementsFromSelector(element) {
+    const selector = getSelector(element);
+    return selector ? SelectorEngine.find(selector) : [];
+  }
+};
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v5.3.0-alpha1): util/component-functions.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ * --------------------------------------------------------------------------
+ */
 const enableDismissTrigger = (component, method = 'hide') => {
   const clickEvent = `click.dismiss${component.EVENT_KEY}`;
   const name = component.NAME;
@@ -869,6 +986,8 @@ const enableDismissTrigger = (component, method = 'hide') => {
     if (isDisabled(this)) {
       return;
     }
+    const target = SelectorEngine.getElementFromSelector(this) || this.closest(`.${name}`);
+    const instance = component.getOrCreateInstance(target);
 
     const target = getElementFromSelector(this) || this.closest(`.${name}`);
     const instance = component.getOrCreateInstance(target); // Method argument is left, for Alert and only, as it doesn't implement the 'hide' method
@@ -883,6 +1002,7 @@ const enableDismissTrigger = (component, method = 'hide') => {
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -894,6 +1014,7 @@ const EVENT_CLOSE = `close${EVENT_KEY$b}`;
 const EVENT_CLOSED = `closed${EVENT_KEY$b}`;
 const CLASS_NAME_FADE$5 = 'fade';
 const CLASS_NAME_SHOW$8 = 'show';
+
 /**
  * Class definition
  */
@@ -945,12 +1066,14 @@ class Alert extends BaseComponent {
   }
 
 }
+
 /**
  * Data API implementation
  */
 
 
 enableDismissTrigger(Alert, 'close');
+
 /**
  * jQuery
  */
@@ -963,6 +1086,7 @@ defineJQueryPlugin(Alert);
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -974,6 +1098,7 @@ const DATA_API_KEY$6 = '.data-api';
 const CLASS_NAME_ACTIVE$3 = 'active';
 const SELECTOR_DATA_TOGGLE$5 = '[data-bs-toggle="button"]';
 const EVENT_CLICK_DATA_API$6 = `click${EVENT_KEY$a}${DATA_API_KEY$6}`;
+
 /**
  * Class definition
  */
@@ -1002,6 +1127,7 @@ class Button extends BaseComponent {
   }
 
 }
+
 /**
  * Data API implementation
  */
@@ -1013,6 +1139,7 @@ EventHandler.on(document, EVENT_CLICK_DATA_API$6, SELECTOR_DATA_TOGGLE$5, event 
   const data = Button.getOrCreateInstance(button);
   data.toggle();
 });
+
 /**
  * jQuery
  */
@@ -1121,6 +1248,7 @@ const DefaultType$c = {
   leftCallback: '(function|null)',
   rightCallback: '(function|null)'
 };
+
 /**
  * Class definition
  */
@@ -1232,6 +1360,7 @@ class Swipe extends Config {
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -1291,6 +1420,7 @@ const DefaultType$b = {
   touch: 'boolean',
   wrap: 'boolean'
 };
+
 /**
  * Class definition
  */
@@ -1625,6 +1755,7 @@ class Carousel extends BaseComponent {
   }
 
 }
+
 /**
  * Data API implementation
  */
@@ -1668,6 +1799,7 @@ EventHandler.on(window, EVENT_LOAD_DATA_API$3, () => {
     Carousel.getOrCreateInstance(carousel);
   }
 });
+
 /**
  * jQuery
  */
@@ -1680,6 +1812,7 @@ defineJQueryPlugin(Carousel);
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -1711,6 +1844,7 @@ const DefaultType$a = {
   parent: '(null|element)',
   toggle: 'boolean'
 };
+
 /**
  * Class definition
  */
@@ -1768,6 +1902,7 @@ class Collapse extends BaseComponent {
     if (this._isTransitioning || this._isShown()) {
       return;
     }
+    let activeChildren = [];
 
     let activeChildren = []; // find active children
 
@@ -1938,6 +2073,7 @@ class Collapse extends BaseComponent {
   }
 
 }
+
 /**
  * Data API implementation
  */
@@ -1958,6 +2094,7 @@ EventHandler.on(document, EVENT_CLICK_DATA_API$4, SELECTOR_DATA_TOGGLE$4, functi
     }).toggle();
   }
 });
+
 /**
  * jQuery
  */
@@ -1970,6 +2107,7 @@ defineJQueryPlugin(Collapse);
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -2027,6 +2165,7 @@ const DefaultType$9 = {
   popperConfig: '(null|object|function)',
   reference: '(string|element|object)'
 };
+
 /**
  * Class definition
  */
@@ -2073,6 +2212,7 @@ class Dropdown extends BaseComponent {
     if (showEvent.defaultPrevented) {
       return;
     }
+    this._createPopper();
 
     this._createPopper(); // If this is a touch-enabled device we add extra
     // empty mouseover listeners to the body's immediate children;
@@ -2255,6 +2395,7 @@ class Dropdown extends BaseComponent {
       }]
     }; // Disable Popper if we have a static display or Dropdown is in Navbar
 
+    // Disable Popper if we have a static display or Dropdown is in Navbar
     if (this._inNavbar || this._config.display === 'static') {
       Manipulator.setDataAttribute(this._menu, 'popper', 'static'); // todo:v6 remove
 
@@ -2342,6 +2483,7 @@ class Dropdown extends BaseComponent {
   static dataApiKeydownHandler(event) {
     // If not an UP | DOWN | ESCAPE key => not a dropdown command
     // If input/textarea && if key is other than ESCAPE => not a dropdown command
+
     const isInput = /input|textarea/i.test(event.target.tagName);
     const isEscapeEvent = event.key === ESCAPE_KEY$2;
     const isUpOrDownEvent = [ARROW_UP_KEY$1, ARROW_DOWN_KEY$1].includes(event.key);
@@ -2356,6 +2498,7 @@ class Dropdown extends BaseComponent {
 
     event.preventDefault(); // todo: v6 revert #37011 & change markup https://getbootstrap.com/docs/5.2/forms/input-group/
 
+    // todo: v6 revert #37011 & change markup https://getbootstrap.com/docs/5.3/forms/input-group/
     const getToggleButton = this.matches(SELECTOR_DATA_TOGGLE$3) ? this : SelectorEngine.prev(this, SELECTOR_DATA_TOGGLE$3)[0] || SelectorEngine.next(this, SELECTOR_DATA_TOGGLE$3)[0] || SelectorEngine.findOne(SELECTOR_DATA_TOGGLE$3, event.delegateTarget.parentNode);
     const instance = Dropdown.getOrCreateInstance(getToggleButton);
 
@@ -2375,6 +2518,7 @@ class Dropdown extends BaseComponent {
       getToggleButton.focus();
     }
   }
+}
 
 }
 /**
@@ -2390,6 +2534,7 @@ EventHandler.on(document, EVENT_CLICK_DATA_API$3, SELECTOR_DATA_TOGGLE$3, functi
   event.preventDefault();
   Dropdown.getOrCreateInstance(this).toggle();
 });
+
 /**
  * jQuery
  */
@@ -2402,6 +2547,7 @@ defineJQueryPlugin(Dropdown);
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -2410,6 +2556,7 @@ const SELECTOR_FIXED_CONTENT = '.fixed-top, .fixed-bottom, .is-fixed, .sticky-to
 const SELECTOR_STICKY_CONTENT = '.sticky-top';
 const PROPERTY_PADDING = 'padding-right';
 const PROPERTY_MARGIN = 'margin-right';
+
 /**
  * Class definition
  */
@@ -2420,6 +2567,7 @@ class ScrollBarHelper {
   } // Public
 
 
+  // Public
   getWidth() {
     // https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWidth#usage_notes
     const documentWidth = document.documentElement.clientWidth;
@@ -2455,6 +2603,7 @@ class ScrollBarHelper {
   } // Private
 
 
+  // Private
   _disableOverFlow() {
     this._saveInitialAttribute(this._element, 'overflow');
 
@@ -2521,6 +2670,7 @@ class ScrollBarHelper {
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -2536,6 +2686,7 @@ const Default$8 = {
   isVisible: true,
   // if false, we use the backdrop helper without adding any element to the dom
   rootElement: 'body' // give the choice to place backdrop under different elements
+};
 
 };
 const DefaultType$8 = {
@@ -2545,6 +2696,7 @@ const DefaultType$8 = {
   isVisible: 'boolean',
   rootElement: '(element|string)'
 };
+
 /**
  * Class definition
  */
@@ -2558,6 +2710,7 @@ class Backdrop extends Config {
   } // Getters
 
 
+  // Getters
   static get Default() {
     return Default$8;
   }
@@ -2571,6 +2724,7 @@ class Backdrop extends Config {
   } // Public
 
 
+  // Public
   show(callback) {
     if (!this._config.isVisible) {
       execute(callback);
@@ -2619,6 +2773,7 @@ class Backdrop extends Config {
   } // Private
 
 
+  // Private
   _getElement() {
     if (!this._element) {
       const backdrop = document.createElement('div');
@@ -2667,6 +2822,7 @@ class Backdrop extends Config {
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -2682,12 +2838,14 @@ const TAB_NAV_BACKWARD = 'backward';
 const Default$7 = {
   autofocus: true,
   trapElement: null // The element to trap focus inside of
+};
 
 };
 const DefaultType$7 = {
   autofocus: 'boolean',
   trapElement: 'element'
 };
+
 /**
  * Class definition
  */
@@ -2701,6 +2859,7 @@ class FocusTrap extends Config {
   } // Getters
 
 
+  // Getters
   static get Default() {
     return Default$7;
   }
@@ -2714,6 +2873,7 @@ class FocusTrap extends Config {
   } // Public
 
 
+  // Public
   activate() {
     if (this._isActive) {
       return;
@@ -2740,6 +2900,7 @@ class FocusTrap extends Config {
   } // Private
 
 
+  // Private
   _handleFocusin(event) {
     const {
       trapElement
@@ -2776,6 +2937,7 @@ class FocusTrap extends Config {
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -2813,6 +2975,7 @@ const DefaultType$6 = {
   focus: 'boolean',
   keyboard: 'boolean'
 };
+
 /**
  * Class definition
  */
@@ -2831,6 +2994,7 @@ class Modal extends BaseComponent {
   } // Getters
 
 
+  // Getters
   static get Default() {
     return Default$6;
   }
@@ -2844,6 +3008,7 @@ class Modal extends BaseComponent {
   } // Public
 
 
+  // Public
   toggle(relatedTarget) {
     return this._isShown ? this.hide() : this.show(relatedTarget);
   }
@@ -2911,6 +3076,7 @@ class Modal extends BaseComponent {
   } // Private
 
 
+  // Private
   _initializeBackDrop() {
     return new Backdrop({
       isVisible: Boolean(this._config.backdrop),
@@ -3059,6 +3225,7 @@ class Modal extends BaseComponent {
 
     this._element.focus();
   }
+
   /**
    * The following methods are used to handle overflowing modals
    */
@@ -3088,6 +3255,7 @@ class Modal extends BaseComponent {
   } // Static
 
 
+  // Static
   static jQueryInterface(config, relatedTarget) {
     return this.each(function () {
       const data = Modal.getOrCreateInstance(this, config);
@@ -3103,6 +3271,7 @@ class Modal extends BaseComponent {
       data[config](relatedTarget);
     });
   }
+}
 
 }
 /**
@@ -3130,6 +3299,7 @@ EventHandler.on(document, EVENT_CLICK_DATA_API$2, SELECTOR_DATA_TOGGLE$2, functi
     });
   }); // avoid conflict when clicking modal toggler while another one is open
 
+  // avoid conflict when clicking modal toggler while another one is open
   const alreadyOpen = SelectorEngine.findOne(OPEN_SELECTOR$1);
 
   if (alreadyOpen) {
@@ -3140,6 +3310,7 @@ EventHandler.on(document, EVENT_CLICK_DATA_API$2, SELECTOR_DATA_TOGGLE$2, functi
   data.toggle(this);
 });
 enableDismissTrigger(Modal);
+
 /**
  * jQuery
  */
@@ -3152,6 +3323,7 @@ defineJQueryPlugin(Modal);
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -3186,6 +3358,7 @@ const DefaultType$5 = {
   keyboard: 'boolean',
   scroll: 'boolean'
 };
+
 /**
  * Class definition
  */
@@ -3201,6 +3374,7 @@ class Offcanvas extends BaseComponent {
   } // Getters
 
 
+  // Getters
   static get Default() {
     return Default$5;
   }
@@ -3214,6 +3388,7 @@ class Offcanvas extends BaseComponent {
   } // Public
 
 
+  // Public
   toggle(relatedTarget) {
     return this._isShown ? this.hide() : this.show(relatedTarget);
   }
@@ -3309,6 +3484,7 @@ class Offcanvas extends BaseComponent {
   } // Private
 
 
+  // Private
   _initializeBackDrop() {
     const clickCallback = () => {
       if (this._config.backdrop === 'static') {
@@ -3320,6 +3496,7 @@ class Offcanvas extends BaseComponent {
     }; // 'static' option will be translated to true, and booleans will keep their value
 
 
+    // 'static' option will be translated to true, and booleans will keep their value
     const isVisible = Boolean(this._config.backdrop);
     return new Backdrop({
       className: CLASS_NAME_BACKDROP,
@@ -3352,6 +3529,7 @@ class Offcanvas extends BaseComponent {
   } // Static
 
 
+  // Static
   static jQueryInterface(config) {
     return this.each(function () {
       const data = Offcanvas.getOrCreateInstance(this, config);
@@ -3367,6 +3545,7 @@ class Offcanvas extends BaseComponent {
       data[config](this);
     });
   }
+}
 
 }
 /**
@@ -3392,6 +3571,7 @@ EventHandler.on(document, EVENT_CLICK_DATA_API$1, SELECTOR_DATA_TOGGLE$1, functi
     }
   }); // avoid conflict when clicking a toggler of an offcanvas, while another is open
 
+  // avoid conflict when clicking a toggler of an offcanvas, while another is open
   const alreadyOpen = SelectorEngine.findOne(OPEN_SELECTOR);
 
   if (alreadyOpen && alreadyOpen !== target) {
@@ -3414,6 +3594,7 @@ EventHandler.on(window, EVENT_RESIZE, () => {
   }
 });
 enableDismissTrigger(Offcanvas);
+
 /**
  * jQuery
  */
@@ -3426,13 +3607,16 @@ defineJQueryPlugin(Offcanvas);
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 const uriAttributes = new Set(['background', 'cite', 'href', 'itemtype', 'longdesc', 'poster', 'src', 'xlink:href']);
 const ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
+
 /**
  * A pattern that recognizes a commonly useful subset of URLs that are safe.
  *
  * Shout-out to Angular https://github.com/angular/angular/blob/12.2.x/packages/core/src/sanitization/url_sanitizer.ts
  */
+const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^#&/:?]*(?:[#/?]|$))/i;
 
 const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^#&/:?]*(?:[#/?]|$))/i;
 /**
@@ -3455,6 +3639,7 @@ const allowedAttribute = (attribute, allowedAttributeList) => {
   } // Check if a regular expression validates the attribute.
 
 
+  // Check if a regular expression validates the attribute.
   return allowedAttributeList.filter(attributeRegex => attributeRegex instanceof RegExp).some(regex => regex.test(attributeName));
 };
 
@@ -3531,6 +3716,7 @@ function sanitizeHtml(unsafeHtml, allowList, sanitizeFunction) {
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -3559,6 +3745,7 @@ const DefaultContentType = {
   entry: '(string|element|function|null)',
   selector: '(string|element)'
 };
+
 /**
  * Class definition
  */
@@ -3570,6 +3757,7 @@ class TemplateFactory extends Config {
   } // Getters
 
 
+  // Getters
   static get Default() {
     return Default$4;
   }
@@ -3583,6 +3771,7 @@ class TemplateFactory extends Config {
   } // Public
 
 
+  // Public
   getContent() {
     return Object.values(this._config.content).map(config => this._resolvePossibleFunction(config)).filter(Boolean);
   }
@@ -3620,6 +3809,7 @@ class TemplateFactory extends Config {
   } // Private
 
 
+  // Private
   _typeCheckConfig(config) {
     super._typeCheckConfig(config);
 
@@ -3689,6 +3879,7 @@ class TemplateFactory extends Config {
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -3760,6 +3951,7 @@ const DefaultType$3 = {
   title: '(string|element|function)',
   trigger: 'string'
 };
+
 /**
  * Class definition
  */
@@ -3772,6 +3964,7 @@ class Tooltip extends BaseComponent {
 
     super(element, config); // Private
 
+    // Private
     this._isEnabled = true;
     this._timeout = 0;
     this._isHovered = null;
@@ -3780,6 +3973,7 @@ class Tooltip extends BaseComponent {
     this._templateFactory = null;
     this._newContent = null; // Protected
 
+    // Protected
     this.tip = null;
 
     this._setListeners();
@@ -3790,6 +3984,7 @@ class Tooltip extends BaseComponent {
   } // Getters
 
 
+  // Getters
   static get Default() {
     return Default$3;
   }
@@ -3803,6 +3998,7 @@ class Tooltip extends BaseComponent {
   } // Public
 
 
+  // Public
   enable() {
     this._isEnabled = true;
   }
@@ -3863,6 +4059,7 @@ class Tooltip extends BaseComponent {
     } // todo v6 remove this OR make it optional
 
 
+    // todo v6 remove this OR make it optional
     this._disposePopper();
 
     const tip = this._getTipElement();
@@ -3877,6 +4074,8 @@ class Tooltip extends BaseComponent {
       container.append(tip);
       EventHandler.trigger(this._element, this.constructor.eventName(EVENT_INSERTED));
     }
+    this._popper = this._createPopper(tip);
+    tip.classList.add(CLASS_NAME_SHOW$2);
 
     this._popper = this._createPopper(tip);
     tip.classList.add(CLASS_NAME_SHOW$2); // If this is a touch-enabled device we add extra
@@ -3915,6 +4114,7 @@ class Tooltip extends BaseComponent {
     }
 
     const tip = this._getTipElement();
+    tip.classList.remove(CLASS_NAME_SHOW$2);
 
     tip.classList.remove(CLASS_NAME_SHOW$2); // If this is a touch-enabled device we remove the extra
     // empty mouseover listeners we added for iOS support
@@ -3954,6 +4154,7 @@ class Tooltip extends BaseComponent {
   } // Protected
 
 
+  // Protected
   _isWithContent() {
     return Boolean(this._getTitle());
   }
@@ -3970,6 +4171,7 @@ class Tooltip extends BaseComponent {
     const tip = this._getTemplateFactory(content).toHtml(); // todo: remove this check on v6
 
 
+    // todo: remove this check on v6
     if (!tip) {
       return null;
     }
@@ -4023,6 +4225,7 @@ class Tooltip extends BaseComponent {
   } // Private
 
 
+  // Private
   _initializeOnDelegatedTarget(event) {
     return this.constructor.getOrCreateInstance(event.delegateTarget, this._getDelegateConfig());
   }
@@ -4243,6 +4446,8 @@ class Tooltip extends BaseComponent {
         config[key] = this._config[key];
       }
     }
+    config.selector = false;
+    config.trigger = 'manual';
 
     config.selector = false;
     config.trigger = 'manual'; // In the future can be replaced with:
@@ -4266,6 +4471,7 @@ class Tooltip extends BaseComponent {
   } // Static
 
 
+  // Static
   static jQueryInterface(config) {
     return this.each(function () {
       const data = Tooltip.getOrCreateInstance(this, config);
@@ -4281,6 +4487,7 @@ class Tooltip extends BaseComponent {
       data[config]();
     });
   }
+}
 
 }
 /**
@@ -4296,6 +4503,7 @@ defineJQueryPlugin(Tooltip);
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -4313,6 +4521,7 @@ const Default$2 = { ...Tooltip.Default,
 const DefaultType$2 = { ...Tooltip.DefaultType,
   content: '(null|string|element|function)'
 };
+
 /**
  * Class definition
  */
@@ -4332,11 +4541,13 @@ class Popover extends Tooltip {
   } // Overrides
 
 
+  // Overrides
   _isWithContent() {
     return this._getTitle() || this._getContent();
   } // Private
 
 
+  // Private
   _getContentForTemplate() {
     return {
       [SELECTOR_TITLE]: this._getTitle(),
@@ -4349,6 +4560,7 @@ class Popover extends Tooltip {
   } // Static
 
 
+  // Static
   static jQueryInterface(config) {
     return this.each(function () {
       const data = Popover.getOrCreateInstance(this, config);
@@ -4364,6 +4576,7 @@ class Popover extends Tooltip {
       data[config]();
     });
   }
+}
 
 }
 /**
@@ -4379,6 +4592,7 @@ defineJQueryPlugin(Popover);
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -4417,6 +4631,7 @@ const DefaultType$1 = {
   target: 'element',
   threshold: 'array'
 };
+
 /**
  * Class definition
  */
@@ -4425,6 +4640,7 @@ class ScrollSpy extends BaseComponent {
   constructor(element, config) {
     super(element, config); // this._element is the observablesContainer and config.target the menu links wrapper
 
+    // this._element is the observablesContainer and config.target the menu links wrapper
     this._targetLinks = new Map();
     this._observableSections = new Map();
     this._rootElement = getComputedStyle(this._element).overflowY === 'visible' ? null : this._element;
@@ -4438,6 +4654,7 @@ class ScrollSpy extends BaseComponent {
   } // Getters
 
 
+  // Getters
   static get Default() {
     return Default$1;
   }
@@ -4451,6 +4668,7 @@ class ScrollSpy extends BaseComponent {
   } // Public
 
 
+  // Public
   refresh() {
     this._initializeTargetsAndObservables();
 
@@ -4474,10 +4692,12 @@ class ScrollSpy extends BaseComponent {
   } // Private
 
 
+  // Private
   _configAfterMerge(config) {
     // TODO: on v6 target should be given explicitly & remove the {target: 'ss-target'} case
     config.target = getElement(config.target) || document.body; // TODO: v6 Only for backwards compatibility reasons. Use rootMargin only
 
+    // TODO: v6 Only for backwards compatibility reasons. Use rootMargin only
     config.rootMargin = config.offset ? `${config.offset}px 0px -30%` : config.rootMargin;
 
     if (typeof config.threshold === 'string') {
@@ -4493,6 +4713,7 @@ class ScrollSpy extends BaseComponent {
     } // unregister any previous listeners
 
 
+    // unregister any previous listeners
     EventHandler.off(this._config.target, EVENT_CLICK);
     EventHandler.on(this._config.target, EVENT_CLICK, SELECTOR_TARGET_LINKS, event => {
       const observableSection = this._observableSections.get(event.target.hash);
@@ -4511,6 +4732,7 @@ class ScrollSpy extends BaseComponent {
         } // Chrome 60 doesn't support `scrollTo`
 
 
+        // Chrome 60 doesn't support `scrollTo`
         root.scrollTop = height;
       }
     });
@@ -4526,6 +4748,7 @@ class ScrollSpy extends BaseComponent {
   } // The logic of selection
 
 
+  // The logic of selection
   _observerCallback(entries) {
     const targetElement = entry => this._targetLinks.get(`#${entry.target.id}`);
 
@@ -4561,6 +4784,7 @@ class ScrollSpy extends BaseComponent {
       } // if we are scrolling up, pick the smallest offsetTop
 
 
+      // if we are scrolling up, pick the smallest offsetTop
       if (!userScrollsDown && !entryIsLowerThanPrevious) {
         activate(entry);
       }
@@ -4580,6 +4804,7 @@ class ScrollSpy extends BaseComponent {
 
       const observableSection = SelectorEngine.findOne(anchor.hash, this._element); // ensure that the observableSection exists & is visible
 
+      // ensure that the observableSection exists & is visible
       if (isVisible(observableSection)) {
         this._targetLinks.set(anchor.hash, anchor);
 
@@ -4631,6 +4856,7 @@ class ScrollSpy extends BaseComponent {
   } // Static
 
 
+  // Static
   static jQueryInterface(config) {
     return this.each(function () {
       const data = ScrollSpy.getOrCreateInstance(this, config);
@@ -4646,6 +4872,7 @@ class ScrollSpy extends BaseComponent {
       data[config]();
     });
   }
+}
 
 }
 /**
@@ -4658,6 +4885,7 @@ EventHandler.on(window, EVENT_LOAD_DATA_API$1, () => {
     ScrollSpy.getOrCreateInstance(spy);
   }
 });
+
 /**
  * jQuery
  */
@@ -4670,6 +4898,7 @@ defineJQueryPlugin(ScrollSpy);
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -4702,6 +4931,7 @@ const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [
 
 const SELECTOR_INNER_ELEM = `${SELECTOR_INNER}, ${SELECTOR_DATA_TOGGLE}`;
 const SELECTOR_DATA_TOGGLE_ACTIVE = `.${CLASS_NAME_ACTIVE}[data-bs-toggle="tab"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="pill"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="list"]`;
+
 /**
  * Class definition
  */
@@ -4717,17 +4947,20 @@ class Tab extends BaseComponent {
     } // Set up initial aria attributes
 
 
+    // Set up initial aria attributes
     this._setInitialAttributes(this._parent, this._getChildren());
 
     EventHandler.on(this._element, EVENT_KEYDOWN, event => this._keydown(event));
   } // Getters
 
 
+  // Getters
   static get NAME() {
     return NAME$1;
   } // Public
 
 
+  // Public
   show() {
     // Shows this elem and deactivate the active sibling if exists
     const innerElem = this._element;
@@ -4737,6 +4970,7 @@ class Tab extends BaseComponent {
     } // Search for active tab on same parent to deactivate it
 
 
+    // Search for active tab on same parent to deactivate it
     const active = this._getActiveElem();
 
     const hideEvent = active ? EventHandler.trigger(active, EVENT_HIDE$1, {
@@ -4756,6 +4990,7 @@ class Tab extends BaseComponent {
   } // Private
 
 
+  // Private
   _activate(element, relatedElem) {
     if (!element) {
       return;
@@ -4871,6 +5106,7 @@ class Tab extends BaseComponent {
     this._setAttributeIfNotExists(child, 'role', 'tab'); // set attributes to the related panel too
 
 
+    // set attributes to the related panel too
     this._setInitialAttributesOnTargetPanel(child);
   }
 
@@ -4919,16 +5155,19 @@ class Tab extends BaseComponent {
   } // Try to get the inner element (usually the .nav-link)
 
 
+  // Try to get the inner element (usually the .nav-link)
   _getInnerElement(elem) {
     return elem.matches(SELECTOR_INNER_ELEM) ? elem : SelectorEngine.findOne(SELECTOR_INNER_ELEM, elem);
   } // Try to get the outer element (usually the .nav-item)
 
 
+  // Try to get the outer element (usually the .nav-item)
   _getOuterElement(elem) {
     return elem.closest(SELECTOR_OUTER) || elem;
   } // Static
 
 
+  // Static
   static jQueryInterface(config) {
     return this.each(function () {
       const data = Tab.getOrCreateInstance(this);
@@ -4944,6 +5183,7 @@ class Tab extends BaseComponent {
       data[config]();
     });
   }
+}
 
 }
 /**
@@ -4962,6 +5202,7 @@ EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (
 
   Tab.getOrCreateInstance(this).show();
 });
+
 /**
  * Initialize on focus
  */
@@ -4983,6 +5224,7 @@ defineJQueryPlugin(Tab);
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
+
 /**
  * Constants
  */
@@ -5013,6 +5255,7 @@ const Default = {
   autohide: true,
   delay: 5000
 };
+
 /**
  * Class definition
  */
@@ -5028,6 +5271,7 @@ class Toast extends BaseComponent {
   } // Getters
 
 
+  // Getters
   static get Default() {
     return Default;
   }
@@ -5041,6 +5285,7 @@ class Toast extends BaseComponent {
   } // Public
 
 
+  // Public
   show() {
     const showEvent = EventHandler.trigger(this._element, EVENT_SHOW);
 
@@ -5111,6 +5356,7 @@ class Toast extends BaseComponent {
     return this._element.classList.contains(CLASS_NAME_SHOW);
   } // Private
 
+  // Private
 
   _maybeScheduleHide() {
     if (!this._config.autohide) {
@@ -5171,6 +5417,7 @@ class Toast extends BaseComponent {
   } // Static
 
 
+  // Static
   static jQueryInterface(config) {
     return this.each(function () {
       const data = Toast.getOrCreateInstance(this, config);
@@ -5184,6 +5431,7 @@ class Toast extends BaseComponent {
       }
     });
   }
+}
 
 }
 /**
@@ -5192,6 +5440,7 @@ class Toast extends BaseComponent {
 
 
 enableDismissTrigger(Toast);
+
 /**
  * jQuery
  */

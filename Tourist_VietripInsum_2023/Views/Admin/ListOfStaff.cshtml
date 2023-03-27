@@ -6,6 +6,23 @@
 }
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@{
+    var data = TempData["thongbao"];
+    if (data == "taothanhcong")
+    {
+        <script>
+            swal("Good job!", "Bạn đã tạo tài khoản nhân viên", "success");
+        </script>
+    }
+  
+
+
+}
+
+
+
+
 <div class="row">
     <div class="col-md-12">
         <div class="tile">
@@ -25,7 +42,6 @@
                             <th class="100 sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Tên đại lý: activate to sort column ascending" style="width: 100px;">Full Name</th>
                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Tổng tiền: activate to sort column ascending" style="width: 50px;">Name Pos</th>
                             <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã đơn hàng: activate to sort column ascending" style="width: 40px;">User Name</th>
-                            <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Ngày lập: activate to sort column ascending" style="width: 80px;">Status</th>
                             <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Chức vụ: activate to sort column ascending" style="width: 50px; text-align: center;">Option</th>
                         </tr>
                     </thead>
@@ -33,17 +49,7 @@
                     {
                         <tr>
                             <td style="text-align: center">
-                                @{
-                                    var img = item.HinhDaiDien;
-                                    if (img == null)
-                                    {
-                                        <img src="~/Content/Images/account.png" width="50" height="50" />
-                                    }
-                                    else
-                                    {
                                         <img src="@item.HinhDaiDien" width="50" height="50" />
-                                    }
-                                }
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.MaNV)
@@ -57,8 +63,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Username)
                             </td>
-                            <td>
-                            </td>
+
                             <td style="text-align: center;">
                                 <a href="/Admin/EditStaff/@item.MaNV" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
                                     <i class="fas fa-edit"></i>

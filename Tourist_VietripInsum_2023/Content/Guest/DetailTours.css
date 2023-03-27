@@ -1,0 +1,441 @@
+﻿body {
+    background-color: white;
+}
+
+.content-1 {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    background-color: #f9f9f9;
+}
+
+.warp-mark {
+    padding-top: 20px;
+    color: #4d4aef;
+    font-size: 15px;
+    margin-bottom: 5px;
+    font-weight:500;
+    
+}
+
+.title-tour {
+    font-size: 22px;
+    line-height: 24px;
+    font-weight: 700;
+    color: #2d4271;
+}
+
+.ordertour {
+    text-align: right;
+}
+
+.group-price {
+    margin-bottom: 3px;
+}
+
+.or-price {
+    padding-top: 20px;
+    font-size: 15px;
+    color: #2d4271;
+    line-height: 16px;
+}
+
+.tour-itemprice {
+    text-decoration: line-through;
+}
+
+.sale-price {
+    justify-content: flex-start;
+    margin-bottom: 5px;
+}
+
+    .sale-price span {
+        margin: 0;
+        font-size: 25px;
+        font-weight: 700;
+        color: #fd5056;
+        line-height: 28px;
+    }
+/* right */
+
+.group-add-cart {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.add-to-cart {
+    background: linear-gradient(64.4deg,#fd5056 21.33%,#fe2214 67.61%);
+    border-radius: 5px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 192px;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    text-decoration: none;
+}
+
+.add-to-group {
+    border: 1px solid #2d4271;
+    border-radius: 5px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 192px;
+    color: #2d4271;
+    text-decoration: none;
+}
+
+.group-add-cart i {
+    padding-right: 10px;
+}
+
+/* HINH */
+.content-2 {
+    padding-bottom: 35px;
+    background: #f9f9f9;
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* SECTION3 */
+.section-03 {
+    background: #f9f9f9;
+}
+
+.tour-des {
+    text-align: justify;
+    font-size: 19px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #2d4271;
+}
+
+.box-order {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-right: 20px;
+    padding-left: 20px;
+    background: #fff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    color: #2d4271;
+    font-size: 16px;
+}
+
+.calendar-box {
+    border: 1px solid #2d4271;
+    border-radius: 5px;
+    width: 110px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4d4aef;
+}
+
+/* RIGHT MO TA */
+.mota-right {
+    padding-top: 25px;
+    padding-left: 50px;
+}
+
+.group-services {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+    border-bottom: 1px solid #7d8fab;
+    margin-bottom: 20px;
+}
+
+    .group-services .item {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .group-services .item i {
+            font-size: 25px;
+            color: #4d4aef;
+            margin-bottom: 5px
+        }
+
+        .group-services .item label {
+            margin-bottom: 5px;
+            font-weight: 700;
+            color: #2d4271;
+        }
+
+        .group-services .item p {
+            font-size: 16px;
+        }
+
+.tour-des {
+    padding:25px 20px;
+    background: #fff;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    color: #2d4271;
+    font-size: 16px;
+    font-weight:500;
+}
+
+/*MOTA*/
+.mota-tour {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    background-color: #fff;
+}
+/* section-04 */
+.section-04 {
+    background-color: white;
+}
+
+.lichtrinh {
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+    color: #2d4271;
+    padding:15px 0px;
+}
+
+/* SECTION5 */
+.section-05 {
+    margin: 10px 0px;
+    background-color: #fff;
+}
+
+    .section-05 .row {
+        
+        border: 1px solid #e7e7e7;
+        border-radius: 10px;
+    }
+
+.lotrinh-left {
+    padding: 38px 1rem;
+    background: #f9f9f9;
+    border-radius: 10px 0 0 10px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.go-tour .day:before {
+    content: "";
+    height: 100%;
+    border-left: 0.5px dashed #2d4271;
+    position: absolute;
+    top: 0;
+    left: 52px;
+    z-index: 0;
+}
+
+.go-tour .day {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 34px;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    color: #2d4271;
+}
+
+.date-left {
+    width: 40px;
+}
+
+.date-center.active {
+    background: #fd5056;
+    border: 1px solid #fd5056;
+    color: #fff;
+}
+
+.date-center {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #2d4271;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2d4271;
+    background: #fff;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+}
+
+    .date-center.active:after {
+        content: "";
+    }
+
+.date-right {
+    padding-left: 10px;
+    width: calc(100% - 64px);
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column
+}
+
+.wrapper .date {
+    font-weight: 450;
+    font-size: 15px;
+}
+
+.wrapper .location {
+    font-weight: 700;
+    font-size: 17px;
+}
+
+/* LOTRINH RIGHT */
+.lotrinh-right {
+    padding: 38px 42px 38px 28px;
+    color: #2d4271;
+}
+
+    .lotrinh-right h3 {
+        font-size: 21px;
+        line-height: 40px;
+        padding-left: 20px;
+        padding-right: 10px;
+    }
+
+/*.line {
+    height: calc(100% - 16px);
+    border-left: 0.5px dashed #2d4271;
+    position: absolute;
+    top: 6px;
+    left: 0;
+    z-index: 1;
+}*/
+
+.excerpt {
+    padding-left: 33px;
+    max-width: 100%;
+    position: relative;
+    margin-bottom: 15px;
+    line-height: 24px;
+}
+
+    .excerpt p {
+        text-align: justify;
+    }
+
+.section-05 .lotrinh-right .group-services {
+    border-bottom: 1px solid #f3f3f3;
+    padding-bottom: 20px;
+    margin-bottom: 35px;
+    padding-left: 33px;
+}
+
+    .section-05 .lotrinh-right .group-services .item {
+        border-bottom: 1px solid #f3f3f3;
+        padding-bottom: 10px;
+        margin-bottom: 35px;
+        padding-left: 33px;
+    }
+
+/* SECTION6 */
+.section-06 {
+    background: white;
+}
+
+.pricetourdetail {
+    padding: 10px;
+    
+}
+
+    .pricetourdetail h2 {
+        font-size: 25px;
+        font-weight: 700;
+        text-align: center;
+        color: #2d4271;
+        padding: 15px 0px;
+    }
+
+.table-price table{
+    border-radius: 10px;
+    padding: 15px;
+}
+
+    .table-price th {
+        paddi
+            
+            
+            ng: 10px 0;
+    }
+/* SECTION7 */
+.section-07 {
+    margin-bottom: 20px;
+    
+}
+
+    .section-07 h2 {
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 28px;
+        text-align: center;
+        margin-bottom: 10px;
+        color: #2d4271;
+    }
+
+
+.faqs .acr {
+    margin: 20px;
+}
+
+.accordion {
+    
+    
+    color: #2d4271;
+    cursor: pointer;
+    padding: 25px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 17px;
+    transition: 0.4s;
+    font-weight: 600;
+}
+
+    .active, .accordion:hover {
+        background-color: #ccc;
+    }
+
+    .accordion:after {
+        content: '\002B';
+        color: #777;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+    }
+
+.active:after {
+    content: "\2212";
+}
+
+.panel {
+    padding: 0 20px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}

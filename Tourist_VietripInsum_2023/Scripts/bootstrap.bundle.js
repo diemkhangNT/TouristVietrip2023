@@ -15,10 +15,25 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   const MAX_UID = 1000000;
   const MILLISECONDS_MULTIPLIER = 1000;
   const TRANSITION_END = 'transitionend'; // Shout-out Angus Croll (https://goo.gl/pxwQGp)
 
+  /**
+   * Properly escape IDs selectors to handle weird IDs
+   * @param {string} selector
+   * @returns {string}
+   */
+  const parseSelector = selector => {
+    if (selector && window.CSS && window.CSS.escape) {
+      // document.querySelector needs escaping to handle IDs (html5+) containing for instance /
+      selector = selector.replace(/#([^\s"#']+)/g, (match, id) => `#${CSS.escape(id)}`);
+    }
+    return selector;
+  };
+
+  // Shout-out Angus Croll (https://goo.gl/pxwQGp)
   const toType = object => {
     if (object === null || object === undefined) {
       return `${object}`;
@@ -26,6 +41,7 @@
 
     return Object.prototype.toString.call(object).match(/\s([a-z]+)/i)[1].toLowerCase();
   };
+
   /**
    * Public Util API
    */
@@ -91,6 +107,7 @@
     const floatTransitionDuration = Number.parseFloat(transitionDuration);
     const floatTransitionDelay = Number.parseFloat(transitionDelay); // Return 0 if element or transition duration is not found
 
+    // Return 0 if element or transition duration is not found
     if (!floatTransitionDuration && !floatTransitionDelay) {
       return 0;
     } // If multiple durations are defined, take the first
@@ -198,6 +215,7 @@
   };
 
   const noop = () => {};
+
   /**
    * Trick to restart an element's animation
    *
@@ -295,6 +313,7 @@
       }
     }, emulatedDuration);
   };
+
   /**
    * Return the previous/next element of a list.
    *
@@ -311,6 +330,8 @@
     let index = list.indexOf(activeElement); // if the element does not exist in the list return an element
     // depending on the direction and if cycle is allowed
 
+    // if the element does not exist in the list return an element
+    // depending on the direction and if cycle is allowed
     if (index === -1) {
       return !shouldGetNext && isCycleAllowed ? list[listLength - 1] : list[0];
     }
@@ -330,6 +351,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -345,6 +367,7 @@
     mouseleave: 'mouseout'
   };
   const nativeEvents = new Set(['click', 'dblclick', 'mouseup', 'mousedown', 'contextmenu', 'mousewheel', 'DOMMouseScroll', 'mouseover', 'mouseout', 'mousemove', 'selectstart', 'selectend', 'keydown', 'keypress', 'keyup', 'orientationchange', 'touchstart', 'touchmove', 'touchend', 'touchcancel', 'pointerdown', 'pointermove', 'pointerup', 'pointerleave', 'pointercancel', 'gesturestart', 'gesturechange', 'gestureend', 'focus', 'blur', 'change', 'reset', 'select', 'submit', 'focusin', 'focusout', 'load', 'unload', 'beforeunload', 'resize', 'move', 'DOMContentLoaded', 'readystatechange', 'error', 'abort', 'scroll']);
+
   /**
    * Private methods
    */
@@ -421,6 +444,7 @@
     if (typeof originalTypeEvent !== 'string' || !element) {
       return;
     }
+    let [isDelegated, callable, typeEvent] = normalizeParameters(originalTypeEvent, handler, delegationFunction);
 
     let [isDelegated, callable, typeEvent] = normalizeParameters(originalTypeEvent, handler, delegationFunction); // in case of mouseenter or mouseleave wrap the handler within a function that checks for its DOM position
     // this prevents the handler from being dispatched the same way as mouseover or mouseout does
@@ -603,12 +627,14 @@
   /**
    * Constants
    */
+
   const elementMap = new Map();
   const Data = {
     set(element, key, instance) {
       if (!elementMap.has(element)) {
         elementMap.set(element, new Map());
       }
+      const instanceMap = elementMap.get(element);
 
       const instanceMap = elementMap.get(element); // make it clear we only want one instance per element
       // can be removed later when multiple key/instances are fine to be used
@@ -638,6 +664,7 @@
       const instanceMap = elementMap.get(element);
       instanceMap.delete(key); // free up element references if there are no instances left for an element
 
+      // free up element references if there are no instances left for an element
       if (instanceMap.size === 0) {
         elementMap.delete(element);
       }
@@ -651,6 +678,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   function normalizeData(value) {
     if (value === 'true') {
       return true;
@@ -721,6 +749,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Class definition
    */
@@ -782,6 +811,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -861,7 +891,94 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+  const getSelector = element => {
+    let selector = element.getAttribute('data-bs-target');
+    if (!selector || selector === '#') {
+      let hrefAttribute = element.getAttribute('href');
 
+      // The only valid content that could double as a selector are IDs or classes,
+      // so everything starting with `#` or `.`. If a "real" URL is used as the selector,
+      // `document.querySelector` will rightfully complain it is invalid.
+      // See https://github.com/twbs/bootstrap/issues/32273
+      if (!hrefAttribute || !hrefAttribute.includes('#') && !hrefAttribute.startsWith('.')) {
+        return null;
+      }
+
+      // Just in case some CMS puts out a full URL with the anchor appended
+      if (hrefAttribute.includes('#') && !hrefAttribute.startsWith('#')) {
+        hrefAttribute = `#${hrefAttribute.split('#')[1]}`;
+      }
+      selector = hrefAttribute && hrefAttribute !== '#' ? hrefAttribute.trim() : null;
+    }
+    return parseSelector(selector);
+  };
+  const SelectorEngine = {
+    find(selector, element = document.documentElement) {
+      return [].concat(...Element.prototype.querySelectorAll.call(element, selector));
+    },
+    findOne(selector, element = document.documentElement) {
+      return Element.prototype.querySelector.call(element, selector);
+    },
+    children(element, selector) {
+      return [].concat(...element.children).filter(child => child.matches(selector));
+    },
+    parents(element, selector) {
+      const parents = [];
+      let ancestor = element.parentNode.closest(selector);
+      while (ancestor) {
+        parents.push(ancestor);
+        ancestor = ancestor.parentNode.closest(selector);
+      }
+      return parents;
+    },
+    prev(element, selector) {
+      let previous = element.previousElementSibling;
+      while (previous) {
+        if (previous.matches(selector)) {
+          return [previous];
+        }
+        previous = previous.previousElementSibling;
+      }
+      return [];
+    },
+    // TODO: this is now unused; remove later along with prev()
+    next(element, selector) {
+      let next = element.nextElementSibling;
+      while (next) {
+        if (next.matches(selector)) {
+          return [next];
+        }
+        next = next.nextElementSibling;
+      }
+      return [];
+    },
+    focusableChildren(element) {
+      const focusables = ['a', 'button', 'input', 'textarea', 'select', 'details', '[tabindex]', '[contenteditable="true"]'].map(selector => `${selector}:not([tabindex^="-"])`).join(',');
+      return this.find(focusables, element).filter(el => !isDisabled(el) && isVisible(el));
+    },
+    getSelectorFromElement(element) {
+      const selector = getSelector(element);
+      if (selector) {
+        return SelectorEngine.findOne(selector) ? selector : null;
+      }
+      return null;
+    },
+    getElementFromSelector(element) {
+      const selector = getSelector(element);
+      return selector ? SelectorEngine.findOne(selector) : null;
+    },
+    getMultipleElementsFromSelector(element) {
+      const selector = getSelector(element);
+      return selector ? SelectorEngine.find(selector) : [];
+    }
+  };
+
+  /**
+   * --------------------------------------------------------------------------
+   * Bootstrap (v5.3.0-alpha1): util/component-functions.js
+   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+   * --------------------------------------------------------------------------
+   */
   const enableDismissTrigger = (component, method = 'hide') => {
     const clickEvent = `click.dismiss${component.EVENT_KEY}`;
     const name = component.NAME;
@@ -873,6 +990,8 @@
       if (isDisabled(this)) {
         return;
       }
+      const target = SelectorEngine.getElementFromSelector(this) || this.closest(`.${name}`);
+      const instance = component.getOrCreateInstance(target);
 
       const target = getElementFromSelector(this) || this.closest(`.${name}`);
       const instance = component.getOrCreateInstance(target); // Method argument is left, for Alert and only, as it doesn't implement the 'hide' method
@@ -887,6 +1006,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -898,6 +1018,7 @@
   const EVENT_CLOSED = `closed${EVENT_KEY$b}`;
   const CLASS_NAME_FADE$5 = 'fade';
   const CLASS_NAME_SHOW$8 = 'show';
+
   /**
    * Class definition
    */
@@ -949,12 +1070,14 @@
     }
 
   }
+
   /**
    * Data API implementation
    */
 
 
   enableDismissTrigger(Alert, 'close');
+
   /**
    * jQuery
    */
@@ -967,6 +1090,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -978,6 +1102,7 @@
   const CLASS_NAME_ACTIVE$3 = 'active';
   const SELECTOR_DATA_TOGGLE$5 = '[data-bs-toggle="button"]';
   const EVENT_CLICK_DATA_API$6 = `click${EVENT_KEY$a}${DATA_API_KEY$6}`;
+
   /**
    * Class definition
    */
@@ -1006,6 +1131,7 @@
     }
 
   }
+
   /**
    * Data API implementation
    */
@@ -1017,6 +1143,7 @@
     const data = Button.getOrCreateInstance(button);
     data.toggle();
   });
+
   /**
    * jQuery
    */
@@ -1125,6 +1252,7 @@
     leftCallback: '(function|null)',
     rightCallback: '(function|null)'
   };
+
   /**
    * Class definition
    */
@@ -1236,6 +1364,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -1295,6 +1424,7 @@
     touch: 'boolean',
     wrap: 'boolean'
   };
+
   /**
    * Class definition
    */
@@ -1629,6 +1759,7 @@
     }
 
   }
+
   /**
    * Data API implementation
    */
@@ -1672,6 +1803,7 @@
       Carousel.getOrCreateInstance(carousel);
     }
   });
+
   /**
    * jQuery
    */
@@ -1684,6 +1816,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -1715,6 +1848,7 @@
     parent: '(null|element)',
     toggle: 'boolean'
   };
+
   /**
    * Class definition
    */
@@ -1772,6 +1906,7 @@
       if (this._isTransitioning || this._isShown()) {
         return;
       }
+      let activeChildren = [];
 
       let activeChildren = []; // find active children
 
@@ -1942,6 +2077,7 @@
     }
 
   }
+
   /**
    * Data API implementation
    */
@@ -1962,6 +2098,7 @@
       }).toggle();
     }
   });
+
   /**
    * jQuery
    */
@@ -3820,6 +3957,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -3877,6 +4015,7 @@
     popperConfig: '(null|object|function)',
     reference: '(string|element|object)'
   };
+
   /**
    * Class definition
    */
@@ -3923,6 +4062,7 @@
       if (showEvent.defaultPrevented) {
         return;
       }
+      this._createPopper();
 
       this._createPopper(); // If this is a touch-enabled device we add extra
       // empty mouseover listeners to the body's immediate children;
@@ -4105,6 +4245,7 @@
         }]
       }; // Disable Popper if we have a static display or Dropdown is in Navbar
 
+      // Disable Popper if we have a static display or Dropdown is in Navbar
       if (this._inNavbar || this._config.display === 'static') {
         Manipulator.setDataAttribute(this._menu, 'popper', 'static'); // todo:v6 remove
 
@@ -4192,6 +4333,7 @@
     static dataApiKeydownHandler(event) {
       // If not an UP | DOWN | ESCAPE key => not a dropdown command
       // If input/textarea && if key is other than ESCAPE => not a dropdown command
+
       const isInput = /input|textarea/i.test(event.target.tagName);
       const isEscapeEvent = event.key === ESCAPE_KEY$2;
       const isUpOrDownEvent = [ARROW_UP_KEY$1, ARROW_DOWN_KEY$1].includes(event.key);
@@ -4206,6 +4348,7 @@
 
       event.preventDefault(); // todo: v6 revert #37011 & change markup https://getbootstrap.com/docs/5.2/forms/input-group/
 
+      // todo: v6 revert #37011 & change markup https://getbootstrap.com/docs/5.3/forms/input-group/
       const getToggleButton = this.matches(SELECTOR_DATA_TOGGLE$3) ? this : SelectorEngine.prev(this, SELECTOR_DATA_TOGGLE$3)[0] || SelectorEngine.next(this, SELECTOR_DATA_TOGGLE$3)[0] || SelectorEngine.findOne(SELECTOR_DATA_TOGGLE$3, event.delegateTarget.parentNode);
       const instance = Dropdown.getOrCreateInstance(getToggleButton);
 
@@ -4225,6 +4368,7 @@
         getToggleButton.focus();
       }
     }
+  }
 
   }
   /**
@@ -4240,6 +4384,7 @@
     event.preventDefault();
     Dropdown.getOrCreateInstance(this).toggle();
   });
+
   /**
    * jQuery
    */
@@ -4252,6 +4397,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -4260,6 +4406,7 @@
   const SELECTOR_STICKY_CONTENT = '.sticky-top';
   const PROPERTY_PADDING = 'padding-right';
   const PROPERTY_MARGIN = 'margin-right';
+
   /**
    * Class definition
    */
@@ -4270,6 +4417,7 @@
     } // Public
 
 
+    // Public
     getWidth() {
       // https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWidth#usage_notes
       const documentWidth = document.documentElement.clientWidth;
@@ -4305,6 +4453,7 @@
     } // Private
 
 
+    // Private
     _disableOverFlow() {
       this._saveInitialAttribute(this._element, 'overflow');
 
@@ -4371,6 +4520,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -4386,6 +4536,7 @@
     isVisible: true,
     // if false, we use the backdrop helper without adding any element to the dom
     rootElement: 'body' // give the choice to place backdrop under different elements
+  };
 
   };
   const DefaultType$8 = {
@@ -4395,6 +4546,7 @@
     isVisible: 'boolean',
     rootElement: '(element|string)'
   };
+
   /**
    * Class definition
    */
@@ -4408,6 +4560,7 @@
     } // Getters
 
 
+    // Getters
     static get Default() {
       return Default$8;
     }
@@ -4421,6 +4574,7 @@
     } // Public
 
 
+    // Public
     show(callback) {
       if (!this._config.isVisible) {
         execute(callback);
@@ -4469,6 +4623,7 @@
     } // Private
 
 
+    // Private
     _getElement() {
       if (!this._element) {
         const backdrop = document.createElement('div');
@@ -4517,6 +4672,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -4532,12 +4688,14 @@
   const Default$7 = {
     autofocus: true,
     trapElement: null // The element to trap focus inside of
+  };
 
   };
   const DefaultType$7 = {
     autofocus: 'boolean',
     trapElement: 'element'
   };
+
   /**
    * Class definition
    */
@@ -4551,6 +4709,7 @@
     } // Getters
 
 
+    // Getters
     static get Default() {
       return Default$7;
     }
@@ -4564,6 +4723,7 @@
     } // Public
 
 
+    // Public
     activate() {
       if (this._isActive) {
         return;
@@ -4590,6 +4750,7 @@
     } // Private
 
 
+    // Private
     _handleFocusin(event) {
       const {
         trapElement
@@ -4626,6 +4787,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -4663,6 +4825,7 @@
     focus: 'boolean',
     keyboard: 'boolean'
   };
+
   /**
    * Class definition
    */
@@ -4681,6 +4844,7 @@
     } // Getters
 
 
+    // Getters
     static get Default() {
       return Default$6;
     }
@@ -4694,6 +4858,7 @@
     } // Public
 
 
+    // Public
     toggle(relatedTarget) {
       return this._isShown ? this.hide() : this.show(relatedTarget);
     }
@@ -4761,6 +4926,7 @@
     } // Private
 
 
+    // Private
     _initializeBackDrop() {
       return new Backdrop({
         isVisible: Boolean(this._config.backdrop),
@@ -4909,6 +5075,7 @@
 
       this._element.focus();
     }
+
     /**
      * The following methods are used to handle overflowing modals
      */
@@ -4938,6 +5105,7 @@
     } // Static
 
 
+    // Static
     static jQueryInterface(config, relatedTarget) {
       return this.each(function () {
         const data = Modal.getOrCreateInstance(this, config);
@@ -4953,6 +5121,7 @@
         data[config](relatedTarget);
       });
     }
+  }
 
   }
   /**
@@ -4980,6 +5149,7 @@
       });
     }); // avoid conflict when clicking modal toggler while another one is open
 
+    // avoid conflict when clicking modal toggler while another one is open
     const alreadyOpen = SelectorEngine.findOne(OPEN_SELECTOR$1);
 
     if (alreadyOpen) {
@@ -4990,6 +5160,7 @@
     data.toggle(this);
   });
   enableDismissTrigger(Modal);
+
   /**
    * jQuery
    */
@@ -5002,6 +5173,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -5036,6 +5208,7 @@
     keyboard: 'boolean',
     scroll: 'boolean'
   };
+
   /**
    * Class definition
    */
@@ -5051,6 +5224,7 @@
     } // Getters
 
 
+    // Getters
     static get Default() {
       return Default$5;
     }
@@ -5064,6 +5238,7 @@
     } // Public
 
 
+    // Public
     toggle(relatedTarget) {
       return this._isShown ? this.hide() : this.show(relatedTarget);
     }
@@ -5159,6 +5334,7 @@
     } // Private
 
 
+    // Private
     _initializeBackDrop() {
       const clickCallback = () => {
         if (this._config.backdrop === 'static') {
@@ -5170,6 +5346,7 @@
       }; // 'static' option will be translated to true, and booleans will keep their value
 
 
+      // 'static' option will be translated to true, and booleans will keep their value
       const isVisible = Boolean(this._config.backdrop);
       return new Backdrop({
         className: CLASS_NAME_BACKDROP,
@@ -5202,6 +5379,7 @@
     } // Static
 
 
+    // Static
     static jQueryInterface(config) {
       return this.each(function () {
         const data = Offcanvas.getOrCreateInstance(this, config);
@@ -5217,6 +5395,7 @@
         data[config](this);
       });
     }
+  }
 
   }
   /**
@@ -5242,6 +5421,7 @@
       }
     }); // avoid conflict when clicking a toggler of an offcanvas, while another is open
 
+    // avoid conflict when clicking a toggler of an offcanvas, while another is open
     const alreadyOpen = SelectorEngine.findOne(OPEN_SELECTOR);
 
     if (alreadyOpen && alreadyOpen !== target) {
@@ -5264,6 +5444,7 @@
     }
   });
   enableDismissTrigger(Offcanvas);
+
   /**
    * jQuery
    */
@@ -5276,13 +5457,16 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   const uriAttributes = new Set(['background', 'cite', 'href', 'itemtype', 'longdesc', 'poster', 'src', 'xlink:href']);
   const ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
+
   /**
    * A pattern that recognizes a commonly useful subset of URLs that are safe.
    *
    * Shout-out to Angular https://github.com/angular/angular/blob/12.2.x/packages/core/src/sanitization/url_sanitizer.ts
    */
+  const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^#&/:?]*(?:[#/?]|$))/i;
 
   const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^#&/:?]*(?:[#/?]|$))/i;
   /**
@@ -5305,6 +5489,7 @@
     } // Check if a regular expression validates the attribute.
 
 
+    // Check if a regular expression validates the attribute.
     return allowedAttributeList.filter(attributeRegex => attributeRegex instanceof RegExp).some(regex => regex.test(attributeName));
   };
 
@@ -5381,6 +5566,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -5409,6 +5595,7 @@
     entry: '(string|element|function|null)',
     selector: '(string|element)'
   };
+
   /**
    * Class definition
    */
@@ -5420,6 +5607,7 @@
     } // Getters
 
 
+    // Getters
     static get Default() {
       return Default$4;
     }
@@ -5433,6 +5621,7 @@
     } // Public
 
 
+    // Public
     getContent() {
       return Object.values(this._config.content).map(config => this._resolvePossibleFunction(config)).filter(Boolean);
     }
@@ -5470,6 +5659,7 @@
     } // Private
 
 
+    // Private
     _typeCheckConfig(config) {
       super._typeCheckConfig(config);
 
@@ -5539,6 +5729,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -5610,6 +5801,7 @@
     title: '(string|element|function)',
     trigger: 'string'
   };
+
   /**
    * Class definition
    */
@@ -5622,6 +5814,7 @@
 
       super(element, config); // Private
 
+      // Private
       this._isEnabled = true;
       this._timeout = 0;
       this._isHovered = null;
@@ -5630,6 +5823,7 @@
       this._templateFactory = null;
       this._newContent = null; // Protected
 
+      // Protected
       this.tip = null;
 
       this._setListeners();
@@ -5640,6 +5834,7 @@
     } // Getters
 
 
+    // Getters
     static get Default() {
       return Default$3;
     }
@@ -5653,6 +5848,7 @@
     } // Public
 
 
+    // Public
     enable() {
       this._isEnabled = true;
     }
@@ -5713,6 +5909,7 @@
       } // todo v6 remove this OR make it optional
 
 
+      // todo v6 remove this OR make it optional
       this._disposePopper();
 
       const tip = this._getTipElement();
@@ -5727,6 +5924,8 @@
         container.append(tip);
         EventHandler.trigger(this._element, this.constructor.eventName(EVENT_INSERTED));
       }
+      this._popper = this._createPopper(tip);
+      tip.classList.add(CLASS_NAME_SHOW$2);
 
       this._popper = this._createPopper(tip);
       tip.classList.add(CLASS_NAME_SHOW$2); // If this is a touch-enabled device we add extra
@@ -5765,6 +5964,7 @@
       }
 
       const tip = this._getTipElement();
+      tip.classList.remove(CLASS_NAME_SHOW$2);
 
       tip.classList.remove(CLASS_NAME_SHOW$2); // If this is a touch-enabled device we remove the extra
       // empty mouseover listeners we added for iOS support
@@ -5804,6 +6004,7 @@
     } // Protected
 
 
+    // Protected
     _isWithContent() {
       return Boolean(this._getTitle());
     }
@@ -5820,6 +6021,7 @@
       const tip = this._getTemplateFactory(content).toHtml(); // todo: remove this check on v6
 
 
+      // todo: remove this check on v6
       if (!tip) {
         return null;
       }
@@ -5873,6 +6075,7 @@
     } // Private
 
 
+    // Private
     _initializeOnDelegatedTarget(event) {
       return this.constructor.getOrCreateInstance(event.delegateTarget, this._getDelegateConfig());
     }
@@ -6093,6 +6296,8 @@
           config[key] = this._config[key];
         }
       }
+      config.selector = false;
+      config.trigger = 'manual';
 
       config.selector = false;
       config.trigger = 'manual'; // In the future can be replaced with:
@@ -6116,6 +6321,7 @@
     } // Static
 
 
+    // Static
     static jQueryInterface(config) {
       return this.each(function () {
         const data = Tooltip.getOrCreateInstance(this, config);
@@ -6131,6 +6337,7 @@
         data[config]();
       });
     }
+  }
 
   }
   /**
@@ -6146,6 +6353,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -6163,6 +6371,7 @@
   const DefaultType$2 = { ...Tooltip.DefaultType,
     content: '(null|string|element|function)'
   };
+
   /**
    * Class definition
    */
@@ -6182,11 +6391,13 @@
     } // Overrides
 
 
+    // Overrides
     _isWithContent() {
       return this._getTitle() || this._getContent();
     } // Private
 
 
+    // Private
     _getContentForTemplate() {
       return {
         [SELECTOR_TITLE]: this._getTitle(),
@@ -6199,6 +6410,7 @@
     } // Static
 
 
+    // Static
     static jQueryInterface(config) {
       return this.each(function () {
         const data = Popover.getOrCreateInstance(this, config);
@@ -6214,6 +6426,7 @@
         data[config]();
       });
     }
+  }
 
   }
   /**
@@ -6229,6 +6442,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -6267,6 +6481,7 @@
     target: 'element',
     threshold: 'array'
   };
+
   /**
    * Class definition
    */
@@ -6275,6 +6490,7 @@
     constructor(element, config) {
       super(element, config); // this._element is the observablesContainer and config.target the menu links wrapper
 
+      // this._element is the observablesContainer and config.target the menu links wrapper
       this._targetLinks = new Map();
       this._observableSections = new Map();
       this._rootElement = getComputedStyle(this._element).overflowY === 'visible' ? null : this._element;
@@ -6288,6 +6504,7 @@
     } // Getters
 
 
+    // Getters
     static get Default() {
       return Default$1;
     }
@@ -6301,6 +6518,7 @@
     } // Public
 
 
+    // Public
     refresh() {
       this._initializeTargetsAndObservables();
 
@@ -6324,10 +6542,12 @@
     } // Private
 
 
+    // Private
     _configAfterMerge(config) {
       // TODO: on v6 target should be given explicitly & remove the {target: 'ss-target'} case
       config.target = getElement(config.target) || document.body; // TODO: v6 Only for backwards compatibility reasons. Use rootMargin only
 
+      // TODO: v6 Only for backwards compatibility reasons. Use rootMargin only
       config.rootMargin = config.offset ? `${config.offset}px 0px -30%` : config.rootMargin;
 
       if (typeof config.threshold === 'string') {
@@ -6343,6 +6563,7 @@
       } // unregister any previous listeners
 
 
+      // unregister any previous listeners
       EventHandler.off(this._config.target, EVENT_CLICK);
       EventHandler.on(this._config.target, EVENT_CLICK, SELECTOR_TARGET_LINKS, event => {
         const observableSection = this._observableSections.get(event.target.hash);
@@ -6361,6 +6582,7 @@
           } // Chrome 60 doesn't support `scrollTo`
 
 
+          // Chrome 60 doesn't support `scrollTo`
           root.scrollTop = height;
         }
       });
@@ -6376,6 +6598,7 @@
     } // The logic of selection
 
 
+    // The logic of selection
     _observerCallback(entries) {
       const targetElement = entry => this._targetLinks.get(`#${entry.target.id}`);
 
@@ -6411,6 +6634,7 @@
         } // if we are scrolling up, pick the smallest offsetTop
 
 
+        // if we are scrolling up, pick the smallest offsetTop
         if (!userScrollsDown && !entryIsLowerThanPrevious) {
           activate(entry);
         }
@@ -6430,6 +6654,7 @@
 
         const observableSection = SelectorEngine.findOne(anchor.hash, this._element); // ensure that the observableSection exists & is visible
 
+        // ensure that the observableSection exists & is visible
         if (isVisible(observableSection)) {
           this._targetLinks.set(anchor.hash, anchor);
 
@@ -6481,6 +6706,7 @@
     } // Static
 
 
+    // Static
     static jQueryInterface(config) {
       return this.each(function () {
         const data = ScrollSpy.getOrCreateInstance(this, config);
@@ -6496,6 +6722,7 @@
         data[config]();
       });
     }
+  }
 
   }
   /**
@@ -6508,6 +6735,7 @@
       ScrollSpy.getOrCreateInstance(spy);
     }
   });
+
   /**
    * jQuery
    */
@@ -6520,6 +6748,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -6552,6 +6781,7 @@
 
   const SELECTOR_INNER_ELEM = `${SELECTOR_INNER}, ${SELECTOR_DATA_TOGGLE}`;
   const SELECTOR_DATA_TOGGLE_ACTIVE = `.${CLASS_NAME_ACTIVE}[data-bs-toggle="tab"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="pill"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="list"]`;
+
   /**
    * Class definition
    */
@@ -6567,17 +6797,20 @@
       } // Set up initial aria attributes
 
 
+      // Set up initial aria attributes
       this._setInitialAttributes(this._parent, this._getChildren());
 
       EventHandler.on(this._element, EVENT_KEYDOWN, event => this._keydown(event));
     } // Getters
 
 
+    // Getters
     static get NAME() {
       return NAME$1;
     } // Public
 
 
+    // Public
     show() {
       // Shows this elem and deactivate the active sibling if exists
       const innerElem = this._element;
@@ -6587,6 +6820,7 @@
       } // Search for active tab on same parent to deactivate it
 
 
+      // Search for active tab on same parent to deactivate it
       const active = this._getActiveElem();
 
       const hideEvent = active ? EventHandler.trigger(active, EVENT_HIDE$1, {
@@ -6606,6 +6840,7 @@
     } // Private
 
 
+    // Private
     _activate(element, relatedElem) {
       if (!element) {
         return;
@@ -6721,6 +6956,7 @@
       this._setAttributeIfNotExists(child, 'role', 'tab'); // set attributes to the related panel too
 
 
+      // set attributes to the related panel too
       this._setInitialAttributesOnTargetPanel(child);
     }
 
@@ -6769,16 +7005,19 @@
     } // Try to get the inner element (usually the .nav-link)
 
 
+    // Try to get the inner element (usually the .nav-link)
     _getInnerElement(elem) {
       return elem.matches(SELECTOR_INNER_ELEM) ? elem : SelectorEngine.findOne(SELECTOR_INNER_ELEM, elem);
     } // Try to get the outer element (usually the .nav-item)
 
 
+    // Try to get the outer element (usually the .nav-item)
     _getOuterElement(elem) {
       return elem.closest(SELECTOR_OUTER) || elem;
     } // Static
 
 
+    // Static
     static jQueryInterface(config) {
       return this.each(function () {
         const data = Tab.getOrCreateInstance(this);
@@ -6794,6 +7033,7 @@
         data[config]();
       });
     }
+  }
 
   }
   /**
@@ -6812,6 +7052,7 @@
 
     Tab.getOrCreateInstance(this).show();
   });
+
   /**
    * Initialize on focus
    */
@@ -6833,6 +7074,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
+
   /**
    * Constants
    */
@@ -6863,6 +7105,7 @@
     autohide: true,
     delay: 5000
   };
+
   /**
    * Class definition
    */
@@ -6878,6 +7121,7 @@
     } // Getters
 
 
+    // Getters
     static get Default() {
       return Default;
     }
@@ -6891,6 +7135,7 @@
     } // Public
 
 
+    // Public
     show() {
       const showEvent = EventHandler.trigger(this._element, EVENT_SHOW);
 
@@ -6961,6 +7206,7 @@
       return this._element.classList.contains(CLASS_NAME_SHOW);
     } // Private
 
+    // Private
 
     _maybeScheduleHide() {
       if (!this._config.autohide) {
@@ -7021,6 +7267,7 @@
     } // Static
 
 
+    // Static
     static jQueryInterface(config) {
       return this.each(function () {
         const data = Toast.getOrCreateInstance(this, config);
@@ -7034,6 +7281,7 @@
         }
       });
     }
+  }
 
   }
   /**
@@ -7042,6 +7290,7 @@
 
 
   enableDismissTrigger(Toast);
+
   /**
    * jQuery
    */
