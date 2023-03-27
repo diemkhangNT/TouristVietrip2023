@@ -1,0 +1,96 @@
+﻿@model Tourist_VietripInsum_2023.Models.KhachHang
+@{
+    ViewBag.Title = "CreateOrder";
+    Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
+    ViewBag.Name = "Check Customer Information";
+    ViewBag.order = "active";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="tile">
+            <h3 class="tile-title" style="text-align: center;">CUSTOMER INFORMATION</h3>
+            <div class="tile-body">
+                <div class="row">
+                    <div class="row element-button">
+                        <div style="text-align: center;">
+                            <form method="get" style="margin: auto; width: 518px;">
+                                <div style="display: flex; ">
+                                    <label class="control-label" style="margin: auto 0; margin-right: 20px; padding: 5px 10px;">Number Phone</label>
+                                    @if (ViewBag.SDT == null)
+                                    {
+                                        <input class="form-control btn-sm" style="" type="search" name="search" placeholder="Enter phone number" value="@ViewBag.SDT" />
+                                    }
+                                    else
+                                    {
+                                        <input class="form-control btn-sm" type="search" name="search" value="@ViewBag.SDT" />
+                                    }
+                                    <input class="btn btn-success" style="margin-left: 20px;" type="submit" value="Check" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    @{ var sdt = ViewBag.SDT;}
+                    <form method="post" enctype="multipart/form-data" action="/OrderProcessing/CheckCusInfo" style="width: 100%;">
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => sdt, new { htmlAttributes = new { @class = "form-control" } })
+                        <div class="element-button">
+                            <div class="row">
+                                <div class="form-group col-md-5">
+                                    <label class="control-label" style="margin-top: 20px;">Full Name</label>
+                                    @Html.EditorFor(model => model.HoTenKH, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+                                    @Html.ValidationMessageFor(model => model.HoTenKH, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label class="control-label" style="margin-top: 20px;">Birthday</label>
+                                    @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+                                    @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label class="control-label" style="margin-top: 20px;">Gender</label>
+                                    <select class="form-control" id="GioiTinh" name="GioiTinh">
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">Address</label>
+                                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+                                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">Email</label>
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    <span id="mess"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a class="btn btn-cancel btn-sm" href="/OrderProcessing/ManageTourOrders">Back</a>
+                                @if (ViewBag.Info == null)
+                                {
+                                    <input type="submit" value="Next" class="btn btn-success btn-sm" />
+                                }
+                                else
+                                {
+                                    <a class="btn btn-success btn-sm" href="/OrderProcessing/CreateOrder">Next</a>
+                                }
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

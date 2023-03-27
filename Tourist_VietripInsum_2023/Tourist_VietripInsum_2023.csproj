@@ -149,6 +149,7 @@
     <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginStaffController.cs" />
+    <Compile Include="Controllers\OrderProcessingController.cs" />
     <Compile Include="Controllers\TourmanagerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
