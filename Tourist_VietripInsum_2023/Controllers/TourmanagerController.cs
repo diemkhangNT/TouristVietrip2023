@@ -416,6 +416,9 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             if (ModelState.IsValid)
             {
+                Random rd = new Random();
+                var idltour = "LT" + rd.Next(1, 100000);
+                loaiTour.MaLTour = idltour;
                 db.LoaiTours.Add(loaiTour);
                 db.SaveChanges();
                 return RedirectToAction("IndexLoaiTour");
@@ -486,14 +489,13 @@ namespace Tourist_VietripInsum_2023.Controllers
         public ActionResult CreateTours()
         {
             ViewBag.MaKS = new SelectList(db.Hotels, "MaKS", "TenKS");
-            ViewBag.MaTinh = new SelectList(db.Hotels, "MaTinh", "TenTinh");
             ViewBag.MaLTour = new SelectList(db.LoaiTours, "MaLTour", "TenLTour");
-            List<int> a = new List<int>();
-            ViewBag.MaKSforTinh = a;
-            DateTime today = DateTime.Today;
+            //List<int> a = new List<int>();
+            //ViewBag.MaKSforTinh = a;
+            //DateTime today = DateTime.Today;
             // Set giá trị nhỏ nhất của datepicker là ngày hôm nay
             
-            DatePicker datePicker = new DatePicker();
+            //DatePicker datePicker = new DatePicker();
             //datePicker.SetValue()= today;
             return View();
         }
@@ -503,21 +505,16 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             List<string> abc = new List<string>();
             ViewBag.Value = value;
-            var matinh = value;
-            foreach (var item in db.Hotels.ToList())
-            {
-                if (item.MaTinh == matinh)
-                {
-                    abc.Add(item.TenKS);
-                }
-            }
-            ViewBag.MaKSforTinh = abc;
-            return View("CreateTours");
-        }
-        public ActionResult GetTotal()
-        {
-            string s = ViewBag.Value;
-            return Content(s);
+            //var matinh = value;
+            //foreach (var item in db.Hotels.ToList())
+            //{
+            //    if (item.MaTinh == matinh)
+            //    {
+            //        abc.Add(item.TenKS);
+            //    }
+            //}
+            //ViewBag.MaKSforTinh = abc;
+            return Content(value);
         }
         public void LuuImage(Tour t, HttpPostedFileBase ImagerTour)
         {
@@ -559,29 +556,37 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateTours(Tour tour, HttpPostedFileBase ImagerTour, string value)
+        public ActionResult CreateTours(Tour tour, HttpPostedFileBase ImagerTour)
         {
             if (!ModelState.IsValid)
             {
                 return View(tour);
             }
-            ViewBag.matinh = value;
-            LuuImage(tour, ImagerTour);
-            Random rd = new Random();
-            var idtour = "VNG" + rd.Next(1, 100000);
-            tour.MaTour = idtour;
-            tour.TrangThai  = "Coming soon...";
-            DateTime startDate = (DateTime)tour.NgayKhoihanh;
-            DateTime endDate = (DateTime)tour.NgayTroVe;
+            if(tour.TenTour == null || tour.GioiThieu ==null||tour.NgayKhoihanh==null ||tour.NgayTroVe==null||tour.NoiKhoiHanh==null || tour.SoChoNull == null || tour.HanChotDatVe == null || tour.GiaTreEm == null || tour.GiaNguoiLon == null)
+            {
+                TempData["noti"] = "null";
+                return RedirectToAction("CreateTours");
+            }
+            else
+            {
+                LuuImage(tour, ImagerTour);
+                Random rd = new Random();
+                var idtour = "VNG" + rd.Next(1, 100000);
+                tour.MaTour = idtour;
+                tour.TrangThai  = "Coming soon...";
+                DateTime startDate = (DateTime)tour.NgayKhoihanh;
+                DateTime endDate = (DateTime)tour.NgayTroVe;
 
-            TimeSpan span = endDate.Subtract(startDate);
-            int numOfDays = (int)span.TotalDays + 1;
+                TimeSpan span = endDate.Subtract(startDate);
+                int numOfDays = (int)span.TotalDays + 1;
 
-            tour.SoNgay = numOfDays;
-            db.Tours.Add(tour);
-            db.SaveChanges();
-            TempData["noti"] = "oke";
-            return RedirectToAction("QuanLyTour");
+                tour.SoNgay = numOfDays;
+                db.Tours.Add(tour);
+                db.SaveChanges();
+                TempData["noti"] = "oke";
+                return RedirectToAction("QuanLyTour");
+            }
+            return View();
         }
 
         //Chi tiết tour

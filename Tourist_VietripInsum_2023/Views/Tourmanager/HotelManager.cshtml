@@ -5,7 +5,7 @@
     ViewBag.Title = "HotelManager";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
     ViewBag.Name = "Hotel Manager";
-    ViewBag.qlt = "active";
+    ViewBag.hd = "active";
     TouristEntities1 db = new TouristEntities1();
     List<PhuongTien> phuongTiens = db.PhuongTiens.ToList();
 }
@@ -106,21 +106,6 @@
     }
 
 </style>
-
-<div class="col-md-12">
-    <ul class="nav nav-tabs">
-        <li class="nav-item text-danger">
-            <a class="nav-link" href="/Tourmanager/QuanLyTour">Tour</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="/Tourmanager/HotelManager">Hotel - Transport</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/Tourmanager/LocationManager">VisitLocation</a>
-        </li>
-
-    </ul>
-</div>
 
 <div class="row">
     <div class="col-md-8">
