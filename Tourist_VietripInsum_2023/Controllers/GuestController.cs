@@ -131,6 +131,18 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(tour);
         }
 
-
+        //Anh Hau
+        public ActionResult LienHe()
+        {
+            return View();
+        }
+        public ActionResult VeChungToi()
+        {
+            return View();
+        }
+        public ActionResult TinTuc()
+        {
+            return View();
+        }
     }
     }

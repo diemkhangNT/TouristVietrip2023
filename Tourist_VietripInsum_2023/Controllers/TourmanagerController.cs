@@ -621,7 +621,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(tour);
         }
         [HttpPost]
-        public ActionResult EditTour(string id, HttpPostedFileBase ImagerTour, Tour tour)
+        public ActionResult EditTour(HttpPostedFileBase ImagerTour, Tour tour)
         {
             LuuImage(tour, ImagerTour);
             db.Entry(tour).State = System.Data.Entity.EntityState.Modified;

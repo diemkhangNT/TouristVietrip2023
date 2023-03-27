@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TouristModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TouristModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BookTour">
           <Key>
             <PropertyRef Name="MaDH" />
@@ -70,7 +70,7 @@
           <Property Name="UserPassword" Type="varchar" MaxLength="50" />
           <Property Name="HoTenKH" Type="nvarchar" MaxLength="50" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
-          <Property Name="Email" Type="varchar" MaxLength="30" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
           <Property Name="NgaySinh" Type="datetime" />
           <Property Name="GioiTinh" Type="nvarchar" MaxLength="10" />
           <Property Name="HinhDaiDien" Type="varchar" MaxLength="100" />
@@ -109,7 +109,7 @@
           <Property Name="HoTen" Type="nvarchar" MaxLength="50" />
           <Property Name="Sdt" Type="char" MaxLength="15" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
-          <Property Name="Email" Type="varchar" MaxLength="30" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
           <Property Name="NgaySinh" Type="datetime" />
           <Property Name="GioiTinh" Type="nvarchar" MaxLength="10" />
           <Property Name="HinhDaiDien" Type="varchar" MaxLength="100" />
@@ -134,16 +134,6 @@
           <Property Name="TenPTien" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="HangXe" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="ChiTiet" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TinhThanh">
           <Key>
@@ -184,6 +174,20 @@
           <Property Name="NgaySinh" Type="datetime" />
           <Property Name="LuuY" Type="ntext" />
         </EntityType>
+        <Association Name="FK_BookTour_KhachHang">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="BookTour" Type="Self.BookTour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+              <PropertyRef Name="SDT" />
+            </Principal>
+            <Dependent Role="BookTour">
+              <PropertyRef Name="MaKH" />
+              <PropertyRef Name="SdtKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ChiTietTour_DiaDiemThamQuan">
           <End Role="DiaDiemThamQuan" Type="Self.DiaDiemThamQuan" Multiplicity="0..1" />
           <End Role="ChiTietTour" Type="Self.ChiTietTour" Multiplicity="*" />
@@ -356,7 +360,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TouristModel1StoreContainer">
+        <EntityContainer Name="TouristModelStoreContainer">
           <EntitySet Name="BookTour" EntityType="Self.BookTour" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietTour" EntityType="Self.ChiTietTour" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChucVu" EntityType="Self.ChucVu" Schema="dbo" store:Type="Tables" />
@@ -369,10 +373,13 @@
           <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhanHoi" EntityType="Self.PhanHoi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhuongTien" EntityType="Self.PhuongTien" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TinhThanh" EntityType="Self.TinhThanh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ve" EntityType="Self.Ve" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BookTour_KhachHang" Association="Self.FK_BookTour_KhachHang">
+            <End Role="KhachHang" EntitySet="KhachHang" />
+            <End Role="BookTour" EntitySet="BookTour" />
+          </AssociationSet>
           <AssociationSet Name="FK_ChiTietTour_DiaDiemThamQuan" Association="Self.FK_ChiTietTour_DiaDiemThamQuan">
             <End Role="DiaDiemThamQuan" EntitySet="DiaDiemThamQuan" />
             <End Role="ChiTietTour" EntitySet="ChiTietTour" />
@@ -434,7 +441,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="TouristModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="TouristModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="BookTour">
           <Key>
             <PropertyRef Name="MaDH" />
@@ -448,6 +455,7 @@
           <Property Name="SoCho" Type="Int32" />
           <Property Name="SdtKH" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MaKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="KhachHang" Relationship="Self.FK_BookTour_KhachHang" FromRole="BookTour" ToRole="KhachHang" />
           <NavigationProperty Name="NhanVien" Relationship="Self.FK_DonHang_NhanVien" FromRole="BookTour" ToRole="NhanVien" />
           <NavigationProperty Name="Tour" Relationship="Self.FK_OrderCus_Tour" FromRole="BookTour" ToRole="Tour" />
           <NavigationProperty Name="Ves" Relationship="Self.FK_Ticket_Order" FromRole="BookTour" ToRole="Ve" />
@@ -511,7 +519,7 @@
           <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="HoTenKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="NgaySinh" Type="DateTime" Precision="3" />
           <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="HinhDaiDien" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -556,7 +564,7 @@
           <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Sdt" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
           <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="NgaySinh" Type="DateTime" Precision="3" />
           <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="HinhDaiDien" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -585,16 +593,6 @@
           <Property Name="HangXe" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ChiTiet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ChiTietTours" Relationship="Self.FK_ChiTietTour_PhuongTien" FromRole="PhuongTien" ToRole="ChiTietTour" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="TinhThanh">
           <Key>
@@ -643,8 +641,8 @@
           <NavigationProperty Name="BookTour" Relationship="Self.FK_Ticket_Order" FromRole="Ve" ToRole="BookTour" />
           <NavigationProperty Name="LoaiVe" Relationship="Self.FK_Ticket_TypeTicket" FromRole="Ve" ToRole="LoaiVe" />
         </EntityType>
-        <Association Name="FK_DonHang_NhanVien">
-          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+        <Association Name="FK_BookTour_KhachHang">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
           <End Role="BookTour" Type="Self.BookTour" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhachHang">
@@ -842,7 +840,6 @@
           <EntitySet Name="NhanViens" EntityType="Self.NhanVien" />
           <EntitySet Name="PhanHois" EntityType="Self.PhanHoi" />
           <EntitySet Name="PhuongTiens" EntityType="Self.PhuongTien" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TinhThanhs" EntityType="Self.TinhThanh" />
           <EntitySet Name="Tours" EntityType="Self.Tour" />
           <EntitySet Name="Ves" EntityType="Self.Ve" />
@@ -912,9 +909,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TouristModel1StoreContainer" CdmEntityContainer="TouristEntities1">
+        <EntityContainerMapping StorageEntityContainer="TouristModelStoreContainer" CdmEntityContainer="TouristEntities1">
           <EntitySetMapping Name="BookTours">
-            <EntityTypeMapping TypeName="TouristModel1.BookTour">
+            <EntityTypeMapping TypeName="TouristModel.BookTour">
               <MappingFragment StoreEntitySet="BookTour">
                 <ScalarProperty Name="MaDH" ColumnName="MaDH" />
                 <ScalarProperty Name="MaNVLap" ColumnName="MaNVLap" />
@@ -929,7 +926,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ChiTietTours">
-            <EntityTypeMapping TypeName="TouristModel1.ChiTietTour">
+            <EntityTypeMapping TypeName="TouristModel.ChiTietTour">
               <MappingFragment StoreEntitySet="ChiTietTour">
                 <ScalarProperty Name="MaCTT" ColumnName="MaCTT" />
                 <ScalarProperty Name="STT" ColumnName="STT" />
@@ -942,7 +939,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ChucVus">
-            <EntityTypeMapping TypeName="TouristModel1.ChucVu">
+            <EntityTypeMapping TypeName="TouristModel.ChucVu">
               <MappingFragment StoreEntitySet="ChucVu">
                 <ScalarProperty Name="MaCV" ColumnName="MaCV" />
                 <ScalarProperty Name="TenCV" ColumnName="TenCV" />
@@ -950,7 +947,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DiaDiemThamQuans">
-            <EntityTypeMapping TypeName="TouristModel1.DiaDiemThamQuan">
+            <EntityTypeMapping TypeName="TouristModel.DiaDiemThamQuan">
               <MappingFragment StoreEntitySet="DiaDiemThamQuan">
                 <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />
                 <ScalarProperty Name="MaDDTQ" ColumnName="MaDDTQ" />
@@ -962,7 +959,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Hotels">
-            <EntityTypeMapping TypeName="TouristModel1.Hotel">
+            <EntityTypeMapping TypeName="TouristModel.Hotel">
               <MappingFragment StoreEntitySet="Hotel">
                 <ScalarProperty Name="MaKS" ColumnName="MaKS" />
                 <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />
@@ -972,7 +969,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KhachHangs">
-            <EntityTypeMapping TypeName="TouristModel1.KhachHang">
+            <EntityTypeMapping TypeName="TouristModel.KhachHang">
               <MappingFragment StoreEntitySet="KhachHang">
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
                 <ScalarProperty Name="SDT" ColumnName="SDT" />
@@ -989,7 +986,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiKHs">
-            <EntityTypeMapping TypeName="TouristModel1.LoaiKH">
+            <EntityTypeMapping TypeName="TouristModel.LoaiKH">
               <MappingFragment StoreEntitySet="LoaiKH">
                 <ScalarProperty Name="MaLoaiKH" ColumnName="MaLoaiKH" />
                 <ScalarProperty Name="TenLoaiKH" ColumnName="TenLoaiKH" />
@@ -997,7 +994,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiTours">
-            <EntityTypeMapping TypeName="TouristModel1.LoaiTour">
+            <EntityTypeMapping TypeName="TouristModel.LoaiTour">
               <MappingFragment StoreEntitySet="LoaiTour">
                 <ScalarProperty Name="MaLTour" ColumnName="MaLTour" />
                 <ScalarProperty Name="TenLTour" ColumnName="TenLTour" />
@@ -1006,7 +1003,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiVes">
-            <EntityTypeMapping TypeName="TouristModel1.LoaiVe">
+            <EntityTypeMapping TypeName="TouristModel.LoaiVe">
               <MappingFragment StoreEntitySet="LoaiVe">
                 <ScalarProperty Name="MaLoaiVe" ColumnName="MaLoaiVe" />
                 <ScalarProperty Name="TenLVe" ColumnName="TenLVe" />
@@ -1015,7 +1012,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NhanViens">
-            <EntityTypeMapping TypeName="TouristModel1.NhanVien">
+            <EntityTypeMapping TypeName="TouristModel.NhanVien">
               <MappingFragment StoreEntitySet="NhanVien">
                 <ScalarProperty Name="MaNV" ColumnName="MaNV" />
                 <ScalarProperty Name="MaCV" ColumnName="MaCV" />
@@ -1032,7 +1029,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PhanHois">
-            <EntityTypeMapping TypeName="TouristModel1.PhanHoi">
+            <EntityTypeMapping TypeName="TouristModel.PhanHoi">
               <MappingFragment StoreEntitySet="PhanHoi">
                 <ScalarProperty Name="MaPhanHoi" ColumnName="MaPhanHoi" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
@@ -1045,7 +1042,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PhuongTiens">
-            <EntityTypeMapping TypeName="TouristModel1.PhuongTien">
+            <EntityTypeMapping TypeName="TouristModel.PhuongTien">
               <MappingFragment StoreEntitySet="PhuongTien">
                 <ScalarProperty Name="MaPTien" ColumnName="MaPTien" />
                 <ScalarProperty Name="TenPTien" ColumnName="TenPTien" />
@@ -1054,19 +1051,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="TouristModel1.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TinhThanhs">
-            <EntityTypeMapping TypeName="TouristModel1.TinhThanh">
+            <EntityTypeMapping TypeName="TouristModel.TinhThanh">
               <MappingFragment StoreEntitySet="TinhThanh">
                 <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />
                 <ScalarProperty Name="TenTinh" ColumnName="TenTinh" />
@@ -1074,7 +1060,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tours">
-            <EntityTypeMapping TypeName="TouristModel1.Tour">
+            <EntityTypeMapping TypeName="TouristModel.Tour">
               <MappingFragment StoreEntitySet="Tour">
                 <ScalarProperty Name="MaTour" ColumnName="MaTour" />
                 <ScalarProperty Name="MaLTour" ColumnName="MaLTour" />
@@ -1095,7 +1081,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Ves">
-            <EntityTypeMapping TypeName="TouristModel1.Ve">
+            <EntityTypeMapping TypeName="TouristModel.Ve">
               <MappingFragment StoreEntitySet="Ve">
                 <ScalarProperty Name="MaVe" ColumnName="MaVe" />
                 <ScalarProperty Name="MaDH" ColumnName="MaDH" />

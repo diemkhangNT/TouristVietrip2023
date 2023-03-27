@@ -77,8 +77,8 @@
 
     </div>
     <div>
-        @Html.ActionLink("Back to List", "ListDeTailTour", new RouteValueDictionary(
-                        new { controller = "Tourmanager", action = "ListDetailTour", Id = ViewBag.idtours }), new { @class ="btn btn-success"})
+        @Html.ActionLink("Back to List", "ListDetailTour", new RouteValueDictionary(
+                        new { controller = "Tourmanager", action = "ListDetailTour", id = Session["tempdata"] }), new { @class ="btn btn-success"})
     </div>
 </div>
 <script>
