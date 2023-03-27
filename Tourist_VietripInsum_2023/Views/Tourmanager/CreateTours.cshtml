@@ -7,6 +7,8 @@
     ViewBag.qlt = "active";
     TouristEntities1 db = new TouristEntities1();
     var tinhthanh = db.TinhThanhs.ToList();
+    var ks = db.Hotels.ToList();
+    var mindate = DateTime.Now;
 }
 <style type="text/css">
     fieldset {
@@ -15,14 +17,13 @@
         padding-right: 0px;
         padding-bottom: 10px;
         padding-left: 0px;
-        margin-left:30px;
+        margin-left: 30px;
     }
 
     legend {
         float: none;
         width: inherit;
     }
-
 </style>
 <div class="tile">
     <h4 class="tile-title"> CREATE NEW TOUR</h4>
@@ -52,7 +53,7 @@
                 <div class="form-group col-md-3 col-sm-6">
                     @Html.LabelFor(model => model.MaLTour, "Type tour", htmlAttributes: new { @class = "control-label col-md-12" })
                     <div class="col-md-12">
-                        @Html.DropDownList("MaLTour", null, htmlAttributes: new { @class = "form-control" })
+                        @*@Html.DropDownList("MaLTour", null, htmlAttributes: new { @class = "form-control" })*@
                         @Html.ValidationMessageFor(model => model.MaLTour, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -60,11 +61,11 @@
                 <div class="form-group col-md-3 col-sm-6">
                     @Html.LabelFor(model => model.Hotel.MaTinh, "Tinh Thanh", htmlAttributes: new { @class = "control-label col-md-12" })
                     <div class="col-md-12">
-                        <select class="form-control" id="" name="">
+                        <select class="form-control" id="myDropdown" name="myDropdown" onchange="getDropDown(this)">
                             @{
                                 foreach (var item in tinhthanh)
                                 {
-                                    <option>@item.TenTinh</option>
+                                    <option value="@item.MaTinh">@item.TenTinh</option>
                                 }
                             }
                         </select>
@@ -72,24 +73,34 @@
                 </div>
                 <div class="form-group col-md-3 col-sm-6">
                     @Html.LabelFor(model => model.MaKS, "MaKS", htmlAttributes: new { @class = "control-label col-md-12" })
-                    <div class="col-md-12">
-                        @Html.DropDownList("MaKS", null, htmlAttributes: new { @class = "form-control" })
-                        @*<select class="form-control" id="MaKS" name="MaKS">
-                                @{
-                                    foreach (var item in ks)
-                                    {
-                                        <option>@item.MaKS</option>
-                                    }
-                                }
-                            </select>*@
-                        @Html.ValidationMessageFor(model => model.MaKS, "", new { @class = "text-danger" })
-                    </div>
+                    @{
+                        if (ViewBag.MaKSforTinh.Count == 0)
+                        {
+                            <p id="removep" class="blue">Vui lòng chọn tỉnh thành</p>
+                        }
+                        else
+                        {
+                            @Html.DropDownList("MaKS", null, htmlAttributes: new { @class = "form-control" })
+                            <!--<div class="form-group col-md-3 col-sm-6">
+                <div class="col-md-12" id="ddhotel">-->
+                            @*style="visibility:hidden"*@
+                            @*@Html.DropDownList("MaKS", null, htmlAttributes: new { @class = "form-control" })*@
+                            <!--<ul class="form-control" id="maks" name="MaKS">
+
+                    </ul>
+                    @Html.ValidationMessageFor(model => model.MaKS, "", new { @class = "text-danger" })
+                </div>
+
+            </div>-->
+                        }<p id="abc" class="text-danger" style="visibility:hidden;">*Mã tỉnh: <input id="tst" name="matinh" class="border-0 text-danger" /> </p>
+
+                    }
                 </div>
                 <div class="form-group col-md-3 col-sm-6">
-                    @Html.LabelFor(model => model.HanChotDatVe, "Due day", htmlAttributes: new { @class = "control-label col-md-12" })
+                    @Html.LabelFor(model => model.SoChoNull, "So cho trong", htmlAttributes: new { @class = "control-label col-md-12" })
                     <div class="col-md-12">
-                        <input class="form-control col-md-12 text-box single-line" data-val="true" data-val-date="The field NgayNhap must be a date." id="HanChotDatVe" name="HanChotDatVe" type="datetime-local" required>
-                        @Html.ValidationMessageFor(model => model.HanChotDatVe, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.SoChoNull, new { htmlAttributes = new { @class = "form-control col-md-12", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.SoChoNull, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
@@ -124,7 +135,7 @@
                         <div class="form-group col-md-12">
                             @Html.LabelFor(model => model.NgayKhoihanh, htmlAttributes: new { @class = "control-label col-md-12" })
                             <div class="col-md-12">
-                                <input class="form-control text-box single-line col-md-12" data-val="true" data-val-date="The field NgayNhap must be a date." id="NgayKhoiHanh" name="NgayKhoiHanh" type="datetime-local" required>
+                                <input class="form-control text-box single-line col-md-12 datepicker" data-val="true" data-val-date="The field NgayNhap must be a date." id="NgayKhoiHanh" name="NgayKhoiHanh" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss tt")"  required>
 
                                 @Html.ValidationMessageFor(model => model.NgayKhoihanh, "", new { @class = "text-danger" })
                             </div>
@@ -139,17 +150,18 @@
                             </div>
                         </div>
                     </fieldset>
-                   <div class="col-md-1" style="margin-right:45px;"></div>
+                    <div class="col-md-1" style="margin-right:45px;"></div>
                     <fieldset class="col-md-5 col-sm-12 border rounded-3 p-3">
                         <legend class="float-none w-auto px-3 text-muted">Thong tin gia ve</legend>
+                        
                         <div class="form-group col-md-12">
-                            @Html.LabelFor(model => model.SoChoNull, "So cho trong", htmlAttributes: new { @class = "control-label col-md-12" })
+                            @Html.LabelFor(model => model.HanChotDatVe, "Due day (*)", htmlAttributes: new { @class = "control-label col-md-12" })
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.SoChoNull, new { htmlAttributes = new { @class = "form-control col-md-12", required = "required" } })
-                                @Html.ValidationMessageFor(model => model.SoChoNull, "", new { @class = "text-danger" })
+
+                                <input class="form-control col-md-12 text-box single-line datepicker" data-val="true" id="HanChotDatVe" name="HanChotDatVe" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
+                                @Html.ValidationMessageFor(model => model.HanChotDatVe, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group col-md-12">
                             @Html.LabelFor(model => model.GiaTreEm, htmlAttributes: new { @class = "control-label col-md-12" })
                             <div class="col-md-12">
@@ -180,7 +192,10 @@
         </form>
     </div>
 </div>
-
+<div>
+</div>
+<div>(*) Format date: "MM/dd/yyyy hh:mm tt"</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     ImagerTour.onchange = evt => {
         const [file] = ImagerTour.files
@@ -189,6 +204,26 @@
             document.getElementById("preview").style.visibility = "visible";
         }
     }
-</script>
 
+    function getDropDown(ddl) {
+        var element = document.getElementById("removep");
+        element.classList.remove("blue");
+        var selectedValue = $(ddl).val();
+        matinh = selectedValue;
+        document.getElementById("abc").style.visibility = 'visible';
+        document.getElementById("removep").style.visibility = 'hidden';
+
+        $('#tst').val(selectedValue);
+        console.log(matinh);
+        $.ajax({
+            url: '/Tourmanager/GetValue',
+            type: 'GET',
+            data: { value: matinh },
+            success: function (result) {
+                // xử lý kết quả trả về từ Controller
+                console.log(result);
+            }
+        });
+    }
+</script>
 

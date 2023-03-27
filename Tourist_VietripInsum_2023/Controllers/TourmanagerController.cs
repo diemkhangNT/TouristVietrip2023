@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Windows.Controls;
 using Tourist_VietripInsum_2023.App_Start;
 using Tourist_VietripInsum_2023.Models;
 
@@ -487,9 +488,37 @@ namespace Tourist_VietripInsum_2023.Controllers
             ViewBag.MaKS = new SelectList(db.Hotels, "MaKS", "TenKS");
             ViewBag.MaTinh = new SelectList(db.Hotels, "MaTinh", "TenTinh");
             ViewBag.MaLTour = new SelectList(db.LoaiTours, "MaLTour", "TenLTour");
+            List<int> a = new List<int>();
+            ViewBag.MaKSforTinh = a;
+            DateTime today = DateTime.Today;
+            // Set giá trị nhỏ nhất của datepicker là ngày hôm nay
+            
+            DatePicker datePicker = new DatePicker();
+            //datePicker.SetValue()= today;
             return View();
         }
-
+        
+        [HttpGet]
+        public ActionResult GetValue(string value)
+        {
+            List<string> abc = new List<string>();
+            ViewBag.Value = value;
+            var matinh = value;
+            foreach (var item in db.Hotels.ToList())
+            {
+                if (item.MaTinh == matinh)
+                {
+                    abc.Add(item.TenKS);
+                }
+            }
+            ViewBag.MaKSforTinh = abc;
+            return View("CreateTours");
+        }
+        public ActionResult GetTotal()
+        {
+            string s = ViewBag.Value;
+            return Content(s);
+        }
         public void LuuImage(Tour t, HttpPostedFileBase ImagerTour)
         {
             #region Hình ảnh
@@ -530,12 +559,13 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateTours(Tour tour, HttpPostedFileBase ImagerTour)
+        public ActionResult CreateTours(Tour tour, HttpPostedFileBase ImagerTour, string value)
         {
             if (!ModelState.IsValid)
             {
                 return View(tour);
             }
+            ViewBag.matinh = value;
             LuuImage(tour, ImagerTour);
             Random rd = new Random();
             var idtour = "VNG" + rd.Next(1, 100000);
