@@ -131,6 +131,33 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(tour);
         }
 
+        public ActionResult LienHeGuest()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult LienHeGuest(PhanHoi phanHoi)
+        {
+            if (ModelState.IsValid)
+            {
+                Random rd = new Random();
+                var idPH = "PHKH" + rd.Next(1, 1000);
+                phanHoi.MaPhanHoi = idPH;
+
+                phanHoi.NgayPH = DateTime.Now;
+                phanHoi.TrangThai = false;
+                db.PhanHois.Add(phanHoi);
+                TempData["thongbao"] = "taothanhcong";
+                db.SaveChanges();
+            }
+            else
+            {
+                return View();
+
+            }
+            return RedirectToAction("HomePageGuest");
+           
+        }
         //Anh Hau
         public ActionResult LienHe()
         {

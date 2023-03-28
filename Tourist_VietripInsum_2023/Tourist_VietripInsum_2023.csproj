@@ -529,6 +529,7 @@
     <Content Include="Views\OrderProcessing\OrderingInfo.cshtml" />
     <Content Include="Views\OrderProcessing\Profile.cshtml" />
     <Content Include="Views\OrderProcessing\TicketEdit.cshtml" />
+    <Content Include="Views\Guest\LienHeGuest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

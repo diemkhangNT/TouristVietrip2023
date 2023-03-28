@@ -6,10 +6,27 @@
 
     TouristEntities1 db = new TouristEntities1();
     List<Tour> tours = db.Tours.ToList();
-    
+
 }
 
 <link href="~/Content/Guest/homepageGuest.css" rel="stylesheet" />
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@{
+    var data = TempData["thongbao"];
+    if (data == "taothanhcong")
+    {
+        <script>
+            swal("Good job!", "Bạn đã gửi phản hồi cho SaiGonTravel", "success");
+        </script>
+    }
+
+
+
+}
+
+
 
 @*CAROUSEL*@
 <div id="demo" class="carousel slide" data-bs-ride="carousel">
@@ -56,7 +73,7 @@
                     <span style="color: white;">Về chúng tôi</span>
                     <i class="bi bi-chevron-right"></i>
                 </a>
-                <a href="~/Guest/LienHe" target="#" class="btn btn-outline-success">
+                <a href="~/Guest/LienHeGuest" target="#" class="btn btn-outline-success">
                     <span>Liên hệ</span>
                     <i class="bi bi-chevron-right"></i>
                 </a>
@@ -140,12 +157,12 @@
 
 
                                     <div class="tour-item_btntour">
-                                        <div class="btn-book">
-                                            <a href="#" class="btn-order btn-sm " title="" value="" id="">
-                                                <i class="fas fa-shopping-cart"></i>
-                                                Đặt chổ
-                                            </a>
-                                        </div>
+                                        @*<div class="btn-book">
+                                                <a href="#" class="btn-order btn-sm " title="" value="" id="">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                                    Đặt chổ
+                                                </a>
+                                            </div>*@
                                         <div class="btn-block">
                                             <a href="/Guest/Tourinfomation/@item.MaTour" title="" class="btn-viewdetail">
                                                 Xem chi tiết
@@ -189,7 +206,7 @@
             ĐỊA ĐIỂM NỔI BẬT
         </h1>
         @Html.Action("DiaDiemTour", "Guest")
-       
+
     </div>
 
 
