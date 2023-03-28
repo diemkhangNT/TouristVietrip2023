@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.PhanHoi>
+
+@{
+    ViewBag.Title = "FeedBack";
+    Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
+    ViewBag.Name = "Feedback Page";
+    ViewBag.PhanHoi = "active";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="tile">
+            <h3 class="tile-title" style="text-align: center;">FEEDBACK</h3>
+            <div class="tile-body">
+                <table class="table">
+                    <thead style="background-color: #ffd43b;">
+                        <tr>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Email</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Content</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Options</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model.Count() == 0)
+                        {
+                            <tr>
+                                <td colspan="8" class="text-center"> Records not found </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NoiDung)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.KhachHang.MaLoaiKH)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.MaPhanHoi }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.MaPhanHoi }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.MaPhanHoi })
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

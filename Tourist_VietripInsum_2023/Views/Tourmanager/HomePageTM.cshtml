@@ -54,6 +54,35 @@
     </div>
 
     <div class="row">
+        <!--Thông tin kho và số sản phẩm sắp hết hàng-->
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <!-- col-6 -->
+                <div class="col-lg-6 col-xs-12">
+                    <a class="widget-small danger coloured-icon @ViewBag.qlk" href="#">
+                        <i class='icon bx bxs-purchase-tag-alt fa-3x'></i>
+                        <div class="info">
+                            <h4>Địa điểm tham quan</h4>
+                            <p><b>Có @TempData["tongDD"] Địa điểm tham quan</b></p>
+                            <p class="info-tong">Địa điểm tham quan được quản lý</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- col-6 -->
+                <div class="col-lg-6 col-xs-12">
+                    <a class="widget-small primary coloured-icon @ViewBag.hh" href="#">
+                        <i class='icon bx bxs-user-badge fa-3x'></i>
+                        <div class="info">
+                            <h4>Tỉnh thành</h4>
+                            <p><b>Tổng @TempData["tongTinh"] tỉnh thành</b></p>
+                            <p class="info-tong">Tổng số tỉnh thành trong nước</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="tile">
                 <h3 class="tile-title">

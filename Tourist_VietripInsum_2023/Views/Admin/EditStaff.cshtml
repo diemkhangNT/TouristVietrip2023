@@ -15,6 +15,7 @@
         <form class="row" method="post" enctype="multipart/form-data" action="~/Admin/EditStaff">
             @Html.AntiForgeryToken()
             @Html.HiddenFor(model => model.MaNV)
+            @Html.HiddenFor(model => model.HinhDaiDien)
             <div class="imgstaff col-sm-5" style="padding-left:40px;">
                 <div class="col-sm-12" style="text-align: center;">
                     <label class="control-label">Chọn hình ảnh</label>

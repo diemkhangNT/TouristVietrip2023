@@ -37,7 +37,6 @@ namespace Tourist_VietripInsum_2023.Models
         public virtual DbSet<NhanVien> NhanViens { get; set; }
         public virtual DbSet<PhanHoi> PhanHois { get; set; }
         public virtual DbSet<PhuongTien> PhuongTiens { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TinhThanh> TinhThanhs { get; set; }
         public virtual DbSet<Tour> Tours { get; set; }
         public virtual DbSet<Ve> Ves { get; set; }

@@ -1,0 +1,78 @@
+﻿@model Tourist_VietripInsum_2023.Models.BookTour
+
+@{
+    ViewBag.Title = "DeleteOrder";
+    Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
+    ViewBag.Name = "Delete Book Tour";
+    ViewBag.order = "active";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="tile">
+            <h3 class="tile-title">Are you sure you want to delete this?</h3>
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Tour Name
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Tour.TenTour)
+                    </dd>
+
+                    <dt>
+                        Date create
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.NgayLap)
+                    </dd>
+
+                    <dt>
+                        Customer Name
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.KhachHang.HoTenKH) -
+                        @Html.DisplayFor(model => model.SdtKH)
+                    </dd>
+
+                    <dt>
+                        Status
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TrangThaiTT)
+                    </dd>
+
+                    <dt>
+                        Total Price
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TotalPrice)
+                    </dd>
+
+                    <dt>
+                        Number of Seat
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.SoCho)
+                    </dd>
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <a class="btn btn-cancel btn-sm" href="/OrderProcessing/ManageTourOrders">Back</a>
+                        <input type="submit" value="Delete" class="btn btn-default btn-sm" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

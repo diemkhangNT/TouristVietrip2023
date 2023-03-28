@@ -148,7 +148,9 @@
         </div>
 
         <div>
-            @Html.ActionLink("Back to List", "QuanLyTour")
+            <a href="/Tourmanager/QuanLyTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                <i class="fas fc-agenda-view"></i> Trở lại
+            </a>
         </div>
         <div class="modal" id="myModal">
             <div class="modal-dialog">
@@ -192,10 +194,11 @@
                         @Html.DisplayFor(modelItem => item.TieuDe)
                     </h2>
                     <p>Phương tiện di chuyển: @Html.DisplayFor(modelItem => item.PhuongTien.TenPTien)</p>
-                    <h3>@Html.DisplayFor(modelItem => item.MotaChitiet)</h3>
+
                     <p>
                         @Html.DisplayFor(modelItem => item.DiaDiemThamQuan.MoTa)
                     </p>
+                    <h5>@Html.DisplayFor(modelItem => item.MotaChitiet)</h5>
                 </div>
             </div>
 

@@ -5,7 +5,7 @@
     ViewBag.Title = "HotelManager";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
     ViewBag.Name = "Hotel Manager";
-    ViewBag.qlt = "active";
+    ViewBag.hd = "active";
     TouristEntities1 db = new TouristEntities1();
     List<PhuongTien> phuongTiens = db.PhuongTiens.ToList();
 }
@@ -15,7 +15,7 @@
     if (checkdata == "delete-false")
     {
         <script>
-            swal("Warning!","The hotel is being used in the current tour!!!", "warning")
+            swal("Warning!", "The hotel is being used in the current tour!!!", "warning")
         </script>
     }
     else if (checkdata == "delete-true")
@@ -51,7 +51,7 @@
     if (checkdata == "deletetrans-false")
     {
         <script>
-            swal("Warning!","The transport is being used in the current tour!!!", "warning")
+            swal("Warning!", "The transport is being used in the current tour!!!", "warning")
         </script>
     }
     else if (checkdata == "deletetrans-true")
@@ -62,40 +62,70 @@
     }
 
 }
+<style type="text/css">
+    /** {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'Verdana', sans-serif;
+    }
 
-<div class="col-md-12">
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="/Tourmanager/QuanLyTour">Tour</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="/Tourmanager/HotelManager">Hotel - Transport</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/Tourmanager/LocationManager">VisitLocation</a>
-        </li>
+    html, body {
+        height: 100%;
+    }
 
-    </ul>
-</div>
+    body {
+        display: grid;
+        grid-template-rows: 1fr 50px;
+        background: linear-gradient(to bottom, #7927b2, #fb3182);
+        justify-content: center;
+        align-items: center;
+    }*/
+
+    .container {
+        width: 90%;
+        height: 100%;
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 30px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .msg {
+        font-size: 90px;
+        font-weight: bold;
+        background: linear-gradient(to right, #7927b2, #fb3182);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        max-width: 350px;
+        text-transform: uppercase;
+        line-height: .77;
+    }
+
+</style>
 
 <div class="row">
-    <div class="col-md-6 col-sm-12">
-        <div class="tile">
-            <div class="tile-body">
-                <div class="row" style="padding:10px">
-                    <h3 class="tile-title">Danh sách khách sạn</h3>
-                    <div class="col-sm-2 tile-body">
-                        <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateHotel">
-                            Create new hotel
-                        </a>
+    <div class="col-md-8">
+        <div class="col-sm-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="row" style="padding:10px">
+                        <h3 class="tile-title">Danh sách khách sạn nổi bật</h3>
+                        <div class="col-sm-2 tile-body">
+                            <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateHotel">
+                                Thêm mới
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+
                     <div class="row">
                         <div class="col-sm-12">
-                            <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                            <table class="" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid">
                                 <tr style="background-color: #ffd43b;">
-                                    <th>Mã </th>
+                                    <th>Mã</th>
                                     <th>
                                         Tên tỉnh
                                     </th>
@@ -151,9 +181,6 @@
                                                     </div>
                                                 </div>
                                             }
-
-
-
                                         </td>
                                     </tr>
                                 }
@@ -164,125 +191,136 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-6 col-sm-12">
-        <div class="tile">
-            <div class="tile-body">
-                <div class="row" style="padding:10px">
-                    <h3 class="tile-title">Danh sách phương tiện di chuyển</h3>
-                    <div class="col-sm-2">
-                        <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTrans">
-                            Create new transport
-                        </a>
+        <div class="col-sm-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="row" style="padding:10px">
+                        <h3 class="tile-title">Danh sách phương tiện di chuyển</h3>
+                        <div class="col-sm-2">
+                            <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTrans">
+                                Create new transport
+                            </a>
+                        </div>
                     </div>
-                </div>
 
-                <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
-                                <tr style="background-color: #ffd43b;">
-                                    <th>Mã</th>
-                                    <th>
-                                        Tên
-                                    </th>
-                                    <th>
-                                        Hãng xe
-                                    </th>
-                                    <th>
-                                        Lưu ý (nếu có)
-                                    </th>
-                                    <th>Tùy chọn</th>
-                                </tr>
+                    <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="" cellpadding="0" cellspacing="0" border="0" role="grid">
+                                    <tr style="background-color: #ffd43b;">
+                                        <th>Mã</th>
+                                        <th>
+                                            Tên
+                                        </th>
+                                        <th>
+                                            Hãng xe
+                                        </th>
+                                        <th>
+                                            Chi tiết / Lưu ý (nếu có)
+                                        </th>
+                                        <th>Tùy chọn</th>
+                                    </tr>
 
-                                @foreach (var item in phuongTiens)
-                                {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.MaPTien)</td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TenPTien)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.HangXe)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.ChiTiet)
-                                        </td>
-                                        <td style="text-align:center">
-                                            <a href="/Tourmanager/EditTrans/@item.MaPTien" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
+                                    @foreach (var item in phuongTiens)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.MaPTien)</td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TenPTien)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.HangXe)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ChiTiet)
+                                            </td>
+                                            <td style="text-align:center">
+                                                <a href="/Tourmanager/EditTrans/@item.MaPTien" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
 
 
-                                            <a class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete" data-target="#DeleteModalTrans-@item.MaPTien" data-toggle="modal">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                            @using (Html.BeginForm("DeleteTrans/" + item.MaPTien, "Tourmanager", FormMethod.Post, null))
-                                            {
-                                                @Html.AntiForgeryToken()
-                                                <div class="modal" tabindex="-1" role="dialog" id="DeleteModalTrans-@item.MaPTien">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Delete Confirmation</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <p>Are you sure you want to delete this TRANSPORT?</p>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                                                <button type="submit" class="btn btn-danger">Yes</button>
+                                                <a class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete" data-target="#DeleteModalTrans-@item.MaPTien" data-toggle="modal">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                                @using (Html.BeginForm("DeleteTrans/" + item.MaPTien, "Tourmanager", FormMethod.Post, null))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <div class="modal" tabindex="-1" role="dialog" id="DeleteModalTrans-@item.MaPTien">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Delete Confirmation</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p>Are you sure you want to delete this TRANSPORT?</p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                                    <button type="submit" class="btn btn-danger">Yes</button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            }
+                                                }
 
 
 
-                                        </td>
-                                    </tr>
-                                }
+                                            </td>
+                                        </tr>
+                                    }
 
-                            </table>
+                                </table>
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-md-4">
+        <div class="container">
+            <p class="msg">
+                info hotel transport.
+            </p>
+        </div>
+    </div>
+    
 
 </div>
 
-<script>
 
-    function OpenDeleteModal() {
-        $("#myModalHotel").modal('show');
+
+
+    <script>
+
+        function OpenDeleteModal() {
+            $("#myModalHotel").modal('show');
 
     }
 
-    function DeleteHotel() {
+        function DeleteHotel() {
         var data = document.getElementById("a").innerHTML;
         alert(data);
         //$.ajax(
         //    {
-        //        type: 'GET',
-        //        url: '/Home/Delete',
-        //        contentType: 'application/json; charset=utf=8',
-        //        data: data,
-        //        success: function (result) {
-        //            $('#modal-delete-content').html(result);
-        //            $('#modal-delete').modal('show');
-        //        },
-        //        error: function (er) {
-        //            alert(er);
-        //        }
-        //    });
-    }
+            //        type: 'GET',
+            //        url: '/Home/Delete',
+            //        contentType: 'application/json; charset=utf=8',
+            //        data: data,
+            //        success: function (result) {
+            //            $('#modal-delete-content').html(result);
+            //            $('#modal-delete').modal('show');
+            //        },
+            //        error: function (er) {
+            //            alert(er);
+            //        }
+            //    });
+        }
 
 </script>
 
