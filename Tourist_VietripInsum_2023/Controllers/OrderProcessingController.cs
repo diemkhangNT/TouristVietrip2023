@@ -10,7 +10,7 @@ using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
-    [AdminAuthorize(idPos = "TM")]
+    [AdminAuthorize(idPos = "OP")]
     public class OrderProcessingController : Controller
     {
         TouristEntities1 db = new TouristEntities1();

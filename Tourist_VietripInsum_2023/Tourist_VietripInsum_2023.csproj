@@ -514,6 +514,21 @@
     <Content Include="Views\Guest\ListTourTinhThanh.cshtml" />
     <Content Include="Views\Guest\ListTour_DiaDiem.cshtml" />
     <Content Include="Views\Guest\Tourinfomation.cshtml" />
+    <Content Include="Views\OrderProcessing\BookTourDetail.cshtml" />
+    <Content Include="Views\OrderProcessing\CheckCusInfo.cshtml" />
+    <Content Include="Views\OrderProcessing\CreateOrder.cshtml" />
+    <Content Include="Views\OrderProcessing\CreateTickets.cshtml" />
+    <Content Include="Views\OrderProcessing\DeleteOrder.cshtml" />
+    <Content Include="Views\OrderProcessing\EditOrder.cshtml" />
+    <Content Include="Views\OrderProcessing\EditOrdering.cshtml" />
+    <Content Include="Views\OrderProcessing\FeedBack.cshtml" />
+    <Content Include="Views\OrderProcessing\HomePageOP.cshtml" />
+    <Content Include="Views\OrderProcessing\LayoutOP\_ViewOP.cshtml" />
+    <Content Include="Views\OrderProcessing\ListOfCustomers.cshtml" />
+    <Content Include="Views\OrderProcessing\ManageTourOrders.cshtml" />
+    <Content Include="Views\OrderProcessing\OrderingInfo.cshtml" />
+    <Content Include="Views\OrderProcessing\Profile.cshtml" />
+    <Content Include="Views\OrderProcessing\TicketEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

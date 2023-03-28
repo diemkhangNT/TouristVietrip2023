@@ -39,7 +39,7 @@
         <ul class="app-nav">
             <img class="app-nav__item" src="~/Content/Images/logo_project.png" width="40px" height="50px;"
                  alt="User Image">
-            <h3 class="app-nav__item justify-content-between">Vietrip Insum</h3>
+            <h3 class="app-nav__item justify-content-between">SaiGon Travel</h3>
         </ul>
 
 
@@ -53,9 +53,9 @@
             <div>
                 <p class="app-sidebar__user-name">
                     <b>
-                        @*@{
+                        @{
                             var user = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Current.Session["user"];
-                            @user.HoTen}*@
+                            @user.HoTen}
                     </b>
                 </p>
                 <p class="app-sidebar__user-designation">You are part of the company!</p>
@@ -66,7 +66,7 @@
             <li>
                 <a class="app-menu__item haha" href="#">
                     <i class='app-menu__icon bx bx-tachometer'></i>
-                    <span class="">TOUR MANAGER</span>
+                    <span class="">ORDER PROCESSING</span>
                 </a>
             </li>
             <li>
@@ -88,7 +88,7 @@
                 </a>
             </li>
             <li>
-                <a class="app-menu__item  @ViewBag.prf" href="~/OrderProcessing/Profile">
+                <a class="app-menu__item  @ViewBag.prf" href="~/OrderProcessing/Profile/@user.MaNV">
                     <i class='app-menu__icon bx bx-id-card'></i> <span class="app-menu__label">Profile</span>
                 </a>
             </li>
