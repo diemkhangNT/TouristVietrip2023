@@ -520,7 +520,6 @@
     <Content Include="Views\OrderProcessing\CreateOrder.cshtml" />
     <Content Include="Views\OrderProcessing\CreateTickets.cshtml" />
     <Content Include="Views\OrderProcessing\DeleteOrder.cshtml" />
-    <Content Include="Views\OrderProcessing\EditOrder.cshtml" />
     <Content Include="Views\OrderProcessing\EditOrdering.cshtml" />
     <Content Include="Views\OrderProcessing\FeedBack.cshtml" />
     <Content Include="Views\OrderProcessing\HomePageOP.cshtml" />
