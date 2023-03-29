@@ -531,6 +531,7 @@
     <Content Include="Views\OrderProcessing\Profile.cshtml" />
     <Content Include="Views\OrderProcessing\TicketEdit.cshtml" />
     <Content Include="Views\Guest\LienHeGuest.cshtml" />
+    <Content Include="Views\Guest\TinTuc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

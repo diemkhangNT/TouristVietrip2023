@@ -100,7 +100,7 @@
                     List<Tour> tours = Model.ToList();
                     var matinh = Session["tentinh"];
                     var tinh = db.TinhThanhs.Where(t => t.MaTinh == matinh).FirstOrDefault();
-
+                    var count = tours.Count();
                 }
                 <div class="col-md-9 col-12 main-content">
                     <div class="pr-tinhthanh">
