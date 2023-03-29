@@ -16,7 +16,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             return View();
         }
-
+        
         private List<DiaDiemThamQuan> Lay_DiaDiem()
         {
             List<DiaDiemThamQuan> diaDiemThamQuans = db.DiaDiemThamQuans.ToList();
@@ -56,15 +56,39 @@ namespace Tourist_VietripInsum_2023.Controllers
 
             List<DiaDiemThamQuan> diadiemtim = Lay_DiaDiem();
 
-            List<TinhThanh> tinhThanhs = new List<TinhThanh>();
+            List<TinhThanh> tinhThanhs = db.TinhThanhs.ToList();
 
-            foreach(var item in diadiemtim)
+            var item = (from s in diadiemtim
+
+                            join a in tinhThanhs on s.MaTinh equals a.MaTinh
+                            group a by a.MaTinh into g
+                            select new
+                            {
+                                MaTinhThanh = g.FirstOrDefault().MaTinh,
+
+                            }).ToList();
+
+            List<TinhThanh> t = new List<TinhThanh>();
+
+            foreach (var i in item)
             {
-                var c = db.TinhThanhs.Where(t => t.MaTinh == item.MaTinh).FirstOrDefault();
-                tinhThanhs.Add(c);
-            }    
+                foreach (var a in tinhThanhs)
+                {
+                    if (i.MaTinhThanh == a.MaTinh)
+                    {
+                        t.Add(a);
+                    }
+                }
+
+            }
+
+            //foreach (var item in diadiemtim)
+            //{
+            //    var c = db.TinhThanhs.Where(t => t.MaTinh == item.MaTinh).FirstOrDefault();
+            //    tinhThanhs.Add(c);
+            //}    
             
-            return PartialView(tinhThanhs);
+            return PartialView(t);
         }
 
         public ActionResult Tourinfomation(string id)
@@ -90,27 +114,41 @@ namespace Tourist_VietripInsum_2023.Controllers
             List<ChiTietTour> ct = db.ChiTietTours.Where(c => c.MaDDTQ == id).ToList();
             foreach (var item in ct)
             {
+                
                 var tourchon = db.Tours.Where(t => t.MaTour == item.MaTour).FirstOrDefault();
-                tour.Add(tourchon);
+                if(tourchon.TrangThai!="Sắp ra mắt")
+                {
+                    tour.Add(tourchon);
+                }    
+                
             }
             return tour;
         }
        
         public ActionResult ListTourTinhThanh(string id)
         {
-            var tinhthanh = db.DiaDiemThamQuans.Where(t => t.MaTinh == id).FirstOrDefault();
-            List<Tour> tour = new List<Tour>();
-            List<DiaDiemThamQuan> diaDiems = db.DiaDiemThamQuans.Where(c => c.MaTinh == id).ToList();
             
+            List<Tour> tour = new List<Tour>();
+            List<DiaDiemThamQuan> diaDiems = db.DiaDiemThamQuans.ToList();
+            List<ChiTietTour> chiTietTours = db.ChiTietTours.ToList();
+            List<Tour> tours = db.Tours.ToList();
+            Session["tentinh"] = id;
+            var tinhthanh = (from s in diaDiems
 
-            foreach (var item in diaDiems)
+                            join a in chiTietTours on s.MaDDTQ equals a.MaDDTQ
+                            where s.MaTinh==id
+                            group a by a.MaTour into g
+                            select new
+                            {
+                                MaTour = g.FirstOrDefault().MaTour,
+
+                            }).ToList();
+            
+            foreach (var item in tinhthanh)
             {
-                List<Tour> t = lay_Tour(item.MaDDTQ);
-                foreach (var a in t)
-                {
-                    
-                    tour.Add(a);
-                }
+                var a = db.Tours.Where(s => s.MaTour == item.MaTour).FirstOrDefault();
+                tour.Add(a);
+                
             }
 
 
@@ -144,10 +182,15 @@ namespace Tourist_VietripInsum_2023.Controllers
                 var idPH = "PHKH" + rd.Next(1, 1000);
                 phanHoi.MaPhanHoi = idPH;
 
+                var kh = db.KhachHangs.Where(k => k.SDT == phanHoi.Sdt).FirstOrDefault();
+                if(kh!=null)
+                {
+                    phanHoi.MaKH = kh.MaKH;
+                }    
                 phanHoi.NgayPH = DateTime.Now;
                 phanHoi.TrangThai = false;
                 db.PhanHois.Add(phanHoi);
-                TempData["thongbao"] = "taothanhcong";
+                TempData["thongbaoLH"] = "taothanhcong";
                 db.SaveChanges();
             }
             else

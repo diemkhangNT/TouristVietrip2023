@@ -5,7 +5,7 @@
     ViewBag.Name = "Homepage Guest";
 
     TouristEntities1 db = new TouristEntities1();
-    List<Tour> tours = db.Tours.ToList();
+   
 
 }
 
@@ -14,7 +14,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @{
-    var data = TempData["thongbao"];
+    var data = TempData["thongbaoLH"];
     if (data == "taothanhcong")
     {
         <script>
@@ -93,10 +93,23 @@
     <div class="container">
         <h3 class="home-page_title mb-4">TOUR NỔI BẬT</h3>
         <!-- <script src="/Content/Default/js/CoutDown/jquery.countdown.min.js"></script> -->
+        @{
+            List<Tour> tournb = db.Tours.Where(t => t.TrangThai == "Tour nổi bật").ToList();
+            List<Tour> tours = new List<Tour>();
+            for(int i=0;i<tournb.Count;i++)
+            {
+                if(i<3)
+                {
+                    tours.Add(tournb[i]);
+                }
+            }
 
+
+        }
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @foreach (var item in tours)
             {
+
                 <div class="col">
                     <div class="card tour-item">
                         <div class="tour-item__image">
@@ -158,11 +171,11 @@
 
                                     <div class="tour-item_btntour">
                                         @*<div class="btn-book">
-                                                <a href="#" class="btn-order btn-sm " title="" value="" id="">
-                                                    <i class="fas fa-shopping-cart"></i>
-                                                    Đặt chổ
-                                                </a>
-                                            </div>*@
+                                            <a href="#" class="btn-order btn-sm " title="" value="" id="">
+                                                <i class="fas fa-shopping-cart"></i>
+                                                Đặt chổ
+                                            </a>
+                                        </div>*@
                                         <div class="btn-block">
                                             <a href="/Guest/Tourinfomation/@item.MaTour" title="" class="btn-viewdetail">
                                                 Xem chi tiết
@@ -188,13 +201,38 @@
                 </div>
             }
 
-
-
-
-
-
-
         </div>
+
+        <div class="btnmoretour">
+            <a href="/">
+               Xem thêm 
+            </a>
+        </div>
+        <style>
+            .btnmoretour{
+                padding-top:30px;
+                text-align:right;
+               
+
+            }
+                .btnmoretour a {
+                    text-decoration: none;
+                    color:white;
+                    padding: 10px;
+                    border-radius: 10px;
+                    background-color: #2d4271;
+                    font-size: 15px;
+                }
+            .btnmoretour i{
+                font-size:14px;
+            }
+                .btnmoretour a :hover {
+                   
+                    color: #2d4271;
+                    background-color: white;
+                
+                }
+        </style>
     </div>
 
 
