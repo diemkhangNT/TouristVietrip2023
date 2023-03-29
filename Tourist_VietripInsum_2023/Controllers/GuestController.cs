@@ -21,27 +21,26 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             List<DiaDiemThamQuan> diaDiemThamQuans = db.DiaDiemThamQuans.ToList();
             List<ChiTietTour> chiTietTours = db.ChiTietTours.ToList();
+            List<Tour> tourChon = db.Tours.Where(n=>n.TrangThai!="Sắp ra mắt").ToList();
 
-            var nhanvien = (from s in diaDiemThamQuans
-
-                            join a in chiTietTours on s.MaDDTQ equals a.MaDDTQ
-                            group s by s.MaDDTQ into g
+            var bangchon = (from diadiem in diaDiemThamQuans
+                            join chitiet in chiTietTours on diadiem.MaDDTQ equals chitiet.MaDDTQ
+                            join tour in tourChon on chitiet.MaTour equals tour.MaTour
+                            group chitiet by chitiet.MaDDTQ into g
                             select new
                             {
                                 MaDD = g.FirstOrDefault().MaDDTQ,
+                                Matour= g.FirstOrDefault().MaTour
 
                             }).ToList();
+
             List<DiaDiemThamQuan> d = new List<DiaDiemThamQuan>();
 
-            foreach (var i in nhanvien)
+            foreach (var i in bangchon)
             {
-                foreach (var item in diaDiemThamQuans)
-                {
-                    if (item.MaDDTQ == i.MaDD)
-                    {
-                        d.Add(item);
-                    }
-                }
+                var item = db.DiaDiemThamQuans.Where(m => m.MaDDTQ == i.MaDD).FirstOrDefault();
+               d.Add(item);
+                   
 
             }
             return d;
@@ -53,42 +52,28 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
         public ActionResult DiaDiemPartial()
         {
+            List<DiaDiemThamQuan> diaDiemThamQuans = db.DiaDiemThamQuans.ToList();
+            List<ChiTietTour> chiTietTours = db.ChiTietTours.ToList();
+            List<Tour> tourChon = db.Tours.Where(n => n.TrangThai != "Sắp ra mắt").ToList();
 
-            List<DiaDiemThamQuan> diadiemtim = Lay_DiaDiem();
-
-            List<TinhThanh> tinhThanhs = db.TinhThanhs.ToList();
-
-            var item = (from s in diadiemtim
-
-                            join a in tinhThanhs on s.MaTinh equals a.MaTinh
-                            group a by a.MaTinh into g
+            var bangtinh = (from diadiem in diaDiemThamQuans
+                            join chitiet in chiTietTours on diadiem.MaDDTQ equals chitiet.MaDDTQ
+                            join tour in tourChon on chitiet.MaTour equals tour.MaTour
+                            group diadiem by diadiem.MaTinh into g
                             select new
                             {
-                                MaTinhThanh = g.FirstOrDefault().MaTinh,
-
+                                MaTinh = g.FirstOrDefault().MaTinh,
                             }).ToList();
 
-            List<TinhThanh> t = new List<TinhThanh>();
+            List<TinhThanh> tinhtour = new List<TinhThanh>();
 
-            foreach (var i in item)
+            foreach (var i in bangtinh)
             {
-                foreach (var a in tinhThanhs)
-                {
-                    if (i.MaTinhThanh == a.MaTinh)
-                    {
-                        t.Add(a);
-                    }
-                }
-
+                var item = db.TinhThanhs.Where(m => m.MaTinh == i.MaTinh).FirstOrDefault();
+                tinhtour.Add(item);
             }
 
-            //foreach (var item in diadiemtim)
-            //{
-            //    var c = db.TinhThanhs.Where(t => t.MaTinh == item.MaTinh).FirstOrDefault();
-            //    tinhThanhs.Add(c);
-            //}    
-            
-            return PartialView(t);
+            return PartialView(tinhtour);
         }
 
         public ActionResult Tourinfomation(string id)
@@ -147,7 +132,11 @@ namespace Tourist_VietripInsum_2023.Controllers
             foreach (var item in tinhthanh)
             {
                 var a = db.Tours.Where(s => s.MaTour == item.MaTour).FirstOrDefault();
-                tour.Add(a);
+                if(a.TrangThai!="Sắp ra mắt")
+                {
+                    tour.Add(a);
+                }    
+                
                 
             }
 
