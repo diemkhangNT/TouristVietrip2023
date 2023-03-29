@@ -576,7 +576,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 Random rd = new Random();
                 var idtour = "VNG" + rd.Next(1, 100000);
                 tour.MaTour = idtour;
-                tour.TrangThai  = "Coming soon...";
+                tour.TrangThai  = "Sắp ra mắt";
                 DateTime startDate = (DateTime)tour.NgayKhoihanh;
                 DateTime endDate = (DateTime)tour.NgayTroVe;
 

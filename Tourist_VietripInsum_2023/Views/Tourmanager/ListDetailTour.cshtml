@@ -32,7 +32,8 @@
                             <thead>
                                 <tr style="background-color: #ffd43b">
                                     <th aria-controls="sampleTable" rowspan="1" colspan="1">STT</th>
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Địa điểm tham quan</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" width="100px">Địa điểm tham quan</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Tỉnh thành</th>
                                     <th aria-controls="sampleTable" rowspan="1" colspan="1">Tiêu đề</th>
                                     <th aria-controls="sampleTable" rowspan="1" colspan="1">Mô tả chi tiết</th>
                                     <th aria-controls="sampleTable" rowspan="1" colspan="1">Phương tiện</th>
@@ -49,13 +50,16 @@
                                     //{
                                 <tr>
                                     @*<td>
-                                        <img height="100" width="100" src="@item.DiaDiemThamQuan.HinhMinhHoa_D" />
-                                    </td>*@
+            <img height="100" width="100" src="@item.DiaDiemThamQuan.HinhMinhHoa_D" />
+        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.STT)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.DiaDiemThamQuan.MaDDTQ)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DiaDiemThamQuan.MaTinh)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.TieuDe)

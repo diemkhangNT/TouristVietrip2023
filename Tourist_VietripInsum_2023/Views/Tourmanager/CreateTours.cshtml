@@ -153,7 +153,7 @@
                         <div class="form-group col-md-12">
                             @Html.LabelFor(model => model.NoiKhoiHanh, htmlAttributes: new { @class = "control-label col-md-12" })
                             <div class="col-md-12">
-                                <select class="form-select col-md-12" name="NoiKhoiHanh" required>
+                                <select class="form-control col-md-12" name="NoiKhoiHanh" required>
                                     <option>TP. Hồ Chí Minh</option>
                                     <option>Hà Nội</option>
                                     <option>Đà Nẵng</option>
@@ -170,16 +170,18 @@
                         <div class="form-group col-md-12">
                             @Html.LabelFor(model => model.NgayKhoihanh, htmlAttributes: new { @class = "control-label col-md-12" })
                             <div class="col-md-12">
-                                <input class="form-control text-box single-line col-md-12 datepicker" data-val="true" data-val-date="The field NgayNhap must be a date." id="NgayKhoiHanh" name="NgayKhoiHanh" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss tt")" required>
+                                <input class="form-control text-box single-line col-md-12 datepicker" data-val="true" data-val-date="The field NgayNhap must be a date." id="NgayKhoiHanh" name="NgayKhoiHanh" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
 
                                 @Html.ValidationMessageFor(model => model.NgayKhoihanh, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group col-md-12">
+
+
                             @Html.LabelFor(model => model.NgayTroVe, htmlAttributes: new { @class = "control-label col-md-12" })
                             <div class="col-md-12">
-                                <input class="form-control text-box single-line col-md-12" data-val="true" data-val-date="The field NgayNhap must be a date." id="NgayTroVe" name="NgayTroVe" type="datetime-local" required>
+                                <input class="form-control text-box single-line col-md-12" data-val="true" data-val-date="The field NgayNhap must be a date." id="NgayTroVe" name="NgayTroVe" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
 
                                 @Html.ValidationMessageFor(model => model.NgayTroVe, "", new { @class = "text-danger" })
                             </div>

@@ -318,7 +318,8 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult ListTour()
         {
-            List<Tour> tour = db.Tours.Where(s => s.TrangThai != "Sắp ra mắt").ToList();
+            List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật").ToList();
+
             return View(tour);
         }
 
