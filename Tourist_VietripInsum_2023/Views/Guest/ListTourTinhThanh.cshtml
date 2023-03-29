@@ -98,12 +98,13 @@
                 <!-- LISTTOUR -->
                 @{
                     List<Tour> tours = Model.ToList();
-                    var count = tours.Count();
+                    var matinh = Session["tentinh"];
+                    var tinh = db.TinhThanhs.Where(t => t.MaTinh == matinh).FirstOrDefault();
+
                 }
                 <div class="col-md-9 col-12 main-content">
                     <div class="pr-tinhthanh">
-                        <h3>Du lịch @Session["tentinh"]</h3>
-                        <hr />
+                        <h3>Du lịch @tinh.TenTinh</h3>
                         @*<p>Chúng tôi tìm thấy <span>@tongtour</span> kết quả</p>*@
                     </div>
                     <div class="listour-search">
@@ -123,7 +124,7 @@
                                             <div class="card tour-item">
                                                 <div class="tour-item__image">
                                                     <a href="/Guest/Tourinfomation/@tour.MaTour" title="#">
-                                                        <img src="https://media.travel.com.vn/LastMinute/lm_230321090123_810144.jpg" class="card-img-top img-fluid" alt="@tour.TenTour">
+                                                        <img src="@tour.HinhMinhHoa_T" class="card-img-top img-fluid" alt="@tour.TenTour">
                                                     </a>
                                                 </div>
                                                 @{
@@ -178,13 +179,13 @@
                                                                 }
                                                             }
                                                             <div class="tour-item_btntour">
-                                                                <div class="btn-book">
+                                                                @*<div class="btn-book">
                                                                     <a href="#" class="btn-order btn-sm " title="" value="" id="">
                                                                         <i class="fas fa-shopping-cart"></i>
                                                                         Đặt ngay
 
                                                                     </a>
-                                                                </div>
+                                                                </div>*@
                                                                 <div class="btn-block">
                                                                     <a href="/Guest/Tourinfomation/@tour.MaTour" title="@tour.TenTour" class="btn-viewdetail">
 

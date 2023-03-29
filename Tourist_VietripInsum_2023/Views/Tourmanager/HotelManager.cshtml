@@ -15,13 +15,13 @@
     if (checkdata == "delete-false")
     {
         <script>
-            swal("Warning!", "The hotel is being used in the current tour!!!", "warning")
+            swal("Warning!", "Khách sạn hiện tại đang có tour sử dụng !!!", "warning")
         </script>
     }
     else if (checkdata == "delete-true")
     {
         <script>
-            swal("Good job!", "You deleted the hotel!", "success");
+            swal("XÓA THÀNH CÔNG!", "Bạn đã xóa thành công khách sạn !", "success");
         </script>
     }
     else if (checkdata == "edit")
@@ -39,7 +39,7 @@
     else if (checkdata == "addtrans")
     {
         <script>
-            swal("Good job!", "You have created transport information!", "success");
+            swal("Good job!", "Bạn đã tạo thành công thông tin phương tiện mới!", "success");
         </script>
     }
     else if (checkdata == "edittrans")
@@ -58,6 +58,12 @@
     {
         <script>
             swal("Good job!", "You deleted the transport!", "success");
+        </script>
+    }
+    else if (checkdata == "taokhachsan")
+    {
+        <script>
+            swal("THÊM KHÁCH SẠN THÀNH CÔNG !!!", "Bạn đã thêm mới khách sạn thành công !", "success");
         </script>
     }
 
@@ -103,8 +109,13 @@
         max-width: 350px;
         text-transform: uppercase;
         line-height: .77;
-    }
 
+        
+    }
+    .title-modal {
+        text-align:center;
+        padding-top:15px;
+    }
 </style>
 
 <div class="row">
@@ -115,9 +126,65 @@
                     <div class="row" style="padding:10px">
                         <h3 class="tile-title">Danh sách khách sạn nổi bật</h3>
                         <div class="col-sm-2 tile-body">
-                            <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateHotel">
+                            <a class="btn btn-outline-success btn-sm " type="button" title="CreateTour" data-toggle="modal" data-target="#HotelModal">
                                 Thêm mới
                             </a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="HotelModal" tabindex="-1" role="dialog" aria-labelledby="HotelModal" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    @using (Html.BeginForm("CreateHotel", "Tourmanager", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="container">
+                                                    @{
+                                                        var newks = db.Hotels.FirstOrDefault();
+                                                    }
+                                                    <div class="form-horizontal">
+                                                        <h5 class="title-modal">THÊM KHÁCH SẠN</h5>
+                                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                        @Html.HiddenFor(model => newks.MaKS)
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => newks.MaTinh, "MaTinh", htmlAttributes: new { @class = "control-label col-md-12" })
+                                                                <div class="col-md-12">
+                                                                    @Html.DropDownList("MaTinh", null, htmlAttributes: new { @class = "form-control col-md-12", @name = "MaTinh" })
+                                                                    @Html.ValidationMessageFor(model => newks.MaTinh, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => newks.TenKS, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                                <div class="col-md-12">
+                                                                    <input name="TenKS" class = "form-control col-md-12" required/>
+                                                                    @*@Html.EditorFor(model => newks.TenKS, new { htmlAttributes = new { @class = "form-control col-md-12" } })*@
+                                                                    @Html.ValidationMessageFor(model => newks.TenKS, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => newks.Sao, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                                <div class="col-md-12">
+                                                                    <input name="Sao" class="form-control col-md-12"  type="number" min="1" max="6" value="1" required/>
+                                                                    @Html.ValidationMessageFor(model => newks.Sao, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a class="btn btn-secondary btn-sm" data-dismiss="modal">Close</a>
+                                                <input type="submit" value="Create Hotel" class="btn btn-success btn-sm" />
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -164,14 +231,9 @@
                                                 <div class="modal" tabindex="-1" role="dialog" id="DeleteModal-@item.MaKS">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Delete Confirmation</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
                                                             <div class="modal-body">
-                                                                <p>Are you sure you want to delete this customer?</p>
+                                                                <h5 class="title-modal">XÁC NHẬN XÓA KHÁCH SẠN </h5>
+                                                                <p>Bạn có xác nhận xóa khách sạn @item.MaKS - @item.TenKS ?</p>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
@@ -191,15 +253,74 @@
                 </div>
             </div>
         </div>
+
+
+        @*PHUONG TIEN*@
         <div class="col-sm-12">
             <div class="tile">
                 <div class="tile-body">
                     <div class="row" style="padding:10px">
                         <h3 class="tile-title">Danh sách phương tiện di chuyển</h3>
                         <div class="col-sm-2">
-                            <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTrans">
-                                Create new transport
+                            <a class="btn btn-outline-success btn-sm " type="button" title="Thêm phương tiện" data-toggle="modal" data-target="#TransModal">
+                                Thêm phương tiện di chuyển
                             </a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="TransModal" tabindex="-1" role="dialog" aria-labelledby="TransModal" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    @using (Html.BeginForm("CreateTrans", "Tourmanager", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="container">
+                                                    @{
+                                                        var trans = db.PhuongTiens.FirstOrDefault();
+                                                    }
+                                                    <div class="form-horizontal">
+                                                        <h5 class="title-modal">THÊM PHƯƠNG TIỆN DI CHUYỂN</h5>
+                                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                        @Html.HiddenFor(model => trans.MaPTien)
+                                                    <div class="row">
+
+
+                                                        <div class="form-group">
+                                                            <p>Tên phương tiện</p>
+                                                            <div class="col-md-12">
+                                                                <input name="TenPTien" class="form-control col-md-12" required />
+                                                                @*@Html.EditorFor(model => newks.TenKS, new { htmlAttributes = new { @class = "form-control col-md-12" } })*@
+                                                                @Html.ValidationMessageFor(model => trans.TenPTien, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <strong>Hãng :</strong>
+                                                            <div class="col-md-12">
+                                                                <input name="HangXe" class="form-control col-md-12" required />
+                                                                @Html.ValidationMessageFor(model => trans.HangXe, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <strong>Chi tiết :</strong>
+                                                            <div class="col-md-12">
+                                                                <textarea rows="5" class="form-control col-md-12" name="Chitiet" required> </textarea>
+                                                                @Html.ValidationMessageFor(model => trans.ChiTiet, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a class="btn btn-secondary btn-sm" data-dismiss="modal">Close</a>
+                                                <input type="submit" value="Create Hotel" class="btn btn-success btn-sm" />
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -256,7 +377,8 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <p>Are you sure you want to delete this TRANSPORT?</p>
+                                                                    <h5 class="title-modal">XÁC NHẬN XÓA PHƯƠNG TIỆN DI CHUYỂN </h5>
+                                                                    <p>Bạn xác nhận xóa @item.TenPTien !?</p>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
@@ -289,38 +411,21 @@
             </p>
         </div>
     </div>
-    
+
 
 </div>
 
 
 
 
-    <script>
+<script>
 
-        function OpenDeleteModal() {
-            $("#myModalHotel").modal('show');
+    function OpenDeleteModal() {
+        $("#myModalHotel").modal('show');
 
     }
 
-        function DeleteHotel() {
-        var data = document.getElementById("a").innerHTML;
-        alert(data);
-        //$.ajax(
-        //    {
-            //        type: 'GET',
-            //        url: '/Home/Delete',
-            //        contentType: 'application/json; charset=utf=8',
-            //        data: data,
-            //        success: function (result) {
-            //            $('#modal-delete-content').html(result);
-            //            $('#modal-delete').modal('show');
-            //        },
-            //        error: function (er) {
-            //            alert(er);
-            //        }
-            //    });
-        }
+   
 
 </script>
 
