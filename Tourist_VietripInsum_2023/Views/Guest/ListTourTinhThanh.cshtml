@@ -98,19 +98,27 @@
                 <!-- LISTTOUR -->
                 @{
                     List<Tour> tours = Model.ToList();
-                    
+                    var count = tours.Count();
                 }
                 <div class="col-md-9 col-12 main-content">
                     <div class="pr-tinhthanh">
                         <h3>Du lịch @Session["tentinh"]</h3>
+                        <hr />
                         @*<p>Chúng tôi tìm thấy <span>@tongtour</span> kết quả</p>*@
                     </div>
                     <div class="listour-search">
 
                         <div class="row row-cols-1 row-cols-md-3 g-4" id="sampleTable">
-                            @foreach (var tour in Model)
+                            @{
+                                if (count == 0)
                                 {
-                                    
+                                    <h3 class="text-center">Không tìm thấy tour</h3>
+                                }
+                                else
+                                {
+                                    foreach (var tour in Model)
+                                    {
+
                                         <div class="col">
                                             <div class="card tour-item">
                                                 <div class="tour-item__image">
@@ -174,14 +182,14 @@
                                                                     <a href="#" class="btn-order btn-sm " title="" value="" id="">
                                                                         <i class="fas fa-shopping-cart"></i>
                                                                         Đặt ngay
-                                                                        
+
                                                                     </a>
                                                                 </div>
                                                                 <div class="btn-block">
                                                                     <a href="/Guest/Tourinfomation/@tour.MaTour" title="@tour.TenTour" class="btn-viewdetail">
-                                                                       
-                                                                            Xem chi tiết
-                                                                        
+
+                                                                        Xem chi tiết
+
                                                                     </a>
                                                                 </div>
                                                             </div>
@@ -200,7 +208,9 @@
                                             </div>
                                         </div>
                                     }
-                                
+
+                                }
+                            }
 
                         </div>
                     </div>
