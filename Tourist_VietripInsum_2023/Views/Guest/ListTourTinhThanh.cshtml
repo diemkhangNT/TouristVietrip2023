@@ -19,6 +19,20 @@
 
                 <div class="col-md-3 col-12 " style="background-color: #EDEBEB">
                     <!-- TIMKIEM -->
+                        <div class="pull-right">
+                            @using (Html.BeginForm("ListTour_DiaDiem", "Guest", FormMethod.Post))
+                            {
+                                //the following are search options
+                                <b>Search Option: </b>
+                                @Html.RadioButton("option", "IDTour") <text>ID tour</text>
+                                @Html.RadioButton("option", "Tourname") <text >Tour name</text>
+                                @Html.RadioButton("option", "TimeTour")<text>ID type tour</text>
+                                @Html.TextBox("search")
+                                <input type="submit"
+                                       name="submit"
+                                       value="Search" />
+                            }
+                        </div>
                 </div>
                 <!-- LISTTOUR -->
                 @{

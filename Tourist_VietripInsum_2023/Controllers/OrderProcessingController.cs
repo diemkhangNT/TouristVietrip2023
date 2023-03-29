@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -115,7 +116,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 {
                     donHang.MaDH = maDH;
                     Session["MaDH"] = donHang.MaDH;
-                    donHang.MaNVLap = "NV178";
+                    donHang.MaNVLap = "ST123";
                     donHang.NgayLap = System.DateTime.Now;
                     donHang.TrangThaiTT = true;
                     donHang.TotalPrice = null;
