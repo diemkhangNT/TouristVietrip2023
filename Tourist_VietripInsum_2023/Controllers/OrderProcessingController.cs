@@ -20,7 +20,8 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             var donhang = db.BookTours.Count();
             TempData["TongDonDat"] = donhang;
-
+            var ph = db.PhanHois.Count();
+            TempData["phanhoi"] = ph;
             var dsDonHangMoi = db.BookTours.OrderByDescending(dhang => dhang.NgayLap).Take(5).ToList();
             return View(dsDonHangMoi);
         }
@@ -40,7 +41,7 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult TourList()
         {
-            List<Tour> listTour = db.Tours.Include(t => t.Hotel).Include(t => t.LoaiTour).ToList();
+            List<Tour> listTour = db.Tours.Include(t => t.LoaiTour).ToList();
             return View(listTour);
         }
 
@@ -219,20 +220,20 @@ namespace Tourist_VietripInsum_2023.Controllers
                         var maVe = "V" + random.Next(1, 1000);
                         ve.MaVe = maVe;
                         ve.MaDH = maDH;
-                        ve.Hoten_KH = Request["HoTenKH_" + 0];
-                        ve.MaLVe = Request["MaLVe_" + 0];
-                        ve.GioiTinh = Request["GioiTinh_" + 0];
-                        ve.NgaySinh = Convert.ToDateTime(Request["NgaySinh_" + 0]);
-                        ve.LuuY = Request["LuuY" + 0];
+                        ve.Hoten_KH = Request["HoTenKH_" + i];
+                        ve.MaLVe = Request["MaLVe_" + i];
+                        ve.GioiTinh = Request["GioiTinh_" + i];
+                        ve.NgaySinh = Convert.ToDateTime(Request["NgaySinh_" + i]);
+                        ve.LuuY = Request["LuuY" + i];
                         db.Ves.Add(ve);
 
                         if (ve.MaLVe == "TICKET01")
                         {
-                            tongtien = tongtien + (double)tour.GiaTreEm;
+                            tongtien = tongtien + (int)tour.GiaNguoiLon;
                         }
                         else if (ve.MaLVe == "TICKET02")
                         {
-                            tongtien = tongtien + (double)tour.GiaNguoiLon;
+                            tongtien = tongtien + (int)tour.GiaTreEm;
                         }
                         db.SaveChanges();
                     }

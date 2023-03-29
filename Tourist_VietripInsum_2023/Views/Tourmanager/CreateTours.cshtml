@@ -64,69 +64,69 @@
             </div>
             <div class="row" style="margin-top:20px;">
                 <div class="form-group col-md-3 col-sm-6">
+                    
+                </div>
+
+                <div class="form-group col-md-3 col-sm-6">
                     @Html.LabelFor(model => model.MaLTour, "Type tour", htmlAttributes: new { @class = "control-label col-md-12" })
                     <div class="col-md-12">
                         @Html.DropDownList("MaLTour", null, htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.MaLTour, "", new { @class = "text-danger" })
                     </div>
-                </div>
-
-                <div class="form-group col-md-3 col-sm-6">
-
-                    <label class="col-md-12 control-label">Mã tỉnh thành</label>
-                    <div class="col-md-12">
-                        <select class="form-control" id="myDropdown" name="myDropdown" onchange="getDropDown(this)">
-                            @{
-                                foreach (var item in tinhthanh)
-                                {
-                                    <option value="@item.MaTinh">@item.TenTinh</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group col-md-3 col-sm-6">
-                    @Html.LabelFor(model => model.MaKS, "MaKS", htmlAttributes: new { @class = "control-label col-md-12" })
-                    @{
-                        <!--if (ViewBag.MaKSforTinh.Count == 0)
-                                {
-                                    <p id="removep" class="blue">Vui lòng chọn tỉnh thành</p>
-                                }
-                                else
-                                {
-                                    <!--<div class="form-group col-md-3 col-sm-6">
-                        <div class="col-md-12" id="ddhotel">-->
-
-                        @*style="visibility:hidden"*@
-                        @*@Html.DropDownList("MaKS", null, htmlAttributes: new { @class = "form-control" })*@
-                        <!--<ul class="form-control" id="maks" name="MaKS">
-
-                                </ul>
-
-                            </div>
-
-                        </div>-->
-                        <p id="removep" class="blue col-md-12">Vui lòng chọn tỉnh thành</p>
-                        <div class="col-md-12" id="ddhotel" style="visibility:hidden">
-                            <select class="form-control" name="MaKS">
-                                @{
-                                    foreach (var item in ks)
-                                    {
-                                        <option value="@item.MaKS">@item.TenKS</option>
-                                    }
-                                }
-                                @Html.ValidationMessageFor(model => model.MaKS, "", new { @class = "text-danger" })
-                            </select>
-                        </div>
+                    @*<label class="col-md-12 control-label">Mã tỉnh thành</label>
+        <div class="col-md-12">
+            <select class="form-control" id="myDropdown" name="myDropdown" onchange="getDropDown(this)">
+                @{
+                    foreach (var item in tinhthanh)
+                    {
+                        <option value="@item.MaTinh">@item.TenTinh</option>
                     }
-                    <p id="abc" class="text-danger col-md-12" style="visibility:hidden;">*Mã tỉnh: <input id="tst" name="matinh" class="border-0 text-danger" /> </p>
+                }
+            </select>
+        </div>*@
                 </div>
                 <div class="form-group col-md-3 col-sm-6">
+                    <!--@Html.LabelFor(model => model.MaKS, "MaKS", htmlAttributes: new { @class = "control-label col-md-12" })
+
+        <!--if (ViewBag.MaKSforTinh.Count == 0)
+                {
+                    <p id="removep" class="blue">Vui lòng chọn tỉnh thành</p>
+                }
+                else
+                {
+                    <!--<div class="form-group col-md-3 col-sm-6">
+        <div class="col-md-12" id="ddhotel">-->
+                    <!--@*style="visibility:hidden"*@
+    @*@Html.DropDownList("MaKS", null, htmlAttributes: new { @class = "form-control" })*@-->
+                    <!--<ul class="form-control" id="maks" name="MaKS">
+
+            </ul>
+
+        </div>
+
+    </div>-->
+                    <!--<p id="removep" class="blue col-md-12">Vui lòng chọn tỉnh thành</p>
+        <div class="col-md-12" id="ddhotel" style="visibility:hidden">
+            <select class="form-control" name="MaKS">
+
+                    foreach (var item in ks)
+                    {
+                        <option value="item.MaKS">item.TenKS</option>
+                    }
+                }
+                Html.ValidationMessageFor(model => model.MaKS, "", new { class = "text-danger" })
+            </select>
+        </div>
+    }
+    <p id="abc" class="text-danger col-md-12" style="visibility:hidden;">*Mã tỉnh: <input id="tst" name="matinh" class="border-0 text-danger" /> </p>-->
                     @Html.LabelFor(model => model.SoChoNull, "So cho trong", htmlAttributes: new { @class = "control-label col-md-12" })
                     <div class="col-md-12">
-                        @Html.EditorFor(model => model.SoChoNull, new { htmlAttributes = new { @class = "form-control col-md-12 "}, required = "required" })
+                        @Html.EditorFor(model => model.SoChoNull, new { htmlAttributes = new { @class = "form-control col-md-12 " }, required = "required" })
                         @Html.ValidationMessageFor(model => model.SoChoNull, "", new { @class = "text-danger" })
                     </div>
+                </div>
+                <div class="form-group col-md-3 col-sm-6">
+                    
                 </div>
 
                 @* /a line *@

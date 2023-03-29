@@ -41,7 +41,6 @@ namespace Tourist_VietripInsum_2023.Models
         public virtual ICollection<BookTour> BookTours { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietTour> ChiTietTours { get; set; }
-        public virtual Hotel Hotel { get; set; }
         public virtual LoaiTour LoaiTour { get; set; }
     }
 }
