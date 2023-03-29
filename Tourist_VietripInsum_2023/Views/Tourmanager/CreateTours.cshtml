@@ -153,7 +153,17 @@
                         <div class="form-group col-md-12">
                             @Html.LabelFor(model => model.NoiKhoiHanh, htmlAttributes: new { @class = "control-label col-md-12" })
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.NoiKhoiHanh, new { htmlAttributes = new { @class = "form-control col-md-12", required = "required" } })
+                                <select class="form-select col-md-12" name="NoiKhoiHanh" required>
+                                    <option>TP. Hồ Chí Minh</option>
+                                    <option>Hà Nội</option>
+                                    <option>Đà Nẵng</option>
+                                    <option>Huế</option>
+                                    <option>Rạch Giá</option>
+                                    <option>Vũng tàu</option>
+                                    <option>Nha Trang</option>
+                                    <option>Cần Thơ</option>
+                                </select>
+                                @*@Html.EditorFor(model => model.NoiKhoiHanh, new { htmlAttributes = new { @class = "form-control col-md-12", required = "required" } })*@
                                 @Html.ValidationMessageFor(model => model.NoiKhoiHanh, "", new { @class = "text-danger" })
                             </div>
                         </div>

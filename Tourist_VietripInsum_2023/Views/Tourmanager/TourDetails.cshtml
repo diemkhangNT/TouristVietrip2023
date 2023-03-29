@@ -67,10 +67,10 @@
                     @Html.DisplayFor(model => model.TrangThai)
                 </div>
 
-                <div class="col-sm-12">
+                @*<div class="col-sm-12">
                     <strong>Mã tỉnh: </strong>
                     @Html.DisplayFor(model => model.Hotel.MaTinh) <span>(</span>@Html.DisplayFor(model => model.Hotel.TinhThanh.TenTinh))
-                </div>
+                </div>*@
                 <div class="col-sm-12">
                     <strong>Mã Khách sạn: </strong>
                     @Html.DisplayFor(model => model.MaKS) <span>(</span>@Html.DisplayFor(model => model.Hotel.TenKS))
@@ -132,10 +132,10 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        $@Html.DisplayFor(model => model.GiaNguoiLon)
+                                        @Html.DisplayFor(model => model.GiaNguoiLon)
                                     </td>
                                     <td>
-                                        $@Html.DisplayFor(model => model.GiaTreEm)
+                                        @Html.DisplayFor(model => model.GiaTreEm)
                                     </td>
 
                                 </tr>

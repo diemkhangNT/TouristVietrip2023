@@ -32,8 +32,8 @@ namespace Tourist_VietripInsum_2023.Models
         public Nullable<int> SoNgay { get; set; }
         public string NoiKhoiHanh { get; set; }
         public Nullable<int> SoChoNull { get; set; }
-        public Nullable<decimal> GiaTreEm { get; set; }
-        public Nullable<decimal> GiaNguoiLon { get; set; }
+        public Nullable<int> GiaTreEm { get; set; }
+        public Nullable<int> GiaNguoiLon { get; set; }
         public string TrangThai { get; set; }
         public Nullable<System.DateTime> HanChotDatVe { get; set; }
     

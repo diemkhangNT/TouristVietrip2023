@@ -157,8 +157,8 @@
           <Property Name="SoNgay" Type="int" />
           <Property Name="NoiKhoiHanh" Type="nvarchar" MaxLength="50" />
           <Property Name="SoChoNull" Type="int" />
-          <Property Name="GiaTreEm" Type="decimal" Precision="9" Scale="2" />
-          <Property Name="GiaNguoiLon" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="GiaTreEm" Type="int" />
+          <Property Name="GiaNguoiLon" Type="int" />
           <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
           <Property Name="HanChotDatVe" Type="datetime" />
         </EntityType>
@@ -618,8 +618,8 @@
           <Property Name="SoNgay" Type="Int32" />
           <Property Name="NoiKhoiHanh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SoChoNull" Type="Int32" />
-          <Property Name="GiaTreEm" Type="Decimal" Precision="9" Scale="2" />
-          <Property Name="GiaNguoiLon" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="GiaTreEm" Type="Int32" />
+          <Property Name="GiaNguoiLon" Type="Int32" />
           <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HanChotDatVe" Type="DateTime" Precision="3" />
           <NavigationProperty Name="BookTours" Relationship="Self.FK_OrderCus_Tour" FromRole="Tour" ToRole="BookTour" />
