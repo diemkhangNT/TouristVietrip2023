@@ -29,125 +29,434 @@
         </script>
     }
 }
-<ul class="nav nav-tabs">
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Tour</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">Tour sắp hết hạn</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">Tour sắp hết chỗ</a>
-    </li>
 
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#home"><h4 class="btn btn-outline-info">List tour</h4></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#menu1"><h5 class="btn btn-outline-success">Tour sắp hết hạn</h5></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#menu2"><h6 class="btn btn-outline-warning">Tour sắp hết chỗ</h6></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#menu3"><h6 class="btn btn-outline-danger">Không còn tiếp nhận</h6></a>
+    </li>
 </ul>
-<div class="row">
-    <div class="col-md-12">
-        <div class="tile">
-            <h2 class="tile-title">DANH SÁCH TOUR</h2>
-            <div class="tile-body">
-                <div class="row element-button" style="padding:10px">
-                    <div class="col-md-12 col-sm-12">
-                        <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTours">
-                            Tạo tour mới
-                        </a>
+<!-- Tab panes -->
+<div class="tab-content">
+    <div id="home" class="tab-pane active">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <h2 class="tile-title">DANH SÁCH TOUR</h2>
+                    <div class="tile-body">
+                        <div class="row element-button" style="padding:10px">
+                            <div class="col-md-12 col-sm-12">
+                                <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTours">
+                                    Tạo tour mới
+                                </a>
 
-                        <a class="btn btn-warning btn-sm " type="button" title="TypeTour" href="~/Tourmanager/IndexLoaiTour">
-                            Loại tour
-                        </a>
-                    </div>
-                    @*<div class="col-md-2"></div>
-                        <div class="col-md-8 ">
-                            <div class="pull-right">
-                                @using (Html.BeginForm("QuanLyTour", "Tourmanager", FormMethod.Post))
-                                {
-                                    //the following are search options
-                                    <b>Search Option: </b>
-                                    @Html.RadioButton("option", "IDTour") <text>ID tour</text>
-                                    @Html.RadioButton("option", "Tourname") <text >Tour name</text>
-                                    @Html.RadioButton("option", "TimeTour")<text>ID type tour</text>
-                                    @Html.TextBox("search")
-                                    <input type="submit"
-                                           name="submit"
-                                           value="Search" />
-                                }
+                                <a class="btn btn-warning btn-sm " type="button" title="TypeTour" href="~/Tourmanager/IndexLoaiTour">
+                                    Loại tour
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 table-responsive">
+                                <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                    @*//Phần render từng dòng trong C#*@
+                                    <thead style="background-color: #ffd43b;">
+                                        <tr>
+
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã tour</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã tỉnh</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Loại tour</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Tên tour</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1" width="200px">Thông tin khởi hành</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Số chỗ trống</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Hạn chót</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Tình trạng</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Chức năng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Count() == 0)
+                                        {
+                                            <tr>
+                                                <td colspan="9" class="text-center"> Không có dữ liệu </td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.MaTour)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Hotel.MaTinh)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.LoaiTour.TenLTour)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.TenTour)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.NgayKhoihanh)
+                                                        <p>Địa điểm: @Html.DisplayFor(modelItem => item.NoiKhoiHanh)</p>
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.SoChoNull)
+                                                    </td>
+                                                    <td>
+                                                        @{
+                                                            var day = String.Format("{0:d/M/yyyy}", item.HanChotDatVe);
+                                                        }
+                                                        @Html.DisplayFor(modelItem => day)
+                                                    </td>
+                                                    <td>
+                                                        @{
+                                                            var homnay = DateTime.Now;
+                                                            TimeSpan han = ((DateTime)item.HanChotDatVe).Subtract(homnay);
+                                                            if ((item.SoChoNull > 0 && item.SoChoNull <= 10)  && (han.Days > 0 && han.Days <= 10))
+                                                            {
+                                                                <span class="badge bg-info-subtle">Sắp hết hạn và hết chỗ</span>
+                                                            }
+                                                            else if (item.SoChoNull > 0 && item.SoChoNull <= 10 && han.Days > 10)
+                                                            {
+                                                                <span class="badge bg-warning">Sắp hết chỗ</span>
+                                                            }
+                                                            else if (han.Days > 0 && han.Days <= 10 && item.SoChoNull > 10)
+                                                            {
+                                                                <span class="badge bg-info">Sắp hết hạn</span>
+                                                            }
+                                                            else if (han.Days <= 0 || item.SoChoNull == 0)
+                                                            {
+                                                                <span class="badge bg-danger">Không tiếp nhận</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="badge bg-success">Đang tiếp nhận</span>
+                                                            }
+
+                                                        }
+                                                    </td>
+                                                    <td style="text-align:center">
+                                                        <a href="/Tourmanager/EditTour/@item.MaTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <a href="/Tourmanager/TourDetails/@item.MaTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
+                                                            <i class="fas fa-train"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
                             </div>
 
-
-                        </div>*@
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 table-responsive">
-                        <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
-                            @*//Phần render từng dòng trong C#*@
-                            <thead style="background-color: #ffd43b;">
-                                <tr>
-
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã tour</th>
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã tỉnh</th>
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Loại tour</th>
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Tên tour</th>
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1" width="200px">Thông tin khởi hành</th>
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Số chỗ trống</th>
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Hạn chót</th>
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Chức năng</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (Model.Count() == 0)
-                                {
-                                    <tr>
-                                        <td colspan="8" class="text-center"> Records not found </td>
-                                    </tr>
-                                }
-                                else
-                                {
-                                    foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.MaTour)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Hotel.MaTinh)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.LoaiTour.TenLTour)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.TenTour)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.NgayKhoihanh)
-                                                <p>Địa điểm: @Html.DisplayFor(modelItem => item.NoiKhoiHanh)</p>
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.SoChoNull)
-                                            </td>
-                                            <td>
-                                                @{
-                                                    var day = String.Format("{0:d/M/yyyy}", item.HanChotDatVe);
-                                                }
-                                                @Html.DisplayFor(modelItem => day)
-                                            </td>
-                                            <td style="text-align:center">
-                                                <a href="/Tourmanager/EditTour/@item.MaTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <a href="/Tourmanager/TourDetails/@item.MaTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
-                                                    <i class="fas fa-train"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    }
-                                }
-                            </tbody>
-                        </table>
+                        </div>
                     </div>
 
                 </div>
             </div>
+        </div>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <h2 class="tile-title">DANH SÁCH TOUR SẮP ĐẾN HẠN</h2>
+                    <div class="tile-body">
+                        <div class="row element-button" style="padding:10px">
+                            <div class="col-md-12 col-sm-12">
+                                <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTours">
+                                    Tạo tour mới
+                                </a>
 
+                                <a class="btn btn-warning btn-sm " type="button" title="TypeTour" href="~/Tourmanager/IndexLoaiTour">
+                                    Loại tour
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 table-responsive">
+                                <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                    @*//Phần render từng dòng trong C#*@
+                                    <thead style="background-color: #ffd43b;">
+                                        <tr>
+
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã tour</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã tỉnh</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Loại tour</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Tên tour</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1" width="200px">Thông tin khởi hành</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Số chỗ trống</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Hạn chót</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Chức năng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Count() == 0)
+                                        {
+                                            <tr>
+                                                <td colspan="8" class="text-center"> Không có dữ liệu </td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            foreach (var item in Model)
+                                            {
+                                                var homnay = DateTime.Now;
+                                                TimeSpan han = ((DateTime)item.HanChotDatVe).Subtract(homnay);
+                                                if (han.Days > 0 && han.Days <= 10 && item.SoChoNull > 10)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.MaTour)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Hotel.MaTinh)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.LoaiTour.TenLTour)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.TenTour)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.NgayKhoihanh)
+                                                            <p>Địa điểm: @Html.DisplayFor(modelItem => item.NoiKhoiHanh)</p>
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.SoChoNull)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.HanChotDatVe)
+                                                            <p>Số ngày còn lại: @han.Days</p>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <a href="/Tourmanager/EditTour/@item.MaTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                            <a href="/Tourmanager/TourDetails/@item.MaTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
+                                                                <i class="fas fa-train"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <h2 class="tile-title">DANH SÁCH TOUR SẮP HẾT CHỖ</h2>
+                    <div class="tile-body">
+                        <div class="row element-button" style="padding:10px">
+                            <div class="col-md-12 col-sm-12">
+                                <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTours">
+                                    Tạo tour mới
+                                </a>
+
+                                <a class="btn btn-warning btn-sm " type="button" title="TypeTour" href="~/Tourmanager/IndexLoaiTour">
+                                    Loại tour
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 table-responsive">
+                                <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                    @*//Phần render từng dòng trong C#*@
+                                    <thead style="background-color: #ffd43b;">
+                                        <tr>
+
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã tour</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã tỉnh</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Loại tour</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Tên tour</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1" width="200px">Thông tin khởi hành</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Số chỗ trống</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Hạn chót</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Chức năng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Count() == 0)
+                                        {
+                                            <tr>
+                                                <td colspan="8" class="text-center"> Không có dữ liệu </td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            foreach (var item in Model)
+                                            {
+                                                var homnay = DateTime.Now;
+                                                TimeSpan han = ((DateTime)item.HanChotDatVe).Subtract(homnay);
+                                                if (item.SoChoNull > 0 && item.SoChoNull <= 10 && han.Days > 10)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.MaTour)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Hotel.MaTinh)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.LoaiTour.TenLTour)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.TenTour)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.NgayKhoihanh)
+                                                            <p>Địa điểm: @Html.DisplayFor(modelItem => item.NoiKhoiHanh)</p>
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.SoChoNull)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.HanChotDatVe)
+                                                            <p>Số ngày còn lại: @han.Days</p>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <a href="/Tourmanager/EditTour/@item.MaTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                            <a href="/Tourmanager/TourDetails/@item.MaTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
+                                                                <i class="fas fa-train"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <h2 class="tile-title">DANH SÁCH TOUR KHÔNG CÒN TIẾP NHẬN</h2>
+                    <div class="tile-body">
+                        <div class="row element-button" style="padding:10px">
+                            <div class="col-md-12 col-sm-12">
+                                <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTours">
+                                    Tạo tour mới
+                                </a>
+
+                                <a class="btn btn-warning btn-sm " type="button" title="TypeTour" href="~/Tourmanager/IndexLoaiTour">
+                                    Loại tour
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 table-responsive">
+                                <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                    @*//Phần render từng dòng trong C#*@
+                                    <thead style="background-color: #ffd43b;">
+                                        <tr>
+
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã tour</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã tỉnh</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Loại tour</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Tên tour</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1" width="200px">Thông tin khởi hành</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Số chỗ trống</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Hạn chót</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Chức năng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Count() == 0)
+                                        {
+                                            <tr>
+                                                <td colspan="8" class="text-center"> Không có dữ liệu </td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            foreach (var item in Model)
+                                            {
+                                                var homnay = DateTime.Now;
+                                                TimeSpan han = ((DateTime)item.HanChotDatVe).Subtract(homnay);
+                                                if (han.Days <= 0 || item.SoChoNull == 0)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.MaTour)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Hotel.MaTinh)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.LoaiTour.TenLTour)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.TenTour)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.NgayKhoihanh)
+                                                            <p>Địa điểm: @Html.DisplayFor(modelItem => item.NoiKhoiHanh)</p>
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.SoChoNull)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.HanChotDatVe)
+                                                            <p>Số ngày còn lại: @han.Days</p>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <a href="/Tourmanager/EditTour/@item.MaTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                            <a href="/Tourmanager/TourDetails/@item.MaTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
+                                                                <i class="fas fa-train"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>

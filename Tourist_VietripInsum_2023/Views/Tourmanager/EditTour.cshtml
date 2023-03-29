@@ -97,12 +97,12 @@
                     </div>
                 </div>
                 <div class="form-group col-sm-12">
-                    <p><strong>Tour nổi bật: </strong></p>
+                    <p><strong>Trạng thái hiển thị: </strong></p>
                     <div class="col-sm-12">
                         <select class="form-control col-sm-12" id="TrangThai" name="Trangthai">
-                            <option>Comming soon...</option>
-                            <option>Expiration soon</option>
-                            <option>Outstanding</option>
+                            <option>Sắp ra mắt</option>
+                            <option>Tour nổi bật</option>
+                            <option>Đang diễn ra</option>
                         </select>
                         @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
                     </div>

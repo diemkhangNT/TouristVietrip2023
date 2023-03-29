@@ -117,6 +117,24 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(tour);
         }
 
+        [HttpPost]
+        public ActionResult ListTourTinhThanh(string option, string search)
+        {
+            //if a user choose the radio button option as Subject  
+            if (option == "IDTour")
+            {
+                //Index action method will return a view with a student records based on what a user specify the value in textbox  
+                return View(db.Tours.Where(x => x.MaTour.StartsWith(search) || search == null).ToList());
+            }
+            else if (option == "Tourname")
+            {
+                return View(db.Tours.Where(x => x.TenTour.StartsWith(search) || search == null).ToList());
+            }
+            else
+            {
+                return View(db.Tours.Where(x => x.SoChoNull.Equals(search) || search == null).ToList());
+            }
+        }
 
 
 
@@ -129,6 +147,51 @@ namespace Tourist_VietripInsum_2023.Controllers
             
             Session["tendiadiem"] = iddiadiem.TenDDTQ;
             return View(tour);
+        }
+        [HttpPost]
+        public ActionResult ListTour_DiaDiem(string trangthai, string noikhoihanh, string songay, DateTime ngaykhoihanh, string songuoi, int? songaybd, int? songaykt, int? songuoibd)
+        {
+            //Xử lý số ngày, số người, ngày khơi hành
+            if(songay == "1 - 3 ngày")
+            {
+                songaybd = 1;
+                songaykt = 3; 
+            }else if(songay == "4 - 7 ngày")
+            {
+                songaybd = 4;
+                songaykt = 7;
+            }
+            else if (songay == "8 - 10 ngày")
+            {
+                songaybd = 8;
+                songaykt = 10;
+            }
+            else if (songay == "10+ ngày")
+            {
+                songaybd = 10;
+                songaykt = 100;
+            }
+            //--------------------
+            if (songuoi == "1 người")
+            {
+                songuoibd = 1;
+            }
+            else if (songay == "2 - 3 người")
+            {
+                songuoibd = 2;
+            }
+            else if (songuoi == "3 - 5 người")
+            {
+                songuoibd = 3;
+            }
+            else if (songay == "5+ người")
+            {
+                songuoibd = 5;
+            }
+            //ngaykhoihanh = String.Format("{0:d/M/yyyy}", tour.NgayKhoihanh);
+            DateTime.Now.ToString("yyyy-MM-dd");
+            var tours = db.Tours.Where(s => s.TrangThai == trangthai && s.NoiKhoiHanh == noikhoihanh && (s.SoNgay >= songaybd && s.SoNgay <= songaykt) && s.NgayKhoihanh == ngaykhoihanh.Date && s.SoChoNull >= songuoibd);
+            return View(tours.ToList());
         }
 
         public ActionResult LienHeGuest()
