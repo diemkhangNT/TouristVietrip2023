@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
@@ -82,7 +83,8 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tour tour = db.Tours.Where(s => s.MaTour == id).FirstOrDefault();       
+            Tour tour = db.Tours.Where(s => s.MaTour == id).FirstOrDefault();
+            Session["Matourchon"] = id;
             if (tour == null)
             {
                 return HttpNotFound();
@@ -282,6 +284,45 @@ namespace Tourist_VietripInsum_2023.Controllers
             return RedirectToAction("HomePageGuest");
            
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //[Bind(Include = "Email,Sdt,NoiDung")]
+        public ActionResult LienHeTour(PhanHoi phanHoi,string Email,string Sdt,string NoiDung)
+        {
+            
+                Random rd = new Random();
+                var idPH = "PHKH" + rd.Next(1, 1000);
+                phanHoi.MaPhanHoi = idPH;
+            phanHoi.Sdt = Sdt;
+            phanHoi.Email = Email;
+            phanHoi.NoiDung = NoiDung;
+                var kh = db.KhachHangs.Where(k => k.SDT == phanHoi.Sdt).FirstOrDefault();
+                if (kh != null)
+                {
+                    phanHoi.MaKH = kh.MaKH;
+                }
+                phanHoi.NgayPH = DateTime.Now;
+                phanHoi.TrangThai = false;
+                db.PhanHois.Add(phanHoi);
+                TempData["thongbaoLH"] = "taothanhcong";
+                db.SaveChanges();
+           
+
+            
+            var idt = Session["Matourchon"];
+            return RedirectToAction("HomePageGuest");
+
+        }
+
+        public ActionResult ListTour()
+        {
+            List<Tour> tour = db.Tours.Where(s => s.TrangThai != "Sắp ra mắt").ToList();
+            return View(tour);
+        }
+
+
         //Anh Hau
         public ActionResult LienHe()
         {

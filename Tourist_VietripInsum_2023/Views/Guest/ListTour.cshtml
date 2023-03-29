@@ -6,7 +6,7 @@
     ViewBag.Title = "List Tour";
     Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
     TouristEntities1 db = new TouristEntities1();
-    
+
     List<DiaDiemThamQuan> diaDiems = db.DiaDiemThamQuans.ToList();
 }
 
@@ -20,33 +20,43 @@
 
                 <div class="col-md-3 col-12" style="background-color: #EDEBEB">
                     <!-- TIMKIEM -->
-                    @using (Html.BeginForm("ListTour_DiaDiem", "Guest", FormMethod.Post))
+                    @*<div class="pull-right">
+                            @using (Html.BeginForm("QuanLyTour", "Tourmanager", FormMethod.Post))
+                            {
+                                //the following are search options
+                                <b>Search Option: </b>
+                                @Html.RadioButton("option", "IDTour") <text>ID tour</text>
+                                @Html.RadioButton("option", "Tourname") <text >Tour name</text>
+                                @Html.RadioButton("option", "TimeTour")<text>ID type tour</text>
+                                @Html.TextBox("search")
+                                <input type="submit"
+                                       name="submit"
+                                       value="Search" />
+                            }
+                        </div>*@
+                    @using (Html.BeginForm("ListTour", "Guest", FormMethod.Post))
                     {
                         <div class="">
                             <h5 class="m-3 text-dark text-center">Bộ lọc tìm kiếm</h5>
                             <div>
                                 <div class="bg-success py-2 text-center">
-                                    <span class="text-white fw-bold">@Session["tendiadiem"]</span>
+                                    <span class="text-white fw-bold">TOUR HIỆN HÀNH</span>
                                 </div>
                                 <div class="py-4">
                                     <div class="mb-4">
                                         <h5 class="point-start-title s-title">Loại tour</h5>
                                         <select class="form-select" name="trangthai">
-                                            <option>Tour giờ chót</option>
+                                            <option selected>Tour nổi bật</option>
+                                            <option>Sắp ra mắt</option>
                                             <option>Đang diễn ra</option>
                                         </select>
                                     </div>
                                     <div class="start-to-stop mb-3">
                                         <h5 class="point-start-title s-title">Nơi khởi hành</h5>
                                         <select class="form-select" id="departureIDFilter" name="noikhoihanh">
-                                            <option>TP. Hồ Chí Minh</option>
+                                            <option>Tp Hồ Chí Minh</option>
                                             <option>Hà Nội</option>
-                                            <option>Đà Nẵng</option>
-                                            <option>Huế</option>
-                                            <option>Rạch Giá</option>
-                                            <option>Vũng tàu</option>
-                                            <option>Nha Trang</option>
-                                            <option>Cần Thơ</option>
+                                            <option>Cà Đà Nẵng</option>
                                         </select>
                                     </div>
                                     <div class=" mb-4 row">
@@ -65,7 +75,7 @@
                                         </div>
                                     </div>
                                     <h5 class="date-go-to-back-title s-title">Ngày đi</h5>
-                                    <input class="form-control col-md-12 text-box single-line datepicker" data-val="true" name="ngaykhoihanh" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")">
+                                    <input class="form-control col-md-12 text-box single-line datepicker" data-val="true" name="ngaykhoihanh" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
                                     <p id="alternate1"></p>
                                     <p id="alternate4"></p>
                                     <div class="tour-search-result__filter__block mb-4">
@@ -76,13 +86,13 @@
                                                     <label><input type="radio" name="songuoi" value="1 người" checked> 1 người</label>
                                                 </div>
                                                 <div class="radio col-6">
-                                                    <label><input type="radio" name="songuoi" value="2 - 3 người" > 2 - 3 người</label>
+                                                    <label><input type="radio" name="songuoi" value="2 - 3 người"> 2 - 3 người</label>
                                                 </div>
                                                 <div class="radio col-6">
-                                                    <label><input type="radio" name="songuoi" value="3 - 5 người" > 3 - 5 người</label>
+                                                    <label><input type="radio" name="songuoi" value="3 - 5 người"> 3 - 5 người</label>
                                                 </div>
                                                 <div class="radio col-6">
-                                                    <label><input type="radio" name="songuoi" value="5+ người" > 5+ người</label>
+                                                    <label><input type="radio" name="songuoi" value="5+ người"> 5+ người</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -90,66 +100,60 @@
                                     <div class="text-center">
                                         <input class="btn btn-outline-success py2" type="submit" name="submit" value="Tìm kiếm" />
                                     </div>
-                                        </div>
                                 </div>
+                            </div>
                         </div>
                     }
                 </div>
                 <!-- LISTTOUR -->
                 @{
                     List<Tour> tours = Model.ToList();
-                    int count = tours.Count();
+
                 }
                 <div class="col-md-9 col-12 main-content">
                     <div class="pr-tinhthanh">
-                        <h3>Du lịch @Session["tendiadiem"]</h3>
+                        <h3>Du lịch hiện hành</h3>
                         <hr />
                         @*<p>Chúng tôi tìm thấy <span>@tongtour</span> kết quả</p>*@
                     </div>
                     <div class="listour-search">
 
                         <div class="row row-cols-1 row-cols-md-3 g-4" id="sampleTable">
-                            @{
-                                if (count == 0)
-                                {
-                                    <h3 class="text-center">Không tìm thấy tour</h3>
-                                }
-                                else
-                                {
-                                    foreach (var tour in Model)
-                                    {
-                                        <div class="col">
-                                            <div class="card tour-item">
-                                                <div class="tour-item__image">
-                                                    <a href="/Guest/Tourinfomation/@tour.MaTour" title="#">
-                                                        <img src="@tour.HinhMinhHoa_T" class="card-img-top img-fluid" alt="@tour.TenTour">
-                                                    </a>
-                                                </div>
-                                                @{
-                                                    var ngaykhoihanh = String.Format("{0:d/M/yyyy}", tour.NgayKhoihanh);
-                                                    var ngayhethan = String.Format("{0:d/M/yyyy}", tour.HanChotDatVe);
-                                                }
-                                                <div class="card-body p-3">
-                                                    <p class="tour-item_date mb-1">@ngaykhoihanh - @tour.SoNgay ngày</p>
-                                                    <p class="card-text tour-item_title mb-1">
-                                                        <a href="/Guest/Tourinfomation/@tour.MaTour" title="@tour.TenTour ">
-                                                            @tour.TenTour
-                                                        </a>
-                                                    </p>
-                                                    <div class="tour-item_code">
-                                                        Mã tour:<span> @tour.MaTour</span>
-                                                    </div>
-                                                    <p class="tour-item_departure">
-                                                        Nơi khởi hành: <span>
-                                                            @tour.NoiKhoiHanh
-                                                        </span>
-                                                    </p>
-                                                    @{
-                                                        var tien = string.Format("{0:#,##0}", tour.GiaNguoiLon);
-                                                        var loaitour = db.LoaiTours.Where(s => s.MaLTour == tour.MaLTour).FirstOrDefault();
-                                                        var pricesale = (double)tour.GiaNguoiLon * (1 - loaitour.ChietKhau);
-                                                        var tiengiamgia = string.Format("{0:#,##0}", pricesale);
-                                                        var ck = loaitour.ChietKhau * 100;
+                            @foreach (var tour in Model)
+                            {
+
+                                <div class="col">
+                                    <div class="card tour-item">
+                                        <div class="tour-item__image">
+                                            <a href="/Guest/Tourinfomation/@tour.MaTour" title="#">
+                                                <img src="@tour.HinhMinhHoa_T" class="card-img-top img-fluid" alt="@tour.TenTour">
+                                            </a>
+                                        </div>
+                                        @{
+                                            var ngaykhoihanh = String.Format("{0:d/M/yyyy}", tour.NgayKhoihanh);
+                                            var ngayhethan = String.Format("{0:d/M/yyyy}", tour.HanChotDatVe);
+                                        }
+                                        <div class="card-body p-3">
+                                            <p class="tour-item_date mb-1">@ngaykhoihanh - @tour.SoNgay ngày</p>
+                                            <p class="card-text tour-item_title mb-1">
+                                                <a href="/Guest/Tourinfomation/@tour.MaTour" title="@tour.TenTour ">
+                                                    @tour.TenTour
+                                                </a>
+                                            </p>
+                                            <div class="tour-item_code">
+                                                Mã tour:<span> @tour.MaTour</span>
+                                            </div>
+                                            <p class="tour-item_departure">
+                                                Nơi khởi hành: <span>
+                                                    @tour.NoiKhoiHanh
+                                                </span>
+                                            </p>
+                                            @{
+                                                var tien = string.Format("{0:#,##0}", tour.GiaNguoiLon);
+                                                var loaitour = db.LoaiTours.Where(s => s.MaLTour == tour.MaLTour).FirstOrDefault();
+                                                var pricesale = (double)tour.GiaNguoiLon * (1 - loaitour.ChietKhau);
+                                                var tiengiamgia = string.Format("{0:#,##0}", pricesale);
+                                                var ck = loaitour.ChietKhau * 100;
 
 
                                             }
@@ -177,8 +181,18 @@
                                                         }
                                                     }
 
-
-
+                                                    <!-- TINH THOI GIAN -->
+                                                    <!-- <div class="tour-item__price__timer py-2">
+    <span id="countDownDayNDSGN560-014-240323XE-V">Còn 00 ngày 21:39:50</span>
+        <script type="text/javascript">
+                    jQuery(document).ready(function ($) {
+                        var newYear = '2023' + '/' + '03' + '/' + '22' + ' ' + '12' + ':' + '01' + ':' + '23';
+                        $('#countDownDayNDSGN560-014-240323XE-V').countdown(newYear, function (event) {
+                            $(this).html(event.strftime('C&#242;n %D ng&#224;y %H:%M:%S'));
+                        });
+                    })
+        </script>
+    </div> -->
                                                     <div class="tour-item_btntour">
                                                         @*<div class="btn-book">
                 <a href="#" class="btn-order btn-sm " title="" value="" id="">
@@ -210,10 +224,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            }
-
-
-                                }
                             }
 
 
