@@ -8,7 +8,20 @@
 
 }
 <link href="~/Content/Guest/DetailTours.css" rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+@{
+    var data = TempData["thongbaoLH"];
+    if (data == "taothanhcong")
+    {
+        <script>
+            swal("Good job!", "Bạn đã gửi phản hồi cho SaiGonTravel", "success");
+        </script>
+    }
+
+
+
+}
 <div class="detailtour col-sm-12">
 
     <section class="content-1">
@@ -49,9 +62,9 @@
                     </div>
                     <div class="group-add-cart ">
                         @*<a href="#" class="add-to-cart pull-right " onclick="" data-toggle="modal" data-target="#selectOptionTour">
-            <i class="fas fa-shopping-cart"></i>
-            <label>Đặt ngay</label>
-        </a>*@
+                                <i class="fas fa-shopping-cart"></i>
+                                <label>Đặt ngay</label>
+                            </a>*@
                         <a href="#" data-toggle="modal" data-target="#exampleModal" class="add-to-group pull-right">
                             <label>Liên hệ tư vấn</label>
                         </a>
@@ -60,6 +73,7 @@
                                 background-color: #2d4271;
                                 color: white;
                             }
+
                             .hero-text {
                                 background-color: white;
                                 padding: 20px;
@@ -71,17 +85,18 @@
                                     padding-top: 10px;
                                     font-weight: 600;
                                 }
-                            .modal-body{
-                                text-align:right;
+
+                            .modal-body {
+                                text-align: right;
                             }
-                           
                         </style>
                         <!-- Modal -->
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
-                                @using (Html.BeginForm("LienHeGuest", "Guest", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                @using (Html.BeginForm("LienHeTour", "Guest", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
+                                    @Html.AntiForgeryToken()
                                     <div class="modal-content">
                                         <div class="modal-body">
                                             <div class="hero-text">
@@ -89,7 +104,7 @@
                                                     var phanhoi = db.PhanHois.FirstOrDefault();
                                                 }
 
-                                                @Html.AntiForgeryToken()
+
                                                 <div class="form-horizontal" style="color: #2d4271;text-align:left">
 
                                                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -100,7 +115,7 @@
 
                                                     <h4> SaiGon Travel - Liên hệ chúng tôi </h4>
                                                     <strong> Hỗ trợ khách hàng </strong>
-                                                    <div class=" form-lienhe">
+                                                    <div class="form-lienhe">
                                                         <div class="row">
                                                             <div class="col-sm-12">
                                                                 <span class="hoten"> Họ và Tên : </span>
@@ -124,7 +139,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                               
+
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -132,8 +147,8 @@
                                             <input type="submit" value="Thêm phản hồi" class="btn btn-success btn-sm" />
                                         </div>
                                     </div>
-                                                    }
-                                </div>
+                                }
+                            </div>
                         </div>
                     </div>
 
@@ -166,7 +181,7 @@
                                     List<ChiTietTour> chiTietTours = db.ChiTietTours.Where(c => c.MaTour == Model.MaTour).ToList();
                                     List<DiaDiemThamQuan> diaDiemThamQuans = new List<DiaDiemThamQuan>();
 
-                                    foreach(var ctiet in chiTietTours)
+                                    foreach (var ctiet in chiTietTours)
                                     {
                                         var dd = db.DiaDiemThamQuans.Where(s => s.MaDDTQ == ctiet.MaDDTQ).FirstOrDefault();
                                         diaDiemThamQuans.Add(dd);
@@ -181,14 +196,14 @@
 
                                 <div class="col-6">
                                     <div class="image">
-                                        <img src="@hinh1" class="img-fluid" alt="image" >
+                                        <img src="@hinh1" class="img-fluid" alt="image">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 big">
                             <div class="image">
-                                <img src="@hinh2" class="img-fluid" alt="image" >
+                                <img src="@hinh2" class="img-fluid" alt="image">
                             </div>
                         </div>
                     </div>
@@ -232,12 +247,22 @@
                                     Số chỗ còn nhận: <b>4</b>
                                 </p>
                             </div>
-                            @*<div class="calendar">
-                                <div class="calendar-box">
-                                    <i class="icon icon--calendar"></i>
-                                    <label><a href="#"> Ngày khác</a></label>
-                                </div>
-                            </div>*@
+                            <div class="calendar">
+                                <a href="/Guest/ListTour" class="btn btn-success btn-sm">
+                                    Tour khác
+                                    <i class="fa fa-calendar"></i>
+                                </a>
+                            </div>
+                            <style>
+                                .calendar a {
+                                    text-decoration: none;
+                                    padding: 5px;
+                                }
+
+                                    .calendar a i {
+                                        padding-left: 5px;
+                                    }
+                            </style>
                         </div>
 
                     </div>
@@ -249,7 +274,7 @@
                                 <p>@Model.SoNgay Ngày</p>
                             </div>
                             @{
-                                var diadiem = db.ChiTietTours.Where(s => s.MaTour == Model.MaTour).OrderBy(s=>s.STT).ToList();
+                                var diadiem = db.ChiTietTours.Where(s => s.MaTour == Model.MaTour).OrderBy(s => s.STT).ToList();
 
                                 var diemthamquan = 0;
 
@@ -264,12 +289,12 @@
                                 }
                             }
                             @*<div class="item">
-                                <i class="fas fa-bus"></i>
-                                <label>Phương tiện di chuyển</label>
-                                <p>
-                                    @diemthamquan
-                                </p>
-                            </div>*@
+                                    <i class="fas fa-bus"></i>
+                                    <label>Phương tiện di chuyển</label>
+                                    <p>
+                                        @diemthamquan
+                                    </p>
+                                </div>*@
 
                             <div class="item">
                                 <i class="fas fa-map"></i>
@@ -360,12 +385,12 @@
                                         </p>
                                     </div>
                                     <!--<div class="group-services hashCode d-none">-->
-                                        @*<div class="item">
-                                                <i class="icon icon--calendar"></i>
-                                                <label>Khách sạn</label>
-                                                <p>VinOasis Phú Quốc</p>
-                                            </div>*@
-                                        <!--<div class="item">
+                                    @*<div class="item">
+                                            <i class="icon icon--calendar"></i>
+                                            <label>Khách sạn</label>
+                                            <p>VinOasis Phú Quốc</p>
+                                        </div>*@
+                                    <!--<div class="item">
                                             <i class="icon icon--fire"></i>
                                             <label>Bữa ăn</label>
                                             <p>1 bửa trưa, 1 bửa tối.</p>
@@ -382,7 +407,7 @@
                             <div>
 
                                 <strong style="text-align: center;padding-left:10px;">***KẾT THÚC CHƯƠNG TRÌNH – TẠM BIỆT QUÝ KHÁCH***</strong>
-                                
+
 
                                 <h2 style="text-align:justify;padding-left: 10px;"><span style="color:#e74c3c"><strong>Lưu ý:</strong></span></h2>
                                 <ul>
@@ -421,13 +446,16 @@
                                         <th scope="row">2</th>
                                         <td>Trẻ em (Từ 5 - 11 tuổi)</td>
                                         <td>@tiente đ</td>
-                                        <td>0</td>
+                                        <td>0 đ</td>
                                     </tr>
+                                    @{
+                                        var tiennho = string.Format("{0:#,##0}", Model.GiaTreEm / 2);
+                                    }
                                     <tr>
                                         <th scope="row">3</th>
                                         <td>Trẻ nhỏ (Từ 2 - 4 tuổi)</td>
-                                        <td>3,000,000 đ</td>
-                                        <td>0</td>
+                                        <td>@tiennho</td>
+                                        <td>0 đ</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">4</th>
@@ -436,11 +464,11 @@
                                         <td>0đ</td>
                                     </tr>
                                     @*<tr>
-                                        <th scope="row">4</th>
-                                        <td>Phụ thu phòng đơn</td>
-                                        <td>0đ</td>
-                                        <td>0đ</td>
-                                    </tr>*@
+                                            <th scope="row">4</th>
+                                            <td>Phụ thu phòng đơn</td>
+                                            <td>0đ</td>
+                                            <td>0đ</td>
+                                        </tr>*@
                                 </tbody>
                             </table>
 

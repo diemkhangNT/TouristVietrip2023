@@ -6,7 +6,7 @@
     ViewBag.Title = "List Tour";
     Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
     TouristEntities1 db = new TouristEntities1();
-    
+
     List<DiaDiemThamQuan> diaDiems = db.DiaDiemThamQuans.ToList();
 }
 
@@ -21,26 +21,26 @@
                 <div class="col-md-3 col-12" style="background-color: #EDEBEB">
                     <!-- TIMKIEM -->
                     @*<div class="pull-right">
-            @using (Html.BeginForm("QuanLyTour", "Tourmanager", FormMethod.Post))
-            {
-                //the following are search options
-                <b>Search Option: </b>
-                @Html.RadioButton("option", "IDTour") <text>ID tour</text>
-                @Html.RadioButton("option", "Tourname") <text >Tour name</text>
-                @Html.RadioButton("option", "TimeTour")<text>ID type tour</text>
-                @Html.TextBox("search")
-                <input type="submit"
-                       name="submit"
-                       value="Search" />
-            }
-        </div>*@
-                    @using (Html.BeginForm("ListTour_DiaDiem", "Guest", FormMethod.Post))
+                            @using (Html.BeginForm("QuanLyTour", "Tourmanager", FormMethod.Post))
+                            {
+                                //the following are search options
+                                <b>Search Option: </b>
+                                @Html.RadioButton("option", "IDTour") <text>ID tour</text>
+                                @Html.RadioButton("option", "Tourname") <text >Tour name</text>
+                                @Html.RadioButton("option", "TimeTour")<text>ID type tour</text>
+                                @Html.TextBox("search")
+                                <input type="submit"
+                                       name="submit"
+                                       value="Search" />
+                            }
+                        </div>*@
+                    @using (Html.BeginForm("ListTour", "Guest", FormMethod.Post))
                     {
                         <div class="">
                             <h5 class="m-3 text-dark text-center">Bộ lọc tìm kiếm</h5>
                             <div>
                                 <div class="bg-success py-2 text-center">
-                                    <span class="text-white fw-bold">@Session["tendiadiem"]</span>
+                                    <span class="text-white fw-bold">TOUR HIỆN HÀNH</span>
                                 </div>
                                 <div class="py-4">
                                     <div class="mb-4">
@@ -86,13 +86,13 @@
                                                     <label><input type="radio" name="songuoi" value="1 người" checked> 1 người</label>
                                                 </div>
                                                 <div class="radio col-6">
-                                                    <label><input type="radio" name="songuoi" value="2 - 3 người" > 2 - 3 người</label>
+                                                    <label><input type="radio" name="songuoi" value="2 - 3 người"> 2 - 3 người</label>
                                                 </div>
                                                 <div class="radio col-6">
-                                                    <label><input type="radio" name="songuoi" value="3 - 5 người" > 3 - 5 người</label>
+                                                    <label><input type="radio" name="songuoi" value="3 - 5 người"> 3 - 5 người</label>
                                                 </div>
                                                 <div class="radio col-6">
-                                                    <label><input type="radio" name="songuoi" value="5+ người" > 5+ người</label>
+                                                    <label><input type="radio" name="songuoi" value="5+ người"> 5+ người</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -100,8 +100,8 @@
                                     <div class="text-center">
                                         <input class="btn btn-outline-success py2" type="submit" name="submit" value="Tìm kiếm" />
                                     </div>
-                                        </div>
                                 </div>
+                            </div>
                         </div>
                     }
                 </div>
@@ -112,7 +112,7 @@
                 }
                 <div class="col-md-9 col-12 main-content">
                     <div class="pr-tinhthanh">
-                        <h3>Du lịch @Session["tendiadiem"]</h3>
+                        <h3>Du lịch hiện hành</h3>
                         <hr />
                         @*<p>Chúng tôi tìm thấy <span>@tongtour</span> kết quả</p>*@
                     </div>
@@ -181,8 +181,18 @@
                                                         }
                                                     }
 
-
-
+                                                    <!-- TINH THOI GIAN -->
+                                                    <!-- <div class="tour-item__price__timer py-2">
+    <span id="countDownDayNDSGN560-014-240323XE-V">Còn 00 ngày 21:39:50</span>
+        <script type="text/javascript">
+                    jQuery(document).ready(function ($) {
+                        var newYear = '2023' + '/' + '03' + '/' + '22' + ' ' + '12' + ':' + '01' + ':' + '23';
+                        $('#countDownDayNDSGN560-014-240323XE-V').countdown(newYear, function (event) {
+                            $(this).html(event.strftime('C&#242;n %D ng&#224;y %H:%M:%S'));
+                        });
+                    })
+        </script>
+    </div> -->
                                                     <div class="tour-item_btntour">
                                                         @*<div class="btn-book">
                 <a href="#" class="btn-order btn-sm " title="" value="" id="">
