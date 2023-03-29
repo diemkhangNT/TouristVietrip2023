@@ -37,6 +37,12 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
         }
 
+        public ActionResult TourList()
+        {
+            List<Tour> listTour = db.Tours.Include(t => t.Hotel).Include(t => t.LoaiTour).ToList();
+            return View(listTour);
+        }
+
         public ActionResult ListOfCustomers(string search)
         {
             if (search == null)
@@ -79,18 +85,51 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             Random random = new Random();
             var idCus = "GS" + random.Next(1, 1000);
-            
+
+            var checkMail = db.KhachHangs.FirstOrDefault(s => s.Email == khachHang.Email);
+           
+            if (checkMail != null)
+            {
+                ModelState.AddModelError(string.Empty, "Đã có email trong hệ thống !!!");
+            }
+
             if (ModelState.IsValid)
             {
-                khachHang.MaKH = idCus;
-                khachHang.MaLoaiKH = null;
-                khachHang.Username = null;
-                khachHang.UserPassword = null;
-                khachHang.HinhDaiDien = null;
-                db.KhachHangs.Add(khachHang);
-                db.SaveChanges();
+                if (string.IsNullOrEmpty(khachHang.HoTenKH) == true ||
+                    khachHang.NgaySinh == null ||
+                    string.IsNullOrEmpty(khachHang.DiaChi) == true ||
+                    string.IsNullOrEmpty(khachHang.Email) == true)
+                {
+                    TempData["trong"] = "Vui lòng nhập đầy đủ thông tin";
+                    return View();
+                } 
+                else
+                {
+                    khachHang.MaKH = idCus;
+                    khachHang.MaLoaiKH = null;
+                    khachHang.Username = null;
+                    khachHang.UserPassword = null;
+                    khachHang.HinhDaiDien = null;
+                    db.KhachHangs.Add(khachHang);
+                    db.SaveChanges();
+                }
             }
             return RedirectToAction("CreateOrder");
+        }
+
+        public JsonResult CheckEmailAvailability(string mail)
+        {
+            System.Threading.Thread.Sleep(200);
+
+            var mailCus = db.KhachHangs.Where(x => x.Email == mail).SingleOrDefault();
+            if (mailCus != null)
+            {
+                return Json(1);
+            }
+            else
+            {
+                return Json(0);
+            }
         }
 
         [HttpGet]
@@ -104,18 +143,25 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             Random random = new Random();
             var maDH = "DH" + random.Next(1, 1000);
+            var user = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Session["user"];
             if (ModelState.IsValid)
             {
-                if (donHang.SoCho < 1)
+                if (donHang.SoCho < 1 || donHang.SoCho == null)
                 {
                     TempData["ErrorSoCho"] = "Số chỗ phải lớn hơn 1!!!";
+                    return RedirectToAction("CreateOrder");
+                }
+                var tour = db.Tours.Find(donHang.MaTour);
+                if (donHang.SoCho > tour.SoChoNull)
+                {
+                    TempData["ErrorSoChoMax"] = "Số chỗ vượt quá số chỗ còn trống";
                     return RedirectToAction("CreateOrder");
                 }
                 else
                 {
                     donHang.MaDH = maDH;
                     Session["MaDH"] = donHang.MaDH;
-                    donHang.MaNVLap = "NV178";
+                    donHang.MaNVLap = user.MaNV;
                     donHang.NgayLap = System.DateTime.Now;
                     donHang.TrangThaiTT = true;
                     donHang.TotalPrice = null;
@@ -125,6 +171,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                     
                     donHang.SdtKH = sdt;
                     donHang.MaKH = info.MaKH;
+
                     db.BookTours.Add(donHang);
                     db.SaveChanges();
                     Session["SoCho"] = donHang.SoCho;
@@ -142,9 +189,10 @@ namespace Tourist_VietripInsum_2023.Controllers
         [HttpPost]
         public ActionResult CreateTickets(Ve ve)
         {
-            var infoCus = Session["SDT"].ToString();
+            var maDH = Session["MaDH"].ToString();
 
-            var booking = db.BookTours.FirstOrDefault(s => s.SdtKH == infoCus);
+            //Tìm kiếm tour
+            var booking = db.BookTours.FirstOrDefault(s => s.MaDH == maDH);
             var tour = db.Tours.FirstOrDefault(s => s.MaTour == booking.MaTour);
 
             Random random = new Random();
@@ -153,35 +201,49 @@ namespace Tourist_VietripInsum_2023.Controllers
             double tongtien = 0;
             if (ModelState.IsValid)
             {
+                //Tạo vé theo số lượng khách đặt
                 for (int i = 0; i < socho; i++)
                 {
-                    ve = new Ve();
-                    var maVe = "V" + random.Next(1, 1000);
-                    ve.MaVe = maVe;
-                    ve.MaDH = Session["MaDH"].ToString();
-                    ve.Hoten_KH = Request["HoTenKH_" + i];
-                    ve.MaLVe = Request["MaLVe_" + i];
-                    //ve.MaLVe = "TICKET01";
-                    ve.GioiTinh = Request["GioiTinh_" + i];
-                    ve.NgaySinh = Convert.ToDateTime(Request["NgaySinh_" + i]);
-                    ve.LuuY = Request["LuuY" + i];
-                    db.Ves.Add(ve);
-
-                    if (ve.MaLVe == "TICKET01")
+                    if (string.IsNullOrEmpty(Request["HoTenKH_" + i]) == true ||
+                        string.IsNullOrEmpty(Request["GioiTinh_" + i]) == true ||
+                        string.IsNullOrEmpty(Request["NgaySinh_" + i]) == true)
                     {
-                        tongtien = tongtien + (double)tour.GiaTreEm;
+                        TempData["errorTrong" + i] = "Vui lòng nhập đầy đủ thông tin";
+                        return View();
                     }
-                    else if (ve.MaLVe == "TICKET02")
+                    else
                     {
-                        tongtien = tongtien + (double)tour.GiaNguoiLon;
-                    }    
-                    db.SaveChanges();
+
+                        ve = new Ve();
+                        var maVe = "V" + random.Next(1, 1000);
+                        ve.MaVe = maVe;
+                        ve.MaDH = maDH;
+                        ve.Hoten_KH = Request["HoTenKH_" + 0];
+                        ve.MaLVe = Request["MaLVe_" + 0];
+                        ve.GioiTinh = Request["GioiTinh_" + 0];
+                        ve.NgaySinh = Convert.ToDateTime(Request["NgaySinh_" + 0]);
+                        ve.LuuY = Request["LuuY" + 0];
+                        db.Ves.Add(ve);
+
+                        if (ve.MaLVe == "TICKET01")
+                        {
+                            tongtien = tongtien + (double)tour.GiaTreEm;
+                        }
+                        else if (ve.MaLVe == "TICKET02")
+                        {
+                            tongtien = tongtien + (double)tour.GiaNguoiLon;
+                        }
+                        db.SaveChanges();
+                    }
                 }
+                //Update tổng tiền cho đơn đặt tour
                 var updateBT = db.BookTours.Find(ve.MaDH);
                 updateBT.TotalPrice = (decimal)tongtien;
+                //Update số chỗ trong tour
+                tour.SoChoNull -= booking.SoCho;
                 db.SaveChanges();
+                return RedirectToAction("OrderingInfo");
             }
-            TempData["Success"] = "Book tour thành công";
             return RedirectToAction("OrderingInfo");
         }
 
@@ -218,6 +280,12 @@ namespace Tourist_VietripInsum_2023.Controllers
                     TempData["ErrorSoCho"] = "Số chỗ phải lớn hơn 1!!!";
                     return RedirectToAction("EditOrdering");
                 }
+                var tour = db.Tours.Find(donHang.MaTour);
+                if (donHang.SoCho > tour.SoChoNull)
+                {
+                    TempData["ErrorSoChoMax"] = "Số chỗ vượt quá số chỗ còn trống";
+                    return RedirectToAction("EditOrdering");
+                }
                 else
                 {
                     db.Entry(donHang).State = EntityState.Modified;
@@ -234,7 +302,9 @@ namespace Tourist_VietripInsum_2023.Controllers
             db.Ves.RemoveRange(ve);
             db.SaveChanges();
 
-            BookTour donHang = db.BookTours.Find(id);
+            var donHang = db.BookTours.Find(id);
+            var tour = db.Tours.Find(donHang.MaTour);
+            tour.SoChoNull += donHang.SoCho;
             db.BookTours.Remove(donHang);
             db.SaveChanges();
             return RedirectToAction("CheckCusInfo");
@@ -249,12 +319,25 @@ namespace Tourist_VietripInsum_2023.Controllers
 
             BookTour bookTour = db.BookTours.Find(id);
             Session["MaBT"] = bookTour.MaDH;
+            TempData["MaBT"] = bookTour.MaDH;
 
             if (id == null)
             {
                 return HttpNotFound();
             }
             return View(bookTour);
+        }
+        [HttpPost]
+        public ActionResult BookTourDetail(BookTour bookTour)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(bookTour).State = EntityState.Modified;
+                db.SaveChanges();
+                TempData["success"] = "Cập nhật trạng thái thành công";
+                return RedirectToAction("BookTourDetail");
+            }
+            return View();
         }
 
         [HttpGet]
@@ -279,7 +362,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 db.Entry(ve).State = EntityState.Modified;
                 db.SaveChanges();
                 TempData["success"] = "Sửa vé thành công";
-                return RedirectToAction("TicketEdit"); 
+                return RedirectToAction("BookTourDetail/" + Session["MaBT"]); 
             }
             return View();
         }
@@ -306,8 +389,11 @@ namespace Tourist_VietripInsum_2023.Controllers
             db.SaveChanges();
 
             BookTour donHang = db.BookTours.Find(id);
+            var tour = db.Tours.Find(donHang.MaTour);
+            tour.SoChoNull += donHang.SoCho;
             db.BookTours.Remove(donHang);
             db.SaveChanges();
+
             TempData["deletesuccess"] = "Xóa đơn đặt thành công";
             return RedirectToAction("ManageTourOrders");
         }
@@ -324,6 +410,28 @@ namespace Tourist_VietripInsum_2023.Controllers
         public ActionResult FeedBack()
         {
             return View(db.PhanHois.ToList());
+        }
+
+        public ActionResult DeleteFeedBack(string id)
+        {
+            PhanHoi phanHoi = db.PhanHois.Find(id);
+            db.PhanHois.Remove(phanHoi);
+            db.SaveChanges();
+            return RedirectToAction("FeedBack");
+        }
+
+        public ActionResult FeedBackEdit(string id, PhanHoi phanHoi)
+        {
+            TempData["maFB"] = id;
+            //PhanHoi phanHoi = db.PhanHois.Find(id);
+            if (ModelState.IsValid)
+            {
+                db.Entry(phanHoi).State = EntityState.Modified;
+                db.SaveChanges();
+                TempData["success"] = "Cập nhật phản hồi thành công";
+                return RedirectToAction("FeedBack");
+            }
+            return RedirectToAction("FeedBack");
         }
 
         public ActionResult Profile(string id)

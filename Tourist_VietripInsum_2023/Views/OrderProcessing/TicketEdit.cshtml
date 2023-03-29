@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "TicketEdit";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
-    ViewBag.Name = "Ticket Edit";
+    ViewBag.Name = "Sửa vé";
     ViewBag.order = "active";
 }
 
@@ -21,7 +21,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="tile">
-            <h3 class="tile-title" style="text-align: center;">EDIT TICKETS</h3>
+            <h3 class="tile-title" style="text-align: center;">SỬA VÉ</h3>
             <div class="tile-body">
                 <div class="row element-button">
                     @using (Html.BeginForm())
@@ -32,9 +32,10 @@
                         @Html.HiddenFor(model => model.MaVe)
                         @Html.HiddenFor(model => model.MaDH)
                         @Html.HiddenFor(model => model.MaLVe)
+
                         <div class="row element-button">
                             <div class="form-group col-md-3">
-                                <label class="control-label">Full Name</label>
+                                <label class="control-label">Họ và tên</label>
                                 @Html.EditorFor(model => model.Hoten_KH, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Hoten_KH, "", new { @class = "text-danger" })
                             </div>
@@ -46,14 +47,14 @@
                             </div>
 
                             <div class="form-group col-md-2">
-                                <label class="control-label">Gender</label>
+                                <label class="control-label">Giới tính</label>
                                 @Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
                             </div>
 
-                            <div class="form-group col-md-2">
-                                <label class="control-label">Birthday</label>
-                                @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control" } })
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Ngày sinh</label>
+                                @Html.TextBoxFor(model => model.NgaySinh, "{0:dd/MM/yyyy}", new { @class = "form-control col-md-12", type = "datetime" })
                                 @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
                             </div>
 
@@ -64,8 +65,8 @@
                             </div>
                         </div>
                         <div>
-                            <a class="btn btn-cancel btn-sm" href="/OrderProcessing/BookTourDetail/@Session["MaBT"]">Back</a>
-                            <input class="btn btn-success btn-sm" type="submit" value="Save" />
+                            <a class="btn btn-cancel btn-sm" href="/OrderProcessing/BookTourDetail/@Session["MaBT"]">Hủy</a>
+                            <input class="btn btn-success btn-sm" type="submit" value="Lưu" />
                         </div>
                     }
                 </div>

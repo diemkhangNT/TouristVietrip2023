@@ -1,9 +1,9 @@
 ﻿@model Tourist_VietripInsum_2023.Models.Ve
 @using Tourist_VietripInsum_2023.Models;
 @{
-    ViewBag.Title = "CreateTickets";
+    ViewBag.Title = "Tạo vé";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
-    ViewBag.Name = "Tickets";
+    ViewBag.Name = "Tạo vé";
     ViewBag.order = "active";
 
     TouristEntities1 db = new TouristEntities1();
@@ -20,22 +20,25 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="tile">
-            <h3 class="tile-title" style="text-align: center;">CREATE TICKETS</h3>
+            <h3 class="tile-title" style="text-align: center;">TẠO VÉ</h3>
             <div class="tile-body">
-                <div class="row element-button">
+                <div class="row">
                     @using (Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
                         for (int i = 0; i < dh.SoCho; i++)
                         {
                             if (i == 0)
                             {
                                 <div class="row element-button">
-                                    <div class="control-label col-md-1">@i</div>
+                                    <div  style="margin-bottom: 10px;">
+                                        <b style="border-bottom: 2px solid;">@{var number = i + 1; } @number</b>
+                                    </div>
                                     <div class="form-group col-md-3">
-                                        <label class="control-label">Full Name</label>
-                                        <input class="form-control text-box single-line" id="cusInfo_HoTenKH" name="HoTenKH_@i" type="text" value="@cusInfo.HoTenKH">
+                                        <label class="control-label">Họ và tên</label>
+                                        <input class="form-control text-box single-line" id="cusInfo_HoTenKH" name="HoTenKH_@i" type="text" value="@cusInfo.HoTenKH" readonly="readonly">
                                         @Html.ValidationMessageFor(model => model.Hoten_KH, "", new { @class = "text-danger" })
                                     </div>
 
@@ -50,15 +53,16 @@
                                     </div>
 
                                     <div class="form-group col-md-2">
-                                        <label class="control-label">Gender</label>
-                                        <input class="form-control text-box single-line" id="cusInfo_GioiTinh" name="GioiTinh_@i" type="text" value="@cusInfo.GioiTinh">
+                                        <label class="control-label">Giới tính</label>
+                                        <input class="form-control text-box single-line" id="cusInfo_GioiTinh" name="GioiTinh_@i" type="text" value="@cusInfo.GioiTinh" readonly="readonly">
                                         @*@Html.EditorFor(model => cusInfo.GioiTinh, new { htmlAttributes = new { @class = "form-control" } })*@
                                         @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
                                     </div>
 
-                                    <div class="form-group col-md-2">
-                                        <label class="control-label">Birthday</label>
-                                        <input class="form-control text-box single-line" data-val="true" data-val-date="The field NgaySinh must be a date." id="cusInfo_NgaySinh" name="NgaySinh_@i" type="datetime" value="@cusInfo.NgaySinh">
+                                    <div class="form-group col-md-3">
+                                        <label class="control-label">Ngày sinh</label>
+                                        @{ var ngaySinh = string.Format("{0:dd/MM/yyyy}", cusInfo.NgaySinh);}
+                                        <input class="form-control text-box single-line" data-val="true" data-val-date="The field NgaySinh must be a date." id="cusInfo_NgaySinh" name="NgaySinh_@i" type="datetime" value="@ngaySinh" readonly="readonly">
                                         @*@Html.EditorFor(model => cusInfo.NgaySinh, new { htmlAttributes = new { @class = "form-control" } })*@
                                         @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
                                     </div>
@@ -73,11 +77,20 @@
                             }
                             else
                             {
+                                
                                 <div class="row element-button">
-                                    <div class="control-label col-md-1">@i</div>
+                                    <div style="margin-bottom: 10px;">
+                                        <b style="border-bottom: 2px solid;">
+                                            @{var number = i + 1; } @number
+                                        </b>
+                                        @if (TempData["errorTrong" + i] != null)
+                                        {
+                                            <b style="color: red; margin-left: 10px;">@TempData["errorTrong" + i]</b>
+                                        }
+                                    </div>
                                     <div class="form-group col-md-3">
-                                        <label class="control-label">Full Name</label>
-                                        <input class="form-control text-box single-line" id="cusInfo_HoTenKH" name="HoTenKH_@i" type="text">
+                                        <label class="control-label">Họ và tên</label>
+                                        <input class="form-control text-box single-line" id="cusInfo_HoTenKH" name="HoTenKH_@i" type="text" value="@Request["HoTenKH_" + i]">
                                         @Html.ValidationMessageFor(model => model.Hoten_KH, "", new { @class = "text-danger" })
                                     </div>
 
@@ -92,15 +105,15 @@
                                     </div>
 
                                     <div class="form-group col-md-2">
-                                        <label class="control-label">Gender</label>
-                                        <input class="form-control text-box single-line" id="cusInfo_GioiTinh" name="GioiTinh_@i" type="text">
+                                        <label class="control-label">Giới tính</label>
+                                        <input class="form-control text-box single-line" id="cusInfo_GioiTinh" name="GioiTinh_@i" type="text" value="@Request["GioiTinh_" + i]">
                                         @*@Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control" } })*@
                                         @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
                                     </div>
 
-                                    <div class="form-group col-md-2">
-                                        <label class="control-label">Birthday</label>
-                                        <input class="form-control text-box single-line" data-val="true" data-val-date="The field NgaySinh must be a date." id="cusInfo_NgaySinh" name="NgaySinh_@i" type="datetime">
+                                    <div class="form-group col-md-3">
+                                        <label class="control-label">Ngày sinh</label>
+                                        <input class="form-control text-box single-line" data-val="true" data-val-date="The field NgaySinh must be a date." id="cusInfo_NgaySinh" name="NgaySinh_@i" type="date" value="@Request["NgaySinh_" + i]">
                                         @*@Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control" } })*@
                                         @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
                                     </div>
@@ -116,8 +129,8 @@
                         }
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <a class="btn btn-cancel btn-sm" href="/OrderProcessing/EditOrdering/@Session["MaDH"]">Back</a>
-                                <input type="submit" value="Complete" class="btn btn-default" />
+                                <a class="btn btn-cancel btn-sm" href="/OrderProcessing/EditOrdering/@Session["MaDH"]">Quay lại</a>
+                                <input type="submit" value="Tiếp tục" class="btn btn-default" />
                             </div>
                         </div>
                     }

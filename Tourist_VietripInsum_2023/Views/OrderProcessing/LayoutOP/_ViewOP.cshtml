@@ -78,7 +78,13 @@
 
             <li>
                 <a class="app-menu__item @ViewBag.order" href="~/OrderProcessing/ManageTourOrders">
-                    <i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Manage tour orders</span>
+                    <i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Quản lý đặt tour</span>
+                </a>
+            </li>
+
+            <li>
+                <a class="app-menu__item @ViewBag.tour" href="~/OrderProcessing/TourList">
+                    <i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Danh sách tour</span>
                 </a>
             </li>
 
@@ -89,24 +95,24 @@
             </li>
             <li>
                 <a class="app-menu__item  @ViewBag.prf" href="~/OrderProcessing/Profile/@user.MaNV">
-                    <i class='app-menu__icon bx bx-id-card'></i> <span class="app-menu__label">Profile</span>
+                    <i class='app-menu__icon bx bx-id-card'></i> <span class="app-menu__label">Thông tin cá nhân</span>
                 </a>
             </li>
             <!--<li>
-        <a class="app-menu__item @ViewBag.dh" href="#">
-            <i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Danh sách hành khách</span>
-        </a>
-    </li>
-    <li>
-        <a class="app-menu__item @ViewBag.hd" href="#">
-            <i class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Liên lạc</span>
-        </a>
-    </li>-->
+                <a class="app-menu__item @ViewBag.dh" href="#">
+                    <i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Danh sách hành khách</span>
+                </a>
+            </li>
+            <li>
+                <a class="app-menu__item @ViewBag.hd" href="#">
+                    <i class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Liên lạc</span>
+                </a>
+            </li>-->
             @*<li>
-            <a class="app-menu__item  @ViewBag.prf" href="/Tourmanager/Profile/@user.MaNV">
-                <i class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Profile</span>
-            </a>
-        </li>*@
+                    <a class="app-menu__item  @ViewBag.prf" href="/Tourmanager/Profile/@user.MaNV">
+                        <i class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Profile</span>
+                    </a>
+                </li>*@
             <!-- User Menu-->
             <li>
                 <a class="app-menu__item btn_Logout" href="@Url.Action("Logout", "LoginStaff" )">
@@ -135,7 +141,12 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @*  *@
 
+    @*Tìm kiếm*@
+    <script src="~/Scripts/plugin/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/plugin/dataTables.bootstrap.min.js"></script>
+
     <script type="text/javascript">
+        $('#sampleTable').DataTable(); //TimKiem
         //Thời Gian
         function time() {
             var today = new Date();
