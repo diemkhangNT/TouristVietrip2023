@@ -48,13 +48,101 @@
                         </div>
                     </div>
                     <div class="group-add-cart ">
-                        <a href="#" class="add-to-cart pull-right " onclick="" data-toggle="modal" data-target="#selectOptionTour">
-                            <i class="fas fa-shopping-cart"></i>
-                            <label>Đặt ngay</label>
-                        </a>
-                        <a href="#" class="add-to-group pull-right" data-bs-toggle="modal" data-bs-target="#supportModal">
+                        @*<a href="#" class="add-to-cart pull-right " onclick="" data-toggle="modal" data-target="#selectOptionTour">
+            <i class="fas fa-shopping-cart"></i>
+            <label>Đặt ngay</label>
+        </a>*@
+                        <a href="#" data-toggle="modal" data-target="#exampleModal" class="add-to-group pull-right">
                             <label>Liên hệ tư vấn</label>
                         </a>
+                        <style>
+                            .add-to-group:hover {
+                                background-color: #2d4271;
+                                color: white;
+                            }
+                            .hero-text {
+                                background-color: white;
+                                padding: 20px;
+                                border-radius: 20px;
+                            }
+
+                                .hero-text h4 {
+                                    text-align: center;
+                                    padding-top: 10px;
+                                    font-weight: 600;
+                                }
+                            .modal-body{
+                                text-align:right;
+                            }
+                           
+                        </style>
+                        <!-- Modal -->
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                @using (Html.BeginForm("LienHeGuest", "Guest", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="hero-text">
+                                                @{
+                                                    var phanhoi = db.PhanHois.FirstOrDefault();
+                                                }
+
+                                                @Html.AntiForgeryToken()
+                                                <div class="form-horizontal" style="color: #2d4271;text-align:left">
+
+                                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                    @Html.HiddenFor(model => phanhoi.MaPhanHoi)
+                                                    @Html.HiddenFor(model => phanhoi.MaKH)
+                                                    @Html.HiddenFor(model => phanhoi.NgayPH)
+                                                    @Html.HiddenFor(model => phanhoi.TrangThai)
+
+                                                    <h4> SaiGon Travel - Liên hệ chúng tôi </h4>
+                                                    <strong> Hỗ trợ khách hàng </strong>
+                                                    <div class=" form-lienhe">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <span class="hoten"> Họ và Tên : </span>
+                                                                <input type="text" class="form-control input-lg" name="txt-Fullname" required />
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <span class="email"> Email : </span>
+                                                                @*@Html.EditorFor(model => phanhoi.Email, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                                <input type="text" class="form-control input-lg" name="Email" required />
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <span class="sdt"> Số điện thoại : </span>
+                                                                @*@Html.EditorFor(model => phanhoi.Sdt, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                                <input type="text" class="form-control input-lg" name="Sdt" required />
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
+                                                                <span class="noidung"> Nhập nội dung: </span>
+                                                                @*@Html.EditorFor(model => model.NoiDung, new { htmlAttributes = new { @class = "form-control" } })*@
+                                                                <textarea rows="5" class="form-control input-lg-nd" name="NoiDung" required> </textarea>
+                                                            </div>
+
+
+                                                        </div>
+                                                      
+                                                    </div>
+
+
+
+                                                </div>
+                                               
+
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn btn-secondary btn-sm" data-dismiss="modal">Close</a>
+                                            <input type="submit" value="Thêm phản hồi" class="btn btn-success btn-sm" />
+                                        </div>
+                                    </div>
+                                                    }
+                                </div>
+                        </div>
                     </div>
 
                 </div>
@@ -70,7 +158,7 @@
             <div class="row">
                 <div class="col-lg-7 col-md-12 col-sm-12 left">
                     <div class="image">
-                        <img src="https://media.travel.com.vn/tour/tfd_220527123613_914620.jpg" class="img-fluid" alt="image">
+                        <img src="@Model.HinhMinhHoa_T " class="img-fluid" alt="image">
                     </div>
                 </div>
                 <div class="col-lg-5 col-md-12 col-sm-12 right">
@@ -79,19 +167,36 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="image">
-                                        <img src="https://media.travel.com.vn/tour/tfd_220527123721_641637.jpg" class="img-fluid" alt="image">
+                                        <img src="~/images/danang_phocohoian.jpg" class="img-fluid" alt="image">
                                     </div>
                                 </div>
+                                @{
+                                    List<ChiTietTour> chiTietTours = db.ChiTietTours.Where(c => c.MaTour == Model.MaTour).ToList();
+                                    List<DiaDiemThamQuan> diaDiemThamQuans = new List<DiaDiemThamQuan>();
+
+                                    foreach(var ctiet in chiTietTours)
+                                    {
+                                        var dd = db.DiaDiemThamQuans.Where(s => s.MaDDTQ == ctiet.MaDDTQ).FirstOrDefault();
+                                        diaDiemThamQuans.Add(dd);
+
+                                    }
+                                    var hinh1 = diaDiemThamQuans[1].HinhMinhHoa_D;
+                                    var hinh2 = diaDiemThamQuans[0].HinhMinhHoa_D;
+
+
+
+                                }
+
                                 <div class="col-6">
                                     <div class="image">
-                                        <img src="https://media.travel.com.vn/tour/tfd_220527123931_878516.jpg" class="img-fluid" alt="image">
+                                        <img src="@hinh1" class="img-fluid" alt="image" >
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 big">
                             <div class="image">
-                                <img src="https://media.travel.com.vn/tour/tfd_220527124128_772220.jpg" class="img-fluid" alt="image">
+                                <img src="@hinh2" class="img-fluid" alt="image" >
                             </div>
                         </div>
                     </div>
@@ -152,7 +257,7 @@
                                 <p>@Model.SoNgay Ngày</p>
                             </div>
                             @{
-                                var diadiem = db.ChiTietTours.Where(s => s.MaTour == Model.MaTour).ToList();
+                                var diadiem = db.ChiTietTours.Where(s => s.MaTour == Model.MaTour).OrderBy(s=>s.STT).ToList();
 
                                 var diemthamquan = 0;
 
@@ -230,7 +335,7 @@
 
                                     <div class="day">
                                         <div class="wrapper">
-                                            <span class="date-left"> Ngày  </span>
+                                            <span class="date-left"></span>
                                             <span class="date-center active">@ct.STT</span>
                                             @{
 
@@ -262,10 +367,9 @@
                             <div>
                                 @foreach (var dt in diadiem)
                                 {
-                                    <h3 id="day-01">Ngày @dt.STT- @dt.TieuDe</h3>
+                                    <h3 id="day-01"> @dt.TieuDe</h3>
                                     <div class="excerpt">
                                         <span class="line"></span>
-                                        <title></title>
                                         <p style="text-align:justify">
 
                                             @dt.MotaChitiet
@@ -534,6 +638,10 @@
         });
     }
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
 

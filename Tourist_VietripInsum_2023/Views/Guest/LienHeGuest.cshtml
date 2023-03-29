@@ -1,0 +1,162 @@
+﻿@model Tourist_VietripInsum_2023.Models.PhanHoi
+
+@{
+    ViewBag.Title = "LienHeGuest";
+    Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
+}
+
+
+<style>
+    .body {
+        height: 100%;
+        background-color: #f9f9f9;
+        color: #2d4271;
+    }
+
+    .lienhe {
+        padding: 40px 0px;
+    }
+
+    .hero-text {
+        background-color: white;
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+        .hero-text h4 {
+            text-align: center;
+            padding-top: 10px;
+            font-weight: 600;
+        }
+
+    .btn-submit {
+        border-radius: 5px;
+        background-color: #67a448;
+        color: white;
+        font-size: 20px !important;
+        border: none;
+    }
+</style>
+<div class="body">
+    <div class="container">
+        <div class="lienhe">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="hero-text">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal" style="color:">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.MaPhanHoi)
+                            @Html.HiddenFor(model => model.MaKH)
+                            @Html.HiddenFor(model => model.NgayPH)
+                            @Html.HiddenFor(model => model.TrangThai)
+
+                            <h4> SaiGon Travel - Liên hệ chúng tôi </h4>
+                            <strong> Hỗ trợ khách hàng </strong>
+                            <div class="col-xs-12 mg-bot15 form-lienhe">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mg-bot15">
+                                        <p class="hoten"> Họ và Tên : </p>
+                                        <input type="text" class="form-control input-lg" name="txt-Fullname" required />
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mg-bot15">
+                                        <p class="email"> Email : </p>
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mg-bot15">
+                                        <p class="sdt"> Số điện thoại : </p>
+                                        @Html.EditorFor(model => model.Sdt, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
+                                        <p class="noidung"> Nhập nội dung: </p>
+                                        @*@Html.EditorFor(model => model.NoiDung, new { htmlAttributes = new { @class = "form-control" } })*@
+                                        <textarea rows="5" class="form-control input-lg-nd" name="NoiDung" required> </textarea>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30" style="padding-top:20px">
+                                    <input type="submit" value="Thêm phản hồi" class="btn btn-success btn-sm" />
+                                </div>
+                            </div>
+
+                            @*<div class="form-group">
+            @Html.LabelFor(model => model.MaKH, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MaKH, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaKH, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+                        </div>
+                        }
+                      
+
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="thontinlh">
+                        <div class="item">
+                            <h4 class="fw-bold">TRỤ SỞ CHÍNH</h4>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <i class="fas fa-map-signs"></i> 10 Hai Bà Trưng, Q.3, TP.HCM
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone"></i> Tel: (84-28) 0123456778
+                                </li>
+                                <li>
+                                    <i class="fas fa-envelope"></i> Email:
+                                    info@saigontravel.com
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="item">
+                            <h5 class="fw-bold">PHÒNG ĐĂNG KÝ DU LỊCH QUẬN 1</h5>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <i class="fas fa-map-signs"></i> 45 Đinh Tiên Hoàng, P. Bến Nghé, Q1, TP. HCM
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone"></i> Tel: (84-28) 39 699 439
+                                </li>
+                                <li>
+                                    <i class="fas fa-envelope"></i> Email:
+                                    info@saigontravel.com
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="item">
+                            <h5 class="fw-bold">PHÒNG ĐĂNG KÝ DU LỊCH HÀ NỘI</h5>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <i class="fas fa-map-signs"></i> 123 Cầu Giấy, Quận Hoàn Kiếm, Hà Nội
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone"></i> Tel: (84-28) 30912367867
+                                </li>
+                                <li>
+                                    <i class="fas fa-envelope"></i> Email:
+                                    info@saigontravel.com
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
