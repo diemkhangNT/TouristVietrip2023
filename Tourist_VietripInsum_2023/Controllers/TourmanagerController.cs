@@ -70,35 +70,41 @@ namespace Tourist_VietripInsum_2023.Controllers
         //Hotel
         public ActionResult HotelManager()
         {
+            ViewBag.MaTinh = new SelectList(db.TinhThanhs, "MaTinh", "TenTinh");
             var hotels = db.Hotels.Include(h => h.TinhThanh);
             return View(hotels.ToList());
         }
 
         // GET: Hotels/Create
-        public ActionResult CreateHotel()
-        {
-            ViewBag.MaTinh = new SelectList(db.TinhThanhs, "MaTinh", "TenTinh");
-            return View();
-        }
+        //public ActionResult CreateHotel()
+        //{
+        //    ViewBag.MaTinh = new SelectList(db.TinhThanhs, "MaTinh", "TenTinh");
+        //    return View();
+        //}
 
         // POST: Hotels/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateHotel([Bind(Include = "MaKS,MaTinh,TenKS,Sao")] Hotel hotel)
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult CreateHotel(Hotel newks,string Matinh,string TenKS,string Sao)
         {
             if (ModelState.IsValid)
             {
+
                 Random rd = new Random();
-                hotel.MaKS = "KS" + rd.Next(1000);
-                db.Hotels.Add(hotel);
+                newks.MaKS = "KS" + rd.Next(1000);
+                newks.MaTinh = Matinh;
+                newks.TenKS = TenKS;
+                newks.Sao = Sao;
+                db.Hotels.Add(newks);
                 db.SaveChanges();
+                TempData["noti"] = "taokhachsan";
                 return RedirectToAction("HotelManager");
             }
 
-            ViewBag.MaTinh = new SelectList(db.TinhThanhs, "MaTinh", "TenTinh", hotel.MaTinh);
-            return View(hotel);
+            ViewBag.MaTinh = new SelectList(db.TinhThanhs, "MaTinh", "TenTinh", newks.MaTinh);
+            return View(newks);
         }
 
         // GET: Hotels/Edit/5
@@ -138,15 +144,9 @@ namespace Tourist_VietripInsum_2023.Controllers
         public ActionResult DeleteHotel(string id, Hotel ht)
         {
             ht = db.Hotels.Where(s => s.MaKS == id).FirstOrDefault();
-            var detail = db.Tours.ToList();
-            var count = 0;
-            for (int i = 0; i < detail.Count; i++)
-            {
-                if (ht.MaKS == detail[i].MaKS)
-                {
-                    count++;
-                }
-            }
+            
+            List<Tour> detail = db.Tours.Where(s=>s.MaKS==id).ToList();
+            var count = detail.Count;
             if (count > 0)
             {
                 TempData["noti"] = "delete-false";
@@ -164,13 +164,13 @@ namespace Tourist_VietripInsum_2023.Controllers
         //End hotel
 
         // Phuong tien
-        public ActionResult CreateTrans()
-        {
-            return View();
-        }
+        //public ActionResult CreateTrans()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public ActionResult CreateTrans(PhuongTien trans)
+        //[HttpPost]
+        public ActionResult CreateTrans(PhuongTien trans,string TenPTien,string HangXe,string Chitiet)
         {
             if (!ModelState.IsValid)
             {
@@ -179,6 +179,9 @@ namespace Tourist_VietripInsum_2023.Controllers
             Random rd = new Random();
             var idTrans = "PT" + rd.Next(1, 1000);
             trans.MaPTien = idTrans;
+            trans.TenPTien = TenPTien;
+            trans.HangXe = HangXe;
+            trans.ChiTiet = Chitiet;
 
             db.PhuongTiens.Add(trans);
             TempData["noti"] = "addtrans";

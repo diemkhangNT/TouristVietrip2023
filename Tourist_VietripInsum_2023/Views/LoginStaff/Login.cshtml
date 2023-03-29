@@ -44,15 +44,21 @@
                         <input class="input100 input" type="text" placeholder="Enter username" name="UserName"
                                id="UserName" required>
                         @*<span class="focus-input100"></span>
-                            <span class="symbol-input100">
-                                <i class='bx bx-user'></i>
-                            </span>*@
+                <span class="symbol-input100">
+                    <i class='bx bx-user'></i>
+                </span>*@
                     </div>
+                   
                     <div class="wrap-input100 validate-input input-field">
+                        @*<input id="password-field" type="password" class="form-control" name="password" value="secret">*@
+
+
                         <input autocomplete="off" class="input100 input" type="password" placeholder="Enter password"
-                               name="Password" id="Password" required>
-                        <input type="checkbox" class="checkbox" onclick="myFunction()">
-                        <label id="showpass" class="showpass"> Show Password </label>
+                               name="Password" id="Password" required >
+                        <span toggle="#Password" class="bx fa-fw bx-hide field-icon click-eye" onclick="myFunction()"></span>
+
+                        @*<input type="checkbox" class="checkbox" >*@
+                        @*<label id="showpass" class="showpass"> Show Password </label>*@
                         <script>
                             function myFunction() {
                                 var x = document.getElementById("Password");
@@ -63,11 +69,23 @@
                                 }
                             }
                         </script>
+                        <style>
+                            .field-icon {
+                                float: left;
+                                margin-right: 0;
+                                padding-left: 270px;
+                                margin-top: -40px;
+                                font-size:16px;
+                                position: relative;
+                                z-index: 2;
+                                color: black;
+                            }
+                        </style>
 
                     </div>
-                    
+
                     <!--=====ĐĂNG NHẬP======-->
-                    <div class="container-login100-form-btn">
+                    <div class="container-login100-form-btn" style="padding-top:20px">
                         <input type="submit" class="submit" value="Login" />
                     </div>
                 }
