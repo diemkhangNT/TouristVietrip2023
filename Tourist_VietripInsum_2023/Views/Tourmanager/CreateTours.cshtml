@@ -170,8 +170,8 @@
                         <div class="form-group col-md-12">
                             @Html.LabelFor(model => model.NgayKhoihanh, htmlAttributes: new { @class = "control-label col-md-12" })
                             <div class="col-md-12">
-                                <input class="form-control text-box single-line col-md-12 datepicker" data-val="true" data-val-date="The field NgayNhap must be a date." id="NgayKhoiHanh" name="NgayKhoiHanh" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
-
+                                <input class="form-control text-box single-line col-md-12 datepicker" data-val="true" data-val-date="The field NgayNhap must be a date." id="NgayKhoiHanh" name="NgayKhoiHanh" type="datetime-local" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm:00")" required>
+                                @*@Html.TextBoxFor(model => model.NgayNhap, new { @class = "form-control col-md-12", type = "datetime-local", min = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:00") })*@
                                 @Html.ValidationMessageFor(model => model.NgayKhoihanh, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -181,7 +181,7 @@
 
                             @Html.LabelFor(model => model.NgayTroVe, htmlAttributes: new { @class = "control-label col-md-12" })
                             <div class="col-md-12">
-                                <input class="form-control text-box single-line col-md-12" data-val="true" data-val-date="The field NgayNhap must be a date." id="NgayTroVe" name="NgayTroVe" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
+                                <input class="form-control text-box single-line col-md-12" data-val="true" data-val-date="The field NgayNhap must be a date." id="NgayTroVe" name="NgayTroVe" type="datetime-local" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm:00")" required>
 
                                 @Html.ValidationMessageFor(model => model.NgayTroVe, "", new { @class = "text-danger" })
                             </div>
@@ -195,7 +195,8 @@
                             @Html.LabelFor(model => model.HanChotDatVe, "Due day (*)", htmlAttributes: new { @class = "control-label col-md-12" })
                             <div class="col-md-12">
 
-                                <input class="form-control col-md-12 text-box single-line datepicker" data-val="true" id="HanChotDatVe" name="HanChotDatVe" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
+                                <input class="form-control col-md-12 text-box single-line datepicker" data-val="true" id="HanChotDatVe" name="HanChotDatVe" type="datetime-local" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm:00")" required>
+                                
                                 @Html.ValidationMessageFor(model => model.HanChotDatVe, "", new { @class = "text-danger" })
                             </div>
                         </div>

@@ -16,11 +16,12 @@
 </head>
 <body>
     <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
             <div class="row tile" >
+                <h2 class="tile-title">Profile</h2>
                 <div class="col-lg-4 col-md-3 col-sm-12 profile-tab-nav border-right">
-                    <div class="p-4">
+                    <div class="">
                         <div class="img text-center mb-3">
                             <img style="width: 100px;height: 100px;border-radius: 50%" src="@Model.HinhDaiDien" alt="Image" class="shadow">
                         </div>
@@ -34,47 +35,44 @@
                             </p>
                         </div>
                         <br />
-                        <div class="text-center mb-5" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-
+                        <div class="text-center mb-5" style="margin-top:50px;" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <span class="editProfile">Edit</span>
-
                         </div>
                     </div>
                 </div>
-                <div class="p-8 tab-content" id="v-pills-tabContent">
-                    <div class="" id="account" role="tabpanel" aria-labelledby="account-tab">
+                <div class="p-8 tab-content" >
                         <h2 class="title_acc text-danger">General</h2>
                         @{
                             var user = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Current.Session["user"];
                             <div class="row">
                                 <div class="col-sm-12">
                                     <label>Position</label>
-                                    <h4>@user.ChucVu.TenCV</h4>
+                                    <h5>@user.ChucVu.TenCV</h5>
                                 </div>
                                 <div class="col-sm-6">
                                     <label>ID Staff</label>
-                                    <h4>@user.MaNV</h4>
+                                    <h5>@user.MaNV</h5>
                                 </div>
                                 <div class="col-sm-6">
                                     <label>Phone number</label>
-                                    <h4>@user.Sdt</h4>
+                                    <h5>@user.Sdt</h5>
                                 </div>
                                 <div class="col-sm-6">
                                     <label>Address</label>
-                                    <h4>@user.DiaChi</h4>
+                                    <h5>@user.DiaChi</h5>
                                 </div>
                                 <div class="col-sm-6">
                                     <label>Email</label>
-                                    <h4>@user.Email</h4>
+                                    <h5>@user.Email</h5>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Birthday</label>
                                     @{var db = String.Format("{0:d/M/yyyy}", user.NgaySinh); }
-                                    <h4>@db</h4>
+                                    <h5>@db</h5>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Gender</label>
-                                    <h4>@user.GioiTinh</h4>
+                                    <h5>@user.GioiTinh</h5>
                                 </div>
                             </div>
                             <hr />
@@ -102,10 +100,9 @@
                             </div>
                         }
                     </div>
-                </div>
             </div>
         </div>
-        <div class="col-sm-2"></div>
+        <div class="col-sm-1"></div>
     </div>
 </body>
 </html>

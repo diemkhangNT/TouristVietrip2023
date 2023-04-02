@@ -6,78 +6,88 @@
     ViewBag.Name = "Tour Manager";
     ViewBag.qlt = "active";
 }
+<div class="row">
+    <div class="col-sm-8">
+        <div class="tile">
+            <h2 class="tile-title">Danh sách loại tour</h2>
 
-<div class="tile">
-    <h2 class="tile-title">Danh sách loại tour</h2>
+            <a class="btn btn-sm btn-add " type="button" title="CreateTour" href="/Tourmanager/CreateLoaiTour">
+                <i class="fas fa-plus"> </i> Tạo mới
+            </a>
+            <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                <thead>
+                    <tr>
+                        <th>Mã loại</th>
+                        <th>
+                            Tên loại
+                        </th>
+                        <th>
+                            Chiết khấu
+                        </th>
+                        <th>
+                            Tùy chọn
+                        </th>
+                    </tr>
+                </thead>
 
-    <a class="btn btn-sm btn-add " type="button" title="CreateTour" href="/Tourmanager/CreateLoaiTour">
-        <i class="fas fa-plus"> </i> Tạo mới
-    </a>
-    <table class="table text-body">
-        <tr class="bg-warning">
-            <th>Mã loại</th>
-            <th>
-                Tên loại
-            </th>
-            <th>
-                Chiết khấu
-            </th>
-            <th>
-                Tùy chọn
-            </th>
-        </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MaLTour)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TenLTour)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ChietKhau)
-                </td>
-                <td>
-                    <a class="btn btn-cancel" title="Edit" href="~/Tourmanager/EditLoaiTour/@item.MaLTour">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <a class="btn btn-excel" ata-toggle="tooltip" title="Delete" data-target="#DeleteModal-@item.MaLTour" data-toggle="modal">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                    @using (Html.BeginForm("DeleteLoaiTour/" + item.MaLTour, "Tourmanager", FormMethod.Post, null))
-                    {
-                        @Html.AntiForgeryToken()
-                        <div class="modal" tabindex="-1" role="dialog" id="DeleteModal-@item.MaLTour">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Delete Confirmation</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Are you sure you want to delete this customer?</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                        <button type="submit" class="btn btn-danger">Yes</button>
+                @foreach (var item in Model)
+                {
+                    <tr >
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.MaLTour)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.TenLTour)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.ChietKhau)
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-cancel" title="Edit" href="~/Tourmanager/EditLoaiTour/@item.MaLTour">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a class="btn btn-excel" ata-toggle="tooltip" title="Delete" data-target="#DeleteModal-@item.MaLTour" data-toggle="modal">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                            @using (Html.BeginForm("DeleteLoaiTour/" + item.MaLTour, "Tourmanager", FormMethod.Post, null))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="modal" tabindex="-1" role="dialog" id="DeleteModal-@item.MaLTour">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Delete Confirmation</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Are you sure you want to delete this customer?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                <button type="submit" class="btn btn-danger">Yes</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    }
-                </td>
-            </tr>
-        }
+                            }
+                        </td>
+                    </tr>
+                }
 
-    </table>
-    <a class="btn btn-cancel" title="Trở lại" href="~/Tourmanager/QuanLyTour">
-        Trở lại
-    </a>
+            </table>
+            <a class="btn btn-cancel" title="Trở lại" href="~/Tourmanager/QuanLyTour">
+                Trở lại
+            </a>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <img src="~/images/green_typetour.gif" height="95%" width="100%" quality="high"/>
+    </div>
 </div>
+
 
 <script>
 

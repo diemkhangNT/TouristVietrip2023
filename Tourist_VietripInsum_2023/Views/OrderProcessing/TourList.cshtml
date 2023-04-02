@@ -43,7 +43,6 @@
                                     <th aria-controls="sampleTable" rowspan="1" colspan="1" width="200px">Thông tin khởi hành</th>
                                     <th aria-controls="sampleTable" rowspan="1" colspan="1">Số chỗ trống</th>
                                     <th aria-controls="sampleTable" rowspan="1" colspan="1">Hạn chót</th>
-                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Chức năng</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -79,14 +78,6 @@
                                                     var day = String.Format("{0:d/M/yyyy}", item.HanChotDatVe);
                                                 }
                                                 @Html.DisplayFor(modelItem => day)
-                                            </td>
-                                            <td style="text-align:center">
-                                                <a href="/Tourmanager/EditTour/@item.MaTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <a href="/Tourmanager/TourDetails/@item.MaTour" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
-                                                    <i class="fas fa-train"></i>
-                                                </a>
                                             </td>
                                         </tr>
                                     }
