@@ -96,7 +96,8 @@
                                                     @Html.DisplayFor(modelItem => item.TrangThaiTT)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                                                    @{ var tongTien = string.Format("{0:0,0 VNĐ}", item.TotalPrice);}
+                                                    @Html.DisplayFor(modelItem => tongTien)
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.SoCho)

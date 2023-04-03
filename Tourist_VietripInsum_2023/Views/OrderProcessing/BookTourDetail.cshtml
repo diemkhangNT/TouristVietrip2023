@@ -52,7 +52,8 @@
                             </div>
                             <div class="form-group">
                                 <b style="margin-left: 15px;">Số chỗ: </b>@Html.DisplayFor(model => model.SoCho)
-                                <b style="margin-left: 15px;">Tổng tiền: </b> @Html.DisplayFor(model => model.TotalPrice)
+                                <b style="margin-left: 15px;">Tổng tiền: </b>@{ var tongTien = string.Format("{0:0,0}", Model.TotalPrice);} 
+                                @Html.DisplayFor(model => tongTien)
                             </div>
                             <div style="display: flex; margin-top: 15px; text-align: center; width: 500px; margin: auto;">
                                 <b style="margin: 10px 10px 0 0;">Tình trạng thanh toán: </b>
