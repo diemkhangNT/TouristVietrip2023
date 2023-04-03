@@ -7,6 +7,7 @@
     ViewBag.qlt = "active";
     TouristEntities1 db = new TouristEntities1();
     var tinhthanh = db.TinhThanhs.ToList();
+    var loaitour = db.LoaiTours.ToList();
 }
 
 <div class="tile">
@@ -38,7 +39,24 @@
                 <div class="form-group col-sm-12">
                     <strong>Type Tour</strong>
                     <div class="col-md-12">
-                        @Html.DropDownList("MaLTour", null, htmlAttributes: new { @class = "form-control col-md-12" })
+                        <select class="form-control col-md-12" name="MaLTour" required>
+                            <option> @Model.LoaiTour.TenLTour</option>
+                            @{
+                                foreach (var item in loaitour)
+                                {
+
+                                    <option value="@item.MaLTour">@item.TenLTour</option>
+                                }
+                            }
+
+                            <option>Hà Nội</option>
+                            <option>Đà Nẵng</option>
+                            <option>Huế</option>
+                            <option>Rạch Giá</option>
+                            <option>Vũng tàu</option>
+                            <option>Nha Trang</option>
+                            <option>Cần Thơ</option>
+                        </select>
                         @Html.ValidationMessageFor(model => model.MaLTour, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -63,7 +81,8 @@
                 <div class="form-group col-sm-12">
                     <strong>Nơi khởi hành:</strong>
                     <div class="col-md-12">
-                        <select class="form-control col-md-12" name="NoiKhoiHanh" required>
+                        <select class="form-control col-md-12"  name="NoiKhoiHanh" required>
+                            <option>@Model.NoiKhoiHanh</option>
                             <option>TP. Hồ Chí Minh</option>
                             <option>Hà Nội</option>
                             <option>Đà Nẵng</option>
@@ -97,6 +116,7 @@
                     <strong>Trạng thái hiển thị: </strong>
                     <div class="col-sm-12">
                         <select class="form-control col-sm-12" id="TrangThai" name="Trangthai">
+                            <option>@Model.TrangThai</option>
                             <option>Sắp ra mắt</option>
                             <option>Tour nổi bật</option>
                             <option>Đang diễn ra</option>

@@ -15065,7 +15065,6 @@ be a descendant of the grid when it is being dragged.
 
 .tile .tile-title {
     margin-top: 0;
-    margin-bottom: 30px;
     font-size: 20px;
     /* text-align: center; */
     border-bottom: 2px solid #FFD43B;
