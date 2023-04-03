@@ -41,7 +41,8 @@
                                 <b>Số Chỗ: </b>@Html.DisplayFor(model => model.SoCho)
                             </div>
                             <div class="col-md-6">
-                                <b>Tổng Tiền: </b>@Html.DisplayFor(model => model.TotalPrice)
+                                @{ var tongTien = string.Format("{0:0,0 VNĐ}", Model.TotalPrice);}
+                                <b>Tổng Tiền: </b>@Html.DisplayFor(model => tongTien)
                             </div>
                         </div>
                         <div class="row" style="margin-top: 15px;">
@@ -92,7 +93,8 @@
                                             @Html.DisplayFor(modelItem => item.GioiTinh)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.NgaySinh)
+                                            @{ var ngaySinh = string.Format("{0:dd/MM/yyyy}", item.NgaySinh);}
+                                            @Html.DisplayFor(modelItem => ngaySinh)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.LuuY)
