@@ -247,10 +247,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 songuoibd = 5;
             }
             //ngaykhoihanh = String.Format("{0:d/M/yyyy}", tour.NgayKhoihanh);
-            DateTime.Now.ToString("yyyy-MM-dd");
-            var tours = db.Tours.Where(s => s.TrangThai == trangthai 
-            && s.NoiKhoiHanh == noikhoihanh && (s.SoNgay >= songaybd && s.SoNgay <= songaykt) 
-            && s.NgayKhoihanh == ngaykhoihanh.Date && s.SoChoNull >= songuoibd);
+            
             //DateTime.Now.ToString("yyyy-MM-dd");
             var tours = db.Tours.Where(s => s.TrangThai == trangthai && s.NoiKhoiHanh == noikhoihanh && (s.SoNgay >= songaybd && s.SoNgay <= songaykt)  && s.SoChoNull >= songuoibd);
             return View(tours.ToList());

@@ -140,7 +140,14 @@ namespace Tourist_VietripInsum_2023.Controllers
             // Lấy thông tin tương ứng với id từ CSDL
             // ...
             var infoTour = db.Tours.Find(id);
-            return Json(infoTour.SoChoNull, JsonRequestBehavior.AllowGet);
+            if(infoTour == null)
+            {
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(infoTour.SoChoNull, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpGet]
