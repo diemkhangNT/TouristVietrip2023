@@ -49,6 +49,7 @@
                                 <div class="form-group col-md-2">
                                     <label class="control-label">Loại vé</label>
                                     <select class="form-control col-sm-12" id="MaLVe" name="MaLVe_@i">
+                                        <option value="">Chọn loại vé</option>
                                         <option value="TICKET01">Vé người lớn</option>
                                         <option value="TICKET02">Vé trẻ em</option>
                                     </select>
@@ -59,6 +60,7 @@
                                 <div class="form-group col-md-2">
                                     <label class="control-label">Giới tính</label>
                                     <select class="form-control col-sm-12" id="cusInfo_GioiTinh" name="GioiTinh_@i">
+                                        <option value="">Giới tính</option>
                                         <option value="Nam">Nam</option>
                                         <option value="Nữ">Nữ</option>
                                     </select>
@@ -77,7 +79,7 @@
                                 <div class="form-group col-md-2">
                                     <label class="control-label">Lưu ý</label>
                                     <input class="form-control text-box single-line" id="LuuY" name="LuuY_@i" type="text">
-                                    @*@Html.EditorFor(model => model.LuuY, new { htmlAttributes = new { @class = "form-control" } })*@
+                                    @*@Html.EditorFor(model => model.LuuY, new { htmlAttributes = new { @class = "form-control", @name = "LuuY_"+i } })*@
                                     @Html.ValidationMessageFor(model => model.LuuY, "", new { @class = "text-danger" })
                                 </div>
                             </div>

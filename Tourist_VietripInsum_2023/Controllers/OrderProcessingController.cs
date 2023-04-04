@@ -45,6 +45,27 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(listTour);
         }
 
+        public ActionResult CusDetailsTour(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            List<BookTour> booking = db.BookTours.Where(s => s.MaTour == id).ToList();
+            List<Ve> ve = new List<Ve>();
+            foreach (var i in booking)
+            {
+                var maDH = i.MaDH;
+                ve = db.Ves.Where(s => s.MaDH == maDH).ToList();
+            }
+            if (booking == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ve);
+        }
+
         public ActionResult ListOfCustomers(string search)
         {
             if (search == null)
@@ -138,7 +159,6 @@ namespace Tourist_VietripInsum_2023.Controllers
         public ActionResult GetInfoTour(string id)
         {
             // Lấy thông tin tương ứng với id từ CSDL
-            // ...
             var infoTour = db.Tours.Find(id);
             if(infoTour == null)
             {
@@ -249,7 +269,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                     ve.MaLVe = Request["MaLVe_" + i];
                     ve.GioiTinh = Request["GioiTinh_" + i];
                     ve.NgaySinh = Convert.ToDateTime(Request["NgaySinh_" + i]);
-                    ve.LuuY = Request["LuuY" + i];
+                    ve.LuuY = Request["LuuY_" + i];
                     db.Ves.Add(ve);
 
                     if (ve.MaLVe == "TICKET01")
@@ -368,6 +388,17 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        public ActionResult Bill()
+        {
+            return View();
+        }
+        //[HttpPost]
+        //public ActionResult Bill()
+        //{
+        //    return View();
+        //}
 
         [HttpGet]
         public ActionResult TicketEdit(string id)
