@@ -1,22 +1,39 @@
 ﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.PhanHoi>
-
+@using Tourist_VietripInsum_2023.Models
 @{
     ViewBag.Title = "FeedBack";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
-    ViewBag.Name = "Feedback Page";
+    ViewBag.Name = "Trang phản hồi";
     ViewBag.PhanHoi = "active";
+
+    TouristEntities1 db = new TouristEntities1();
+}
+@if (TempData["success"] != null)
+{
+    <script>
+        swal({
+            title: "Cập nhật phản hồi thành công",
+            icon: "success",
+            button: "Thoát",
+        });
+    </script>
 }
 <div class="row">
     <div class="col-sm-12">
         <div class="tile">
-            <h3 class="tile-title" style="text-align: center;">FEEDBACK</h3>
+            <h3 class="tile-title" style="text-align: center;">PHẢN HỒI</h3>
             <div class="tile-body">
                 <table class="table">
                     <thead style="background-color: #ffd43b;">
                         <tr>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã phản hồi</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã khách hàng</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Số điện thoại</th>
                             <th aria-controls="sampleTable" rowspan="1" colspan="1">Email</th>
-                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Content</th>
-                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Options</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Nội dung</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Ngày</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Trạng thái</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Tùy chọn</th>
                         </tr>
                     </thead>
 
@@ -33,26 +50,97 @@
                             {
                                 <tr>
                                     <td>
+                                        @Html.DisplayFor(modelItem => item.MaPhanHoi)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MaKH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Sdt)
+                                    </td>
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.Email)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.NoiDung)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.KhachHang.MaLoaiKH)
+                                        @Html.DisplayFor(modelItem => item.NgayPH)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.MaPhanHoi }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.MaPhanHoi }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.MaPhanHoi })
+                                        @Html.DisplayFor(modelItem => item.TrangThai)
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editFB-@item.MaPhanHoi">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#deleteFB-@item.MaPhanHoi">
+                                            <i class="fas fa-remove"></i>
+                                        </a>
                                     </td>
                                 </tr>
+
+                                //Model xóa phản hồi
+                                using (Html.BeginForm("DeleteFeedBack/" + item.MaPhanHoi, "OrderProcessing", FormMethod.Post, null))
+                                {
+                                    @Html.AntiForgeryToken();
+                                    <div class="modal" id="deleteFB-@item.MaPhanHoi">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <!-- Modal body -->
+                                                <div class="modal-body" style="text-align: center; padding: 50px 0px 30px 0px;">
+                                                    <h5>Bạn có muốn xóa phản hồi này không?</h5>
+                                                </div>
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                    <input type="button" class="btn btn-cancel btn-sm" data-bs-dismiss="modal" value="Hủy">
+                                                    <input type="submit" class="btn btn-danger btn-sm" data-bs-dismiss="modal" value="Xác nhận">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                @*Model edit phản hồi*@
+                                using (Html.BeginForm("FeedBackEdit/" + item.MaPhanHoi, "OrderProcessing", FormMethod.Get, null))
+                                {
+                                    @Html.AntiForgeryToken();
+                                    <div class="modal" id="editFB-@item.MaPhanHoi">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                @*Modal body*@
+                                                <div class="modal-body">
+                                                    <h5 class="tile-title" style="text-align: center; padding-top: 20px;">SỬA TRẠNG THÁI PHẢN HỒI</h5>
+                                                </div>
+                                                @{ PhanHoi phanHoi = db.PhanHois.Find(item.MaPhanHoi);}
+                                            <div>
+                                                @Html.HiddenFor(model => phanHoi.MaPhanHoi)
+                                                @Html.HiddenFor(model => phanHoi.MaKH)
+                                                @Html.HiddenFor(model => phanHoi.Sdt)
+                                                @Html.HiddenFor(model => phanHoi.Email)
+                                                @Html.HiddenFor(model => phanHoi.NoiDung)
+                                                @Html.HiddenFor(model => phanHoi.NgayPH)
+                                                <div class="form-group" style="display: flex; margin-left: 80px;">
+                                                    <label class="control-label" style=" font-size: 18px; margin-top: 10px;">Trạng thái phản hồi</label>
+                                                    @Html.EditorFor(model => phanHoi.TrangThai, new { htmlAttributes = new { @class = "form-control", @style = "width: 150px; margin-left: 15px;" } })
+                                                </div>
+                                            </div>
+                                                @*Modal footer*@
+                                                <div class="modal-footer">
+                                                    <input type="button" class="btn btn-cancel btn-sm" data-bs-dismiss="modal" value="Hủy">
+                                                    <input type="submit" class="btn btn-danger btn-sm" data-bs-dismiss="modal" value="Xác nhận">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
                             }
                         }
                     </tbody>
-
                 </table>
             </div>
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

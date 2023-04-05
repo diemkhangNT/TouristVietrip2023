@@ -276,6 +276,7 @@
     <Content Include="images\danang_banahill.jpg" />
     <Content Include="images\danang_congviennuoc.jpg" />
     <Content Include="images\danang_phocohoian.jpg" />
+    <Content Include="images\green_typetour.gif" />
     <Content Include="images\khanhhoa_nhathonui.jpg" />
     <Content Include="images\khanhhoa_ponaga.jpg" />
     <Content Include="images\khanhhoa_vinpearland.jpg" />
@@ -452,6 +453,20 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\OrderProcessing\BookTourDetail.cshtml" />
+    <Content Include="Views\OrderProcessing\CheckCusInfo.cshtml" />
+    <Content Include="Views\OrderProcessing\CreateOrder.cshtml" />
+    <Content Include="Views\OrderProcessing\CreateTickets.cshtml" />
+    <Content Include="Views\OrderProcessing\DeleteOrder.cshtml" />
+    <Content Include="Views\OrderProcessing\EditOrdering.cshtml" />
+    <Content Include="Views\OrderProcessing\FeedBack.cshtml" />
+    <Content Include="Views\OrderProcessing\HomePageOP.cshtml" />
+    <Content Include="Views\OrderProcessing\LayoutOP\_ViewOP.cshtml" />
+    <Content Include="Views\OrderProcessing\ListOfCustomers.cshtml" />
+    <Content Include="Views\OrderProcessing\ManageTourOrders.cshtml" />
+    <Content Include="Views\OrderProcessing\OrderingInfo.cshtml" />
+    <Content Include="Views\OrderProcessing\Profile.cshtml" />
+    <Content Include="Views\OrderProcessing\TicketEdit.cshtml" />
     <Content Include="Views\Tourmanager\HomePageTM.cshtml" />
     <Content Include="Views\Tourmanager\LayoutTM\_ViewTM.cshtml" />
     <Content Include="Views\Tourmanager\Profile.cshtml" />
@@ -515,23 +530,10 @@
     <Content Include="Views\Guest\ListTourTinhThanh.cshtml" />
     <Content Include="Views\Guest\ListTour_DiaDiem.cshtml" />
     <Content Include="Views\Guest\Tourinfomation.cshtml" />
-    <Content Include="Views\OrderProcessing\BookTourDetail.cshtml" />
-    <Content Include="Views\OrderProcessing\CheckCusInfo.cshtml" />
-    <Content Include="Views\OrderProcessing\CreateOrder.cshtml" />
-    <Content Include="Views\OrderProcessing\CreateTickets.cshtml" />
-    <Content Include="Views\OrderProcessing\DeleteOrder.cshtml" />
-    <Content Include="Views\OrderProcessing\EditOrder.cshtml" />
-    <Content Include="Views\OrderProcessing\EditOrdering.cshtml" />
-    <Content Include="Views\OrderProcessing\FeedBack.cshtml" />
-    <Content Include="Views\OrderProcessing\HomePageOP.cshtml" />
-    <Content Include="Views\OrderProcessing\LayoutOP\_ViewOP.cshtml" />
-    <Content Include="Views\OrderProcessing\ListOfCustomers.cshtml" />
-    <Content Include="Views\OrderProcessing\ManageTourOrders.cshtml" />
-    <Content Include="Views\OrderProcessing\OrderingInfo.cshtml" />
-    <Content Include="Views\OrderProcessing\Profile.cshtml" />
-    <Content Include="Views\OrderProcessing\TicketEdit.cshtml" />
     <Content Include="Views\Guest\LienHeGuest.cshtml" />
+    <Content Include="Views\Guest\TinTuc.cshtml" />
     <Content Include="Views\Guest\ListTour.cshtml" />
+    <Content Include="Views\OrderProcessing\TourList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

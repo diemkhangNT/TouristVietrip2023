@@ -157,8 +157,8 @@
           <Property Name="SoNgay" Type="int" />
           <Property Name="NoiKhoiHanh" Type="nvarchar" MaxLength="50" />
           <Property Name="SoChoNull" Type="int" />
-          <Property Name="GiaTreEm" Type="decimal" Precision="9" Scale="2" />
-          <Property Name="GiaNguoiLon" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="GiaTreEm" Type="int" />
+          <Property Name="GiaNguoiLon" Type="int" />
           <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
           <Property Name="HanChotDatVe" Type="datetime" />
         </EntityType>
@@ -336,18 +336,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tour_Hotel">
-          <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
-          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Hotel">
-              <PropertyRef Name="MaKS" />
-            </Principal>
-            <Dependent Role="Tour">
-              <PropertyRef Name="MaKS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tour_LoaiTour1">
           <End Role="LoaiTour" Type="Self.LoaiTour" Multiplicity="0..1" />
           <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
@@ -428,10 +416,6 @@
             <End Role="LoaiVe" EntitySet="LoaiVe" />
             <End Role="Ve" EntitySet="Ve" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tour_Hotel" Association="Self.FK_Tour_Hotel">
-            <End Role="Hotel" EntitySet="Hotel" />
-            <End Role="Tour" EntitySet="Tour" />
-          </AssociationSet>
           <AssociationSet Name="FK_Tour_LoaiTour1" Association="Self.FK_Tour_LoaiTour1">
             <End Role="LoaiTour" EntitySet="LoaiTour" />
             <End Role="Tour" EntitySet="Tour" />
@@ -505,7 +489,6 @@
           <Property Name="TenKS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Sao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TinhThanh" Relationship="Self.FK_Hotel_TinhThanh" FromRole="Hotel" ToRole="TinhThanh" />
-          <NavigationProperty Name="Tours" Relationship="Self.FK_Tour_Hotel" FromRole="Hotel" ToRole="Tour" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
@@ -618,13 +601,12 @@
           <Property Name="SoNgay" Type="Int32" />
           <Property Name="NoiKhoiHanh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SoChoNull" Type="Int32" />
-          <Property Name="GiaTreEm" Type="Decimal" Precision="9" Scale="2" />
-          <Property Name="GiaNguoiLon" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="GiaTreEm" Type="Int32" />
+          <Property Name="GiaNguoiLon" Type="Int32" />
           <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HanChotDatVe" Type="DateTime" Precision="3" />
           <NavigationProperty Name="BookTours" Relationship="Self.FK_OrderCus_Tour" FromRole="Tour" ToRole="BookTour" />
           <NavigationProperty Name="ChiTietTours" Relationship="Self.FK_ChiTietTour_Tour" FromRole="Tour" ToRole="ChiTietTour" />
-          <NavigationProperty Name="Hotel" Relationship="Self.FK_Tour_Hotel" FromRole="Tour" ToRole="Hotel" />
           <NavigationProperty Name="LoaiTour" Relationship="Self.FK_Tour_LoaiTour1" FromRole="Tour" ToRole="LoaiTour" />
         </EntityType>
         <EntityType Name="Ve">
@@ -765,18 +747,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tour_Hotel">
-          <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
-          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Hotel">
-              <PropertyRef Name="MaKS" />
-            </Principal>
-            <Dependent Role="Tour">
-              <PropertyRef Name="MaKS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Customer_Guest_TypeCus">
           <End Role="LoaiKH" Type="Self.LoaiKH" Multiplicity="0..1" />
           <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="*" />
@@ -882,10 +852,6 @@
           <AssociationSet Name="FK_Hotel_TinhThanh" Association="Self.FK_Hotel_TinhThanh">
             <End Role="TinhThanh" EntitySet="TinhThanhs" />
             <End Role="Hotel" EntitySet="Hotels" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tour_Hotel" Association="Self.FK_Tour_Hotel">
-            <End Role="Hotel" EntitySet="Hotels" />
-            <End Role="Tour" EntitySet="Tours" />
           </AssociationSet>
           <AssociationSet Name="FK_Customer_Guest_TypeCus" Association="Self.FK_Customer_Guest_TypeCus">
             <End Role="LoaiKH" EntitySet="LoaiKHs" />

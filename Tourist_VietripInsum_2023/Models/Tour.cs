@@ -32,8 +32,8 @@ namespace Tourist_VietripInsum_2023.Models
         public Nullable<int> SoNgay { get; set; }
         public string NoiKhoiHanh { get; set; }
         public Nullable<int> SoChoNull { get; set; }
-        public Nullable<decimal> GiaTreEm { get; set; }
-        public Nullable<decimal> GiaNguoiLon { get; set; }
+        public Nullable<int> GiaTreEm { get; set; }
+        public Nullable<int> GiaNguoiLon { get; set; }
         public string TrangThai { get; set; }
         public Nullable<System.DateTime> HanChotDatVe { get; set; }
     
@@ -41,7 +41,6 @@ namespace Tourist_VietripInsum_2023.Models
         public virtual ICollection<BookTour> BookTours { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietTour> ChiTietTours { get; set; }
-        public virtual Hotel Hotel { get; set; }
         public virtual LoaiTour LoaiTour { get; set; }
     }
 }

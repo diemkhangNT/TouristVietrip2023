@@ -41,7 +41,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         //        //Trang hiển thị danh sách loại tour, hotel, tour
         public ActionResult QuanLyTour()
         {
-            List<Tour> listTour = db.Tours.Include(t => t.Hotel).Include(t => t.LoaiTour).ToList();
+            List<Tour> listTour = db.Tours.Include(t => t.LoaiTour).ToList();
             //var tours = db.Tours.ToList().OrderByDescending(s => s.IdTour);
             return View(listTour);
         }
@@ -576,7 +576,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 Random rd = new Random();
                 var idtour = "VNG" + rd.Next(1, 100000);
                 tour.MaTour = idtour;
-                tour.TrangThai  = "Coming soon...";
+                tour.TrangThai  = "Sắp ra mắt";
                 DateTime startDate = (DateTime)tour.NgayKhoihanh;
                 DateTime endDate = (DateTime)tour.NgayTroVe;
 
@@ -619,7 +619,6 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MaKS = new SelectList(db.Hotels, "MaKS", "TenKS", tour.Hotel.TenKS);
             ViewBag.MaLTour = new SelectList(db.LoaiTours, "MaLTour", "TenLTour", tour.LoaiTour.TenLTour);
             return View(tour);
         }

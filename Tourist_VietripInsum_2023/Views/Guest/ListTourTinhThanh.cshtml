@@ -19,27 +19,88 @@
 
                 <div class="col-md-3 col-12 " style="background-color: #EDEBEB">
                     <!-- TIMKIEM -->
-                        <div class="pull-right">
-                            @using (Html.BeginForm("ListTour_DiaDiem", "Guest", FormMethod.Post))
-                            {
-                                //the following are search options
-                                <b>Search Option: </b>
-                                @Html.RadioButton("option", "IDTour") <text>ID tour</text>
-                                @Html.RadioButton("option", "Tourname") <text >Tour name</text>
-                                @Html.RadioButton("option", "TimeTour")<text>ID type tour</text>
-                                @Html.TextBox("search")
-                                <input type="submit"
-                                       name="submit"
-                                       value="Search" />
-                            }
+
+                    @using (Html.BeginForm("ListTourTinhThanh", "Guest", FormMethod.Post))
+                    {
+                        <div class="">
+                            <h5 class="m-3 text-dark text-center">Bộ lọc tìm kiếm</h5>
+                            <div>
+                                <div class="bg-success py-2 text-center">
+                                    <span class="text-white fw-bold">@Session["tentinh"]</span>
+                                </div>
+                                <div class="py-4">
+                                    <div class="mb-4">
+                                        <h5 class="point-start-title s-title">Loại tour</h5>
+                                        <select class="form-select" name="trangthai">
+                                            <option>Tour giờ chót</option>
+                                            <option>Đang diễn ra</option>
+                                        </select>
+                                    </div>
+                                    <div class="start-to-stop mb-3">
+                                        <h5 class="point-start-title s-title">Nơi khởi hành</h5>
+                                        <select class="form-select" id="departureIDFilter" name="noikhoihanh">
+                                            <option>TP. Hồ Chí Minh</option>
+                                            <option>Hà Nội</option>
+                                            <option>Đà Nẵng</option>
+                                            <option>Huế</option>
+                                            <option>Rạch Giá</option>
+                                            <option>Vũng tàu</option>
+                                            <option>Nha Trang</option>
+                                            <option>Cần Thơ</option>
+                                        </select>
+                                    </div>
+                                    <div class=" mb-4 row">
+                                        <h5 class="s-title">Số ngày</h5>
+                                        <div class="radio col-6">
+                                            <label><input type="radio" name="songay" value="1 - 3 ngày" checked> 1 - 3 ngày</label>
+                                        </div>
+                                        <div class="radio col-6">
+                                            <label><input type="radio" name="songay" value="4 - 7 ngày"> 4 - 7 ngày</label>
+                                        </div>
+                                        <div class="radio col-6">
+                                            <label><input type="radio" name="songay" value="8 - 10 ngày"> 8 - 10 ngày</label>
+                                        </div>
+                                        <div class="radio col-6">
+                                            <label><input type="radio" name="songay" value="10+ ngày"> 10+ ngày</label>
+                                        </div>
+                                    </div>
+                                    <h5 class="date-go-to-back-title s-title">Ngày đi</h5>
+                                    <input class="form-control col-md-12 text-box single-line " data-val="true" name="ngaykhoihanh" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")">
+                                    <p id="alternate1"></p>
+                                    <p id="alternate4"></p>
+                                    <div class="tour-search-result__filter__block mb-4">
+                                        <h5 class="s-title">Số người</h5>
+                                        <div class="btn-group tour-search-result__filter__room" role="group" aria-label="Basic example">
+                                            <div class="row g-2">
+                                                <div class="radio col-6">
+                                                    <label><input type="radio" name="songuoi" value="1 người" checked> 1 người</label>
+                                                </div>
+                                                <div class="radio col-6">
+                                                    <label><input type="radio" name="songuoi" value="2 - 3 người"> 2 - 3 người</label>
+                                                </div>
+                                                <div class="radio col-6">
+                                                    <label><input type="radio" name="songuoi" value="3 - 5 người"> 3 - 5 người</label>
+                                                </div>
+                                                <div class="radio col-6">
+                                                    <label><input type="radio" name="songuoi" value="5+ người"> 5+ người</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <input class="btn btn-outline-success py2" type="submit" name="submit" value="Tìm kiếm" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    }
                 </div>
                 <!-- LISTTOUR -->
                 @{
                     List<Tour> tours = Model.ToList();
                     var matinh = Session["tentinh"];
                     var tinh = db.TinhThanhs.Where(t => t.MaTinh == matinh).FirstOrDefault();
-
+                    var count = tours.Count();
                 }
                 <div class="col-md-9 col-12 main-content">
                     <div class="pr-tinhthanh">
@@ -49,9 +110,16 @@
                     <div class="listour-search">
 
                         <div class="row row-cols-1 row-cols-md-3 g-4" id="sampleTable">
-                            @foreach (var tour in Model)
+                            @{
+                                if (count == 0)
                                 {
-                                    
+                                    <h3 class="text-center">Không tìm thấy tour</h3>
+                                }
+                                else
+                                {
+                                    foreach (var tour in Model)
+                                    {
+
                                         <div class="col">
                                             <div class="card tour-item">
                                                 <div class="tour-item__image">
@@ -115,14 +183,14 @@
                                                                     <a href="#" class="btn-order btn-sm " title="" value="" id="">
                                                                         <i class="fas fa-shopping-cart"></i>
                                                                         Đặt ngay
-                                                                        
+
                                                                     </a>
                                                                 </div>*@
                                                                 <div class="btn-block">
                                                                     <a href="/Guest/Tourinfomation/@tour.MaTour" title="@tour.TenTour" class="btn-viewdetail">
-                                                                       
-                                                                            Xem chi tiết
-                                                                        
+
+                                                                        Xem chi tiết
+
                                                                     </a>
                                                                 </div>
                                                             </div>
@@ -141,7 +209,9 @@
                                             </div>
                                         </div>
                                     }
-                                
+
+                                }
+                            }
 
                         </div>
                     </div>

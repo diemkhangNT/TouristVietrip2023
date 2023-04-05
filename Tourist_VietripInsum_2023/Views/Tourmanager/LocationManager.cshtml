@@ -102,7 +102,7 @@
                                             </a>*@
                                             <a class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete" data-target="#DeleteModalTrans-@item.MaDDTQ" data-toggle="modal">
                                                 <i class="fas fa-trash"></i>
-                                            </a>
+                                            </a> 
                                             @using (Html.BeginForm("DeleteVisitLocations/" + item.MaDDTQ, "Tourmanager", FormMethod.Post, null))
                                             {
                                                 @Html.AntiForgeryToken()

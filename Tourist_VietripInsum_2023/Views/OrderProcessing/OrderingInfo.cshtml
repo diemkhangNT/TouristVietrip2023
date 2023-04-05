@@ -1,16 +1,20 @@
 ﻿@model Tourist_VietripInsum_2023.Models.BookTour
-
+@using Tourist_VietripInsum_2023.Models
 @{
     ViewBag.Title = "OrderingInfo";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
-    ViewBag.Name = "Order Information";
+    ViewBag.Name = "Thông Tin Đơn Đặt Tour";
     ViewBag.order = "active";
+
+    TouristEntities1 db = new TouristEntities1();
+    var maDH = Session["MaDH"].ToString();
+    var listTickets = db.Ves.Where(s => s.MaDH == maDH).ToList();
 }
 
 <div class="row">
     <div class="col-sm-12">
         <div class="tile">
-            <h3 class="tile-title" style="text-align: center;">ORDER INFORMATION</h3>
+            <h3 class="tile-title" style="text-align: center;">THÔNG TIN ĐƠN ĐẶT TOUR</h3>
             <div class="tile-body">
                 <div class="row element-button">
                     <div class="col-md-4">
@@ -19,38 +23,86 @@
                     <div class="col-md-8" style="font-size: 18px;">
                         <div class="row">
                             <div class="col-md-12">
-                                <b>Tour Name: </b>@Html.DisplayFor(model => model.Tour.TenTour)
+                                <b>Tên Tour: </b>@Html.DisplayFor(model => model.Tour.TenTour)
                             </div>
                         </div>
 
                         <div class="row" style="margin-top: 15px;">
                             <div class="col-md-6">
-                                <b>Customer Name: </b>@Html.DisplayFor(model => model.KhachHang.HoTenKH)
+                                <b>Tên Khách Hàng: </b>@Html.DisplayFor(model => model.KhachHang.HoTenKH)
                             </div>
                             <div class="col-md-6">
-                                <b>Number Phone: </b>@Html.DisplayFor(model => model.SdtKH)
+                                <b>Số điện thoại: </b>@Html.DisplayFor(model => model.SdtKH)
                             </div>
                         </div>
 
                         <div class="row" style="margin-top: 15px;">
                             <div class="col-md-6">
-                                <b>Number of place: </b>@Html.DisplayFor(model => model.SoCho)
+                                <b>Số Chỗ: </b>@Html.DisplayFor(model => model.SoCho)
                             </div>
                             <div class="col-md-6">
-                                <b>Total Price: </b>@Html.DisplayFor(model => model.TotalPrice)
+                                <b>Tổng Tiền: </b>@Html.DisplayFor(model => model.TotalPrice)
                             </div>
                         </div>
                         <div class="row" style="margin-top: 15px;">
                             <div class="col-md-12">
-                                <b>Date Create: </b>@Html.DisplayFor(model => model.NgayLap)
+                                <b>Ngày Đặt Tour: </b>@Html.DisplayFor(model => model.NgayLap)
                             </div>
+                        </div>
+                        <div style="margin-top: 80px;">
+                            <a class="btn btn-cancel btn-sm" href="/OrderProcessing/DeleteOrdering/@Session["MaDH"]">Hủy</a>
+                            <a class="btn btn-success btn-sm" href="/OrderProcessing/ManageTourOrders">Hoàn Thành</a>
                         </div>
                     </div>
                 </div>
-                <p>
-                    <a class="btn btn-cancel btn-sm" href="/OrderProcessing/DeleteOrdering/@Session["MaDH"]">Cancel</a>
-                    <a class="btn btn-success btn-sm" href="/OrderProcessing/ManageTourOrders">Back</a>
-                </p>
+                <div class="element-button" style="margin-top: 20px;">
+                    <table class="table">
+                        <thead style="background-color: #ffd43b;">
+                            <tr>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã Vé</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Loại Vé</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Họ Và Tên</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Giới Tính</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Ngày Sinh</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Lưu Ý</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (listTickets.Count() == 0)
+                            {
+                                <tr>
+                                    <td colspan="9" class="text-center"> Records not found </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                foreach (var item in listTickets)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.MaVe)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.LoaiVe.TenLVe)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Hoten_KH)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.GioiTinh)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NgaySinh)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.LuuY)
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
