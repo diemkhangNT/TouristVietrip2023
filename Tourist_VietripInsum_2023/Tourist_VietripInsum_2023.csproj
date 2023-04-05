@@ -534,6 +534,9 @@
     <Content Include="Views\Guest\TinTuc.cshtml" />
     <Content Include="Views\Guest\ListTour.cshtml" />
     <Content Include="Views\OrderProcessing\TourList.cshtml" />
+    <Content Include="Views\Admin\ListOfCustomers.cshtml" />
+    <Content Include="Views\Guest\VeChungToi.cshtml" />
+    <Content Include="Views\OrderProcessing\CusDetailsTour.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
