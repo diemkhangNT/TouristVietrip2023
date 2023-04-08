@@ -1,0 +1,154 @@
+﻿.dattour {
+    padding-bottom: 40px;
+}
+
+.thongtindatve {
+    background-color: white;
+}
+
+.nav-links {
+    padding: 10px;
+}
+
+.nav-main {
+    margin: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #2d4271;
+}
+
+
+/* THONGTINTOUR */
+.detailtour {
+    display: flex;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    background-color: #ECF3F4;
+    border-radius: 15px;
+    padding: 5px;
+}
+
+.image-tour {
+    width: 35%;
+    padding: 20px;
+}
+
+    .image-tour img {
+        border-radius: 10px;
+        margin: 0 auto;
+        height: 100%;
+    }
+
+.tour-content {
+    padding: 10px;
+    width: 65%;
+}
+
+    .tour-content p {
+        padding-top: 10px;
+        font-weight: 700;
+        font-size: 20px;
+        color: #2d4271;
+    }
+
+.entry .entry-inner span {
+    display: block;
+    font-size: 14px;
+    line-height: 25px;
+    color: #2d4271;
+}
+
+/* DATTHONGTIN-LIENLAC */
+.title-name {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 38px;
+    color: #2d4271;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/*.form-contact {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0px 20px;
+}
+
+.change {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+    border: 2px solid #53787D;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+    .change :hover {
+        box-shadow: #53787D;
+    }
+
+.change-title {
+    padding-top: 10px;
+    padding-left: 5px;
+    color: #2d4271;
+}
+
+    .change-title h4 {
+        font-weight: 700;
+        font-size: 18px;
+        margin-bottom: 0;
+    }*/
+/* DATVE */
+.typeper {
+    font-weight: 700;
+    font-size: 18px;
+    color: #2d4271;
+}
+
+.ticket-info {
+    border-radius: 10px;
+    background-color: #f4f6f7;
+    padding: 0px 30px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+}
+
+/* RIGHT */
+.price-tour {
+    background: #fff;
+    border: 1px solid #53787D;
+    box-sizing: border-box;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.title-ticket {
+    font-weight: 700;
+    font-size: 22px;
+    color: #2d4271;
+    margin-bottom: 20px;
+   
+}
+
+.detail-book-tour {
+    font-size: 16px;
+    color: #2d4271;
+    font-weight: 400;
+}
+
+    .detail-book-tour .t-price {
+        font-weight: 700;
+    }
+
+    .detail-book-tour tr td {
+        padding-bottom: 15px;
+    }
+
+.btn-order {
+    padding: 20px;
+}

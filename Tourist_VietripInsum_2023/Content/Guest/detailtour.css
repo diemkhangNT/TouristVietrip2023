@@ -13,8 +13,7 @@
     color: #4d4aef;
     font-size: 15px;
     margin-bottom: 5px;
-    font-weight:500;
-    
+    font-weight: 500;
 }
 
 .title-tour {
@@ -96,16 +95,18 @@
 }
 
 /* HINH */
+/* HINH */
 .content-2 {
-    padding-bottom: 35px;
+    padding-bottom: 30px;
     background: #f9f9f9;
 }
 
-/*.image img {
+.image img {
     width: 100%;
     height: 100%;
     border-radius: 10px;
-}*/
+}
+
 
 /* SECTION3 */
 .section-03 {
@@ -164,11 +165,12 @@
     .group-services .item {
         display: flex;
         flex-direction: column;
+       
     }
 
         .group-services .item i {
             font-size: 25px;
-            color: #4d4aef;
+            color: #094933;
             margin-bottom: 5px
         }
 
@@ -183,13 +185,13 @@
         }
 
 .tour-des {
-    padding:25px 20px;
+    padding: 25px 20px;
     background: #fff;
     margin-bottom: 10px;
     margin-top: 20px;
     color: #2d4271;
     font-size: 16px;
-    font-weight:500;
+    font-weight: 500;
 }
 
 /*MOTA*/
@@ -209,7 +211,7 @@
     font-weight: 700;
     text-align: center;
     color: #2d4271;
-    padding:15px 0px;
+    padding: 15px 0px;
 }
 
 /* SECTION5 */
@@ -219,7 +221,6 @@
 }
 
     .section-05 .row {
-        
         border: 1px solid #e7e7e7;
         border-radius: 10px;
     }
@@ -359,7 +360,6 @@
 
 .pricetourdetail {
     padding: 10px;
-    
 }
 
     .pricetourdetail h2 {
@@ -370,21 +370,17 @@
         padding: 15px 0px;
     }
 
-.table-price table{
+.table-price table {
     border-radius: 10px;
     padding: 15px;
 }
 
-    .table-price th {
-        paddi
-            
-            
-            ng: 10px 0;
-    }
+.table-price th {
+    paddi ng: 10px 0;
+}
 /* SECTION7 */
 .section-07 {
     margin-bottom: 20px;
-    
 }
 
     .section-07 h2 {
@@ -402,8 +398,6 @@
 }
 
 .accordion {
-    
-    
     color: #2d4271;
     cursor: pointer;
     padding: 25px;

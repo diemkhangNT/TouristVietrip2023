@@ -2,12 +2,14 @@
 @model Tourist_VietripInsum_2023.Models.Tour
 @using Tourist_VietripInsum_2023.Models
 @{
-    ViewBag.Title = "Tourinfomation";
+    ViewBag.Title = "Thông tin chi tiết tour";
     Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
     TouristEntities1 db = new TouristEntities1();
+    KhachHang khachhang = Session["taikhoan"] as KhachHang;
 
 }
-<link href="~/Content/Guest/DetailTours.css" rel="stylesheet" />
+
+<link href="~/Content/Guest/detailtour.css" rel="stylesheet" />
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @{
@@ -61,12 +63,113 @@
                         </div>
                     </div>
                     <div class="group-add-cart ">
-                        <a href="#" class="add-to-cart pull-right ">
+                        <a data-toggle="modal" data-target="#exampleModal" class="add-to-cart pull-right ">
                             <i class="fas fa-shopping-cart"></i>
                             <label>Đặt ngay</label>
                         </a>
-                        >
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                @using (Html.BeginForm("BookTour", "Guest", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        @{
+                                            BookTour bookTour = new BookTour();
+                                            bookTour.MaTour = Model.MaTour;
+                                        }
+                                        @Html.HiddenFor(model => bookTour.MaDH)
+                                        @Html.HiddenFor(model => bookTour.MaNVLap)
+                                        @Html.HiddenFor(model => bookTour.MaTour)
+                                        @Html.HiddenFor(model => bookTour.NgayLap)
+                                        @Html.HiddenFor(model => bookTour.TrangThaiTT)
+                                        @Html.HiddenFor(model => bookTour.TotalPrice)
+                                        <div class="form-horizontal" style="text-align:left">
+                                            <h3 class="title-name">THÔNG TIN LIÊN LẠC</h3>
+                                            <div class="customer-contact mb-3">
+                                                <div class="row ">
+                                                    <div class="name col-sm-6">
+                                                        <label>Họ và Tên <b>*</b></label>
+                                                        <input class="form-control" id="contact_name" name="TenKH" type="text" value="">
+                                                    </div>
+                                                    <div class="mail col-sm-6">
+                                                        <label>Email <b>*</b></label>
+                                                        <input class="form-control" id="email" name="Email" type="text" value="">
+                                                    </div>
+                                                    <div class="phone col-sm-6">
+                                                        <label>Số điện thoại <b>*</b></label>
+                                                        <input class="form-control" id="mobilephone" name="SDT" onkeypress="return funCheckInt(event)" type="text" value="">
+                                                    </div>
+                                                    <div class="addess col-sm-6">
+                                                        <label>Địa chỉ</label>
+                                                        <input class="form-control" id="address" name="DiaChi" type="text" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ticket-tour">
+                                                    <div class="change col-sm-10">
+                                                        <div class="change-title">
+                                                            <h4>Số vé đặt mua</h4>
+                                                        </div>
+                                                        <div class="change-number">
+                                                            @Html.EditorFor(model => bookTour.SoCho, new { htmlAttributes = new { @class = "form-control", @id = "socho" } })
+
+                                                        </div>
+                                                    </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                               
+                                                <div class="modal-footer">
+                                                    <a class="btn btn-secondary btn-sm" data-dismiss="modal">Close</a>
+                                                    <input type="submit" value="Tiếp tục" class="btn btn-success btn-sm" />
+                                                </div>
+                                            </div>
+                                            }
+                                        </div>
+                            <style>
+                                .title-name {
+                                    font-weight: 700;
+                                    font-size: 22px;
+                                    line-height: 38px;
+                                    color: #2d4271;
+                                    width: 100%;
+                                    margin-bottom: 20px;
+                                    margin-top: 20px;
+                                }
+
+
+                                .change {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    margin: 10px;
+                                    border: 2px solid #53787D;
+                                    border-radius: 10px;
+                                    padding: 5px 10px;
+                                }
+
+                                    .change :hover {
+                                        box-shadow: #53787D;
+                                    }
+
+                                .change-title {
+                                    padding-left: 5px;
+                                    color: #2d4271;
+                                }
+
+                                    .change-title h4 {
+                                        font-weight: 700;
+                                        font-size: 18px;
+                                        margin-bottom: 0;
+                                    }
+                            </style>
                         </div>
+
+
                         <a href="#" data-toggle="modal" data-target="#exampleModal" class="add-to-group pull-right">
                             <label>Liên hệ tư vấn</label>
                         </a>
@@ -175,7 +278,7 @@
                         <div class="col-md-12 col-sm-12 small">
                             <div class="row">
                                 <div class="col-6">
-                                    <div class="image">
+                                    <div class="image" style="border-radius: 10px;">
                                         <img src="~/images/danang_phocohoian.jpg" class="img-fluid" alt="image">
                                     </div>
                                 </div>
@@ -197,8 +300,8 @@
                                 }
 
                                 <div class="col-6">
-                                    <div class="image">
-                                        <img src="@hinh1" class="img-fluid" alt="image">
+                                    <div class="image" >
+                                        <img src="@hinh1" class="img-fluid" alt="image" style="height:100%">
                                     </div>
                                 </div>
                             </div>

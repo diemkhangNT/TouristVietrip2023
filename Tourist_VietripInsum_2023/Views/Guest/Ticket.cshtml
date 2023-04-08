@@ -1,0 +1,274 @@
+﻿@model Tourist_VietripInsum_2023.Models.Ve
+@using Tourist_VietripInsum_2023.Models
+@{
+    ViewBag.Title = "Ticket";
+    Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
+    TouristEntities1 db = new TouristEntities1();
+    KhachHang khachhang = Session["taikhoan"] as KhachHang;
+}
+<link href="~/Content/Guest/bookticket.css" rel="stylesheet" />
+<div class="dattour">
+
+    @{
+        string matour = (string)Session["Matourchon"];
+        var tour = db.Tours.Where(t => t.MaTour == matour).FirstOrDefault();
+        var ngaykhoihanh = String.Format("{0:d/M/yyyy}", tour.NgayKhoihanh);
+        string madonhang = (string)Session["madonhang"];
+        var dh = db.BookTours.Where(t => t.MaDH == madonhang).FirstOrDefault();
+    }
+    <section class="thongtindatve">
+        <div class="container">
+
+            @*THONGTIN TOUR*@
+            <div class="col-12 top">
+                <div class="detailtour">
+                    <div class="image-tour">
+                        <img src="@tour.HinhMinhHoa_T" class="img-fluid" alt="image">
+                    </div>
+                    <div class="tour-content">
+                        <p class="title" id="title" style="text-align:left">
+                            @tour.TenTour
+                        </p>
+                        <div class="entry">
+                            <div class="entry-inner">
+                                <span>Mã Tour <b>@tour.MaTour</b></span>
+                                <span>Khởi hành <b>@ngaykhoihanh</b></span>
+                                <span>Thời gian <b>@tour.SoNgay ngày</b></span>
+                                <span>Nơi khởi hành <b>@tour.NoiKhoiHanh</b></span>
+                                <span>Số chỗ còn nhận <b>@ViewBag.chodamua</b></span>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.MaLVe)
+                @Html.HiddenFor(model => model.MaDH)
+                <div class="row">
+                    <div class="col-md-8 col-12 left-lienlac">
+                        <div class="ticket-customer">
+                            <div class="list">
+                                <h3 class="title-name">NHẬP THÔNG TIN VÉ</h3>
+
+                                @{
+                                    for (int i = 0; i < dh.SoCho; i++)
+                                    {
+                                        <div class="ticket-info">
+                                            <div class="row" id="ListInfoAdult">
+                                                <div class="group-info-name col-sm-5">
+                                                    <span>Họ tên</span>
+                                                    <input class="form-control" name="HoTenKH_@i" placeholder="Vui lòng nhập Họ tên" required="required" type="text" value="">
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label class="control-label">Loại vé</label>
+                                                    <select class="form-control col-sm-12" id="MaLVe" name="MaLVe_@i">
+                                                        <option value="">Chọn loại vé</option>
+                                                        <option value="TICKET01">Vé người lớn</option>
+                                                        <option value="TICKET02">Vé trẻ em</option>
+                                                    </select>
+                                                    @*@Html.DropDownList("MaLVe", null, htmlAttributes: new { @class = "form-control col-sm-12" })*@
+                                                    @Html.ValidationMessageFor(model => model.MaLVe, "", new { @class = "text-danger" })
+                                                </div>
+
+
+                                                <div class="group-info-sex col-sm-2">
+                                                    <span>Giới tính</span>
+                                                    <select class="form-control col-sm-12" id="cusInfo_GioiTinh" name="GioiTinh_@i">
+                                                        <option value="">Giới tính</option>
+                                                        <option value="Nam">Nam</option>
+                                                        <option value="Nữ">Nữ</option>
+                                                    </select>
+                                                </div>
+                                                <div class="group-info-birthday col-sm-2">
+                                                    <span>Ngày sinh</span>
+                                                    <input class="form-control" name="NgaySinh_@i" placeholder="Vui lòng nhập chọn ngày sinh" required="required" type="date" value="">
+                                                </div>
+                                                <div class="group-info-note col-sm-11">
+                                                    <span>Lưu ý</span>
+                                                    <input class="form-control" name="LuuY_@i" placeholder="Nhập lưu ý" required="required" type="text" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+
+
+
+
+                            </div>
+                        </div>
+
+                        <!-- DAT VE -->
+                        @*<a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-success" onclick="myFunction()">
+                        <label>Liên hệ tư vấn</label>
+                    </a>*@
+
+
+
+
+
+
+
+                        <!-- NUT CHON NHAP HAY KHONG -->
+                        <!-- <div class="mb-4">
+                    <div class="form-check checkbox-input-search d-inline-flex  align-items-center">
+                        <input class="form-check-input me-3" type="radio" checked="checked" id="radListCus" name="flexCheckDefault">
+                        <input type="hidden" value="Input" id="Option">
+                        <label class="form-check-label mt-1 small" for="flexCheckDefault_Option1">
+                        Nhập danh sách khách hàng
+                        </label>
+                    </div>
+                    <div class="form-check checkbox-input-search d-inline-flex  align-items-center">
+                        <input class="form-check-input me-3" type="radio" id="radSupport" name="flexCheckDefault">
+                        <input type="hidden" value="NotInput" id="Option">
+                        <div class="col-11">
+                            <label class="form-check-label mt-1 small" for="flexCheckDefault_Option1">
+                             Tôi cần được nhân viên tư vấn
+                            </label>
+                        </div>
+                    </div>
+                </div> -->
+
+                    </div>
+
+
+                    <!-- RIGHT -->
+                    <div class="col-md-4 col-12 right-thongtin">
+                        <div class="price-tour">
+                            <h4 class="title-ticket">THÔNG TIN KHÁCH HÀNG</h4>
+                            <div class="detail-book-tour">
+                                <table>
+                                    <tbody>
+                                       
+                                        <tr>
+                                            <td>Họ tên:</td>
+
+                                            <td class="t-price text-right" id="AdultPrice">
+                                                @{ 
+                                                    var kh = db.KhachHangs.Where(s => s.MaKH == dh.MaKH).FirstOrDefault();
+                                                }
+                                                @kh.HoTenKH
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Số điện thoại</td>
+                                            <td class="t-price text-right" id="ChildrenPrice">
+                                                @kh.SDT
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                @*<table>
+                                    <tbody>
+                                        @{
+                                            var tien = string.Format("{0:#,##0}", tour.GiaNguoiLon);
+                                            var tiente = string.Format("{0:#,##0}", tour.GiaTreEm);
+                                        }
+                                        <tr>
+                                            <td>Họ tên:</td>
+
+                                            <td class="t-price text-right" id="AdultPrice">
+                                                1 x @tien₫
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Trẻ em</td>
+                                            <td class="t-price text-right" id="ChildrenPrice">
+                                                @tiente ₫
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>*@
+                                <input id="socho" value="@dh.SoCho" style="visibility:hidden" />
+                                <script>
+                                    function ready() {
+                                        var sochodat = document.getElementById('socho');
+
+                                        for (var i = 0; i < sochodat; i++) {
+                                            var quantityInput = document.getElementsByClassName('MaLVe_' + i);
+                                            if (quantityInput =='TICKET01') {
+
+                                            }
+                                        }
+
+                                        document.getElementsByClassName("btn-purchase")[0].addEventListener('click', purchaseClicked)
+                                    }
+                                </script>
+
+                            </div>
+                            <h4 class="title-ticket">THÔNG TIN ĐẶT VÉ</h4>
+                            <div class="detail-book-tour">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            @{
+                                                var tien = string.Format("{0:#,##0}", tour.GiaNguoiLon);
+                                                var tiente = string.Format("{0:#,##0}", tour.GiaTreEm);
+                                            }
+                                            <td>Người lớn</td>
+                                            <td class="t-price text-right" id="AdultPrice">
+                                                @dh x 4,390,000₫
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Trẻ em</td>
+                                            <td class="t-price text-right" id="ChildrenPrice">
+                                                0₫
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Giảm giá</td>
+                                            <td class="t-price text-right" id="ChildrenPrice">
+                                                0₫
+                                            </td>
+                                        </tr>
+                                        <tr id="promotiontitletotal" style="display:none">
+                                            <td>Tổng tiền</td>
+                                            <td class="t-price text-right" id="PromotionTotalPrice"></td>
+                                        </tr>
+
+                                        <tr class="total">
+                                            <td>Tổng cộng</td>
+                                            <td class="t-price text-right" id="TotalPrice">5,690,000₫</td>
+                                            <td class="t-price text-right" style="display: none;" id="TotalPricetemp">5890000</td>
+                                            <td class="t-price text-right" style="display: none;" id="TotalOptionPrice"> 0</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    @*<button class="btn btn-success btn-order" style="width:100% ">
+                                    Đặt ngay
+                                </button>*@
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Create" class="btn btn-default" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                </div>
+                                            }
+            </div>
+       
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

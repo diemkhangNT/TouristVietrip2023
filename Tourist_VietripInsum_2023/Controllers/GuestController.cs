@@ -89,6 +89,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 return HttpNotFound();
             }
+            Session["mat"]=id;
             return View(tour);
         }
 
@@ -339,5 +340,125 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             return View();
         }
+
+        //XULYVE-DAT
+
+        public int SoChoTrong(string matour)
+        {
+            
+            var tour = db.Tours.Where(t => t.MaTour == matour).FirstOrDefault();
+            int socho = (int)tour.SoChoNull;
+            List<BookTour> bt = db.BookTours.Where(t => t.MaTour == matour).ToList();
+            foreach(var item in bt)
+            {
+                socho =socho- (int)item.SoCho;
+            }
+            return socho;
+        }
+        //public ActionResult BookTour()
+        //{
+        //    string matour=(string)Session["Matourchon"];
+        //    ViewBag.chodamua = SoChoTrong(matour);
+        //    return View();
+        //}
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult BookTour(BookTour booktour,string DiaChi,string SDT,string Email,string TenKH)
+        {
+            string matour = (string)Session["Matourchon"];
+            Random rd = new Random();
+            var khach = db.KhachHangs.Where(s => s.SDT == SDT).FirstOrDefault();
+            if (khach == null)
+            {
+
+                KhachHang kh = new KhachHang();
+                
+                var idKH = "KH" + rd.Next(1, 1000);
+                kh.MaKH = idKH;
+                booktour.MaKH = idKH;
+
+
+                kh.SDT = SDT;
+                booktour.SdtKH = kh.SDT;
+                kh.DiaChi = DiaChi;
+                kh.Email = Email;
+                kh.HoTenKH = TenKH;
+                db.KhachHangs.Add(kh);
+                db.SaveChanges();
+            }
+            else
+            {
+                //KhachHang khachhang = Session["TaiKhoan"] as KhachHang;
+                booktour.MaKH = khach.MaKH;
+                booktour.SdtKH = khach.SDT;
+            }
+            var idDH = "DH" + rd.Next(1, 1000);
+            booktour.MaDH = idDH;
+            //booktour.MaTour = matour;
+            booktour.NgayLap = DateTime.Now;
+            booktour.TrangThaiTT = false;
+            booktour.TotalPrice = 0;
+            Session["madonhang"] = booktour.MaDH;
+            db.BookTours.Add(booktour);
+            db.SaveChanges();
+            
+
+
+            return RedirectToAction("Ticket");
+
+
+        }
+
+        public ActionResult Ticket()
+        {
+            string matour = (string)Session["Matourchon"];
+            ViewBag.chodamua = SoChoTrong(matour);
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Ticket(Ve ve)
+        {
+            var maDH = Session["madonhang"].ToString();
+            var dh = db.BookTours.Where(t => t.MaDH == maDH).FirstOrDefault();
+            var tour = db.Tours.Where(s => s.MaTour == dh.MaTour).FirstOrDefault();
+            double tongtien = 0;
+            if (ModelState.IsValid)
+            {
+                Random rd = new Random();
+                //Tạo vé theo số lượng khách đặt
+                for (int i = 0; i < dh.SoCho; i++)
+                {
+                    ve = new Ve();
+                    var maVe = "V" + rd.Next(1, 1000);
+                    ve.MaVe = maVe;
+                    ve.MaDH = maDH;
+                    ve.Hoten_KH = Request["HoTenKH_" + i];
+                    ve.MaLVe = Request["MaLVe_" + i];
+                    ve.GioiTinh = Request["GioiTinh_" + i];
+                    ve.NgaySinh = Convert.ToDateTime(Request["NgaySinh_" + i]);
+                    ve.LuuY = Request["LuuY_" + i];
+                    db.Ves.Add(ve);
+
+                    if (ve.MaLVe == "TICKET01")
+                    {
+                        tongtien = tongtien + (int)tour.GiaNguoiLon;
+                    }
+                    else if (ve.MaLVe == "TICKET02")
+                    {
+                        tongtien = tongtien + (int)tour.GiaTreEm;
+                    }
+                    db.SaveChanges();
+                }
+                //Update tổng tiền cho đơn đặt tour
+                var updateBT = db.BookTours.Find(ve.MaDH);
+                updateBT.TotalPrice = (decimal)tongtien;
+                db.SaveChanges();
+                return RedirectToAction("HomePage");
+            }
+            return View();
+        }
     }
-    }
+}

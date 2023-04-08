@@ -1,5 +1,5 @@
 ﻿.header .navbar {
-    padding: 12px 20px;
+    padding: 8px 25px;
     background: white;
 }
 
@@ -8,13 +8,13 @@
 }
 
 .navbar-nav .nav-link {
-    color: #2d4271;
+    color: white;
     font-size: 17PX;
     font-weight: 600;
 }
 
 .navbar-brand span {
-    color: #2d4271;
+    color: white;
     font-size: 15PX;
     font-weight: 800;
 }
@@ -48,8 +48,7 @@
 }
 
 
-.footer-content{
-    
+.footer-content {
 }
 
 .footerguest h2 {
@@ -65,17 +64,17 @@
     color: black;
 }
 
-    .footerguest a {
-        display: block;
-        font-size: 16px;
-        text-decoration: none;
-        color: black;
-    }
-
-.footerguest a:hover {
-    color: var(--orange);
-    text-decoration: underline;
+.footerguest a {
+    display: block;
+    font-size: 16px;
+    text-decoration: none;
+    color: black;
 }
+
+    .footerguest a:hover {
+        color: var(--orange);
+        text-decoration: underline;
+    }
 
 .footer .credit {
     text-align: center;
