@@ -89,6 +89,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 return HttpNotFound();
             }
+            Session["mat"]=id;
             return View(tour);
         }
 
@@ -247,9 +248,10 @@ namespace Tourist_VietripInsum_2023.Controllers
                 songuoibd = 5;
             }
             //ngaykhoihanh = String.Format("{0:d/M/yyyy}", tour.NgayKhoihanh);
-            
-            //DateTime.Now.ToString("yyyy-MM-dd");
-            var tours = db.Tours.Where(s => s.TrangThai == trangthai && s.NoiKhoiHanh == noikhoihanh && (s.SoNgay >= songaybd && s.SoNgay <= songaykt)  && s.SoChoNull >= songuoibd);
+            DateTime.Now.ToString("yyyy-MM-dd");
+            var tours = db.Tours.Where(s => s.TrangThai == trangthai 
+            && s.NoiKhoiHanh == noikhoihanh && (s.SoNgay >= songaybd && s.SoNgay <= songaykt) 
+             && s.SoChoNull >= songuoibd);
             return View(tours.ToList());
         }
 
@@ -336,6 +338,131 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
         public ActionResult TinTuc()
         {
+            return View();
+        }
+
+        //XULYVE-DAT
+
+        public int SoChoTrong(string matour)
+        {
+
+            var tour = db.Tours.Where(t => t.MaTour == matour).FirstOrDefault();
+            int socho = (int)tour.SoChoNull;
+            List<BookTour> bt = db.BookTours.Where(t => t.MaTour == matour).ToList();
+            foreach (var item in bt)
+            {
+                socho = socho - (int)item.SoCho;
+            }
+            return socho;
+        }
+        //public ActionResult BookTour(string id)
+        //{
+        //    string matour = (string)Session["Matourchon"];
+        //    //ViewBag.chodamua = SoChoTrong(matour);
+        //    return View();
+        //}
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult BookTour(BookTour booktour,string DiaChi,string SDT,string Email,string TenKH)
+        {
+            string matour = (string)Session["Matourchon"];
+            Random rd = new Random();
+            var khach = db.KhachHangs.Where(s => s.SDT == SDT).FirstOrDefault();
+            if (khach == null)
+            {
+
+                KhachHang kh = new KhachHang();
+                
+                var idKH = "KH" + rd.Next(1, 1000);
+                kh.MaKH = idKH;
+                booktour.MaKH = idKH;
+
+
+                kh.SDT = SDT;
+                booktour.SdtKH = kh.SDT;
+                kh.DiaChi = DiaChi;
+                kh.Email = Email;
+                kh.HoTenKH = TenKH;
+                db.KhachHangs.Add(kh);
+                db.SaveChanges();
+            }
+            else
+            {
+                //KhachHang khachhang = Session["TaiKhoan"] as KhachHang;
+                booktour.MaKH = khach.MaKH;
+                booktour.SdtKH = khach.SDT;
+            }
+            var idDH = "DH" + rd.Next(1, 1000);
+            booktour.MaDH = idDH;
+            booktour.MaTour = matour;
+            booktour.NgayLap = DateTime.Now;
+            booktour.TrangThaiTT = false;
+            booktour.TotalPrice = 0;
+            booktour.SoCho = 0;
+            Session["madonhang"] = booktour.MaDH;
+            db.BookTours.Add(booktour);
+            db.SaveChanges();
+            
+
+
+            return RedirectToAction("Ticket");
+
+
+        }
+
+        public ActionResult Ticket()
+        {
+            string matour = (string)Session["Matourchon"];
+            ViewBag.chodamua = SoChoTrong(matour);
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Ticket(Ve ve,string soluongdat)
+        {
+            var maDH = Session["madonhang"].ToString();
+            var dh = db.BookTours.Where(t => t.MaDH == maDH).FirstOrDefault();
+            var tour = db.Tours.Where(s => s.MaTour == dh.MaTour).FirstOrDefault();
+            double tongtien = 0;
+            int m = int.Parse(soluongdat);
+            if (ModelState.IsValid)
+            {
+                Random rd = new Random();
+                //Tạo vé theo số lượng khách đặt
+                for (int i = 0; i < m; i++)
+                {
+                    ve = new Ve();
+                    var maVe = "V" + rd.Next(1, 1000);
+                    ve.MaVe = maVe;
+                    ve.MaDH = maDH;
+                    ve.Hoten_KH = Request["HoTen_KH" + i];
+                    ve.MaLVe = Request["MaLVe" + i];
+                    ve.GioiTinh = Request["GioiTinh" + i];
+                    ve.NgaySinh = Convert.ToDateTime(Request["NgaySinh" + i]); 
+                    ve.LuuY = Request["LuuY" + i];
+                    db.Ves.Add(ve);
+
+                    if (ve.MaLVe == "TICKET01")
+                    {
+                        tongtien = tongtien + (int)tour.GiaNguoiLon;
+                    }
+                    else if (ve.MaLVe == "TICKET02")
+                    {
+                        tongtien = tongtien + (int)tour.GiaTreEm;
+                    }
+                    db.SaveChanges();
+
+                }
+                //Update tổng tiền cho đơn đặt tour
+                var donhang = db.BookTours.Where(s => s.MaDH == maDH).FirstOrDefault();
+
+                dh.TotalPrice = (decimal)tongtien;
+                dh.SoCho = m;
+                db.SaveChanges();
+                return RedirectToAction("HomePageGuest");
+            }
             return View();
         }
         public JsonResult LoadMore(int skip, int take)
