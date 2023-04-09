@@ -338,5 +338,11 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             return View();
         }
+        public JsonResult LoadMore(int skip, int take)
+        {
+            var data = "Tui là Dĩm Khang nè!";
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
     }
-    }
+}

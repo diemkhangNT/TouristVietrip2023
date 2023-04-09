@@ -122,6 +122,37 @@
             </section>
         </div>
     </div>
+
+    <div class="load-more-container">
+        <div class="data-container">
+            <!-- Hiển thị dữ liệu ở đây -->
+        </div>
+        <button class="load-more-button">Load More</button>
+    </div>
+
 </body>
 
 
+<script>
+    $(document).ready(function () {
+        var skip = 0;
+        var take = 10;
+
+        $('.load-more-button').click(function () {
+            $.ajax({
+                url: '/Home/LoadMore',
+                type: 'GET',
+                data: { skip: skip, take: take },
+                dataType: 'json',
+                success: function (data) {
+                    //Thêm dữ liệu mới vào phần dữ liệu đã hiển thị
+                    $('.data-container').append(data);
+
+                    //Tăng skip lên take để lấy dữ liệu tiếp theo
+                    skip += take;
+                }
+            });
+        });
+    });
+
+</script>
