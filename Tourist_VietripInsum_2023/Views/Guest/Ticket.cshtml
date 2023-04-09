@@ -70,7 +70,7 @@
                         </div>
 
                         <div class="change-number">
-                            <icon class="fas fa-plus-circle" onclick="myFunction()"></icon>
+                            <icon class="fas fa-plus-circle" onclick="ThemVe()"></icon>
                             <span class="venguoilon" id="venguoilon">1</span>
                             <icon class="fas fa-plus-circle" onclick="xoaVe()"></icon>
                         </div>
@@ -87,7 +87,7 @@
                     @*<h4 class="typeper">Người lớn</h4>*@
 
                     <div id="datve">
-                        <div class="ticket-info" id="nd0">
+                        @*<div class="ticket-info" id="nd0">
                             <div class="row" id="ListInfoAdult">
                                 <div class="group-info-name col-sm-5">
                                     <span>Họ tên</span>
@@ -112,14 +112,14 @@
                                 </div>
                                 <div class="group-info-birthday col-sm-2">
                                     <span>Ngày sinh</span>
-                                    <input class="form-control text-box single-line" name="NgaySinh0" id="NgaySinh0" placeholder="Vui lòng nhập chọn ngày sinh" required="required" type="date" value="">
+                                    <input class="form-control text-box single-line" name="NgaySinh0" id="NgaySinh0" placeholder="Vui lòng nhập chọn ngày sinh"  type="date" value="">
                                 </div>
                                 <div class="group-info-note col-sm-11">
                                     <span>Lưu ý</span>
-                                    <input class="form-control" name="LuuY0" id="LuuY0" placeholder="Nhập lưu ý" required="required" type="text" value="">
+                                    <input class="form-control" name="LuuY0" id="LuuY0" placeholder="Nhập lưu ý"  type="text" value="">
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
                 <input name="soluongdat" id="soluongdat" style="visibility:hidden" />
@@ -211,48 +211,44 @@
 </section>
 
 <script>
-    var clicks = 1;
-    var tong = 1;
+    var i = 0;
+    
     document.getElementById("soluongdat").value = tong;
-    function myFunction() {
-        //cho
-        clicks += 1;
-        tong += 1;
-        var element = document.getElementById("datve");
-        for (let i = 1; i < clicks; i++) {
-            const newDiv = document.createElement("div");
-            var ve=
-                ` <div class="ticket-info" id="nd` + i + `">`+
-                   `<div class="row" id="ListInfoAdult">`+
-            `<div class="group-info-name col-sm-5">`+
-            ` <span>Họ tên</span>`+
-            `<input class="form-control" name="Hoten_KH` + i + `" placeholder="Vui lòng nhập Họ tên" required="required" type="text" value="">`+
-            `</div>`+
-            `<div class="form-group col-md-2">`+
-            `<label class="control-label">Loại vé</label>`+
-            ` <select class="form-control col-sm-12" id="MaLVe' + i + '" name="MaLVe` + i + `">`+
-            `<option value="">Chọn loại vé</option>`+
-                ` <option value="TICKET01">Vé người lớn</option>`+
-                `<option value="TICKET02">Vé trẻ em</option>`+
-            ` </select>`+
-            ` </div>`+
-            ` <div class="group-info-sex col-sm-2">`+
-            `<span>Giới tính</span>`+
-            `<select class="form-control col-sm-12" id="GioiTinh' + i +'" name="GioiTinh` + i + `">`+
-            `<option value="">Giới tính</option>`+
-            `<option value="Nam">Nam</option>`+
-            `<option value="Nữ">Nữ</option>`+
-            `</select>`+
-            `</div>`+
-            ` <div class="group-info-birthday col-sm-2">`+
+    
+    function ThemVe() {
+        if (i < 5) {
+            i++;
+            var row = ` <div class="ticket-info" id="nd` + i + `">` +
+                `<div class="row" id="ListInfoAdult">` +
+                `<div class="group-info-name col-sm-5">` +
+                ` <span>Họ tên</span>` +
+                `<input class="form-control" name="Hoten_KH` + i + `" placeholder="Vui lòng nhập Họ tên" required="required" type="text" value="">` +
+                `</div>` +
+                `<div class="form-group col-md-2">` +
+                `<label class="control-label">Loại vé</label>` +
+                ` <select class="form-control col-sm-12" id="MaLVe' + i + '" name="MaLVe` + i + `">` +
+                `<option value="">Chọn loại vé</option>` +
+                ` <option value="TICKET01">Vé người lớn</option>` +
+                `<option value="TICKET02">Vé trẻ em</option>` +
+                ` </select>` +
+                ` </div>` +
+                ` <div class="group-info-sex col-sm-2">` +
+                `<span>Giới tính</span>` +
+                `<select class="form-control col-sm-12" id="GioiTinh' + i +'" name="GioiTinh` + i + `">` +
+                `<option value="">Giới tính</option>` +
+                `<option value="Nam">Nam</option>` +
+                `<option value="Nữ">Nữ</option>` +
+                `</select>` +
+                `</div>` +
+                ` <div class="group-info-birthday col-sm-2">` +
                 `<span>Ngày sinh</span>` +
 
-                `<input class="form-control text-box single-line" name="NgaySinh` + i + `" id="NgaySinh' + i +'" placeholder="Vui lòng nhập chọn ngày sinh" required="required" type="date" value="">` +
+                `<input class="form-control text-box single-line" required="required" name="NgaySinh` + i + `" id="NgaySinh' + i +'" placeholder="Vui lòng nhập chọn ngày sinh"type="date" value="">` +
 
-            `</div>`+
-            `<div class="group-info-note col-sm-11">`+
-            ` <span>Lưu ý</span>`+
-                `<input class="form-control" name="LuuY` + i + `" id="LuuY' + i +'" placeholder="Nhập lưu ý" required="required" type="text" value="">` +
+                `</div>` +
+                `<div class="group-info-note col-sm-11">` +
+                ` <span>Lưu ý</span>` +
+                `<input class="form-control" name="LuuY` + i + `" id="LuuY' + i +'" placeholder="Nhập lưu ý" type="text" value="">` +
 
                 `</div>` +
 
@@ -260,25 +256,23 @@
 
                 ` </div>` +
                 ` </div> `;
-            element.innerHTML += ve;
-            clicks--;
 
-        }
-
-
-        document.getElementById("venguoilon").innerHTML = tong;
-        document.getElementById("soluongdat").value = tong;
+            var div = document.getElementById("datve");
+            div.innerHTML += row;
+            console.log(i);
+            document.getElementById("venguoilon").innerHTML = i;
+            document.getElementById("soluongdat").value = i;
+        };
     }
-    console.log(tong);
     function xoaVe() {
         var element = document.getElementById("datve");
-        if (tong >= 0) {
-            document.getElementById('nd' + 1).remove();
-            tong--;
+        if (i > 0) {
+            document.getElementById('nd' + i).remove();
+            i--;
 
         }
-        document.getElementById("venguoilon").innerHTML = tong;
-        document.getElementById("soluongdat").value = tong;
+        document.getElementById("venguoilon").innerHTML = i;
+        document.getElementById("soluongdat").value = i;
 
        
        
