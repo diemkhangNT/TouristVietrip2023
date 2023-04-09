@@ -63,14 +63,14 @@
 /* DATTHONGTIN-LIENLAC */
 .title-name {
     font-weight: 700;
-    font-size: 30px;
+    font-size: 22px;
     line-height: 38px;
     color: #2d4271;
     width: 100%;
-    margin-bottom: 20px;
+    margin-top: 10px;
 }
 
-/*.form-contact {
+.form-contact {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -92,8 +92,7 @@
     }
 
 .change-title {
-    padding-top: 10px;
-    padding-left: 5px;
+    padding:10px;
     color: #2d4271;
 }
 
@@ -101,7 +100,7 @@
         font-weight: 700;
         font-size: 18px;
         margin-bottom: 0;
-    }*/
+    }
 /* DATVE */
 .typeper {
     font-weight: 700;
@@ -115,7 +114,7 @@
     padding: 0px 30px;
     padding-bottom: 20px;
     padding-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom:20px;
 }
 
 /* RIGHT */
@@ -132,7 +131,6 @@
     font-size: 22px;
     color: #2d4271;
     margin-bottom: 20px;
-   
 }
 
 .detail-book-tour {

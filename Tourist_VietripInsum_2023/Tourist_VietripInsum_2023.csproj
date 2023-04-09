@@ -236,7 +236,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\FormTour.css" />
     <Content Include="Content\Guest.js" />
-    <Content Include="Content\Guest\bookticket.css" />
+    <Content Include="Content\Guest\booktour.css" />
     <Content Include="Content\Guest\detailtour.css" />
     <Content Include="Content\Guest\homepageGuest.css" />
     <Content Include="Content\Guest\ListTour-Option.css" />
@@ -538,8 +538,9 @@
     <Content Include="Views\Admin\ListOfCustomers.cshtml" />
     <Content Include="Views\Guest\VeChungToi.cshtml" />
     <Content Include="Views\OrderProcessing\CusDetailsTour.cshtml" />
-    <Content Include="Views\Guest\BookTour.cshtml" />
+    <Content Include="Views\Guest\demo.cshtml" />
     <Content Include="Views\Guest\Ticket.cshtml" />
+    <Content Include="Views\Guest\t.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

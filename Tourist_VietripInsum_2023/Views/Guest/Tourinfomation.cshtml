@@ -63,12 +63,12 @@
                         </div>
                     </div>
                     <div class="group-add-cart ">
-                        <a data-toggle="modal" data-target="#exampleModal" class="add-to-cart pull-right ">
+                        <a data-toggle="modal" data-target="#dattour" class="add-to-cart pull-right ">
                             <i class="fas fa-shopping-cart"></i>
                             <label>Đặt ngay</label>
                         </a>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                         
+                        <div class="modal fade" id="dattour" tabindex="-1" role="dialog" aria-labelledby="dattour" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 @using (Html.BeginForm("BookTour", "Guest", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
@@ -85,6 +85,7 @@
                                         @Html.HiddenFor(model => bookTour.NgayLap)
                                         @Html.HiddenFor(model => bookTour.TrangThaiTT)
                                         @Html.HiddenFor(model => bookTour.TotalPrice)
+                                        @Html.HiddenFor(model => bookTour.SoCho)
                                         <div class="form-horizontal" style="text-align:left">
                                             <h3 class="title-name">THÔNG TIN LIÊN LẠC</h3>
                                             <div class="customer-contact mb-3">
@@ -107,19 +108,19 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="ticket-tour">
-                                                    <div class="change col-sm-10">
-                                                        <div class="change-title">
-                                                            <h4>Số vé đặt mua</h4>
-                                                        </div>
-                                                        <div class="change-number">
-                                                            @Html.EditorFor(model => bookTour.SoCho, new { htmlAttributes = new { @class = "form-control", @id = "socho" } })
+                                            @*<div class="ticket-tour">
+                    <div class="change col-sm-10">
+                        <div class="change-title">
+                            <h4>Số vé đặt mua</h4>
+                        </div>
+                        <div class="change-number">
+                            @Html.EditorFor(model => bookTour.SoCho, new { htmlAttributes = new { @class = "form-control", @id = "socho" } })
 
-                                                        </div>
-                                                    </div>
+                        </div>
+                    </div>
 
 
-                                            </div>
+            </div>*@
                                         </div>
                                     </div>
                                
