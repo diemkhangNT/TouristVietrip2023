@@ -420,7 +420,7 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Ticket(Ve ve,string soluongdat)
+        public ActionResult Ticket(string soluongdat)
         {
             var maDH = Session["madonhang"].ToString();
             var dh = db.BookTours.Where(t => t.MaDH == maDH).FirstOrDefault();
@@ -431,18 +431,20 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 Random rd = new Random();
                 //Tạo vé theo số lượng khách đặt
-                for (int i = 0; i < m; i++)
+                for (int i = 1; i <= m; i++)
                 {
-                    ve = new Ve();
-                    var maVe = "V" + rd.Next(1, 1000);
+                    Ve ve = new Ve();
+                    var maVe = "V" +maDH+ rd.Next(1,9)+ rd.Next(1, 9)+rd.Next(1, 9)+rd.Next(1, 9);
                     ve.MaVe = maVe;
                     ve.MaDH = maDH;
                     ve.Hoten_KH = Request["HoTen_KH" + i];
                     ve.MaLVe = Request["MaLVe" + i];
                     ve.GioiTinh = Request["GioiTinh" + i];
-                    ve.NgaySinh = Convert.ToDateTime(Request["NgaySinh" + i]); 
+                    var test = Request["NgaySinh" + i];
+                    
+                    ve.NgaySinh = DateTime.Parse(test);
                     ve.LuuY = Request["LuuY" + i];
-                    db.Ves.Add(ve);
+                    
 
                     if (ve.MaLVe == "TICKET01")
                     {
@@ -452,6 +454,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                     {
                         tongtien = tongtien + (int)tour.GiaTreEm;
                     }
+                    db.Ves.Add(ve);
                     db.SaveChanges();
 
                 }
