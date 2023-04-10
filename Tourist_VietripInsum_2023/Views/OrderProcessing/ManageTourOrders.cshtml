@@ -93,7 +93,18 @@
                                                     @Html.DisplayFor(modelItem => item.NgayLap)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.TrangThaiTT)
+                                                    @{
+                                                        var TTTT = item.TrangThaiTT;
+                                                        if (TTTT == true)
+                                                        {
+                                                            <p>Đã thanh toán</p>
+                                                        }
+                                                        else
+                                                        {
+                                                            <p>Chưa thanh toán</p>
+                                                        }
+                                                    }
+                                                    @*@Html.DisplayFor(modelItem => item.TrangThaiTT)*@
                                                 </td>
                                                 <td>
                                                     @{ var tongTien = string.Format("{0:0,0 VNĐ}", item.TotalPrice);}

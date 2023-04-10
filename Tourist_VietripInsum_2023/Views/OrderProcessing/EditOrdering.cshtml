@@ -1,9 +1,13 @@
 ﻿@model Tourist_VietripInsum_2023.Models.BookTour
+@using Tourist_VietripInsum_2023.Models
 @{
     ViewBag.Title = "EditOrdering";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
     ViewBag.Name = "Đặt Tour";
     ViewBag.order = "active";
+
+    TouristEntities1 db = new TouristEntities1();
+    var tour = db.Tours.ToList();
 }
 
 @if (TempData["ErrorSoCho"] != null)
@@ -64,9 +68,20 @@
                             <div class="form-group col-md-5">
                                 <label class="control-label">Tên tour</label>
                                 @*@Html.DropDownList("MaTour", null, htmlAttributes: new { @class = "form-control col-sm-12" })*@
-                                @Html.DropDownListFor(model => model.MaTour, (SelectList)ViewBag.MaTour, "Vui lòng chọn tour", htmlAttributes: new { @class = "form-control col-sm-12" })
+                                @*@Html.DropDownListFor(model => model.MaTour, (SelectList)ViewBag.MaTour, "Vui lòng chọn tour", htmlAttributes: new { @class = "form-control col-sm-12" })*@
+                                <select class="form-control col-sm-12" id="MaTour" name="MaTour">
+                                    <option value="">Vui lòng chọn tour</option>
+                                    @foreach (var item in tour)
+                                    {
+                                        if (item.TrangThai != "Sắp ra mắt")
+                                        {
+                                            <option value="@item.MaTour">@item.TenTour</option>
+                                        }
+                                    }
+                                </select>
                                 @Html.ValidationMessageFor(model => model.MaTour, "", new { @class = "text-danger" })
                             </div>
+
                             <div class="form-group col-md-2">
                                 <label class="control-label">Số chỗ trống</label>
                                 <span class="form-control" id="SoChoNull" type="number"></span>

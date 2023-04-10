@@ -1,12 +1,83 @@
 ﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.Ve>
-
+@using Tourist_VietripInsum_2023.Models;
 @{
     ViewBag.Title = "CusDetailsTour";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
     ViewBag.Name = "Danh sách khách hàng tham gia tour";
     ViewBag.tour = "active";
-}
 
+    TouristEntities1 db = new TouristEntities1();
+    var maTour = TempData["MaTour"];
+    var tour = db.Tours.FirstOrDefault(s => s.MaTour == maTour.ToString());
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="tile">
+            <h3 class="tile-title">THÔNG TIN TOUR</h3>
+            <div class="tile-body element-button">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="@tour.HinhMinhHoa_T" width="300" height="300" />
+                    </div>
+                    <div class="col-md-8">
+                        <div style="font-size: 18px;">
+                            <div class="form-group" style="text-align: center;">
+                                <b>Tên tour: </b> @Html.DisplayFor(model => tour.TenTour)
+                            </div>
+                            <div class="form-group">
+                                <b>Nơi khởi hành: </b> @Html.DisplayFor(model => tour.NoiKhoiHanh)
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <b>Ngày khởi hành: </b> @Html.DisplayFor(model => tour.NgayKhoihanh)
+                                    </div>
+                                    <div class="form-group">
+                                        <b>Ngày trở về: </b> @Html.DisplayFor(model => tour.NgayTroVe)
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <b>Số ngày: </b> @Html.DisplayFor(model => tour.SoNgay) Ngày
+
+                                    </div>
+                                    <div class=" form-group">
+                                        <b>Số chỗ còn trống: </b> @Html.DisplayFor(model => tour.SoChoNull) Chỗ
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <table>
+                                    <thead style="background-color: #ffd43b;">
+                                        <tr>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1" style="text-align: center;">Giá trẻ em</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1" style="text-align: center;">Giá người lớn</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                @{ var giaTE = string.Format("{0:0,0 VNĐ}", tour.GiaTreEm);}
+                                                @giaTE
+                                            </td>
+                                            <td style="text-align: center;">
+                                                @{ var giaNL = string.Format("{0:0,0 VNĐ}", tour.GiaNguoiLon);}
+                                                @giaNL
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                <a class="btn btn-cancel btn-sm" href="/OrderProcessing/TourList">Quay lại</a>
+            </p>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-sm-12">
         <div class="tile">
@@ -60,9 +131,7 @@
                             }
                         }
                 </table>
-                <p>
-                    <a class="btn btn-cancel btn-sm" href="/OrderProcessing/TourList">Quay lại</a>
-                </p>
+
             </div>
         </div>
     </div>

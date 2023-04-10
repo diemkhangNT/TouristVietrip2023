@@ -61,7 +61,6 @@
         <EntityType Name="KhachHang">
           <Key>
             <PropertyRef Name="MaKH" />
-            <PropertyRef Name="SDT" />
           </Key>
           <Property Name="MaKH" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="SDT" Type="char" MaxLength="15" Nullable="false" />
@@ -174,20 +173,6 @@
           <Property Name="NgaySinh" Type="datetime" />
           <Property Name="LuuY" Type="ntext" />
         </EntityType>
-        <Association Name="FK_BookTour_KhachHang">
-          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
-          <End Role="BookTour" Type="Self.BookTour" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachHang">
-              <PropertyRef Name="MaKH" />
-              <PropertyRef Name="SDT" />
-            </Principal>
-            <Dependent Role="BookTour">
-              <PropertyRef Name="MaKH" />
-              <PropertyRef Name="SdtKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ChiTietTour_DiaDiemThamQuan">
           <End Role="DiaDiemThamQuan" Type="Self.DiaDiemThamQuan" Multiplicity="0..1" />
           <End Role="ChiTietTour" Type="Self.ChiTietTour" Multiplicity="*" />
@@ -283,20 +268,6 @@
             </Principal>
             <Dependent Role="BookTour">
               <PropertyRef Name="MaTour" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PhanHoi_KhachHang">
-          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
-          <End Role="PhanHoi" Type="Self.PhanHoi" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachHang">
-              <PropertyRef Name="MaKH" />
-              <PropertyRef Name="SDT" />
-            </Principal>
-            <Dependent Role="PhanHoi">
-              <PropertyRef Name="MaKH" />
-              <PropertyRef Name="Sdt" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -364,10 +335,6 @@
           <EntitySet Name="TinhThanh" EntityType="Self.TinhThanh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ve" EntityType="Self.Ve" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_BookTour_KhachHang" Association="Self.FK_BookTour_KhachHang">
-            <End Role="KhachHang" EntitySet="KhachHang" />
-            <End Role="BookTour" EntitySet="BookTour" />
-          </AssociationSet>
           <AssociationSet Name="FK_ChiTietTour_DiaDiemThamQuan" Association="Self.FK_ChiTietTour_DiaDiemThamQuan">
             <End Role="DiaDiemThamQuan" EntitySet="DiaDiemThamQuan" />
             <End Role="ChiTietTour" EntitySet="ChiTietTour" />
@@ -399,10 +366,6 @@
           <AssociationSet Name="FK_OrderCus_Tour" Association="Self.FK_OrderCus_Tour">
             <End Role="Tour" EntitySet="Tour" />
             <End Role="BookTour" EntitySet="BookTour" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PhanHoi_KhachHang" Association="Self.FK_PhanHoi_KhachHang">
-            <End Role="KhachHang" EntitySet="KhachHang" />
-            <End Role="PhanHoi" EntitySet="PhanHoi" />
           </AssociationSet>
           <AssociationSet Name="FK_Staff_Position" Association="Self.FK_Staff_Position">
             <End Role="ChucVu" EntitySet="ChucVu" />
@@ -439,7 +402,6 @@
           <Property Name="SoCho" Type="Int32" />
           <Property Name="SdtKH" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MaKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="KhachHang" Relationship="Self.FK_BookTour_KhachHang" FromRole="BookTour" ToRole="KhachHang" />
           <NavigationProperty Name="NhanVien" Relationship="Self.FK_DonHang_NhanVien" FromRole="BookTour" ToRole="NhanVien" />
           <NavigationProperty Name="Tour" Relationship="Self.FK_OrderCus_Tour" FromRole="BookTour" ToRole="Tour" />
           <NavigationProperty Name="Ves" Relationship="Self.FK_Ticket_Order" FromRole="BookTour" ToRole="Ve" />
@@ -493,7 +455,6 @@
         <EntityType Name="KhachHang">
           <Key>
             <PropertyRef Name="MaKH" />
-            <PropertyRef Name="SDT" />
           </Key>
           <Property Name="MaKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="SDT" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
@@ -506,9 +467,7 @@
           <Property Name="NgaySinh" Type="DateTime" Precision="3" />
           <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="HinhDaiDien" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="BookTours" Relationship="Self.FK_BookTour_KhachHang" FromRole="KhachHang" ToRole="BookTour" />
           <NavigationProperty Name="LoaiKH" Relationship="Self.FK_Customer_Guest_TypeCus" FromRole="KhachHang" ToRole="LoaiKH" />
-          <NavigationProperty Name="PhanHois" Relationship="Self.FK_PhanHoi_KhachHang" FromRole="KhachHang" ToRole="PhanHoi" />
         </EntityType>
         <EntityType Name="LoaiKH">
           <Key>
@@ -565,7 +524,6 @@
           <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NgayPH" Type="DateTime" Precision="3" />
           <Property Name="TrangThai" Type="Boolean" />
-          <NavigationProperty Name="KhachHang" Relationship="Self.FK_PhanHoi_KhachHang" FromRole="PhanHoi" ToRole="KhachHang" />
         </EntityType>
         <EntityType Name="PhuongTien">
           <Key>
@@ -623,20 +581,6 @@
           <NavigationProperty Name="BookTour" Relationship="Self.FK_Ticket_Order" FromRole="Ve" ToRole="BookTour" />
           <NavigationProperty Name="LoaiVe" Relationship="Self.FK_Ticket_TypeTicket" FromRole="Ve" ToRole="LoaiVe" />
         </EntityType>
-        <Association Name="FK_BookTour_KhachHang">
-          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
-          <End Role="BookTour" Type="Self.BookTour" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachHang">
-              <PropertyRef Name="MaKH" />
-              <PropertyRef Name="SDT" />
-            </Principal>
-            <Dependent Role="BookTour">
-              <PropertyRef Name="MaKH" />
-              <PropertyRef Name="SdtKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DonHang_NhanVien">
           <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
           <End Role="BookTour" Type="Self.BookTour" Multiplicity="*" />
@@ -759,20 +703,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PhanHoi_KhachHang">
-          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
-          <End Role="PhanHoi" Type="Self.PhanHoi" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachHang">
-              <PropertyRef Name="MaKH" />
-              <PropertyRef Name="SDT" />
-            </Principal>
-            <Dependent Role="PhanHoi">
-              <PropertyRef Name="MaKH" />
-              <PropertyRef Name="Sdt" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tour_LoaiTour1">
           <End Role="LoaiTour" Type="Self.LoaiTour" Multiplicity="0..1" />
           <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
@@ -813,10 +743,6 @@
           <EntitySet Name="TinhThanhs" EntityType="Self.TinhThanh" />
           <EntitySet Name="Tours" EntityType="Self.Tour" />
           <EntitySet Name="Ves" EntityType="Self.Ve" />
-          <AssociationSet Name="FK_BookTour_KhachHang" Association="Self.FK_BookTour_KhachHang">
-            <End Role="KhachHang" EntitySet="KhachHangs" />
-            <End Role="BookTour" EntitySet="BookTours" />
-          </AssociationSet>
           <AssociationSet Name="FK_DonHang_NhanVien" Association="Self.FK_DonHang_NhanVien">
             <End Role="NhanVien" EntitySet="NhanViens" />
             <End Role="BookTour" EntitySet="BookTours" />
@@ -856,10 +782,6 @@
           <AssociationSet Name="FK_Customer_Guest_TypeCus" Association="Self.FK_Customer_Guest_TypeCus">
             <End Role="LoaiKH" EntitySet="LoaiKHs" />
             <End Role="KhachHang" EntitySet="KhachHangs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PhanHoi_KhachHang" Association="Self.FK_PhanHoi_KhachHang">
-            <End Role="KhachHang" EntitySet="KhachHangs" />
-            <End Role="PhanHoi" EntitySet="PhanHois" />
           </AssociationSet>
           <AssociationSet Name="FK_Tour_LoaiTour1" Association="Self.FK_Tour_LoaiTour1">
             <End Role="LoaiTour" EntitySet="LoaiTours" />
