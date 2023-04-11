@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TouristModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TouristModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BookTour">
           <Key>
             <PropertyRef Name="MaDH" />
@@ -16,8 +16,9 @@
           <Property Name="TrangThaiTT" Type="bit" />
           <Property Name="TotalPrice" Type="decimal" Precision="9" Scale="2" />
           <Property Name="SoCho" Type="int" />
-          <Property Name="SdtKH" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="SdtKH" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="MaKH" Type="varchar" MaxLength="10" />
+          <Property Name="HinhThucThanhToan" Type="bit" />
         </EntityType>
         <EntityType Name="ChiTietTour">
           <Key>
@@ -61,10 +62,9 @@
         <EntityType Name="KhachHang">
           <Key>
             <PropertyRef Name="MaKH" />
-            <PropertyRef Name="SDT" />
           </Key>
           <Property Name="MaKH" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="SDT" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="SDT" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="MaLoaiKH" Type="varchar" MaxLength="10" />
           <Property Name="Username" Type="varchar" MaxLength="30" />
           <Property Name="UserPassword" Type="varchar" MaxLength="50" />
@@ -80,7 +80,7 @@
             <PropertyRef Name="MaLoaiKH" />
           </Key>
           <Property Name="MaLoaiKH" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="TenLoaiKH" Type="varchar" MaxLength="30" />
+          <Property Name="TenLoaiKH" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="LoaiTour">
           <Key>
@@ -107,7 +107,7 @@
           <Property Name="Username" Type="varchar" MaxLength="50" />
           <Property Name="UserPassword" Type="varchar" MaxLength="50" />
           <Property Name="HoTen" Type="nvarchar" MaxLength="50" />
-          <Property Name="Sdt" Type="char" MaxLength="15" />
+          <Property Name="Sdt" Type="varchar" MaxLength="15" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="100" />
           <Property Name="NgaySinh" Type="datetime" />
@@ -120,7 +120,7 @@
           </Key>
           <Property Name="MaPhanHoi" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="MaKH" Type="varchar" MaxLength="10" />
-          <Property Name="Sdt" Type="char" MaxLength="15" />
+          <Property Name="Sdt" Type="varchar" MaxLength="15" />
           <Property Name="Email" Type="varchar" MaxLength="100" />
           <Property Name="NoiDung" Type="ntext" />
           <Property Name="NgayPH" Type="datetime" />
@@ -132,8 +132,8 @@
           </Key>
           <Property Name="MaPTien" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="TenPTien" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="HangXe" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="ChiTiet" Type="varchar" MaxLength="50" />
+          <Property Name="HangXe" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ChiTiet" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TinhThanh">
           <Key>
@@ -148,7 +148,6 @@
           </Key>
           <Property Name="MaTour" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="MaLTour" Type="varchar" MaxLength="10" />
-          <Property Name="MaKS" Type="varchar" MaxLength="10" />
           <Property Name="TenTour" Type="ntext" />
           <Property Name="GioiThieu" Type="ntext" />
           <Property Name="HinhMinhHoa_T" Type="nvarchar" MaxLength="500" />
@@ -166,7 +165,7 @@
           <Key>
             <PropertyRef Name="MaVe" />
           </Key>
-          <Property Name="MaVe" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MaVe" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="MaDH" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="MaLVe" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Hoten_KH" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -174,17 +173,15 @@
           <Property Name="NgaySinh" Type="datetime" />
           <Property Name="LuuY" Type="ntext" />
         </EntityType>
-        <Association Name="FK_BookTour_KhachHang">
+        <Association Name="FK_BookTour_KhachHang1">
           <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
           <End Role="BookTour" Type="Self.BookTour" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhachHang">
               <PropertyRef Name="MaKH" />
-              <PropertyRef Name="SDT" />
             </Principal>
             <Dependent Role="BookTour">
               <PropertyRef Name="MaKH" />
-              <PropertyRef Name="SdtKH" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -286,17 +283,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PhanHoi_KhachHang">
+        <Association Name="FK_PhanHoi_KhachHang1">
           <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
           <End Role="PhanHoi" Type="Self.PhanHoi" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhachHang">
               <PropertyRef Name="MaKH" />
-              <PropertyRef Name="SDT" />
             </Principal>
             <Dependent Role="PhanHoi">
               <PropertyRef Name="MaKH" />
-              <PropertyRef Name="Sdt" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -364,7 +359,7 @@
           <EntitySet Name="TinhThanh" EntityType="Self.TinhThanh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ve" EntityType="Self.Ve" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_BookTour_KhachHang" Association="Self.FK_BookTour_KhachHang">
+          <AssociationSet Name="FK_BookTour_KhachHang1" Association="Self.FK_BookTour_KhachHang1">
             <End Role="KhachHang" EntitySet="KhachHang" />
             <End Role="BookTour" EntitySet="BookTour" />
           </AssociationSet>
@@ -400,7 +395,7 @@
             <End Role="Tour" EntitySet="Tour" />
             <End Role="BookTour" EntitySet="BookTour" />
           </AssociationSet>
-          <AssociationSet Name="FK_PhanHoi_KhachHang" Association="Self.FK_PhanHoi_KhachHang">
+          <AssociationSet Name="FK_PhanHoi_KhachHang1" Association="Self.FK_PhanHoi_KhachHang1">
             <End Role="KhachHang" EntitySet="KhachHang" />
             <End Role="PhanHoi" EntitySet="PhanHoi" />
           </AssociationSet>
@@ -421,8 +416,7 @@
             <End Role="Tour" EntitySet="Tour" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TouristModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -437,9 +431,10 @@
           <Property Name="TrangThaiTT" Type="Boolean" />
           <Property Name="TotalPrice" Type="Decimal" Precision="9" Scale="2" />
           <Property Name="SoCho" Type="Int32" />
-          <Property Name="SdtKH" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="SdtKH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MaKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="KhachHang" Relationship="Self.FK_BookTour_KhachHang" FromRole="BookTour" ToRole="KhachHang" />
+          <Property Name="HinhThucThanhToan" Type="Boolean" />
+          <NavigationProperty Name="KhachHang" Relationship="Self.FK_BookTour_KhachHang1" FromRole="BookTour" ToRole="KhachHang" />
           <NavigationProperty Name="NhanVien" Relationship="Self.FK_DonHang_NhanVien" FromRole="BookTour" ToRole="NhanVien" />
           <NavigationProperty Name="Tour" Relationship="Self.FK_OrderCus_Tour" FromRole="BookTour" ToRole="Tour" />
           <NavigationProperty Name="Ves" Relationship="Self.FK_Ticket_Order" FromRole="BookTour" ToRole="Ve" />
@@ -493,10 +488,9 @@
         <EntityType Name="KhachHang">
           <Key>
             <PropertyRef Name="MaKH" />
-            <PropertyRef Name="SDT" />
           </Key>
           <Property Name="MaKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SDT" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="SDT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MaLoaiKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -506,16 +500,16 @@
           <Property Name="NgaySinh" Type="DateTime" Precision="3" />
           <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="HinhDaiDien" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="BookTours" Relationship="Self.FK_BookTour_KhachHang" FromRole="KhachHang" ToRole="BookTour" />
+          <NavigationProperty Name="BookTours" Relationship="Self.FK_BookTour_KhachHang1" FromRole="KhachHang" ToRole="BookTour" />
           <NavigationProperty Name="LoaiKH" Relationship="Self.FK_Customer_Guest_TypeCus" FromRole="KhachHang" ToRole="LoaiKH" />
-          <NavigationProperty Name="PhanHois" Relationship="Self.FK_PhanHoi_KhachHang" FromRole="KhachHang" ToRole="PhanHoi" />
+          <NavigationProperty Name="PhanHois" Relationship="Self.FK_PhanHoi_KhachHang1" FromRole="KhachHang" ToRole="PhanHoi" />
         </EntityType>
         <EntityType Name="LoaiKH">
           <Key>
             <PropertyRef Name="MaLoaiKH" />
           </Key>
           <Property Name="MaLoaiKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TenLoaiKH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TenLoaiKH" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="KhachHangs" Relationship="Self.FK_Customer_Guest_TypeCus" FromRole="LoaiKH" ToRole="KhachHang" />
         </EntityType>
         <EntityType Name="LoaiTour">
@@ -545,7 +539,7 @@
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Sdt" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="Sdt" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="NgaySinh" Type="DateTime" Precision="3" />
@@ -560,12 +554,12 @@
           </Key>
           <Property Name="MaPhanHoi" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MaKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Sdt" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="Sdt" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NgayPH" Type="DateTime" Precision="3" />
           <Property Name="TrangThai" Type="Boolean" />
-          <NavigationProperty Name="KhachHang" Relationship="Self.FK_PhanHoi_KhachHang" FromRole="PhanHoi" ToRole="KhachHang" />
+          <NavigationProperty Name="KhachHang" Relationship="Self.FK_PhanHoi_KhachHang1" FromRole="PhanHoi" ToRole="KhachHang" />
         </EntityType>
         <EntityType Name="PhuongTien">
           <Key>
@@ -573,8 +567,8 @@
           </Key>
           <Property Name="MaPTien" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TenPTien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="HangXe" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ChiTiet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HangXe" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ChiTiet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ChiTietTours" Relationship="Self.FK_ChiTietTour_PhuongTien" FromRole="PhuongTien" ToRole="ChiTietTour" />
         </EntityType>
         <EntityType Name="TinhThanh">
@@ -592,7 +586,6 @@
           </Key>
           <Property Name="MaTour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MaLTour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="MaKS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="TenTour" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="GioiThieu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="HinhMinhHoa_T" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
@@ -613,7 +606,7 @@
           <Key>
             <PropertyRef Name="MaVe" />
           </Key>
-          <Property Name="MaVe" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaVe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MaDH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MaLVe" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Hoten_KH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -623,17 +616,15 @@
           <NavigationProperty Name="BookTour" Relationship="Self.FK_Ticket_Order" FromRole="Ve" ToRole="BookTour" />
           <NavigationProperty Name="LoaiVe" Relationship="Self.FK_Ticket_TypeTicket" FromRole="Ve" ToRole="LoaiVe" />
         </EntityType>
-        <Association Name="FK_BookTour_KhachHang">
+        <Association Name="FK_BookTour_KhachHang1">
           <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
           <End Role="BookTour" Type="Self.BookTour" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhachHang">
               <PropertyRef Name="MaKH" />
-              <PropertyRef Name="SDT" />
             </Principal>
             <Dependent Role="BookTour">
               <PropertyRef Name="MaKH" />
-              <PropertyRef Name="SdtKH" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -759,17 +750,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PhanHoi_KhachHang">
+        <Association Name="FK_PhanHoi_KhachHang1">
           <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
           <End Role="PhanHoi" Type="Self.PhanHoi" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhachHang">
               <PropertyRef Name="MaKH" />
-              <PropertyRef Name="SDT" />
             </Principal>
             <Dependent Role="PhanHoi">
               <PropertyRef Name="MaKH" />
-              <PropertyRef Name="Sdt" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -813,7 +802,7 @@
           <EntitySet Name="TinhThanhs" EntityType="Self.TinhThanh" />
           <EntitySet Name="Tours" EntityType="Self.Tour" />
           <EntitySet Name="Ves" EntityType="Self.Ve" />
-          <AssociationSet Name="FK_BookTour_KhachHang" Association="Self.FK_BookTour_KhachHang">
+          <AssociationSet Name="FK_BookTour_KhachHang1" Association="Self.FK_BookTour_KhachHang1">
             <End Role="KhachHang" EntitySet="KhachHangs" />
             <End Role="BookTour" EntitySet="BookTours" />
           </AssociationSet>
@@ -857,7 +846,7 @@
             <End Role="LoaiKH" EntitySet="LoaiKHs" />
             <End Role="KhachHang" EntitySet="KhachHangs" />
           </AssociationSet>
-          <AssociationSet Name="FK_PhanHoi_KhachHang" Association="Self.FK_PhanHoi_KhachHang">
+          <AssociationSet Name="FK_PhanHoi_KhachHang1" Association="Self.FK_PhanHoi_KhachHang1">
             <End Role="KhachHang" EntitySet="KhachHangs" />
             <End Role="PhanHoi" EntitySet="PhanHois" />
           </AssociationSet>
@@ -888,6 +877,7 @@
                 <ScalarProperty Name="SoCho" ColumnName="SoCho" />
                 <ScalarProperty Name="SdtKH" ColumnName="SdtKH" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="HinhThucThanhToan" ColumnName="HinhThucThanhToan" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1030,7 +1020,6 @@
               <MappingFragment StoreEntitySet="Tour">
                 <ScalarProperty Name="MaTour" ColumnName="MaTour" />
                 <ScalarProperty Name="MaLTour" ColumnName="MaLTour" />
-                <ScalarProperty Name="MaKS" ColumnName="MaKS" />
                 <ScalarProperty Name="TenTour" ColumnName="TenTour" />
                 <ScalarProperty Name="GioiThieu" ColumnName="GioiThieu" />
                 <ScalarProperty Name="HinhMinhHoa_T" ColumnName="HinhMinhHoa_T" />

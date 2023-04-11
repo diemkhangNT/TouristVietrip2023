@@ -144,22 +144,10 @@ namespace Tourist_VietripInsum_2023.Controllers
         public ActionResult DeleteHotel(string id, Hotel ht)
         {
             ht = db.Hotels.Where(s => s.MaKS == id).FirstOrDefault();
-            
-            List<Tour> detail = db.Tours.Where(s=>s.MaKS==id).ToList();
-            var count = detail.Count;
-            if (count > 0)
-            {
-                TempData["noti"] = "delete-false";
-                return RedirectToAction("HotelManager");
-            }
-            else
-            {
-                TempData["noti"] = "delete-true";
-                db.Hotels.Remove(ht);
-                db.SaveChanges();
-                return RedirectToAction("HotelManager");
-            }
-            return View(ht);
+            TempData["noti"] = "delete-true";
+            db.Hotels.Remove(ht);
+            db.SaveChanges();
+            return RedirectToAction("HotelManager");
         }
         //End hotel
 
@@ -619,7 +607,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MaLTour = new SelectList(db.LoaiTours, "MaLTour", "TenLTour", tour.LoaiTour.TenLTour);
+            ViewBag.MaLTour = new SelectList(db.LoaiTours, "MaLTour", "TenLTour");
             return View(tour);
         }
         [HttpPost]

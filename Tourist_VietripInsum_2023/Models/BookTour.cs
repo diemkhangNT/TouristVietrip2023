@@ -29,6 +29,7 @@ namespace Tourist_VietripInsum_2023.Models
         public Nullable<int> SoCho { get; set; }
         public string SdtKH { get; set; }
         public string MaKH { get; set; }
+        public Nullable<bool> HinhThucThanhToan { get; set; }
     
         public virtual KhachHang KhachHang { get; set; }
         public virtual NhanVien NhanVien { get; set; }

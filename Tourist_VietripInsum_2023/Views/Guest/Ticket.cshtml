@@ -37,9 +37,14 @@
                             <span>Thời gian <b>@tour.SoNgay ngày</b></span>
                             <span>Nơi khởi hành <b>@tour.NgayKhoihanh</b></span>
                             <span>Số chỗ còn nhận <b>@ViewBag.chodamua</b></span>
-
+                            @{ 
+                                var a = String.Format("{0:0,0 vnđ}", @tour.GiaNguoiLon);
+                                var b = String.Format("{0:0,0 vnđ}", @tour.GiaTreEm);
+                            }
+                            <span>Giá người lớn <b>@a</b></span>
+                            <span>Giá trẻ em <b>@b</b></span>
+                            <h6>Hạn chót đặt vé: @tour.HanChotDatVe</h6>
                         </div>
-
                     </div>
                 </div>
                 <!-- <div class="entry-mb d-lg-none">
@@ -71,8 +76,8 @@
 
                         <div class="change-number">
                             <icon class="fas fa-plus-circle" onclick="ThemVe()"></icon>
-                            <span class="venguoilon" id="venguoilon">1</span>
-                            <icon class="fas fa-plus-circle" onclick="xoaVe()"></icon>
+                            <span class="venguoilon" id="venguoilon">0</span>
+                            <icon class="fas fa-minus-circle" onclick="xoaVe()"></icon>
                         </div>
 
                     </div>

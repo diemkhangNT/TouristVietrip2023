@@ -345,9 +345,17 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public int SoChoTrong(string matour)
         {
-
+            int socho = 0;
             var tour = db.Tours.Where(t => t.MaTour == matour).FirstOrDefault();
-            int socho = (int)tour.SoChoNull;
+            if(tour.SoChoNull == null)
+            {
+                socho = 0;
+            }
+            else
+            {
+                socho = (int)tour.SoChoNull;
+            }
+            
             List<BookTour> bt = db.BookTours.Where(t => t.MaTour == matour).ToList();
             foreach (var item in bt)
             {
@@ -430,11 +438,12 @@ namespace Tourist_VietripInsum_2023.Controllers
             if (ModelState.IsValid)
             {
                 Random rd = new Random();
+
                 //Tạo vé theo số lượng khách đặt
                 for (int i = 1; i <= m; i++)
                 {
                     Ve ve = new Ve();
-                    var maVe = "V" +maDH+ rd.Next(1,9)+ rd.Next(1, 9)+rd.Next(1, 9)+rd.Next(1, 9);
+                    var maVe = "V" + maDH + rd.Next(1, 9) + rd.Next(10, 20) + rd.Next(100, 500);
                     ve.MaVe = maVe;
                     ve.MaDH = maDH;
                     ve.Hoten_KH = Request["HoTen_KH" + i];
@@ -455,7 +464,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                         tongtien = tongtien + (int)tour.GiaTreEm;
                     }
                     db.Ves.Add(ve);
-                    db.SaveChanges();
+                    //db.SaveChanges();
 
                 }
                 //Update tổng tiền cho đơn đặt tour

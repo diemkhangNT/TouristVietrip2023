@@ -13,14 +13,14 @@ namespace Tourist_VietripInsum_2023
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "LoginStaff", action = "Login", id = UrlParameter.Optional }
-            );
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "LoginStaff", action = "Login", id = UrlParameter.Optional }
+            //);
 
             routes.MapRoute(
-                name: "Guest",
+                name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Guest", action = "HomePageGuest", id = UrlParameter.Optional }
             );
