@@ -1,12 +1,13 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Tourist_VietripInsum_2023.App_Start;
+using Tourist_VietripInsum_2023.common;
 using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
@@ -47,6 +48,7 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult CusDetailsTour(string id)
         {
+            TempData["MaTour"] = id;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -76,6 +78,43 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 return View(db.KhachHangs.Where(s => s.MaKH.ToLower().Contains(search) == true || s.SDT.ToLower().Contains(search) == true || s.HoTenKH.ToLower().Contains(search) == true).ToList());
             }
+        }
+
+        public ActionResult EditCusInfo(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            KhachHang khachHang = db.KhachHangs.Find(id);
+            Session["maKH"] = id;
+            if (khachHang == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.MaLoaiKH = new SelectList(db.LoaiKHs, "MaLoaiKH", "TenLoaiKH", khachHang.MaLoaiKH);
+            return View(khachHang);
+        }
+        [HttpPost]
+        public ActionResult EditCusInfo(KhachHang khachHang)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(khachHang).State = EntityState.Modified;
+                db.SaveChanges();
+
+                var bookTour = db.BookTours.Where(s => s.MaKH == khachHang.MaKH).ToList();
+                foreach (var item in bookTour)
+                {
+                    item.SdtKH = khachHang.SDT;
+                    db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                }
+                db.SaveChanges();
+                TempData["success"] = "Cập nhật thông tin khách hàng thành công";
+                return RedirectToAction("ListOfCustomers");
+            }
+            ViewBag.MaLoaiKH = new SelectList(db.LoaiKHs, "MaLoaiKH", "TenLoaiKH", khachHang.MaLoaiKH);
+            return View(khachHang);
         }
 
         public ActionResult CheckCusInfo(string search)
@@ -129,7 +168,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 else
                 {
                     khachHang.MaKH = idCus;
-                    khachHang.MaLoaiKH = null;
+                    khachHang.MaLoaiKH = "NM";
                     khachHang.Username = null;
                     khachHang.UserPassword = null;
                     khachHang.HinhDaiDien = null;
@@ -155,6 +194,20 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
         }
 
+        public JsonResult CheckNoPhoneAvailability(string noPhone)
+        {
+            System.Threading.Thread.Sleep(200);
+
+            var checkNoPhone = db.KhachHangs.Where(x => x.SDT == noPhone).SingleOrDefault();
+            if (checkNoPhone != null)
+            {
+                return Json(1);
+            }
+            else
+            {
+                return Json(0);
+            }
+        }
         [HttpGet]
         public ActionResult GetInfoTour(string id)
         {
@@ -206,7 +259,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                     Session["MaDH"] = donHang.MaDH;
                     donHang.MaNVLap = user.MaNV;
                     donHang.NgayLap = System.DateTime.Now;
-                    donHang.TrangThaiTT = true;
+                    donHang.TrangThaiTT = false;
                     donHang.TotalPrice = null;
 
                     var sdt = Session["SDT"].ToString();
@@ -285,7 +338,11 @@ namespace Tourist_VietripInsum_2023.Controllers
                 //Update tổng tiền cho đơn đặt tour
                 var updateBT = db.BookTours.Find(ve.MaDH);
                 updateBT.TotalPrice = (decimal)tongtien;
+
+
                 db.SaveChanges();
+                
+              
                 return RedirectToAction("OrderingInfo");
             }
             return RedirectToAction("OrderingInfo");
@@ -301,7 +358,6 @@ namespace Tourist_VietripInsum_2023.Controllers
         [HttpGet]
         public ActionResult EditOrdering(string id)
         {
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -341,9 +397,24 @@ namespace Tourist_VietripInsum_2023.Controllers
                     db.SaveChanges();
                     return RedirectToAction("CreateTickets");
                 }
+                
             }
+            Session["MaDHBook"] = donHang.MaDH;
             return View();
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult SendMailConn()
+        //{
+        //    var madh = (string)Session["MaBT"];
+            
+
+
+        //}
+
+
+
 
         public ActionResult DeleteOrdering(string id)
         {

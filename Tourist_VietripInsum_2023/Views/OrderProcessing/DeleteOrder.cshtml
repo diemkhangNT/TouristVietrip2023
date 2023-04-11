@@ -1,11 +1,12 @@
 ﻿@model Tourist_VietripInsum_2023.Models.BookTour
-
+@using Tourist_VietripInsum_2023.Models
 @{
     ViewBag.Title = "Xóa đơn đặt tour";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
     ViewBag.Name = "Xóa đơn đặt tour";
     ViewBag.order = "active";
-}
+    TouristEntities1 db = new TouristEntities1();
+} 
 
 <div class="row">
     <div class="col-sm-12">
@@ -34,7 +35,10 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.KhachHang.HoTenKH) -
+                        @{
+                            var kh = db.KhachHangs.Where(s => s.MaKH == Model.MaKH).FirstOrDefault();
+                        }
+                        <b>Tên Khách Hàng: </b> @Html.DisplayFor(model => kh.HoTenKH) -
                         @Html.DisplayFor(model => model.SdtKH)
                     </dd>
 

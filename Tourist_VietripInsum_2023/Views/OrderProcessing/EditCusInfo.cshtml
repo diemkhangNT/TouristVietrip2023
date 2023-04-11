@@ -1,0 +1,158 @@
+﻿@model Tourist_VietripInsum_2023.Models.KhachHang
+
+@{
+    ViewBag.Title = "EditCusInfo";
+    Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
+    ViewBag.Name = "Trang sửa thông tin khách hàng";
+    ViewBag.order = "active";
+
+    if (TempData["errorPhone"] != null)
+    {
+        <script>
+            swal({
+                title: "Không thể cập nhật số điện thoại này, vì số điện thoại này đã được sử dụng",
+                icon: "warning",
+                button: "Thoát",
+            });
+        </script>
+    }
+
+    if (TempData["errorEmail"] != null)
+    {
+        <script>
+            swal({
+                title: "Không thể cập nhật email này, vì số điện thoại này đã được sử dụng",
+                icon: "warning",
+                button: "Thoát",
+            });
+        </script>
+    }
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="tile">
+            <h4 class="tile-title">SỬA THÔNG TIN KHÁCH HÀNG </h4>
+            <div class="tile-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="element-button">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.MaKH)
+                        @Html.HiddenFor(model => model.HinhDaiDien)
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Loại khách hàng</label>
+                                    @Html.DropDownList("MaLoaiKH", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.MaLoaiKH, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Họ và tên</label>
+                                    @Html.EditorFor(model => model.HoTenKH, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+                                    @Html.ValidationMessageFor(model => model.HoTenKH, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Số điện thoại</label>
+                                    @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control col-md-12", @id = "NoPhone", onchange = "NoPhoneCheck()" } })
+                                    @*<input name="sdts" type="text" value="@Model.SDT" />*@
+                                    @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                                    <span id="noti"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Email</label>
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control col-md-12", @id = "Email", onchange = "EmailCheck()" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    <span id="mess"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Địa chỉ</label>
+                                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+                                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label">Ngày sinh</label>
+                                    @Html.TextBoxFor(model => model.NgaySinh, "{0:dd-MM-yyyy}", new { @class = "form-control col-md-12", type = "datetime" })
+                                    @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label">Giới tính</label>
+                                    @Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+                                    @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-cancel btn-sm" href="/OrderProcessing/ListOfCustomers">Quay lại</a>
+                        <input type="submit" id="btn-submit" value="Save" class="btn btn-success btn-sm" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function EmailCheck() {
+        $("#mess").html("check ...");
+        $.post("@Url.Action("CheckEmailAvailability", "OrderProcessing")",
+            {
+                mail: $("#Email").val()
+            },
+            function (data) {
+                if (data == 0) {
+                    $("#mess").html('<font color="Green">Available!</font>');
+                    $("#Email").css("border-color", "Green");
+                    document.getElementById('btn-submit').disabled = false;
+                }
+                else {
+                    $("#mess").html('<font color="Red">Email này đã được sử dụng</font>');
+                    $("#Email").css("border-color", "Red");
+                    document.getElementById('btn-submit').disabled = true;
+                }
+            }
+        )
+    }
+
+    function NoPhoneCheck() {
+        $("#noti").html("check ...");
+        $.post("@Url.Action("CheckNoPhoneAvailability", "OrderProcessing")",
+            {
+                noPhone: $("#NoPhone").val()
+            },
+            function (data) {
+                if (data == 0) {
+                    $("#noti").html('<font color="Green">Available!</font>');
+                    $("#NoPhone").css("border-color", "Green");
+                    document.getElementById('btn-submit').disabled = false;
+                }
+                else {
+                    $("#noti").html('<font color="Red">Số điện thoại này đã được sử dụng</font>');
+                    $("#NoPhone").css("border-color", "Red");
+                    document.getElementById('btn-submit').disabled = true;
+                }
+            }
+        )
+    }
+</script>

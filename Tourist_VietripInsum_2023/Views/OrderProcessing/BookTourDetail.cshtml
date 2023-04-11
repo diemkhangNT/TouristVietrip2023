@@ -44,7 +44,10 @@
                                 <b>Tên Tour: </b> @Html.DisplayFor(model => model.Tour.TenTour)
                             </div>
                             <div class="form-group">
-                                <b>Tên Khách Hàng: </b> @Html.DisplayFor(model => model.KhachHang.HoTenKH)
+                                @{
+                                    var kh = db.KhachHangs.Where(s => s.MaKH == Model.MaKH).FirstOrDefault();
+                                }
+                                <b>Tên Khách Hàng: </b> @Html.DisplayFor(model => kh.HoTenKH)
                                 <b style="margin-left: 15px;">Số điện thoại: </b> @Html.DisplayFor(model => model.SdtKH) <br />
                             </div>
                             <div class="form-group">
@@ -52,12 +55,26 @@
                             </div>
                             <div class="form-group">
                                 <b style="margin-left: 15px;">Số chỗ: </b>@Html.DisplayFor(model => model.SoCho)
-                                <b style="margin-left: 15px;">Tổng tiền: </b>@{ var tongTien = string.Format("{0:0,0}", Model.TotalPrice);} 
+                                <b style="margin-left: 15px;">Tổng tiền: </b>@{ var tongTien = string.Format("{0:0,0}", Model.TotalPrice);}
                                 @Html.DisplayFor(model => tongTien)
                             </div>
                             <div style="display: flex; margin-top: 15px; text-align: center; width: 500px; margin: auto;">
                                 <b style="margin: 10px 10px 0 0;">Tình trạng thanh toán: </b>
-                                @Html.EditorFor(model => model.TrangThaiTT, new { htmlAttributes = new { @class = "form-control" } })
+                                <select class="form-control list-box tri-state" id="TrangThaiTT" name="TrangThaiTT">
+                                    @{ var tt = Model.TrangThaiTT;
+                                        if (tt == true)
+                                        {
+                                            <option selected="selected" value="true">Đã thanh toán</option>
+                                            <option value="false">Chưa thanh toán</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="true">Đã thanh toán</option>
+                                            <option selected="selected" value="false">Chưa thanh toán</option>
+                                        }
+                                    }
+                                </select>
+                                @*@Html.EditorFor(model => model.TrangThaiTT, new { htmlAttributes = new { @class = "form-control" } })*@
                             </div>
                         </div>
 
@@ -120,9 +137,18 @@
                             <a class="btn btn-cancel btn-sm" href="/OrderProcessing/ManageTourOrders">Quay lại</a>
                             <input class="btn btn-success btn-sm" type="submit" value="Lưu" />
                         </div>
+
                     }
                 </div>
             </div>
+
+
+            @using (Html.BeginForm("SendMailConn", "OrderProcessing", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+               
+                <input type="submit" value="Lưu" />
+            }
         </div>
     </div>
 </div>

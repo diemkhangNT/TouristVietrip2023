@@ -15,68 +15,68 @@
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="row">
-            <div class="col-sm-1" style="border-right: 6px solid black;">
-                <h4 style="writing-mode: vertical-rl;"> </h4>
-            </div>
-            <div class="col-sm-5">
-                <div class="form-group col-12">
-                    <div style="width: 100%; height: auto; border: 2px solid red; padding: 10px; border-radius: 50px 20px;">
-                        <br />
-                        @*@Html.TextBox("ImagerVis", "", new { type = "file", @class = "fas fa-cloud-upload-alt" })*@
-                        @Html.TextBox("ImagerVis", "", new { type = "file" })
-                        <br />
-                        <br />
-                        <img id="preview" src="#" width="100%" height="auto" style="visibility: hidden; border: 4px outset; margin-bottom:20px;" />
+                <div class="row">
+                    <div class="col-sm-1" style="border-right: 6px solid black;">
+                        <h4 style="writing-mode: vertical-rl;"> </h4>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group col-12">
+                            <div style="width: 100%; height: auto; border: 2px solid red; padding: 10px; border-radius: 50px 20px;">
+                                <br />
+                                @*@Html.TextBox("ImagerVis", "", new { type = "file", @class = "fas fa-cloud-upload-alt" })*@
+                                @Html.TextBox("ImagerVis", "", new { type = "file" })
+                                <br />
+                                <br />
+                                <img id="preview" src="#" width="100%" height="auto" style="visibility: hidden; border: 4px outset; margin-bottom:20px;" />
 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MaTinh, "MaTinh", htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.DropDownList("MaTinh", null, htmlAttributes: new { @class = "form-control col-md-12" })
+                                @Html.ValidationMessageFor(model => model.MaTinh, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TenDDTQ, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.TenDDTQ, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+                                @Html.ValidationMessageFor(model => model.TenDDTQ, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MoTa, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(model => model.MoTa, new { @class = "form-control content-editor col-md-12" })
+                                @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+                                @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-outline-danger" />
+                                <a class="btn btn-outline-success" href="/Tourmanager/LocationManager">Back to list</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1" style="border-left: 6px solid black;">
+                        <h4 style="writing-mode: vertical-rl;"></h4>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-sm-5">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.MaTinh, "MaTinh", htmlAttributes: new { @class = "control-label col-md-12" })
-                    <div class="col-md-12">
-                        @Html.DropDownList("MaTinh", null, htmlAttributes: new { @class = "form-control col-md-12" })
-                        @Html.ValidationMessageFor(model => model.MaTinh, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.TenDDTQ, htmlAttributes: new { @class = "control-label col-md-12" })
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.TenDDTQ, new { htmlAttributes = new { @class = "form-control col-md-12" } })
-                        @Html.ValidationMessageFor(model => model.TenDDTQ, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.MoTa, htmlAttributes: new { @class = "control-label col-md-12" })
-                    <div class="col-md-12">
-                        @Html.TextAreaFor(model => model.MoTa, new { @class = "form-control content-editor col-md-12" })
-                        @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-md-12" })
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control col-md-12" } })
-                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-outline-danger" />
-                        <a class="btn btn-outline-success" href="/Tourmanager/LocationManager">Back to list</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-1" style="border-left: 6px solid black;">
-                <h4 style="writing-mode: vertical-rl;"></h4>
-            </div>
-        </div>
             }
 
         </div>
