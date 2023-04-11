@@ -535,6 +535,7 @@
     <Content Include="Views\OrderProcessing\TourList.cshtml" />
     <Content Include="Views\OrderProcessing\CusDetailsTour.cshtml" />
     <Content Include="Views\OrderProcessing\EditCusInfo.cshtml" />
+    <Content Include="Views\Tourmanager\CusDetailsTour.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

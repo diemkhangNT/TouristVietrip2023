@@ -5,28 +5,6 @@
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
     ViewBag.Name = "Trang sửa thông tin khách hàng";
     ViewBag.order = "active";
-
-    if (TempData["errorPhone"] != null)
-    {
-        <script>
-            swal({
-                title: "Không thể cập nhật số điện thoại này, vì số điện thoại này đã được sử dụng",
-                icon: "warning",
-                button: "Thoát",
-            });
-        </script>
-    }
-
-    if (TempData["errorEmail"] != null)
-    {
-        <script>
-            swal({
-                title: "Không thể cập nhật email này, vì số điện thoại này đã được sử dụng",
-                icon: "warning",
-                button: "Thoát",
-            });
-        </script>
-    }
 }
 
 <div class="row">
@@ -61,7 +39,6 @@
                                 <div class="form-group">
                                     <label class="control-label">Số điện thoại</label>
                                     @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control col-md-12", @id = "NoPhone", onchange = "NoPhoneCheck()" } })
-                                    @*<input name="sdts" type="text" value="@Model.SDT" />*@
                                     @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
                                     <span id="noti"></span>
                                 </div>

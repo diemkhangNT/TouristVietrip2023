@@ -67,6 +67,28 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
         }
 
+        public ActionResult CusDetailsTour(string id)
+        {
+            TempData["MaTour"] = id;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            List<BookTour> booking = db.BookTours.Where(s => s.MaTour == id && s.TrangThaiTT == true).ToList();
+            List<Ve> ve = new List<Ve>();
+            foreach (var i in booking)
+            {
+                var maDH = i.MaDH;
+                ve = db.Ves.Where(s => s.MaDH == maDH).ToList();
+            }
+            if (booking == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ve);
+        }
+
         //Hotel
         public ActionResult HotelManager()
         {
@@ -140,27 +162,27 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(hotel);
         }
 
-        [HttpPost]
-        public ActionResult DeleteHotel(string id, Hotel ht)
-        {
-            ht = db.Hotels.Where(s => s.MaKS == id).FirstOrDefault();
+        //[HttpPost]
+        //public ActionResult DeleteHotel(string id, Hotel ht)
+        //{
+        //    ht = db.Hotels.Where(s => s.MaKS == id).FirstOrDefault();
             
-            List<Tour> detail = db.Tours.Where(s=>s.MaKS==id).ToList();
-            var count = detail.Count;
-            if (count > 0)
-            {
-                TempData["noti"] = "delete-false";
-                return RedirectToAction("HotelManager");
-            }
-            else
-            {
-                TempData["noti"] = "delete-true";
-                db.Hotels.Remove(ht);
-                db.SaveChanges();
-                return RedirectToAction("HotelManager");
-            }
-            return View(ht);
-        }
+        //    List<Tour> detail = db.Tours.Where(s=>s.MaKS==id).ToList();
+        //    var count = detail.Count;
+        //    if (count > 0)
+        //    {
+        //        TempData["noti"] = "delete-false";
+        //        return RedirectToAction("HotelManager");
+        //    }
+        //    else
+        //    {
+        //        TempData["noti"] = "delete-true";
+        //        db.Hotels.Remove(ht);
+        //        db.SaveChanges();
+        //        return RedirectToAction("HotelManager");
+        //    }
+        //    return View(ht);
+        //}
         //End hotel
 
         // Phuong tien
@@ -600,6 +622,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Tour tour = db.Tours.Where(s => s.MaTour == id).FirstOrDefault();
+            Session["idTour"] = id;
             if (tour == null)
             {
                 return HttpNotFound();
