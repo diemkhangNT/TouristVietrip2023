@@ -145,6 +145,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="common\MailHelp.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -261,6 +262,7 @@
     <Content Include="Content\styleLogin.css" />
     <Content Include="Content\style_contact.css" />
     <Content Include="Content\style_order.css" />
+    <Content Include="Content\template\mailconn.html" />
     <Content Include="Content\tourmanager.css" />
     <Content Include="favicon.ico" />
     <Content Include="Forms\Order.html" />
@@ -538,9 +540,7 @@
     <Content Include="Views\Admin\ListOfCustomers.cshtml" />
     <Content Include="Views\Guest\VeChungToi.cshtml" />
     <Content Include="Views\OrderProcessing\CusDetailsTour.cshtml" />
-    <Content Include="Views\Guest\demo.cshtml" />
     <Content Include="Views\Guest\Ticket.cshtml" />
-    <Content Include="Views\Guest\t.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

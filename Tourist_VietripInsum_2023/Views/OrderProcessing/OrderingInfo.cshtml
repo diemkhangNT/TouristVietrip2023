@@ -29,7 +29,10 @@
 
                         <div class="row" style="margin-top: 15px;">
                             <div class="col-md-6">
-                                <b>Tên Khách Hàng: </b>@Html.DisplayFor(model => model.KhachHang.HoTenKH)
+                                @{ 
+                                    var kh = db.KhachHangs.Where(s => s.MaKH == Model.MaKH).FirstOrDefault();
+                                }
+                                <b>Tên Khách Hàng: </b>@Html.DisplayFor(model => kh.HoTenKH)
                             </div>
                             <div class="col-md-6">
                                 <b>Số điện thoại: </b>@Html.DisplayFor(model => model.SdtKH)

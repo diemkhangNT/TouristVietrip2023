@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Tourist_VietripInsum_2023.common;
 using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
@@ -460,10 +462,30 @@ namespace Tourist_VietripInsum_2023.Controllers
                 }
                 //Update tổng tiền cho đơn đặt tour
                 var donhang = db.BookTours.Where(s => s.MaDH == maDH).FirstOrDefault();
-
                 dh.TotalPrice = (decimal)tongtien;
                 dh.SoCho = m;
                 db.SaveChanges();
+                string content = System.IO.File.ReadAllText(Server.MapPath("/Content/template/mailconn.html"));
+
+                var kh = db.KhachHangs.Where(s => s.MaKH == dh.MaKH).FirstOrDefault();
+                var t = db.Tours.Where(s => s.MaTour == dh.MaTour).FirstOrDefault();
+
+                content = content.Replace("{{TenKH}}", kh.HoTenKH);
+                content = content.Replace("{{Phoneno}}", dh.MaKH);
+                content = content.Replace("{{MaDH}}", dh.MaDH);
+                content = content.Replace("{{Email}}", kh.Email);
+                content = content.Replace("{{Address}}", dh.MaKH);
+                content = content.Replace("{{MaTour}}", t.MaTour);
+                content = content.Replace("{{TenTour}}", t.TenTour);
+                content = content.Replace("{{ngaykhoihanh}}", t.NgayKhoihanh.ToString());
+                content = content.Replace("{{noikhoihanh}}", t.NoiKhoiHanh);
+                content = content.Replace("{{hanchotve}}", t.HanChotDatVe.ToString());
+                content = content.Replace("{{total}}", dh.TotalPrice.ToString());
+
+                //Gui mail
+                var toEmail = ConfigurationManager.AppSettings["toEmailAddress"].ToString();
+                new MailHelp().SendMail(kh.Email, "Thông tin", content);
+               
                 return RedirectToAction("HomePageGuest");
             }
             return View();

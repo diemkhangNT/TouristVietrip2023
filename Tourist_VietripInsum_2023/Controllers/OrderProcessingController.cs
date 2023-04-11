@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Tourist_VietripInsum_2023.App_Start;
+using Tourist_VietripInsum_2023.common;
 using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
@@ -336,7 +338,11 @@ namespace Tourist_VietripInsum_2023.Controllers
                 //Update tổng tiền cho đơn đặt tour
                 var updateBT = db.BookTours.Find(ve.MaDH);
                 updateBT.TotalPrice = (decimal)tongtien;
+
+
                 db.SaveChanges();
+                
+              
                 return RedirectToAction("OrderingInfo");
             }
             return RedirectToAction("OrderingInfo");
@@ -391,9 +397,24 @@ namespace Tourist_VietripInsum_2023.Controllers
                     db.SaveChanges();
                     return RedirectToAction("CreateTickets");
                 }
+                
             }
+            Session["MaDHBook"] = donHang.MaDH;
             return View();
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult SendMailConn()
+        //{
+        //    var madh = (string)Session["MaBT"];
+            
+
+
+        //}
+
+
+
 
         public ActionResult DeleteOrdering(string id)
         {
