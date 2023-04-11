@@ -471,7 +471,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 }
                 //Update tổng tiền cho đơn đặt tour
                 var donhang = db.BookTours.Where(s => s.MaDH == maDH).FirstOrDefault();
-                dh.TotalPrice = (decimal)tongtien;
+                dh.TotalPrice = (int)tongtien;
                 dh.SoCho = m;
                 db.SaveChanges();
                 string content = System.IO.File.ReadAllText(Server.MapPath("/Content/template/mailconn.html"));

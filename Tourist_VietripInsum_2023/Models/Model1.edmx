@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TouristModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TouristModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BookTour">
           <Key>
             <PropertyRef Name="MaDH" />
@@ -14,7 +14,7 @@
           <Property Name="MaTour" Type="varchar" MaxLength="10" />
           <Property Name="NgayLap" Type="datetime" />
           <Property Name="TrangThaiTT" Type="bit" />
-          <Property Name="TotalPrice" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="TotalPrice" Type="float" />
           <Property Name="SoCho" Type="int" />
           <Property Name="SdtKH" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="MaKH" Type="varchar" MaxLength="10" />
@@ -416,7 +416,8 @@
             <End Role="Tour" EntitySet="Tour" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TouristModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -429,7 +430,7 @@
           <Property Name="MaTour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="NgayLap" Type="DateTime" Precision="3" />
           <Property Name="TrangThaiTT" Type="Boolean" />
-          <Property Name="TotalPrice" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="TotalPrice" Type="Double" />
           <Property Name="SoCho" Type="Int32" />
           <Property Name="SdtKH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MaKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />

@@ -337,7 +337,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 }
                 //Update tổng tiền cho đơn đặt tour
                 var updateBT = db.BookTours.Find(ve.MaDH);
-                updateBT.TotalPrice = (decimal)tongtien;
+                updateBT.TotalPrice = (float)tongtien;
 
 
                 db.SaveChanges();
