@@ -1,0 +1,189 @@
+﻿
+@{
+    ViewBag.Title = "ThanhToan";
+    Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 8fr 4fr;
+            flex-direction: row;
+        }
+
+        .column {
+            flex: 1;
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: lightgrey
+        }
+
+        .thanhtoan {
+            padding-left: 100px;
+            padding-right: 100px;
+            padding-top: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        img {
+            padding-top: 100px;
+            padding-left: 900px;
+        }
+
+        label {
+            cursor: pointer;
+            font-size: larger;
+        }
+
+        .select-container {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+            .select-container select {
+                width: 100%;
+                height: 50px;
+                padding: 10px;
+                font-size: 16px;
+                color: #000000;
+                border: 2px solid #ccc;
+                border-radius: 5px;
+                appearance: none;
+                -webkit-appearance: none;
+                background-color: #fff;
+            }
+
+                .select-container select::-ms-expand {
+                    display: none;
+                }
+
+            .select-container::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                width: 0;
+                height: 0;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 5px solid #333;
+            }
+
+            .select-container select:focus {
+                outline: none;
+                border-color: #333;
+            }
+
+            .select-container select option {
+                font-weight: normal;
+                background-color: #fff;
+            }
+
+        .thanhtoan {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 50px;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            .btn:hover {
+                background-color: #3e8e41;
+            }
+    </style>
+    <body>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <img src="assets/img/payment.png" alt="" width="80px" height="50px">
+            <h1> Thanh toán </h1>
+            <title>Thanh toán Tour du lịch</title>
+            <link rel="stylesheet" type="text/css" href="style.css">
+        </head>
+        <body>
+            <form class="thanhtoan">
+                <div class="container">
+                    <div class="column">
+                        <h2>Thông tin khách hàng</h2>
+                        <form>
+                            <label for="name">Họ tên:</label>
+                            <input type="text" id="name" name="name" required>
+                            <label for="name">Giới tính</label>
+                            <select id="gioitinh" name="gioitinh">
+                                <option value="tour-1"> Nam</option>
+                                <option value="tour-2"> Nữ</option>
+                            </select>
+                            <label for="address">Địa chỉ:</label>
+                            <input type="email" id="email" name="email" required>
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                            <label for="phone">Số điện thoại:</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </form>
+                        <div class="select-container">
+                            <label for="payment-method">Phương thức thanh toán:</label>
+                            <select id="payment-method" name="payment-method">
+                                <option value="online">Thanh toán trực tuyến</option>
+                                <option value="offline">Nhận vé rồi thanh toán</option>
+                            </select>
+                        </div>
+                        <button class="btn" type="submit">Xác nhận thanh toán</button>
+                    </div>
+                    <div class="column">
+                        <h2>Thông tin Tour</h2>
+                        <form>
+                            <label for="tour">Tour:</label>
+                            <select id="tour" name="tour">
+                                <option value="tour-1">Tour 1</option>
+                                <option value="tour-2">Tour 2</option>
+                                <option value="tour-3">Tour 3</option>
+                            </select>
+                            <label for="date">Ngày khởi hành:</label>
+                            <input type="date" id="date" name="date" required>
+                            <label for="adults">Người lớn:</label>
+                            <input type="number" id="adults" name="adults" min="1" required>
+                            <label for="children">Trẻ em:</label>
+                            <input type="number" id="children" name="children" min="0" required>
+                        </form>
+                    </div>
+                </div>
+            </form>
+        </body>
+    </html>
+
+</body>
+</html>
+

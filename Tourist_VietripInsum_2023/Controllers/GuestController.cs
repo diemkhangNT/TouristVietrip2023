@@ -107,5 +107,9 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             return View();
         }
+        public ActionResult ThanhToan()
+        {
+            return View();
+        }
     }
     }
