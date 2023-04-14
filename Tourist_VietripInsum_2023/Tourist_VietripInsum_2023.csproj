@@ -541,6 +541,8 @@
     <Content Include="Views\Guest\VeChungToi.cshtml" />
     <Content Include="Views\OrderProcessing\CusDetailsTour.cshtml" />
     <Content Include="Views\Guest\Ticket.cshtml" />
+    <Content Include="Views\OrderProcessing\Booking.cshtml" />
+    <Content Include="Views\OrderProcessing\UpdateBooking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

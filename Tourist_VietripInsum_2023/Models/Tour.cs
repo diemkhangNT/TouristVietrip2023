@@ -23,7 +23,6 @@ namespace Tourist_VietripInsum_2023.Models
     
         public string MaTour { get; set; }
         public string MaLTour { get; set; }
-        public string MaKS { get; set; }
         public string TenTour { get; set; }
         public string GioiThieu { get; set; }
         public string HinhMinhHoa_T { get; set; }

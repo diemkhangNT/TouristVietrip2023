@@ -143,23 +143,10 @@ namespace Tourist_VietripInsum_2023.Controllers
         [HttpPost]
         public ActionResult DeleteHotel(string id, Hotel ht)
         {
-            ht = db.Hotels.Where(s => s.MaKS == id).FirstOrDefault();
-            
-            List<Tour> detail = db.Tours.Where(s=>s.MaKS==id).ToList();
-            var count = detail.Count;
-            if (count > 0)
-            {
-                TempData["noti"] = "delete-false";
-                return RedirectToAction("HotelManager");
-            }
-            else
-            {
-                TempData["noti"] = "delete-true";
-                db.Hotels.Remove(ht);
-                db.SaveChanges();
-                return RedirectToAction("HotelManager");
-            }
-            return View(ht);
+            TempData["noti"] = "delete-true";
+            db.Hotels.Remove(ht);
+            db.SaveChanges();
+            return RedirectToAction("HotelManager");
         }
         //End hotel
 
