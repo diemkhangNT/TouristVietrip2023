@@ -1,0 +1,166 @@
+﻿
+@using Tourist_VietripInsum_2023.Models
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
+    TouristEntities1 db = new TouristEntities1();
+    var maDH = Session["madonhang"].ToString();
+    var dh = db.BookTours.Where(s => s.MaDH == maDH).FirstOrDefault();
+    var tour = db.Tours.Where(s => s.MaTour == dh.MaTour).FirstOrDefault();
+    var kh = db.KhachHangs.Where(s => s.MaKH == dh.MaKH).FirstOrDefault();
+    var ve = db.Ves.Where(s => s.MaDH == maDH).ToList();
+    ViewBag.DonHang = dh;
+    ViewBag.Tour = tour;
+    ViewBag.Ve = ve;
+}
+@{
+    var checkMessage = TempData["noti"];
+    if (checkMessage == "success")
+    {
+        <script>
+            swal({
+                title: "Đặt vé thành công",
+                text: "Chúng tôi đã gửi mail xác nhận cho bạn! Vui lòng phản hồi lại với chúng tôi trong thời gian sớm nhất!",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    }
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <fieldset class="col-sm-12 border rounded-3 p-3">
+                <legend class="float-none w-auto px-3 text-muted">THÔNG TIN ĐƠN HÀNG</legend>
+                <div class="row">
+
+                    <div class="col-sm-4">
+                        <img src="~/images/dalat_langbiang.jpg" class="img-fluid" alt="image" />
+                    </div>
+                    <div class="col-sm-8 text-lg-left" style="display: flex; flex-direction: column; align-items: center; justify-content: center; ">
+                        <div class="col-sm-12"><b>Mã tour: </b> <b style="color: #dc4e4e">@tour.MaTour</b> </div>
+                        <p class="font-weight-bold" style="color: #2d4271; font-weight: 700; font-size: 20px;">@tour.TenTour</p>
+                    </div>
+                </div>
+                <dl class="row">
+                    <dt class="col-sm-4"></dt>
+                    <dt class="col-sm-4"><hr /></dt>
+                    <dt class="col-sm-4"> </dt>
+
+                    <dt class="col-sm-4"></dt>
+                    <dt class="col-sm-4 text-center fw-bold">Số lượng </dt>
+                    <dt class="col-sm-4 text-center fw-bold">Thành tiền </dt>
+                    @{ int i = 0, ii = 0;
+                        foreach (var item in ve)
+                        {
+                            if (item.MaLVe == "TICKET01")
+                            {
+                                i++;
+                            }
+                            else
+                            {
+                                ii++;
+                            }
+                        }
+                    }
+                    <dt class="col-sm-4">Người lớn</dt>
+                    <dd class="col-sm-4 text-center">@i x @tour.GiaNguoiLon</dd>
+                    <dd class="col-sm-4 text-center">@{ int tong = i * (int)tour.GiaNguoiLon;} @tong VNĐ</dd>
+
+                    <dt class="col-sm-4">Trẻ em</dt>
+                    <dd class="col-sm-4 text-center">@ii x @tour.GiaTreEm</dd>
+                    <dd class="col-sm-4 text-center">@{ int tong1 = ii * (int)tour.GiaTreEm;} @tong1 VNĐ</dd>
+                    <shadow><hr /></shadow>
+
+                    <dt class="col-sm-4">Tổng số ghế </dt>
+                    <dd class="col-sm-4 text-center">@{int t = i + ii;} @t</dd>
+                    <dd class="col-sm-4 text-center">@{int tien = tong + tong1;} @tien VNĐ</dd>
+
+                    <dt class="col-sm-4">Giảm giá </dt>
+                    <dd class="col-sm-4 text-center">@kh.MaLoaiKH</dd>
+                    <dd class="col-sm-4 text-center">@{float giamgia = tien * (float)kh.LoaiKH.ChietKhau;} @giamgia VNĐ</dd>
+                    <shadow><hr /></shadow>
+                    <dt class="col-sm-4">TỔNG TIỀN</dt>
+                    <dd class="col-sm-1 text-center"></dd>
+                    <dd class="col-sm-7 text-right fw-bold" style="color: #2d4271; font-weight: 700; font-size: 20px;">@dh.TotalPrice VNĐ</dd>
+
+                    @*<dt class="col-sm-12" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">Hình thức thanh toán</dt>*@
+                    <dd class="col-sm-12 text-center">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne" aria-expanded="true" aria-controls="accordionOne" role="tabpanel">
+                                        Hình thức thanh toán: TIỀN MẶT
+                                    </button>
+                                </h2>
+                                <div id="accordionOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        Quý khách vui lòng thanh toán tại bất kỳ văn phòng SaiGon Travel trên toàn quốc và các chi nhánh tại Thành phố Hồ Chí Minh.
+                                        @*<a href="~/Guest/LienHeGuest">Xem chi tiết.</a>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+                <div class="d-flex justify-content-between">
+                    <div><input type="button" value="Hủy vé" class="btn btn-danger" /></div>
+                    <div><input type="submit" value="Đặt vé" class="btn btn-success" /></div>
+
+
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-sm-6">
+            <fieldset class="col-sm-12 border rounded-3 p-3">
+                <legend class="float-none w-auto px-3 text-muted">THÔNG TIN HÀNH KHÁCH THAM GIA TOUR</legend>
+                <h3>Vé người lớn</h3>
+                @{ int tt = 1;
+                    foreach (var item in ve)
+                    {
+                        if (item.MaLVe == "TICKET01")
+                        {
+                            <dl class="row">
+                                <dt class="col-sm-3">Hành khách @tt: </dt>
+                                <dd class="col-sm-9">
+                                    <p>@item.Hoten_KH</p>
+                                    <p>@item.GioiTinh</p>
+                                    <p>@item.NgaySinh</p>
+                                    <p>@item.LuuY</p>
+                                </dd>
+                            </dl>
+                            tt++;
+                        }
+
+                    }
+                }
+
+                <h3>Vé trẻ em</h3>
+                @{ int ttt = 1;
+                    foreach (var item in ve)
+                    {
+                        if (item.MaLVe == "TICKET02")
+                        {
+                            <dl class="row">
+                                <dt class="col-sm-3">Hành khách @ttt: </dt>
+                                <dd class="col-sm-9">
+                                    <p>@item.Hoten_KH</p>
+                                    <p>@item.GioiTinh</p>
+                                    <p>@item.NgaySinh</p>
+                                    <p>@item.LuuY</p>
+                                </dd>
+                            </dl>
+                            ttt++;
+                        }
+
+                    }
+                }
+            </fieldset>
+        </div>
+    </div>
+
+</div>
+
+
+
