@@ -35,9 +35,9 @@
                         <div class="entry-inner">
                             <span>Mã Tour <b>@tour.MaTour</b></span>
                             <span>Khởi hành <b>@tour.NgayKhoihanh</b></span>
-                            <span>Thời gian <b>@tour.SoNgay ngày</b></span>
+                            <span>Thời gian <b>@tour.SoNgay ngày</b></span> 
                             <span>Nơi khởi hành <b>@tour.NgayKhoihanh</b></span>
-                            <span>Số chỗ còn nhận <b>@ViewBag.chodamua</b></span>
+                            <span>Số chỗ còn nhận <b>@ViewBag.chodamua</b></span> 
                             @{
                                 var a = String.Format("{0:0,0 vnđ}", @tour.GiaNguoiLon);
                                 var b = String.Format("{0:0,0 vnđ}", @tour.GiaTreEm);
@@ -81,6 +81,10 @@
                                     <icon class="fas fa-plus-circle" onclick="ThemVe()"></icon>
                                 </div>
 
+                            </div>
+                            <div class="col-sm-6 text-muted">
+                                (*) Nếu bạn muốn đặt trên 5 vé vui lòng liên hệ với chúng tôi. Hoặc để lại lời nhắn
+                                <a href="~/Guest/LienHeGuest">tại đây</a> để chúng tôi có thể liên lạc lại với bạn.
                             </div>
                         </div>
                     </div>
@@ -169,20 +173,21 @@
                             <div>
                                 <div class="form-control">
                                     <div class="select-container">
-                                        <label class="lab">Phương thức thanh toán:</label>
-                                        <select class="form-control col-sm-12" id="" name="">
-                                            <option>Chuyển khoản</option>
-                                            <option>Tiền mặt</option>
-                                        </select>`
+                                        <label class="lab">Chọn phương thức thanh toán:</label>
+                                        <select class="form-control col-sm-12" id="thanhtoan" name="thanhtoan">
+                                            <option value="true">Chuyển khoản</option>
+                                            <option value="false">Tiền mặt</option>
+                                        </select>
                                     </div>
-                                    <div class="col-md-offset-2 col-md-12">
-                                        <input type="submit" value="Đặt vé" class="btn btn-success btn-sm w-100" />
+                                    <div class="col-md-offset-2 col-md-12" style="margin-top:20px;">
+                                        <input type="submit" value="Xác nhận" class="btn btn-success btn-sm w-100" />
                                     </div>
                                 </div>
 
                             </div>
                         </div>
                     </div>
+                    <input value="@ViewBag.chodamua" style="visibility:hidden; display:inline-block;" id="socho" />
                 </div>
             </div>
 
@@ -200,47 +205,51 @@
     function ThemVe() {
         if (i < 5) {
             i++;
-            var row = ` <div class="ticket-info" id="nd` + i + `">` +
-                `<div class="row" id="ListInfoAdult">` +
-                `<div class="group-info-name col-sm-4">` +
-                ` <span>Họ tên</span>` +
-                `<input class="form-control" name="Hoten_KH` + i + `" placeholder="Vui lòng nhập Họ tên" required="required" type="text" value="">` +
-                `</div>` +
-                `<div class="form-group col-md-3">` +
-                `<label class="control-label">Loại vé</label>` +
-                ` <select class="form-control col-sm-12" id="MaLVe${i}" name="MaLVe` + i + `">` +
-                `<option value="">Chọn loại vé</option>` +
-                ` <option value="TICKET01">Vé người lớn</option>` +
-                `<option value="TICKET02">Vé trẻ em</option>` +
-                ` </select>` +
-                ` </div>` +
-                ` <div class="group-info-sex col-sm-2">` +
-                `<span>Giới tính</span>` +
-                `<select class="form-control col-sm-12" id="GioiTinh' + i +'" name="GioiTinh` + i + `">` +
-                `<option value="">Giới tính</option>` +
-                `<option value="Nam">Nam</option>` +
-                `<option value="Nữ">Nữ</option>` +
-                `</select>` +
-                `</div>` +
-                ` <div class="group-info-birthday col-sm-3">` +
-                `<span>Ngày sinh</span>` +
+            var row = ' <div class="ticket-info" id="nd' + i + '">' +
+                '<div class="row" id="ListInfoAdult">' +
+                '<div class="group-info-name col-sm-4">' +
+                ' <span>Họ tên</span>' +
+                '<input class="form-control" name="Hoten_KH' + i + '" placeholder="Vui lòng nhập Họ tên" required="required" type="text" value="">' +
+                '</div>' +
+                '<div class="form-group col-md-3">' +
+                '<label class="control-label">Loại vé</label>' +
+                ' <select class="form-control col-sm-12" id="MaLVe${i}" name="MaLVe' + i + '">' +
+                '<option value="">Chọn loại vé</option>' +
+                ' <option value="TICKET01">Vé người lớn</option>' +
+                '<option value="TICKET02">Vé trẻ em</option>' +
+                ' </select>' +
+                ' </div>' +
+                ' <div class="group-info-sex col-sm-2">' +
+                '<span>Giới tính</span>' +
+                '<select class="form-control col-sm-12" id="GioiTinh' + i +'" name="GioiTinh' + i + '">' +
+                '<option value="">Giới tính</option>' +
+                '<option value="Nam">Nam</option>' +
+                '<option value="Nữ">Nữ</option>' +
+                '</select>' +
+                '</div>' +
+                ' <div class="group-info-birthday col-sm-3">' +
+                '<span>Ngày sinh</span>' +
 
-                `<input class="form-control text-box single-line" required="required" name="NgaySinh` + i + `" id="NgaySinh' + i +'" placeholder="Vui lòng nhập chọn ngày sinh"type="date" value="">` +
+                '<input class="form-control text-box single-line" required="required" name="NgaySinh' + i + '" id="NgaySinh' + i +'" placeholder="Vui lòng nhập chọn ngày sinh"type="date" value="">' +
 
-                `</div>` +
-                `<div class="group-info-note col-sm-12">` +
-                ` <span>Lưu ý</span>` +
-                `<input class="form-control" name="LuuY` + i + `" id="LuuY' + i +'" placeholder="Nhập lưu ý" type="text" value="">` +
+                '</div>' +
+                '<div class="group-info-note col-sm-12">' +
+                ' <span>Lưu ý</span>' +
+                '<input class="form-control" name="LuuY' + i + '" id="LuuY' + i +'" placeholder="Nhập lưu ý" type="text" value="">' +
 
-                `</div>` +
+                '</div>' +
 
-                ` </div>` +
+                ' </div>' +
 
-                ` </div>` +
-                ` </div> `;
+                ' </div>' +
+                ' </div> ';
 
             var div = document.getElementById("datve");
             div.innerHTML += row;
+            //$("#datve").append(row);
+            //var row1 = innerHTML += row;
+            //div.innerHTML(row1);
+            
             console.log(i);
             document.getElementById("venguoilon").innerHTML = i;
             document.getElementById("soluongdat").value = i;

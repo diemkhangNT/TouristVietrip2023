@@ -32,6 +32,7 @@ namespace Tourist_VietripInsum_2023.Models
         public Nullable<System.DateTime> NgaySinh { get; set; }
         public string GioiTinh { get; set; }
         public string HinhDaiDien { get; set; }
+        public Nullable<double> TongTienDat { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookTour> BookTours { get; set; }

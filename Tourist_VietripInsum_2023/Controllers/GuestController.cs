@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -414,7 +415,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             booktour.NgayLap = DateTime.Now;
             booktour.TrangThaiTT = false;
             var khachhang = db.KhachHangs.Where(s => s.SDT == SDT).FirstOrDefault();
-            booktour.TotalPrice = khachhang.LoaiKH.ChietKhau; // gán chiết khấu dô tổng tiền
+            booktour.TotalPrice = 0.0;
             booktour.SoCho = 0;
             Session["madonhang"] = booktour.MaDH;
             
@@ -440,7 +441,7 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Ticket(string soluongdat)
+        public ActionResult Ticket(string soluongdat, bool thanhtoan)
         {
             var maDH = Session["madonhang"].ToString();
             var dh = db.BookTours.Where(t => t.MaDH == maDH).FirstOrDefault();
@@ -480,15 +481,17 @@ namespace Tourist_VietripInsum_2023.Controllers
 
                 }
                 //Update tổng tiền cho đơn đặt tour
-                var donhang = db.BookTours.Where(s => s.MaDH == maDH).FirstOrDefault();
-                dh.TotalPrice = (int)tongtien;
+                //var donhang = db.BookTours.Where(s => s.MaDH == maDH).FirstOrDefault();
+                var kh = db.KhachHangs.Where(s => s.MaKH == dh.MaKH).FirstOrDefault();
+                dh.TotalPrice = (int)tongtien - (tongtien * kh.LoaiKH.ChietKhau);
+                dh.HinhThucThanhToan = thanhtoan;
                 dh.SoCho = m;
                 db.SaveChanges();
                 //string content = System.IO.File.ReadAllText(Server.MapPath("/Content/template/mailconn.html"));
 
-                //var kh = db.KhachHangs.Where(s => s.MaKH == dh.MaKH).FirstOrDefault();
+                
                 //var t = db.Tours.Where(s => s.MaTour == dh.MaTour).FirstOrDefault();
-
+                TongtienDAT(kh.MaKH);
                 //content = content.Replace("{{TenKH}}", kh.HoTenKH);
                 //content = content.Replace("{{Phoneno}}", dh.MaKH);
                 //content = content.Replace("{{MaDH}}", dh.MaDH);
@@ -510,8 +513,14 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View();
         }
 
-        //Partial view
+        //Confirm payment view
         public ActionResult Payment()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Payment(string id)
         {
             //var maDH = Session["madonhang"].ToString();
             //var dh = db.BookTours.Where(s => s.MaDH == maDH).FirstOrDefault();
@@ -523,6 +532,31 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View();
         }
 
+        //Hàm tính tổng tiền đặt
+        public ActionResult TongtienDAT(string makh)
+        {
+            var dh = db.BookTours.Where(s => s.MaKH == makh).ToList();
+            var kh = db.KhachHangs.Where(s => s.MaKH == makh).FirstOrDefault();
+            kh.TongTienDat = 0.0;
+            foreach(var item in dh)
+            {
+                if(item.TrangThaiTT == true)
+                {
+                    kh.TongTienDat += item.TotalPrice;
+                }
+            }
+            if(kh.TongTienDat >= 15000000)
+            {
+                kh.MaLoaiKH = "TT";
+            }else if(kh.TongTienDat >= 50000000)
+            {
+                kh.MaLoaiKH = "VIP";
+            }
+            db.Entry(kh).State = EntityState.Modified;
+            db.SaveChanges();
+            return View();
+        }
+ 
         public JsonResult LoadMore(int skip, int take)
         {
             var data = "Tui là Dĩm Khang nè!";

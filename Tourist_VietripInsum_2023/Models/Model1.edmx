@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TouristModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TouristModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BookTour">
           <Key>
             <PropertyRef Name="MaDH" />
@@ -74,6 +74,7 @@
           <Property Name="NgaySinh" Type="datetime" />
           <Property Name="GioiTinh" Type="nvarchar" MaxLength="10" />
           <Property Name="HinhDaiDien" Type="varchar" MaxLength="100" />
+          <Property Name="TongTienDat" Type="float" />
         </EntityType>
         <EntityType Name="LoaiKH">
           <Key>
@@ -416,7 +417,8 @@
             <End Role="Tour" EntitySet="Tour" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TouristModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -500,6 +502,7 @@
           <Property Name="NgaySinh" Type="DateTime" Precision="3" />
           <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="HinhDaiDien" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TongTienDat" Type="Double" />
           <NavigationProperty Name="BookTours" Relationship="Self.FK_BookTour_KhachHang1" FromRole="KhachHang" ToRole="BookTour" />
           <NavigationProperty Name="LoaiKH" Relationship="Self.FK_Customer_Guest_TypeCus" FromRole="KhachHang" ToRole="LoaiKH" />
           <NavigationProperty Name="PhanHois" Relationship="Self.FK_PhanHoi_KhachHang1" FromRole="KhachHang" ToRole="PhanHoi" />
@@ -938,6 +941,7 @@
                 <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
                 <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
                 <ScalarProperty Name="HinhDaiDien" ColumnName="HinhDaiDien" />
+                <ScalarProperty Name="TongTienDat" ColumnName="TongTienDat" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

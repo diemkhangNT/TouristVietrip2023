@@ -9,9 +9,6 @@
     var tour = db.Tours.Where(s => s.MaTour == dh.MaTour).FirstOrDefault();
     var kh = db.KhachHangs.Where(s => s.MaKH == dh.MaKH).FirstOrDefault();
     var ve = db.Ves.Where(s => s.MaDH == maDH).ToList();
-    ViewBag.DonHang = dh;
-    ViewBag.Tour = tour;
-    ViewBag.Ve = ve;
 }
 @{
     var checkMessage = TempData["noti"];
@@ -66,24 +63,24 @@
                     }
                     <dt class="col-sm-4">Người lớn</dt>
                     <dd class="col-sm-4 text-center">@i x @tour.GiaNguoiLon</dd>
-                    <dd class="col-sm-4 text-center">@{ int tong = i * (int)tour.GiaNguoiLon;} @tong VNĐ</dd>
+                    <dd class="col-sm-4 text-center">@{ int tong = i * (int)tour.GiaNguoiLon;} @String.Format("{0:0,0 vnđ}", tong)</dd>
 
                     <dt class="col-sm-4">Trẻ em</dt>
                     <dd class="col-sm-4 text-center">@ii x @tour.GiaTreEm</dd>
-                    <dd class="col-sm-4 text-center">@{ int tong1 = ii * (int)tour.GiaTreEm;} @tong1 VNĐ</dd>
+                    <dd class="col-sm-4 text-center">@{ int tong1 = ii * (int)tour.GiaTreEm;} @String.Format("{0:0,0 vnđ}", tong1)</dd>
                     <shadow><hr /></shadow>
 
                     <dt class="col-sm-4">Tổng số ghế </dt>
                     <dd class="col-sm-4 text-center">@{int t = i + ii;} @t</dd>
-                    <dd class="col-sm-4 text-center">@{int tien = tong + tong1;} @tien VNĐ</dd>
+                    <dd class="col-sm-4 text-center">@{int tien = tong + tong1;} @String.Format("{0:0,0 vnđ}", tien)</dd>
 
                     <dt class="col-sm-4">Giảm giá </dt>
                     <dd class="col-sm-4 text-center">@kh.MaLoaiKH</dd>
-                    <dd class="col-sm-4 text-center">@{float giamgia = tien * (float)kh.LoaiKH.ChietKhau;} @giamgia VNĐ</dd>
+                    <dd class="col-sm-4 text-center">@{float giamgia = tien * (float)kh.LoaiKH.ChietKhau;} @String.Format("{0:0,0 vnđ}", giamgia)</dd>
                     <shadow><hr /></shadow>
                     <dt class="col-sm-4">TỔNG TIỀN</dt>
                     <dd class="col-sm-1 text-center"></dd>
-                    <dd class="col-sm-7 text-right fw-bold" style="color: #2d4271; font-weight: 700; font-size: 20px;">@dh.TotalPrice VNĐ</dd>
+                    <dd class="col-sm-7 text-right fw-bold" style="color: #2d4271; font-weight: 700; font-size: 20px;">@String.Format("{0:0,0 vnđ}", dh.TotalPrice)</dd>
 
                     @*<dt class="col-sm-12" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">Hình thức thanh toán</dt>*@
                     <dd class="col-sm-12 text-center">
@@ -91,12 +88,35 @@
                             <div class="card">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne" aria-expanded="true" aria-controls="accordionOne" role="tabpanel">
-                                        Hình thức thanh toán: TIỀN MẶT
+                                        Hình thức thanh toán: 
+                                        @{ 
+                                                if(dh.HinhThucThanhToan == true)
+                                                {
+                                                    <span>CHUYỂN KHOẢN</span>
+                                                }
+                                                else
+                                                {
+                                                     <span>TIỀN MẶT</span>
+                                                }
+                                         }
                                     </button>
                                 </h2>
                                 <div id="accordionOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        Quý khách vui lòng thanh toán tại bất kỳ văn phòng SaiGon Travel trên toàn quốc và các chi nhánh tại Thành phố Hồ Chí Minh.
+                                        @{
+                                            if (dh.HinhThucThanhToan == true)
+                                            {
+                                                <p>
+                                                    Quý khách sau khi thực hiện việc chuyển khoản vui lòng gửi email đến contactcenter@vietravel.com hoặc gọi tổng đài 19001839 để được xác nhận từ công ty chúng tôi.
+                                                </p>
+                                            }
+                                            else
+                                            {
+                                    <p>
+                                        Quý khách vui lòng thanh toán tại bất kỳ văn phòng SaiGon Travel trên toàn quốc hoặc các chi nhánh tại Thành phố Hồ Chí Minh.
+                                    </p>
+                                            }
+                                        }
                                         @*<a href="~/Guest/LienHeGuest">Xem chi tiết.</a>*@
                                     </div>
                                 </div>
@@ -105,10 +125,8 @@
                     </dd>
                 </dl>
                 <div class="d-flex justify-content-between">
-                    <div><input type="button" value="Hủy vé" class="btn btn-danger" /></div>
+                    <div><a type="button" class="btn btn-danger" href="~/Guest/HomePageGuest" title="Trở về trang chủ">Hủy vé</a> </div>
                     <div><input type="submit" value="Đặt vé" class="btn btn-success" /></div>
-
-
                 </div>
             </fieldset>
         </div>
@@ -159,7 +177,7 @@
             </fieldset>
         </div>
     </div>
-
+    
 </div>
 
 

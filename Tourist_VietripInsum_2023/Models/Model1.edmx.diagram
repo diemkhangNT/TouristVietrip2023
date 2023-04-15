@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ac684a621269492bb294d5618793b8bc" Name="Diagram1">
+      <Diagram DiagramId="3067d89c0e1e41d3a0e7cf15f9465fc3" Name="Diagram1">
         <EntityTypeShape EntityType="TouristModel.BookTour" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.ChiTietTour" Width="1.5" PointX="12.25" PointY="12.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.ChucVu" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.DiaDiemThamQuan" Width="1.5" PointX="10" PointY="9.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.Hotel" Width="1.5" PointX="10" PointY="12.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.KhachHang" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.KhachHang" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.LoaiKH" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.LoaiTour" Width="1.5" PointX="0.75" PointY="15.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.LoaiVe" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
