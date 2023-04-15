@@ -24,7 +24,8 @@ namespace Tourist_VietripInsum_2023.Controllers
             TempData["TongDonDat"] = donhang;
             var ph = db.PhanHois.Count();
             TempData["phanhoi"] = ph;
-            var dsDonHangMoi = db.BookTours.OrderByDescending(dhang => dhang.NgayLap).Take(5).ToList();
+            var dsDonHangMoi = db.BookTours.OrderByDescending(dhang => dhang.NgayLap).ToList();
+        
             return View(dsDonHangMoi);
         }
 
@@ -147,7 +148,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         public ActionResult CreateCustomer([Bind(Include = "MaKH,SDT,MaLoaiKH,Username,UserPassword,HoTenKH,DiaChi,Email,NgaySinh,GioiTinh,HinhDaiDien")] KhachHang khachHang)
         {
             Random random = new Random();
-            var idCus = "GS" + random.Next(1, 1000);
+            var idCus = "GS" + random.Next(1,  9+ random.Next(10, 90));
 
             var checkMail = db.KhachHangs.FirstOrDefault(s => s.Email == khachHang.Email);
 
@@ -169,10 +170,12 @@ namespace Tourist_VietripInsum_2023.Controllers
                 else
                 {
                     khachHang.MaKH = idCus;
-                    khachHang.MaLoaiKH = "NM";
+                    khachHang.MaLoaiKH = "TH";
                     khachHang.Username = null;
                     khachHang.UserPassword = null;
                     khachHang.HinhDaiDien = null;
+                    khachHang.TongTienDat = null;
+                    
                     db.KhachHangs.Add(khachHang);
                     db.SaveChanges();
                 }
@@ -234,7 +237,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         public ActionResult CreateOrder(BookTour donHang)
         {
             Random random = new Random();
-            var maDH = "DH" + random.Next(1, 1000);
+            var maDH = "DH" + random.Next(1, 9)+ random.Next(10, 50)+ random.Next(51, 99);
             var user = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Session["user"];
             if (ModelState.IsValid)
             {
@@ -269,6 +272,11 @@ namespace Tourist_VietripInsum_2023.Controllers
                     donHang.SdtKH = sdt;
                     donHang.MaKH = info.MaKH;
 
+                    if(tour.SoChoNull<donHang.SoCho)
+                    {
+                        TempData["ErrorSoChoTrong"] = "Đã hết chổ đặt !!!";
+                        return RedirectToAction("CreateOrder");
+                    }    
                     //Update số chỗ trong tour
                     tour.SoChoNull -= donHang.SoCho;
 
@@ -279,11 +287,19 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             return RedirectToAction("CreateTickets");
         }
-        public double TinhChietKhau(double tienbandau,string lt)
-        {
+        //public double TinhChietKhau(double tienbandau,string lt)
+        //{
             
-            var loaitour = db.LoaiTours.Where(s => s.MaLTour == lt).FirstOrDefault();
-            double pricesale = (double)(tienbandau * (1 - loaitour.ChietKhau));
+        //    var loaitour = db.LoaiTours.Where(s => s.MaLTour == lt).FirstOrDefault();
+        //    double pricesale = (double)(tienbandau * (1 - loaitour.ChietKhau));
+        //    return pricesale;
+        //}
+
+        public double TinhCKKhach(double tienbandau,string makh)
+        {
+            var khach = db.KhachHangs.Where(s => s.MaKH == makh).FirstOrDefault();
+            var lkh = db.LoaiKHs.FirstOrDefault(s => s.MaLoaiKH == khach.MaLoaiKH);
+            double pricesale = (double)(tienbandau * (1 - lkh.ChietKhau));
             return pricesale;
         }
         [HttpGet]
@@ -343,12 +359,10 @@ namespace Tourist_VietripInsum_2023.Controllers
                     db.SaveChanges();
                 }
                 //Update tổng tiền cho đơn đặt tour
+               
                 var updateBT = db.BookTours.Find(ve.MaDH);
-                
-                double tienmua = TinhChietKhau(tongtien, tour.MaLTour);
-                updateBT.TotalPrice =(decimal)tienmua ;
-
-
+                double tienbandau = TinhCKKhach(tongtien, booking.MaKH);
+                updateBT.TotalPrice = tienbandau;
                 db.SaveChanges();
 
 
@@ -469,11 +483,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Bill()
-        {
-            return View();
-        }
+       
         //[HttpPost]
         //public ActionResult Bill()
         //{
@@ -643,6 +653,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             return View();
         }
+        
         //XOA VE
     
         public ActionResult DeleteTicket(string id)
@@ -659,6 +670,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                     return RedirectToAction("BookTourDeTail", new RouteValueDictionary(
                                       new { controller = "OrderProcessing", action = "BookTourDeTail", Id = Session["matim"] }));
                 }
+
                 double tienve = 0;
                 if (ve.MaLVe == "TICKET01")
                 {
@@ -670,8 +682,9 @@ namespace Tourist_VietripInsum_2023.Controllers
                 }
                 tour.SoChoNull++;
                 donhang.SoCho--;
-                double tienvegiam = TinhChietKhau(tienve, tour.MaLTour);
-                donhang.TotalPrice = donhang.TotalPrice - (decimal)tienvegiam;
+                double tienvegiam = TinhCKKhach(tienve, donhang.MaKH);
+                donhang.TotalPrice = donhang.TotalPrice - tienvegiam;
+                donhang.TotalPrice = 0;
                 db.Ves.Remove(ve);
                 db.SaveChanges();
                
@@ -688,7 +701,10 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         }
 
-
+        //public ActionResult AddTicket(string madh)
+        //{
+        //    return View();
+        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddTicket(string soluongdat, string madh)
@@ -735,14 +751,33 @@ namespace Tourist_VietripInsum_2023.Controllers
                 }
                 //Update tổng tiền cho đơn đặt tour
                 var donhang = db.BookTours.Where(s => s.MaDH == madh).FirstOrDefault();
-                double tienmua = TinhChietKhau(tongtien, tour.MaLTour);
-                dh.TotalPrice = dh.TotalPrice+(decimal)tienmua;
+                double tienbandau = TinhCKKhach(tongtien, donhang.MaKH);
+                dh.TotalPrice = dh.TotalPrice+tienbandau;
                 dh.SoCho =dh.SoCho+ m;
                 db.SaveChanges();
                 return RedirectToAction("BookTourDeTail", new RouteValueDictionary(
                                        new { controller = "OrderProcessing", action = "BookTourDeTail", Id = madh }));
             }
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Bill(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            BookTour bookTour = db.BookTours.Find(id);
+
+
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            return View(bookTour);
+            
         }
     }
 }

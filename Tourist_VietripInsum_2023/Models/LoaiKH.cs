@@ -22,6 +22,7 @@ namespace Tourist_VietripInsum_2023.Models
     
         public string MaLoaiKH { get; set; }
         public string TenLoaiKH { get; set; }
+        public Nullable<double> ChietKhau { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KhachHang> KhachHangs { get; set; }

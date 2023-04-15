@@ -39,47 +39,62 @@ else if (TempData["thongbao"] == "donhang1ve")
     <div class="col-sm-12">
         <div class="tile">
             <h3 class="tile-title" style="text-align: center;">CHI TIẾT ĐƠN ĐẶT TOUR @ViewBag.MaBT</h3>
-            <div class="tile-body">
-                <div style="text-align: center; font-size: 18px;">
-
-                    <div class="form-group">
-                        @{
-                            var tour = db.Tours.Where(s => s.MaTour == Model.MaTour).FirstOrDefault();
+            <div class="tile-body" >
+                <div style="font-size:14px">
+                    @{
+                        var kh = db.KhachHangs.Where(s => s.MaKH == Model.MaKH).FirstOrDefault();
+                        var tour = db.Tours.Where(s => s.MaTour == Model.MaTour).FirstOrDefault();
+                        var tt = Model.TrangThaiTT;
+                        string thanhtoans = "";
+                        if (tt == true)
+                        {
+                            thanhtoans = "Đã thanh toán";
                         }
-                        <b>Tên Tour: </b> @Html.DisplayFor(model => tour.TenTour)
-                    </div>
-                  
-                    <div class="form-group">
-                        @{
-                            var kh = db.KhachHangs.Where(s => s.MaKH == Model.MaKH).FirstOrDefault();
+                        else
+                        {
+                            thanhtoans = "Chưa thanh toán";
                         }
-                        <b>Tên Khách Hàng: </b> @Html.DisplayFor(model => kh.HoTenKH)
-                        <b style="margin-left: 15px;">Số điện thoại: </b> @Html.DisplayFor(model => model.SdtKH) <br />
-                    </div>
-                    <div class="form-group">
-                        <b>Ngày đặt: </b>@Html.DisplayFor(model => model.NgayLap)
-                    </div>
-                    <div class="form-group">
-                        <b style="margin-left: 15px;">Số chỗ: </b>@Html.DisplayFor(model => model.SoCho)
-                        <b style="margin-left: 15px;">Tổng tiền: </b>@{ var tongTien = string.Format("{0:0,0}", Model.TotalPrice);}
-                        @Html.DisplayFor(model => tongTien)
-                    </div>
-                    <div style="display: flex; margin-top: 10px; text-align: center; width: 500px; margin: auto;">
-                        <strong>Tình trạng thanh toán: </strong>
-                        @{ var tt = Model.TrangThaiTT;
-                            string thanhtoans = "";
-                            if (tt == true)
-                            {
-                                thanhtoans = "Đã thanh toán";
-                            }
-                            else
-                            {
-                                thanhtoans = "Chưa thanh toán";
-                            }
+                        var hinhthuc = Model.HinhThucThanhToan;
+                        string ht = "";
+                        if (tt == true)
+                        {
+                            ht = "Chuyển khoản";
                         }
-                        <span id="demo">@thanhtoans</span>
-
+                        else
+                        {
+                            ht = "Thanh toàn tại văn phòng";
+                        }
+                    }
+                    <div class="info-cus" >
+                        <h6>THÔNG TIN KHÁCH HÀNG</h6>
+                        <div class="form-group">
+                            <b>Tên Khách Hàng: </b> @Html.DisplayFor(model => kh.HoTenKH)
+                            <b style="margin-left: 15px;">Loại KH: </b> @Html.DisplayFor(model => kh.MaLoaiKH)
+                            <br />
+                            <b>Liên lạc: </b> @Html.DisplayFor(model => model.SdtKH) - @Html.DisplayFor(model => kh.Email)
+                        </div>
                     </div>
+                    <div class="info-booking">
+                        <h6>THÔNG TIN BOOKING</h6>
+                        <div class="form-group">
+                            <b>Mã đơn hàng: </b>@Html.DisplayFor(model => model.MaDH)
+                            <br />
+                            <b>Thông tin tour: </b>@Html.DisplayFor(model => tour.TenTour) - @Html.DisplayFor(model => tour.MaTour)
+                            <br />
+                            <b>Ngày đặt: </b>@Html.DisplayFor(model => model.NgayLap)
+                            <b style="margin-left: 15px;">Số chỗ: </b>@Html.DisplayFor(model => model.SoCho)
+                            <br />
+                            <b>Tổng tiền: </b>@{ var tongTien = string.Format("{0:0,0}", Model.TotalPrice);}
+                            @Html.DisplayFor(model => tongTien)
+                            <br />
+                            <b span id="demo">Tình trạng thanh toán: </b>@thanhtoans vnd
+                            <br />
+                            <b>Hình thức thanh toán: </b>@ht
+                        </div>
+                       
+                      
+                    </div>
+                       <h6>THÔNG TIN VÉ</h6>
                 </div>
 
                 <div class="element-button" style="margin-top: 20px;">
@@ -130,42 +145,53 @@ else if (TempData["thongbao"] == "donhang1ve")
                                             <a href="/OrderProcessing/TicketEdit/@item.MaVe" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Cập nhật thông tin vé">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#DeleteTicket" ata-toggle="tooltip" title="Xóa vé">
-                                                <i class="fas fa-remove"></i>
-                                            </a>
+                                            @if (Model.TrangThaiTT == false)
+                                            {
+                                                <a class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#DeleteTicket" ata-toggle="tooltip" title="Xóa vé">
+                                                    <i class="fas fa-remove"></i>
+                                                </a>
+                                            }
+
                                             <div class="modal fade" id="DeleteTicket" tabindex="-1" role="dialog" aria-labelledby="DeleteTicket" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
 
                                                     <div class="modal-content" style="padding:20px 10px">
                                                         <div class="modal-body">
-                                                            <div class="hero-text">
+                                                            <div class="hero-text" style="font-size:15px">
                                                                 @{
                                                                     var sn = String.Format("{0:d/M/yyyy}", item.NgaySinh);
+                                                                    var lv = db.LoaiVes.Where(s => s.MaLoaiVe == item.MaLVe).FirstOrDefault();
                                                                 }
                                                                 <div class="form-horizontal" style="color: #2d4271;text-align:left">
+                                                                    <h4 style="text-align:center" class="element-button"> XÁC NHẬN XÓA VÉ</h4>
 
-                                                                    <h4 style="text-align:center"> XÁC NHẬN XÓA VÉ</h4>
-
-                                                                    <p> <strong>Thông tin khách hàng đặt vé </strong>: @kh.HoTenKH - @Model.SdtKH</p>
-                                                                    <p><strong>Thông tin vé:</strong></p>
-                                                                    <div style="padding-left:10px">
-                                                                        <p><strong>@item.MaVe</strong> thuộc đơn hàng <strong>@item.MaDH</strong> </p>
-                                                                        <p>@item.Hoten_KH - @sn - @item.GioiTinh - @item.LuuY</p>
-                                                                    </div>
-
-
+                                                                    <strong>Thông tin khách hàng đặt vé </strong>
+                                                                    <br />
+                                                                    @kh.HoTenKH - @kh.MaLoaiKH
+                                                                    <br />
+                                                                    @kh.SDT - @kh.Email
+                                                                    <br />
+                                                                    <strong>Thông tin vé</strong>
+                                                                    <br />
+                                                                    <strong>Mã vé: </strong>@item.MaVe - @item.MaLVe (@lv.TenLVe)
+                                                                    <br />
+                                                                    @item.Hoten_KH - @item.GioiTinh - @sn
+                                                                    <br />
+                                                                    @item.LuuY
                                                                 </div>
 
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <a class="btn btn-secondary btn-sm" data-dismiss="modal">Close</a>
-                                                            <a type="submit" value="Xóa" class="btn btn-danger btn-sm" href="/OrderProcessing/DeleteTicket/@item.MaVe">Xóa </a>
+                                                            <a class="btn btn-secondary" data-dismiss="modal">Close</a>
+                                                            <a type="submit" value="Xóa" class="btn btn-danger" href="/OrderProcessing/DeleteTicket/@item.MaVe">Xóa </a>
                                                         </div>
                                                     </div>
 
                                                 </div>
                                             </div>
+
+
                                         </td>
                                     </tr>
                                 }
@@ -197,10 +223,7 @@ else if (TempData["thongbao"] == "donhang1ve")
     <div class="modal-dialog" role="document">
         @using (Html.BeginForm("AddTicket", "OrderProcessing", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-
             @Html.AntiForgeryToken()
-
-
             <div class="modal-content">
                 @{
                     var ve = db.Ves.FirstOrDefault();
@@ -210,7 +233,7 @@ else if (TempData["thongbao"] == "donhang1ve")
                     @Html.HiddenFor(model => ve.MaVe)
                     <h4 style="text-align:center">THÊM VÉ</h4>
                     <input name="madh" value="@Model.MaDH" style="visibility:hidden" />
-                    <div id="datve" style="padding:0px 10px;">
+                    <div id="datve" class="datve" style="padding:0px 10px;">
 
                     </div>
 
@@ -229,60 +252,72 @@ else if (TempData["thongbao"] == "donhang1ve")
             <script>
                 var i = 0;
                 function ThemVe() {
-                    if (i < 5) {
-                        i++;
-                        var row = ` <div class="ticket-info" id="nd` + i + `">` +
+                    var ticketrow = document.createElement('div');
+                    ticketrow .classList.add('datve')
+                    var cartitem = document.getElementsByClassName("datve")[0];
+                  
+                    
+                   
+                        if (i < 5) {
+                            i++;
+                            var row = ` <div class="ticket-info" id="nd` + i + `">` +
 
-                            `<div class="row" id="ListInfoAdult">` +
-                            `<div class="group-info-name col-md-7">` +
-                            ` <span>Họ tên</span>` +
-                            `<input class="form-control" name="Hoten_KH` + i + `" placeholder="Vui lòng nhập Họ tên" required="required" type="text" value="">` +
-                            `</div>` +
-                            `<div class="form-group col-md-5">` +
-                            `<span>Loại vé</span>` +
-                            ` <select class="form-control col-sm-12" id="MaLVe' + i + '" name="MaLVe` + i + `">` +
-                            `<option value="">Chọn loại vé</option>` +
-                            ` <option value="TICKET01">Vé người lớn</option>` +
-                            `<option value="TICKET02">Vé trẻ em</option>` +
-                            ` </select>` +
-                            ` </div>` +
-                            ` <div class="group-info-sex col-sm-7">` +
-                            `<span>Giới tính</span>` +
-                            `<select class="form-control col-sm-12" id="GioiTinh' + i +'" name="GioiTinh` + i + `">` +
-                            `<option value="">Giới tính</option>` +
-                            `<option value="Nam">Nam</option>` +
-                            `<option value="Nữ">Nữ</option>` +
-                            `</select>` +
-                            `</div>` +
-                            ` <div class="group-info-birthday col-sm-5">` +
-                            `<span>Ngày sinh</span>` +
+                                `<div class="row" id="ListInfoAdult">` +
+                                `<div class="group-info-name col-md-7">` +
+                                ` <span>Họ tên</span>` +
+                                `<input class="form-control" name="Hoten_KH` + i + `" placeholder="Vui lòng nhập Họ tên" required="required" type="text" value="">` +
+                                `</div>` +
+                                `<div class="form-group col-md-5">` +
+                                `<span>Loại vé</span>` +
+                                ` <select class="form-control col-sm-12" id="MaLVe' + i + '" name="MaLVe` + i + `">` +
+                                `<option value="">Chọn loại vé</option>` +
+                                ` <option value="TICKET01">Vé người lớn</option>` +
+                                `<option value="TICKET02">Vé trẻ em</option>` +
+                                ` </select>` +
+                                ` </div>` +
+                                ` <div class="group-info-sex col-sm-7">` +
+                                `<span>Giới tính</span>` +
+                                `<select class="form-control col-sm-12" id="GioiTinh' + i +'" name="GioiTinh` + i + `">` +
+                                `<option value="">Giới tính</option>` +
+                                `<option value="Nam">Nam</option>` +
+                                `<option value="Nữ">Nữ</option>` +
+                                `</select>` +
+                                `</div>` +
+                                ` <div class="group-info-birthday col-sm-5">` +
+                                `<span>Ngày sinh</span>` +
 
-                            `<input class="form-control text-box single-line" required="required" name="NgaySinh` + i + `" id="NgaySinh' + i +'" placeholder="Vui lòng nhập chọn ngày sinh"type="date" value="">` +
+                                `<input class="form-control text-box single-line" required="required" name="NgaySinh` + i + `" id="NgaySinh' + i +'" placeholder="Vui lòng nhập chọn ngày sinh"type="date" value="">` +
 
-                            `</div>` +
-                            `<div class="group-info-note col-sm-12">` +
-                            ` <span>Lưu ý</span>` +
-                            `<input class="form-control" name="LuuY` + i + `" id="LuuY' + i +'" placeholder="Nhập lưu ý" type="text" value="">` +
+                                `</div>` +
+                                `<div class="group-info-note col-sm-12">` +
+                                ` <span>Lưu ý</span>` +
+                                `<input class="form-control" name="LuuY` + i + `" id="LuuY' + i +'" placeholder="Nhập lưu ý" type="text" value="">` +
 
-                            `</div>` +
-                            `<p>-----</p>` +
+                                `</div>` +
+                                `<p>-----</p>` +
 
-                            ` </div>` +
-                            ` </div>` +
-                            ` </div> `
-                            ;
+                                ` </div>` +
+                                ` </div>` +
+                                ` </div> `
+                                ;
 
-                        var div = document.getElementById("datve");
-                        div.innerHTML += row;
-                        document.getElementById("soluongdat").value = i;
-                    };
+                            //var div = document.getElementById("datve");
+                            //div.innerHTML += row;
+                            ticketrow.innerHTML = row;
+                            cartitem.append(ticketrow);
+                            document.getElementById("soluongdat").value = i;
+                        };
+                    
+                   
                 }
                 function xoaVe() {
                     var element = document.getElementById("datve");
-                    if (i > 0) {
+                    if (i > 1) {
                         document.getElementById('nd' + i).remove();
                         i--;
-
+                    }
+                    else {
+                        alert("đặt vé lớn hơn 0")
                     }
                     document.getElementById("soluongdat").value = i;
 
@@ -296,18 +331,27 @@ else if (TempData["thongbao"] == "donhang1ve")
      
 </div>
 <input type="text" id="number" name="number" value="@thanhtoans" style="visibility:hidden"/>
+<input type="text" id="sc" name="sc" value="@tour.SoChoNull"/>
 <script>
     function CheckTT() {
         var inputValue = document.getElementById("number").value;
-        if (inputValue == "Chưa thanh toán") {
-            document.getElementById("myButton").disabled = false;
-           
+        var sochocon = document.getElementById("sc").value;
+        if (i > sochocon) {
+            alert("Hết vé !!")
+            document.getElementById("myButton").disabled = true;
         }
         else {
-            document.getElementById("myButton").disabled = true;
-            alert("Đơn hàng đã thanh toán !!");
-    
+            if (inputValue == "Chưa thanh toán") {
+                document.getElementById("myButton").disabled = false;
+
+            }
+            else {
+                document.getElementById("myButton").disabled = true;
+                alert("Đơn hàng đã thanh toán !!");
+
+            }
         }
+        
         
     }
 </script>

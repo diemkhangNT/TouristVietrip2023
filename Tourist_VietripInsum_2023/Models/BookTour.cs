@@ -25,7 +25,7 @@ namespace Tourist_VietripInsum_2023.Models
         public string MaTour { get; set; }
         public Nullable<System.DateTime> NgayLap { get; set; }
         public Nullable<bool> TrangThaiTT { get; set; }
-        public Nullable<decimal> TotalPrice { get; set; }
+        public Nullable<double> TotalPrice { get; set; }
         public Nullable<int> SoCho { get; set; }
         public string SdtKH { get; set; }
         public string MaKH { get; set; }

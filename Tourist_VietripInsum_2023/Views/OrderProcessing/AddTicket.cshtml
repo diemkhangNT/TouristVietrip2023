@@ -1,0 +1,191 @@
+﻿@model Tourist_VietripInsum_2023.Models.Ve
+
+@{
+    ViewBag.Title = "AddTicket";
+    Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
+}
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        @using (Html.BeginForm("AddTicket", "OrderProcessing", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="modal-content">
+                @{
+                    var ve = db.Ves.FirstOrDefault();
+                }
+                <div class="modal-body" style="padding:20px 10px;">
+                    @Html.HiddenFor(model => ve.MaDH)
+                    @Html.HiddenFor(model => ve.MaVe)
+                    <h4 style="text-align:center">THÊM VÉ</h4>
+                    <input name="madh" value="@Model.MaDH" style="visibility:hidden" />
+                    <div id="datve" class="datve" style="padding:0px 10px;">
+
+                    </div>
+
+                    <div>
+                        <button id="themve" onclick="ThemVe()" class="btn btn-success btn-sm">Thêm vé</button>
+                        <button id="xoave" onclick="xoaVe()" class="btn btn-danger btn-sm">Xóa vé</button>
+                    </div>
+
+                </div>
+                <input name="soluongdat" id="soluongdat" style="visibility:hidden" />
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal">Close</button>
+                    <input type="submit" value="Thêm vé" class="btn btn-success btn-sm" />
+                </div>
+            </div>
+
+
+
+        }
+    </div>
+
+</div>
+<script>
+    var i = 0;
+    function ThemVe() {
+        var ticketrow = document.createElement('div');
+        ticketrow.classList.add('datve')
+        var cartitem = document.getElementsByClassName("datve")[0];
+        
+        if (i < 5) {
+            i++;
+            var row = ` <div class="ticket-info" id="nd` + i + `">` +
+
+                `<div class="row" id="ListInfoAdult">` +
+                `<div class="group-info-name col-md-7">` +
+                ` <span>Họ tên</span>` +
+                `<input class="form-control" name="Hoten_KH` + i + `" placeholder="Vui lòng nhập Họ tên" required="required" type="text" value="">` +
+                `</div>` +
+                `<div class="form-group col-md-5">` +
+                `<span>Loại vé</span>` +
+                ` <select class="form-control col-sm-12" id="MaLVe' + i + '" name="MaLVe` + i + `">` +
+                `<option value="">Chọn loại vé</option>` +
+                ` <option value="TICKET01">Vé người lớn</option>` +
+                `<option value="TICKET02">Vé trẻ em</option>` +
+                ` </select>` +
+                ` </div>` +
+                ` <div class="group-info-sex col-sm-7">` +
+                `<span>Giới tính</span>` +
+                `<select class="form-control col-sm-12" id="GioiTinh' + i +'" name="GioiTinh` + i + `">` +
+                `<option value="">Giới tính</option>` +
+                `<option value="Nam">Nam</option>` +
+                `<option value="Nữ">Nữ</option>` +
+                `</select>` +
+                `</div>` +
+                ` <div class="group-info-birthday col-sm-5">` +
+                `<span>Ngày sinh</span>` +
+
+                `<input class="form-control text-box single-line" required="required" name="NgaySinh` + i + `" id="NgaySinh' + i +'" placeholder="Vui lòng nhập chọn ngày sinh"type="date" value="">` +
+
+                `</div>` +
+                `<div class="group-info-note col-sm-12">` +
+                ` <span>Lưu ý</span>` +
+                `<input class="form-control" name="LuuY` + i + `" id="LuuY' + i +'" placeholder="Nhập lưu ý" type="text" value="">` +
+
+                `</div>` +
+                `<p>-----</p>` +
+
+                ` </div>` +
+                ` </div>` +
+                ` </div> `
+                ;
+
+            //var div = document.getElementById("datve");
+            //div.innerHTML += row;
+            ticketrow.innerHTML = row;
+            cartitem.append(ticketrow);
+            document.getElementById("soluongdat").value = i;
+        };
+    }
+    function xoaVe() {
+        var element = document.getElementById("datve");
+        if (i > 1) {
+            document.getElementById('nd' + i).remove();
+            i--;
+        }
+        else {
+            alert("soluong")
+        }
+        document.getElementById("soluongdat").value = i;
+
+    }
+
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Ve</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaVe, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MaVe, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaVe, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaDH, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MaDH, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaDH, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaLVe, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MaLVe, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaLVe, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Hoten_KH, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Hoten_KH, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Hoten_KH, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GioiTinh, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NgaySinh, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LuuY, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LuuY, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LuuY, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

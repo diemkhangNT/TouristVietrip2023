@@ -237,6 +237,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\FormTour.css" />
     <Content Include="Content\Guest.js" />
+    <Content Include="Content\Guest\bill.css" />
     <Content Include="Content\Guest\booktour.css" />
     <Content Include="Content\Guest\detailtour.css" />
     <Content Include="Content\Guest\homepageGuest.css" />
@@ -543,6 +544,8 @@
     <Content Include="Views\Guest\Ticket.cshtml" />
     <Content Include="Views\OrderProcessing\Booking.cshtml" />
     <Content Include="Views\OrderProcessing\UpdateBooking.cshtml" />
+    <Content Include="Views\OrderProcessing\Bill.cshtml" />
+    <Content Include="Views\OrderProcessing\AddTicket.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
