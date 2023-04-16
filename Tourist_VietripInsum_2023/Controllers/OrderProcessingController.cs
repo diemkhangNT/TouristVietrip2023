@@ -426,15 +426,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult SendMailConn()
-        //{
-        //    var madh = (string)Session["MaBT"];
-
-
-
-        //}
+        
 
 
 
@@ -633,7 +625,7 @@ namespace Tourist_VietripInsum_2023.Controllers
 
             BookTour bookTour = db.BookTours.Find(id);
 
-
+            Session["madonhangmail"] = id;
             if (id == null)
             {
                 return HttpNotFound();
@@ -647,15 +639,51 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 db.Entry(bookTour).State = EntityState.Modified;
                 db.SaveChanges();
+                if (bookTour.TrangThaiTT==true)
+                {
+                    string content = System.IO.File.ReadAllText(Server.MapPath("/Content/template/mailOrder.html"));
+                    var kh = db.KhachHangs.Where(s => s.MaKH == bookTour.MaKH).FirstOrDefault();
+                    content = content.Replace("{{TenKH}}", kh.HoTenKH);
+                    content = content.Replace("{{MaDonHang}}", bookTour.MaDH);
+               
+
+                    //Gui mail
+                    var toEmail = ConfigurationManager.AppSettings["toEmailAddress"].ToString();
+                    new MailHelp().SendMail(kh.Email, "Thông tin", content);
+
+                }
+               
                 TempData["success"] = "Cập nhật trạng thái thành công";
                 return RedirectToAction("UpdateBooking", new RouteValueDictionary(
                                   new { controller = "OrderProcessing", action = "BookTourDeTail", Id = bookTour.MaDH}));
             }
             return View();
         }
-        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SendMailCancel()
+        {
+            var madh = Session["madonhangmail"];
+            string content = System.IO.File.ReadAllText(Server.MapPath("/Content/template/mailcancel.html"));
+
+            var dh = db.BookTours.Where(s => s.MaDH == madh).FirstOrDefault();
+            var kh = db.KhachHangs.Where(s => s.MaKH == dh.MaKH).FirstOrDefault();
+
+
+            content = content.Replace("{{TenKH}}", kh.HoTenKH);
+            content = content.Replace("{{MaDonHang}}", dh.MaDH);
+            content = content.Replace("{{MaTour}}", dh.MaTour);
+            content = content.Replace("{{NgayDat}}", dh.NgayLap.ToString());
+
+            //Gui mail
+            var toEmail = ConfigurationManager.AppSettings["toEmailAddress"].ToString();
+            new MailHelp().SendMail(kh.Email, "Thông tin", content);
+
+            return RedirectToAction("HomePageOP");
+
+        }
         //XOA VE
-    
+
         public ActionResult DeleteTicket(string id)
         {
             try
