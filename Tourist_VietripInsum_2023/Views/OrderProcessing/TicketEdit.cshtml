@@ -1,10 +1,11 @@
 ﻿@model Tourist_VietripInsum_2023.Models.Ve
-
+@using Tourist_VietripInsum_2023.Models
 @{
     ViewBag.Title = "TicketEdit";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
     ViewBag.Name = "Sửa vé";
     ViewBag.order = "active";
+    TouristEntities1 db = new TouristEntities1();
 }
 
 @if (TempData["success"] != null)
@@ -21,7 +22,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="tile">
-            <h3 class="tile-title" style="text-align: center;">SỬA VÉ</h3>
+            <h3 class="tile-title" style="text-align: center;">CẬP NHẬT THÔNG TIN VÉ</h3>
             <div class="tile-body">
                 <div class="row element-button">
                     @using (Html.BeginForm())
@@ -66,11 +67,56 @@
                         </div>
                         <div>
                             <a class="btn btn-cancel btn-sm" href="/OrderProcessing/BookTourDetail/@Session["MaBT"]">Hủy</a>
-                            <input class="btn btn-success btn-sm" type="submit" value="Lưu" />
+                            <input class="btn btn-success btn-sm" type="submit" value="Cập nhật" />
+                            <a class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#DeleteTicket" ata-toggle="tooltip" title="Xóa vé">
+                                <i class="fas fa-remove"></i>
+                            </a>
+
                         </div>
                     }
+                    
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="modal fade" id="DeleteTicket" tabindex="-1" role="dialog" aria-labelledby="DeleteTicket" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content" style="padding:20px 10px">
+            <div class="modal-body">
+                <div class="hero-text" style="font-size:15px">
+                    @{
+                        var donhang = db.BookTours.Where(s => s.MaDH == Model.MaDH).FirstOrDefault();
+                        var kh = db.KhachHangs.Where(s => s.MaKH == donhang.MaKH).FirstOrDefault();
+                        var sn = String.Format("{0:d/M/yyyy}", Model.NgaySinh);
+                        var lv = db.LoaiVes.Where(s => s.MaLoaiVe == Model.MaLVe).FirstOrDefault();
+                    }
+                    <div class="form-horizontal" style="color: #2d4271;text-align:left">
+                        <h4 style="text-align:center" class="element-button"> XÁC NHẬN XÓA VÉ</h4>
+
+                        <strong>Thông tin khách hàng đặt vé </strong>
+                        <br />
+                        @kh.HoTenKH - @kh.MaLoaiKH
+                            <br />
+                            @kh.SDT - @kh.Email
+                            <br />
+                            <strong>Thông tin vé</strong>
+                            <br />
+                            <strong>Mã vé: </strong>@Model.MaVe - @Model.MaLVe (@lv.TenLVe)
+                            <br />
+                            @Model.Hoten_KH - @Model.GioiTinh - @sn
+                            <br />
+                            @Model.LuuY
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-secondary" data-dismiss="modal">Close</a>
+                <a type="submit" value="Xóa" class="btn btn-danger" href="/OrderProcessing/DeleteTicket/@Model.MaVe">Xóa </a>
+            </div>
+        </div>
+
     </div>
 </div>

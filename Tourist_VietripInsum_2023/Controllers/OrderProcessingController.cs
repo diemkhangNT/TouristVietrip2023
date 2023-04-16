@@ -684,10 +684,11 @@ namespace Tourist_VietripInsum_2023.Controllers
                 donhang.SoCho--;
                 double tienvegiam = TinhCKKhach(tienve, donhang.MaKH);
                 donhang.TotalPrice = donhang.TotalPrice - tienvegiam;
-                donhang.TotalPrice = 0;
+              
                 db.Ves.Remove(ve);
                 db.SaveChanges();
-               
+                TempData["ve"] = "xoave";
+
                 return RedirectToAction("BookTourDeTail", new RouteValueDictionary(
                                        new { controller = "OrderProcessing", action = "BookTourDeTail", Id = Session["matim"] }));
 
@@ -755,6 +756,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 dh.TotalPrice = dh.TotalPrice+tienbandau;
                 dh.SoCho =dh.SoCho+ m;
                 db.SaveChanges();
+                TempData["ve"] = "themve";
                 return RedirectToAction("BookTourDeTail", new RouteValueDictionary(
                                        new { controller = "OrderProcessing", action = "BookTourDeTail", Id = madh }));
             }
