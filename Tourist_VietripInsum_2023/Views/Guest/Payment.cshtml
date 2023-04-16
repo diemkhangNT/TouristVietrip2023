@@ -24,7 +24,18 @@
         </script>
     }
 }
-
+<script>
+    //window.onbeforeunload = function () {
+    //    return "Bạn có chắc chắn muốn rời khỏi trang?";
+    //};
+    //if (window.history.replaceState) {
+    //window.history.replaceState(null, null, window.location.href);
+    //}
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+</script>
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
@@ -106,9 +117,9 @@
                                         @{
                                             if (dh.HinhThucThanhToan == true)
                                             {
-                                                <p>
-                                                    Quý khách sau khi thực hiện việc chuyển khoản vui lòng gửi email đến contactcenter@vietravel.com hoặc gọi tổng đài 19001839 để được xác nhận từ công ty chúng tôi.
-                                                </p>
+                                                                                <p>
+                                                                                    Quý khách sau khi thực hiện việc chuyển khoản vui lòng gửi email đến contactcentersgt@gmail.com hoặc gọi tổng đài 19001839 để được xác nhận từ công ty chúng tôi.
+                                                                                </p>
                                             }
                                             else
                                             {
@@ -125,7 +136,12 @@
                     </dd>
                 </dl>
                 <div class="d-flex justify-content-between">
-                    <div><a type="button" class="btn btn-danger" href="~/Guest/HomePageGuest" title="Trở về trang chủ">Hủy vé</a> </div>
+                    <div>
+                         <form method="post" action="@Url.Action("HuyVe", "Guest", new { id = maDH })">
+                             @Html.AntiForgeryToken()
+                             <button type="submit" class="btn btn-danger">Hủy vé</button>
+                         </form>
+                    </div>
                     <div><input type="submit" value="Đặt vé" class="btn btn-success" /></div>
                 </div>
             </fieldset>

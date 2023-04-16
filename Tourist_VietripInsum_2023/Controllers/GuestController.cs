@@ -350,20 +350,21 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             int socho = 0;
             var tour = db.Tours.Where(t => t.MaTour == matour).FirstOrDefault();
-            if(tour.SoChoNull == null)
+            if(tour.SoChoNull == null || tour.SoChoNull == 0)
             {
                 socho = 0;
             }
             else
             {
                 socho = (int)tour.SoChoNull;
+                List<BookTour> bt = db.BookTours.Where(t => t.MaTour == matour).ToList();
+                foreach (var item in bt)
+                {
+                    socho = socho - (int)item.SoCho;
+                }
             }
             
-            List<BookTour> bt = db.BookTours.Where(t => t.MaTour == matour).ToList();
-            foreach (var item in bt)
-            {
-                socho = socho - (int)item.SoCho;
-            }
+            
             return socho;
         }
         //public ActionResult BookTour(string id)
@@ -447,7 +448,22 @@ namespace Tourist_VietripInsum_2023.Controllers
             var dh = db.BookTours.Where(t => t.MaDH == maDH).FirstOrDefault();
             var tour = db.Tours.Where(s => s.MaTour == dh.MaTour).FirstOrDefault();
             double tongtien = 0;
-            int m = int.Parse(soluongdat);
+            int m = 0;
+            //null
+            if (soluongdat == "")
+            {
+                TempData["noti"] = "errornull";
+                return RedirectToAction("Ticket", "Guest");
+            }
+            else
+            {
+                m = int.Parse(soluongdat);
+                if (m == 0)
+                {
+                    TempData["noti"] = "errornull";
+                    return RedirectToAction("Ticket", "Guest");
+                }
+            }
             if (ModelState.IsValid)
             {
                 Random rd = new Random();
@@ -486,6 +502,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 dh.TotalPrice = (int)tongtien - (tongtien * kh.LoaiKH.ChietKhau);
                 dh.HinhThucThanhToan = thanhtoan;
                 dh.SoCho = m;
+                tour.SoChoNull -= dh.SoCho;
                 db.SaveChanges();
                 //string content = System.IO.File.ReadAllText(Server.MapPath("/Content/template/mailconn.html"));
 
@@ -522,14 +539,25 @@ namespace Tourist_VietripInsum_2023.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Payment(string id)
         {
-            //var maDH = Session["madonhang"].ToString();
-            //var dh = db.BookTours.Where(s => s.MaDH == maDH).FirstOrDefault();
-            //var tour = db.Tours.Where(s => s.MaTour == dh.MaTour).FirstOrDefault();
-            //var ve = db.Ves.Where(s => s.MaDH == maDH).ToList();
-            //ViewBag.DonHang = dh;
-            //ViewBag.Tour = tour;
-            //ViewBag.Ve = ve;
-            return View();
+            //Email
+            return RedirectToAction("HomePageGuest", "Guest");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult HuyVe(string id)
+        {
+            BookTour booktour = db.BookTours.Where(s => s.MaDH == id).FirstOrDefault();
+            var ves = db.Ves.Where(s => s.MaDH == id).ToList();
+            var tour = db.Tours.Where(s => s.MaTour == booktour.MaTour).FirstOrDefault();
+            tour.SoChoNull += booktour.SoCho;
+            foreach (var item in ves)
+            {
+                db.Ves.Remove(item);
+            }
+            db.BookTours.Remove(booktour);
+            db.SaveChanges();
+            return RedirectToAction("HomePageGuest", "Guest");
         }
 
         //Hàm tính tổng tiền đặt
