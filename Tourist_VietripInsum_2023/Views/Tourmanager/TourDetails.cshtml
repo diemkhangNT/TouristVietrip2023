@@ -6,7 +6,9 @@
     ViewBag.Name = "Tour Manager";
     ViewBag.qlt = "active";
     TouristEntities1 db = new TouristEntities1();
+
     var detailstour = db.ChiTietTours.Where(model => model.MaTour == Model.MaTour).ToList();
+
 }
 
 
@@ -174,25 +176,34 @@
 <div class="">
     <h2 class="tile-title text-center">CHI TIẾT</h2>
     <div class="container-fluid">
-        @foreach (var item in detailstour)
+        @for (int i = 0; i < detailstour.Count(); i++)
         {
-            <div class="row">
-                <div class="col-md-4 col-12 left">
-                    <img src="@item.DiaDiemThamQuan.HinhMinhHoa_D" width="80%" height="auto" />
-                </div>
-                <div class=" tile col-md-8 col-12">
-                    <h2 class="tile-title">
-                        @*Ngày: @Html.DisplayFor(modelItem => item.STT),*@
-                        @Html.DisplayFor(modelItem => item.TieuDe)
-                    </h2>
-                    <p>Phương tiện di chuyển: @Html.DisplayFor(modelItem => item.PhuongTien.TenPTien)</p>
+            for (int j = 0; j < detailstour.Count(); j++)
+            {
+                if ((i+1) == detailstour[j].STT)
+                {
+                    <div class="row">
+                        <div class="col-md-4 col-12 left">
+                            <img src="@detailstour[j].DiaDiemThamQuan.HinhMinhHoa_D" width="80%" height="auto" />
+                        </div>
+                        <div class=" tile col-md-8 col-12">
+                            <h2 class="tile-title">
+                                @*Ngày: @Html.DisplayFor(modelItem => item.STT),*@
+                                @Html.DisplayFor(modelItem => detailstour[j].TieuDe)
+                            </h2>
+                            <p>Phương tiện di chuyển: @Html.DisplayFor(modelItem => detailstour[j].PhuongTien.TenPTien)</p>
 
-                    <p>
-                        @Html.DisplayFor(modelItem => item.DiaDiemThamQuan.MoTa)
-                    </p>
-                    <h5>@Html.DisplayFor(modelItem => item.MotaChitiet)</h5>
-                </div>
-            </div>
+                            <p>
+                                @Html.DisplayFor(modelItem => detailstour[j].DiaDiemThamQuan.MoTa)
+                            </p>
+                            <h5>@Html.DisplayFor(modelItem => detailstour[j].MotaChitiet)</h5>
+                        </div>
+                    </div>
+                    break;
+                }
+            }
+
+
 
         }
     </div>

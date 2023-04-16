@@ -50,7 +50,6 @@
                     <h3 class="text-muted">Create image tour</h3>
                 </div>
                 <div class="col-md-6 col-sm-12" style="text-align:center">
-
                     <div style="width: 100%; height: auto; border: 2px solid red; padding: 10px; border-radius: 50px 20px;">
                         <br />
                         @Html.TextBox("ImagerTour", "", new { type = "file", @class = "fas fa-cloud-upload-alt" })
@@ -70,7 +69,16 @@
                 <div class="form-group col-md-3 col-sm-6">
                     @Html.LabelFor(model => model.MaLTour, "Type tour", htmlAttributes: new { @class = "control-label col-md-12" })
                     <div class="col-md-12">
-                        @Html.DropDownList("MaLTour", null, htmlAttributes: new { @class = "form-control" })
+                        @*@Html.DropDownList("MaLTour", null, htmlAttributes: new { @class = "form-control" })*@
+
+                        <select class="form-control" id="MaLTour" name="MaLTour">
+                            @{
+                                foreach (var item in db.LoaiTours)
+                                {
+                                    <option value="@item.MaLTour">@item.TenLTour</option>
+                                }
+                            }
+                        </select>
                         @Html.ValidationMessageFor(model => model.MaLTour, "", new { @class = "text-danger" })
                     </div>
                     @*<label class="col-md-12 control-label">Mã tỉnh thành</label>
@@ -86,8 +94,8 @@
         </div>*@
                 </div>
                 <div class="form-group col-md-3 col-sm-6">
-                    <!--@Html.LabelFor(model => model.MaKS, "MaKS", htmlAttributes: new { @class = "control-label col-md-12" })
-
+                    <!--
+                        
         <!--if (ViewBag.MaKSforTinh.Count == 0)
                 {
                     <p id="removep" class="blue">Vui lòng chọn tỉnh thành</p>

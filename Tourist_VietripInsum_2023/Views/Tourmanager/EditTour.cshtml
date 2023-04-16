@@ -39,8 +39,8 @@
                 <div class="form-group col-sm-12">
                     <strong>Type Tour</strong>
                     <div class="col-md-12">
-                        <select class="form-control col-md-12" name="MaLTour" required>
-                            <option> @Model.LoaiTour.TenLTour</option>
+                        <select class="form-control col-md-12" name="MaLTour">
+                            <option value="@Model.MaLTour"> @Model.LoaiTour.TenLTour</option>
                             @{
                                 foreach (var item in loaitour)
                                 {
