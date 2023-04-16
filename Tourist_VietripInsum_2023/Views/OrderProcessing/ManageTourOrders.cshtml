@@ -6,7 +6,7 @@
     ViewBag.Name = "Tour Order List";
     ViewBag.order = "active";
 }
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@*<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @if (TempData["deletesuccess"] != null)
     {
         <script>
@@ -16,16 +16,17 @@
                 button: "Thoát",
             });
         </script>
-    }
+    }*@
 
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/OrderProcessing/ManageTourOrders">Danh sách đơn đặt</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/OrderProcessing/ListOfCustomers">Danh sách khách hàng</a>
-        </li>
-    </ul>
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/OrderProcessing/ManageTourOrders">Danh sách đơn đặt</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/OrderProcessing/ListOfCustomers">Danh sách khách hàng</a>
+    </li>
+   
+</ul>
 
     <div class="row">
         <div class="col-sm-12">
@@ -34,7 +35,7 @@
                     <h5 class="tile-title">DANH SÁCH ĐƠN ĐẶT TOUR</h5>
                     <div class="row element-button" style="padding-left:10px">
                         <div class="row ">
-                            <div class="element-button">
+                            <div>
                                 <a class="btn btn-success btn-sm " type="button" title="Create Order" href="/OrderProcessing/CheckCusInfo">
                                     Đặt Tour
                                 </a>
@@ -117,9 +118,7 @@
                                                     <a href="/OrderProcessing/BookTourDetail/@item.MaDH " class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <a href="/OrderProcessing/DeleteOrder/@item.MaDH" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete">
-                                                        <i class="fas fa-remove"></i>
-                                                    </a>
+                                                  
                                                 </td>
                                             </tr>
                                         }

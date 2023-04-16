@@ -94,14 +94,8 @@
         <!-- <script src="/Content/Default/js/CoutDown/jquery.countdown.min.js"></script> -->
         @{
             List<Tour> tournb = db.Tours.Where(t => t.TrangThai == "Tour nổi bật").ToList();
-            List<Tour> tours = new List<Tour>();
-            for(int i=0;i<tournb.Count;i++)
-            {
-                if(i<3)
-                {
-                    tours.Add(tournb[i]);
-                }
-            }
+            List<Tour> tours = db.Tours.Where(t => t.TrangThai == "Tour nổi bật").ToList();
+           
 
 
         }
