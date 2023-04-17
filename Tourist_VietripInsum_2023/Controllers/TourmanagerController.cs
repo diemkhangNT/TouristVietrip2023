@@ -620,6 +620,7 @@ namespace Tourist_VietripInsum_2023.Controllers
 
             TimeSpan span = endDate.Subtract(startDate);
             int numOfDays = (int)span.TotalDays + 1;
+            tour.SoNgay = numOfDays;
             db.SaveChanges();
             TempData["noti"] = "oke";
             return RedirectToAction("QuanLyTour");

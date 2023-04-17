@@ -283,6 +283,7 @@
     <Content Include="images\danang_congviennuoc.jpg" />
     <Content Include="images\danang_phocohoian.jpg" />
     <Content Include="images\green_typetour.gif" />
+    <Content Include="images\img_flwr.gif" />
     <Content Include="images\khanhhoa_nhathonui.jpg" />
     <Content Include="images\khanhhoa_ponaga.jpg" />
     <Content Include="images\khanhhoa_vinpearland.jpg" />
@@ -293,6 +294,7 @@
     <Content Include="images\ohrm_logo-4.png" />
     <Content Include="images\ohrm_logo.png" />
     <Content Include="images\Oracle.jpg" />
+    <Content Include="images\paper.gif" />
     <Content Include="images\phuquoc_baikhem.jpg" />
     <Content Include="images\phuquoc_langchai.jpg" />
     <Content Include="images\phuquoc_nhatu.jpg" />

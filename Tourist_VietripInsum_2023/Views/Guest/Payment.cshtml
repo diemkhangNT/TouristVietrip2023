@@ -10,32 +10,55 @@
     var kh = db.KhachHangs.Where(s => s.MaKH == dh.MaKH).FirstOrDefault();
     var ve = db.Ves.Where(s => s.MaDH == maDH).ToList();
 }
-@{
-    var checkMessage = TempData["noti"];
-    if (checkMessage == "success")
-    {
-        <script>
-            swal({
-                title: "Đặt vé thành công",
-                text: "Chúng tôi đã gửi mail xác nhận cho bạn! Vui lòng phản hồi lại với chúng tôi trong thời gian sớm nhất!",
-                icon: "success",
-                button: "OK",
-            });
-        </script>
-    }
-}
+
 <script>
-    //window.onbeforeunload = function () {
-    //    return "Bạn có chắc chắn muốn rời khỏi trang?";
-    //};
-    //if (window.history.replaceState) {
-    //window.history.replaceState(null, null, window.location.href);
-    //}
+    // Kiểm tra sự kiện popstate khi người dùng nhấn nút quay lại
+
+    window.addEventListener('popstate', function (event) {
+        // Đặt lại trang hiện tại
+        location.reload();
+        alert("Bạn phải hoàn tất thanh toán trước khi quay lại!");
+    });
+
+    // Thêm lịch sử truy cập với window.history.pushState
+
     history.pushState(null, null, location.href);
-    window.onpopstate = function () {
-        history.go(1);
-    };
+
+    // Xóa lịch sử truy cập gần đây với window.history.replaceState
+    history.replaceState(null, null, location.href);
+    // Thêm trang thanh toán vào lịch sử của trình duyệt
+    //window.history.pushState({ page: "Payment" }, "Payment", "http://localhost:49878/Guest/Payment");
+    ////Theo dõi sự kiện bấm nút quay lại của người dùng
+    //window.onpopstate = function (event) {
+    //    // Kiểm tra lại lịch sử của trình duyệt và đặt lại trang về trang trước đó nếu người dùng đã quay lại
+    //    if (event.state && event.state.page === "Payment") {
+    //        alert("Bạn phải hoàn tất thanh toán trước khi quay lại!");
+    //        window.history.pushState({ page: "Payment" }, "Payment", "http://localhost:49878/Guest/Payment");
+    //    }
+    //};
 </script>
+<script src="https://unpkg.com/boxicons@2.1.3/dist/boxicons.js"></script>
+
+<style>
+    #example1 {
+        background-image: url('../../images/paper.gif');
+        padding: 15px;
+        margin-top:10px;
+    }
+    #example2 {
+        background-image: url('../../images/img_flwr.gif'), url('../../images/paper.gif');
+        background-position: center;
+        background-repeat: no-repeat, repeat;
+        padding: 15px;
+        background-size:contain;
+        margin-top: 10px;
+    }
+</style>
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <div><box-icon name='credit-card-alt' type='solid' animation='spin' style="width:70px; height:70px; margin-top:20px;"></box-icon></div>
+    <h2>THANH TOÁN</h2>
+    <p>Quý khách vui lòng kiểm tra thông tin trước khi đặt hàng</p>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
@@ -44,7 +67,7 @@
                 <div class="row">
 
                     <div class="col-sm-4">
-                        <img src="~/images/dalat_langbiang.jpg" class="img-fluid" alt="image" />
+                        <img src="@tour.HinhMinhHoa_T" class="img-fluid" alt="image" />
                     </div>
                     <div class="col-sm-8 text-lg-left" style="display: flex; flex-direction: column; align-items: center; justify-content: center; ">
                         <div class="col-sm-12"><b>Mã tour: </b> <b style="color: #dc4e4e">@tour.MaTour</b> </div>
@@ -99,17 +122,17 @@
                             <div class="card">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne" aria-expanded="true" aria-controls="accordionOne" role="tabpanel">
-                                        Hình thức thanh toán: 
-                                        @{ 
-                                                if(dh.HinhThucThanhToan == true)
-                                                {
-                                                    <span>CHUYỂN KHOẢN</span>
-                                                }
-                                                else
-                                                {
-                                                     <span>TIỀN MẶT</span>
-                                                }
-                                         }
+                                        Hình thức thanh toán:
+                                        @{
+                                            if (dh.HinhThucThanhToan == true)
+                                            {
+                                                <span>CHUYỂN KHOẢN</span>
+                                            }
+                                            else
+                                            {
+                                                <span>TIỀN MẶT</span>
+                                            }
+                                        }
                                     </button>
                                 </h2>
                                 <div id="accordionOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
@@ -117,15 +140,15 @@
                                         @{
                                             if (dh.HinhThucThanhToan == true)
                                             {
-                                                                                <p>
-                                                                                    Quý khách sau khi thực hiện việc chuyển khoản vui lòng gửi email đến contactcentersgt@gmail.com hoặc gọi tổng đài 19001839 để được xác nhận từ công ty chúng tôi.
-                                                                                </p>
+                                                <p>
+                                                    Quý khách sau khi thực hiện việc chuyển khoản vui lòng gửi email đến contactcentersgt@gmail.com hoặc gọi tổng đài 19001234 để được xác nhận từ công ty chúng tôi.
+                                                </p>
                                             }
                                             else
                                             {
-                                    <p>
-                                        Quý khách vui lòng thanh toán tại bất kỳ văn phòng SaiGon Travel trên toàn quốc hoặc các chi nhánh tại Thành phố Hồ Chí Minh.
-                                    </p>
+                                                <p>
+                                                    Quý khách vui lòng thanh toán tại bất kỳ văn phòng SaiGon Travel trên toàn quốc hoặc các chi nhánh tại Thành phố Hồ Chí Minh.
+                                                </p>
                                             }
                                         }
                                         @*<a href="~/Guest/LienHeGuest">Xem chi tiết.</a>*@
@@ -137,12 +160,17 @@
                 </dl>
                 <div class="d-flex justify-content-between">
                     <div>
-                         <form method="post" action="@Url.Action("HuyVe", "Guest", new { id = maDH })">
-                             @Html.AntiForgeryToken()
-                             <button type="submit" class="btn btn-danger">Hủy vé</button>
-                         </form>
+                        <form method="post" action="@Url.Action("HuyVe", "Guest", new { id = maDH })">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger">Hủy vé</button>
+                        </form>
                     </div>
-                    <div><input type="submit" value="Đặt vé" class="btn btn-success" /></div>
+                    <div>
+                        <form method="post" action="@Url.Action("Payment", "Guest", new { id = maDH })">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-success">Đặt vé</button>
+                        </form>
+                    </div>
                 </div>
             </fieldset>
         </div>
@@ -155,15 +183,26 @@
                     {
                         if (item.MaLVe == "TICKET01")
                         {
-                            <dl class="row">
-                                <dt class="col-sm-3">Hành khách @tt: </dt>
-                                <dd class="col-sm-9">
-                                    <p>@item.Hoten_KH</p>
-                                    <p>@item.GioiTinh</p>
-                                    <p>@item.NgaySinh</p>
-                                    <p>@item.LuuY</p>
-                                </dd>
-                            </dl>
+                                <dl class="row" id="example1">
+                                        <dt class="col-sm-3">Hành khách @tt: </dt>
+                                        <dd class="col-sm-5">
+                                            <p>@item.Hoten_KH</p>
+                                        </dd>
+                                        <dt class="col-sm-2">Giới tính:</dt>
+                                        <dd class="col-sm-2">
+                                            <p>@item.GioiTinh</p>
+                                        </dd>
+                                        <dt class="col-sm-3">Ngày sinh:</dt>
+                                        <dd class="col-sm-5">
+                                            @{var ns = String.Format("{0:d/M/yyyy}", item.NgaySinh); }
+                                            <p>@ns</p>
+                                        </dd>
+                                        <dt class="col-sm-2">Lưu ý:</dt>
+                                        <dd class="col-sm-2">
+                                            <p>@item.LuuY</p>
+                                        </dd>
+                                </dl>
+                                
                             tt++;
                         }
 
@@ -176,15 +215,25 @@
                     {
                         if (item.MaLVe == "TICKET02")
                         {
-                            <dl class="row">
-                                <dt class="col-sm-3">Hành khách @ttt: </dt>
-                                <dd class="col-sm-9">
-                                    <p>@item.Hoten_KH</p>
-                                    <p>@item.GioiTinh</p>
-                                    <p>@item.NgaySinh</p>
-                                    <p>@item.LuuY</p>
-                                </dd>
-                            </dl>
+                                <dl class="row" id="example2">
+                                    <dt class="col-sm-3">Hành khách @ttt: </dt>
+                                    <dd class="col-sm-5">
+                                        <p>@item.Hoten_KH</p>
+                                    </dd>
+                                    <dt class="col-sm-2">Giới tính:</dt>
+                                    <dd class="col-sm-2">
+                                        <p>@item.GioiTinh</p>
+                                    </dd>
+                                    <dt class="col-sm-3">Ngày sinh:</dt>
+                                    <dd class="col-sm-5">
+                                        @{var ns = String.Format("{0:d/M/yyyy}", item.NgaySinh); }
+                                        <p>@ns</p>
+                                    </dd>
+                                    <dt class="col-sm-2">Lưu ý:</dt>
+                                    <dd class="col-sm-2">
+                                        <p>@item.LuuY</p>
+                                    </dd>
+                                </dl>
                             ttt++;
                         }
 
@@ -193,8 +242,7 @@
             </fieldset>
         </div>
     </div>
-    
-</div>
 
+</div>
 
 

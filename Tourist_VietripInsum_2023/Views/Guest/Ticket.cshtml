@@ -107,7 +107,7 @@
 
                             @*<h4 class="typeper">Người lớn</h4>*@
 
-                            <div id="datve">
+                            <div id="datve" class="datve">
                             </div>
                         </div>
 
@@ -213,7 +213,11 @@
     //document.getElementById("soluongdat").value = tong;
     var gioihan = document.getElementById("sochocon").value;
     const x = parseInt(gioihan);
+    
     function ThemVe() {
+        var ticketrow = document.createElement('div');
+        ticketrow.classList.add('datve')
+        var cartitem = document.getElementsByClassName("datve")[0];
         if (i < 5 && i <= x - 1) {
             i++;
             var row = ' <div class="ticket-info" id="nd' + i + '">' +
@@ -255,8 +259,9 @@
                 ' </div>' +
                 ' </div> ';
 
-            var div = document.getElementById("datve");
-            div.innerHTML += row;
+            //var div = document.getElementById("datve");
+            ticketrow.innerHTML = row;
+            cartitem.append(ticketrow);
             //$("#datve").append(row);
             //var row1 = innerHTML += row;
             //div.innerHTML(row1);
