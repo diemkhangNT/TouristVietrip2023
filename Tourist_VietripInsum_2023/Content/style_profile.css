@@ -58,6 +58,7 @@ label {
     background-color: #ffd800;
     align-items: center;
     padding: 5px 50px;
+    margin-top: 50px;
 }
 .editProfile:hover {
     cursor: no-drop;

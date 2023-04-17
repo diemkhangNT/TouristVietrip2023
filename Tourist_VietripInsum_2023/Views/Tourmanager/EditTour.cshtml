@@ -7,6 +7,7 @@
     ViewBag.qlt = "active";
     TouristEntities1 db = new TouristEntities1();
     var tinhthanh = db.TinhThanhs.ToList();
+    var loaitour = db.LoaiTours.ToList();
 }
 
 <div class="tile">
@@ -38,7 +39,24 @@
                 <div class="form-group col-sm-12">
                     <strong>Type Tour</strong>
                     <div class="col-md-12">
-                        @Html.DropDownList("MaLTour", null, htmlAttributes: new { @class = "form-control col-md-12" })
+                        <select class="form-control col-md-12" name="MaLTour">
+                            <option value="@Model.MaLTour"> @Model.LoaiTour.TenLTour</option>
+                            @{
+                                foreach (var item in loaitour)
+                                {
+
+                                    <option value="@item.MaLTour">@item.TenLTour</option>
+                                }
+                            }
+
+                            <option>Hà Nội</option>
+                            <option>Đà Nẵng</option>
+                            <option>Huế</option>
+                            <option>Rạch Giá</option>
+                            <option>Vũng tàu</option>
+                            <option>Nha Trang</option>
+                            <option>Cần Thơ</option>
+                        </select>
                         @Html.ValidationMessageFor(model => model.MaLTour, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -46,7 +64,7 @@
                     <strong>Ngày khởi hành: </strong>
                     <div class="col-md-12">
                         @*<input class="form-control text-box single-line" data-val="true" data-val-date="The field StaffBirthday must be a date." id="Departure" name="Departure" type="date" value="@Model.Departure">*@
-                        @Html.TextBoxFor(model => model.NgayKhoihanh, "{0:yyyy-MM-dd HH:mm:ss}", new { @class = "form-control col-md-12 ", type = "datetime-local" })
+                        @Html.TextBoxFor(model => model.NgayKhoihanh, "{0:yyyy-MM-dd HH:mm:ss}", new { @class = "form-control col-md-12 ", type = "datetime-local", min = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:00") })
                         @*<input class="form-control col-md-12 text-box single-line" value="@Model.NgayKhoihanh" data-val="true" data-val-date="The field NgayNhap must be a date." id="NgayTroVe" name="NgayTroVe"  required>*@
                         @Html.ValidationMessageFor(model => model.NgayKhoihanh, "", new { @class = "text-danger" })
                     </div>
@@ -56,14 +74,15 @@
                     <strong>Ngày trở về: </strong>
                     <div class="col-md-12">
                         @*<input class="form-control text-box single-line" data-val="true" data-val-date="The field must be a date." id="TimeTour" name="TimeTour" type="number" min="0" value="@Model.TimeTour">*@
-                        @Html.TextBoxFor(model => model.NgayTroVe, "{0:yyyy-MM-dd HH:mm:ss}", new { @class = "form-control col-md-12 ", type = "datetime-local" })
+                        @Html.TextBoxFor(model => model.NgayTroVe, "{0:yyyy-MM-dd HH:mm:ss}", new { @class = "form-control col-md-12 ", type = "datetime-local", min = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:00") })
                         @Html.ValidationMessageFor(model => model.NgayTroVe, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group col-sm-12">
                     <strong>Nơi khởi hành:</strong>
                     <div class="col-md-12">
-                        <select class="form-control col-md-12" name="NoiKhoiHanh" required>
+                        <select class="form-control col-md-12"  name="NoiKhoiHanh" required>
+                            <option>@Model.NoiKhoiHanh</option>
                             <option>TP. Hồ Chí Minh</option>
                             <option>Hà Nội</option>
                             <option>Đà Nẵng</option>
@@ -97,6 +116,7 @@
                     <strong>Trạng thái hiển thị: </strong>
                     <div class="col-sm-12">
                         <select class="form-control col-sm-12" id="TrangThai" name="Trangthai">
+                            <option>@Model.TrangThai</option>
                             <option>Sắp ra mắt</option>
                             <option>Tour nổi bật</option>
                             <option>Đang diễn ra</option>
@@ -122,7 +142,7 @@
                 <div class="form-group col-sm-12">
                     <strong>Hạn đặt chỗ: </strong>
                     <div class="col-sm-12">
-                        @Html.TextBoxFor(model => model.HanChotDatVe, "{0:yyyy-MM-dd HH:mm:ss}", new { @class = "form-control col-md-12 ", type = "datetime-local" })
+                        @Html.TextBoxFor(model => model.HanChotDatVe, "{0:yyyy-MM-dd HH:mm:ss}", new { @class = "form-control col-md-12 ", type = "datetime-local", min = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:00") })
                         @Html.ValidationMessageFor(model => model.HanChotDatVe, "", new { @class = "text-danger" })
                     </div>
                 </div>

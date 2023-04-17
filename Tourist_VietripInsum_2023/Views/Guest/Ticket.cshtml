@@ -1,0 +1,328 @@
+﻿@model Tourist_VietripInsum_2023.Models.Ve
+@using Tourist_VietripInsum_2023.Models
+@{
+    ViewBag.Title = "Ticket";
+    Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
+    TouristEntities1 db = new TouristEntities1();
+    KhachHang khachhang = Session["taikhoan"] as KhachHang;
+}
+@{
+    var data = TempData["noti"];
+    if (data == "errornull")
+    {
+        <script>
+            swal("Số vé rỗng!", "Bạn không thể làm vậy", "error");
+        </script>
+    }
+}
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link href="~/Content/Guest/booktour.css" rel="stylesheet" />
+<link href="~/Content/Guest/detailtour.css" rel="stylesheet" />
+@*<div class="dattour">
+    <div class="flex-col flex-grow medium-text-center nav-main">
+        <nav class="nav-links flex-row flex-row-center heading-font text-center strong h4 uppercase">
+            <a href="https://nucuoimekong.com/gio-hang" class="current">	1.Nhập thông tin </a>
+            <span class="divider hide-for-small"><i class="icon-angle-right"></i></span> >
+            <a href="https://nucuoimekong.com/dat-tour" class="hide-for-small">	2.Thanh toán &amp; giao hàng </a> >
+            <span class="divider hide-for-small"><i class="icon-angle-right"></i></span>
+            <a href="#" class="no-click hide-for-small">	3.Hoàn tất đặt hàng </a>
+        </nav>
+    </div>*@
+@{
+    string matour = (string)Session["Matourchon"];
+    var tour = db.Tours.Where(s => s.MaTour == matour).FirstOrDefault();
+}
+<section class="thongtindatve">
+    <div class="container">
+        <div class="col-12 top">
+            <div class="detailtour">
+                <div class="image-tour">
+                    <img src="@tour.HinhMinhHoa_T" class="img-fluid" alt="image">
+                </div>
+                <div class="tour-content">
+                    <p class="title" id="title">@tour.TenTour</p>
+                    <div class="entry">
+                        <div class="entry-inner">
+                            <span>Mã Tour <b>@tour.MaTour</b></span>
+                            <span>Khởi hành <b>@tour.NgayKhoihanh</b></span>
+                            <span>Thời gian <b>@tour.SoNgay ngày</b></span>
+                            <span>Nơi khởi hành <b>@tour.NgayKhoihanh</b></span>
+                            <span>Số chỗ còn nhận <b>@ViewBag.chodamua</b></span>
+                            @{
+                                var a = String.Format("{0:0,0 vnđ}", @tour.GiaNguoiLon);
+                                var b = String.Format("{0:0,0 vnđ}", @tour.GiaTreEm);
+                            }
+                            <span>Giá người lớn <b>@a</b></span>
+                            <span>Giá trẻ em <b>@b</b></span>
+                            <h6>Hạn chót đặt vé: @tour.HanChotDatVe</h6>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="entry-mb d-lg-none">
+                <div class="entry-inner">
+                <span>Khởi hành <b>06/04/2023, TP. Hồ Chí Minh</b></span>
+                <span>Số chỗ còn nhận <b>9</b></span>
+                <span>Số ngày <b>4 ngày</b></span>
+                </div>
+                </div> -->
+            </div>
+        </div>
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => Model.MaDH)
+            @Html.HiddenFor(model => Model.MaVe)
+            <div class="row">
+                <div class="col-sm-8 left-lienlac">
+                    <h6 class="title-name">NHẬP THÔNG TIN VÉ</h6>
+                    <div class="ticket-tour">
+                        <div class="row" style="padding: 0 5px;">
+                            <div class="change col-sm-5">
+                                <div class="change-title">
+                                    <h4>Số lượng vé</h4>
+                                </div>
+
+                                <div class="change-number">
+                                    <icon class="fas fa-minus-circle" onclick="xoaVe()"></icon>
+                                    <span class="venguoilon" id="venguoilon">0</span>
+                                    <icon class="fas fa-plus-circle" onclick="ThemVe()"></icon>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-6 text-muted">
+                                (*) Nếu bạn muốn đặt trên 5 vé vui lòng liên hệ với chúng tôi. Hoặc để lại lời nhắn
+                                <a href="~/Guest/LienHeGuest">tại đây</a> để chúng tôi có thể liên lạc lại với bạn.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DAT VE -->
+                    <div class="ticket-customer">
+                        <div class="list">
+                            <h3 class="title-name">Thông tin hành khách</h3>
+
+                            @*<h4 class="typeper">Người lớn</h4>*@
+
+                            <div id="datve">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <!-- RIGHT -->
+
+                <div class="col-sm-4 right-thongtin">
+                    <div class="form-control ">
+                        <dl class="row lotrinh-left" style="margin: 7px">
+                            <h4 class="title-ticket tile-title">Thông tin liên lạc</h4>
+                            <dt class="col-sm-4">Họ tên</dt>
+                            <dd class="col-sm-8">@khachhang.HoTenKH</dd>
+
+                            <dt class="col-sm-4">Địa chỉ</dt>
+                            <dd class="col-sm-8">@khachhang.DiaChi</dd>
+
+                            <dt class="col-sm-4">Di động</dt>
+                            <dd class="col-sm-8">@khachhang.SDT</dd>
+
+                            <dt class="col-sm-4 text-truncate">Email</dt>
+                            <dd class="col-sm-8">@khachhang.Email</dd>
+                            <hr />
+                            <dd class="col-sm-12">(*) Chúng tôi sẽ liên hệ với bạn thông qua những thông tin này!</dd>
+                        </dl>
+
+
+                        <div class="detail-book-tour">
+
+                            <div class="">
+                                <div class="go-tour">
+                                    <b>Số chỗ ngồi: </b> <input name="soluongdat" id="soluongdat" style=" visibility: visible; display: inline-block; border: none; outline: none; width: 20px;" readonly />
+
+                                    <div class="accordion" id="accordionExample">
+                                        <div class="card">
+                                            <h2 class="accordion-header" id="headingOne">
+                                                <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne" aria-expanded="true" aria-controls="accordionOne" role="tabpanel">
+                                                    TÓM TẮT CHUYẾN ĐI
+                                                </button>
+                                            </h2>
+
+                                            <div id="accordionOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    @{
+                                                        var diadiem = db.ChiTietTours.Where(s => s.MaTour == matour).OrderBy(s => s.STT).ToList();
+                                                        foreach (var ct in diadiem)
+                                                        {
+                                                            <div class="day">
+                                                                <div class="wrapper">
+                                                                    <span class="date-left"></span>
+                                                                    <span class="fa fa-calendar-minus" style="font-weight: 300; font-size: 20px; position: relative; z-index: 2; "></span>
+                                                                    @{
+                                                                        DateTime ngaydi = (DateTime)tour.NgayKhoihanh;
+                                                                        DateTime ttdate = ngaydi.AddDays(ct.STT);
+
+                                                                    }
+                                                                    <span class="date-right">
+                                                                        <span class="date">@ttdate</span>
+                                                                        <span class="location">@ct.TieuDe</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div>
+                                <div class="form-control">
+                                    <div class="select-container">
+                                        <label class="lab">Chọn phương thức thanh toán:</label>
+                                        <select class="form-control col-sm-12" id="thanhtoan" name="thanhtoan">
+                                            <option value="true">Chuyển khoản</option>
+                                            <option value="false">Tiền mặt</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-offset-2 col-md-12" style="margin-top:20px;">
+                                        <input type="submit" value="Xác nhận" class="btn btn-success btn-sm w-100" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <input type="text" value="@ViewBag.chodamua" name="sochocon" id="sochocon" style=" visibility: hidden; display: inline-block; border: none; outline: none; width: 20px;" readonly />
+                </div>
+            </div>
+
+
+        }
+    </div>
+</section>
+
+
+<script>
+    var i = 0;
+    //document.getElementById("soluongdat").value = tong;
+    var gioihan = document.getElementById("sochocon").value;
+    const x = parseInt(gioihan);
+    function ThemVe() {
+        if (i < 5 && i <= x - 1) {
+            i++;
+            var row = ' <div class="ticket-info" id="nd' + i + '">' +
+                '<div class="row" id="ListInfoAdult">' +
+                '<div class="group-info-name col-sm-4">' +
+                ' <span>Họ tên</span>' +
+                '<input class="form-control" name="Hoten_KH' + i + '" placeholder="Vui lòng nhập Họ tên" required="required" type="text" value="">' +
+                '</div>' +
+                '<div class="form-group col-md-3">' +
+                '<label class="control-label">Loại vé</label>' +
+                ' <select class="form-control col-sm-12" id="MaLVe${i}" name="MaLVe' + i + '">' +
+                '<option value="">Chọn loại vé</option>' +
+                ' <option value="TICKET01">Vé người lớn</option>' +
+                '<option value="TICKET02">Vé trẻ em</option>' +
+                ' </select>' +
+                ' </div>' +
+                ' <div class="group-info-sex col-sm-2">' +
+                '<span>Giới tính</span>' +
+                '<select class="form-control col-sm-12" id="GioiTinh' + i + '" name="GioiTinh' + i + '">' +
+                '<option value="">Giới tính</option>' +
+                '<option value="Nam">Nam</option>' +
+                '<option value="Nữ">Nữ</option>' +
+                '</select>' +
+                '</div>' +
+                ' <div class="group-info-birthday col-sm-3">' +
+                '<span>Ngày sinh</span>' +
+
+                '<input class="form-control text-box single-line" required="required" name="NgaySinh' + i + '" id="NgaySinh' + i + '" placeholder="Vui lòng nhập chọn ngày sinh"type="date" value="">' +
+
+                '</div>' +
+                '<div class="group-info-note col-sm-12">' +
+                ' <span>Lưu ý</span>' +
+                '<input class="form-control" name="LuuY' + i + '" id="LuuY' + i + '" placeholder="Nhập lưu ý" type="text" value="">' +
+
+                '</div>' +
+
+                ' </div>' +
+
+                ' </div>' +
+                ' </div> ';
+
+            var div = document.getElementById("datve");
+            div.innerHTML += row;
+            //$("#datve").append(row);
+            //var row1 = innerHTML += row;
+            //div.innerHTML(row1);
+
+            console.log(i);
+            document.getElementById("venguoilon").innerHTML = i;
+            document.getElementById("soluongdat").value = i;
+
+        };
+    }
+    function xoaVe() {
+        var element = document.getElementById("datve");
+        if (i > 0) {
+            document.getElementById('nd' + i).remove();
+            i--;
+
+        }
+        document.getElementById("venguoilon").innerHTML = i;
+        document.getElementById("soluongdat").value = i;
+
+
+
+    }
+
+</script>
+<script>
+    function getDropDown(ddl) {
+        var a = $('.MaLVe').val();
+        console.log(a);
+        //var selectedValue = $(ddl).val();
+        //console.log(selectedValue);
+        //mave = selectedValue;
+        //document.getElementById("tst").value = selectedValue;
+        ////document.getElementById("abc").style.visibility = 'visible';
+        ////document.getElementById("ddhotel").style.visibility = 'visible';
+        //$('#tst').val(selectedValue);
+        //console.log(mave);
+        //$.ajax({
+        //    url: '/Tourmanager/GetValue',
+        //    type: 'GET',
+        //    data: { value: matinh },
+        //    success: function (result) {
+        //        // xử lý kết quả trả về từ Controller
+        //        console.log(result);
+        //    }
+        //});
+</script>
+@* Tóm tắt chuyến đi theo ngày*@
+@*@{
+        var diadiem = db.ChiTietTours.Where(s => s.MaTour == matour).OrderBy(s => s.STT).ToList();
+        foreach (var ct in diadiem)
+        {
+            <div class="day">
+                <div class="wrapper">
+                    <span class="date-left"></span>
+                    <span class="fa fa-calendar-minus" style="font-weight: 300; font-size: 20px; position: relative; z-index: 2; "></span>
+                    @{
+                        DateTime ngaydi = (DateTime)tour.NgayKhoihanh;
+                        DateTime ttdate = ngaydi.AddDays(ct.STT);
+
+                    }
+                    <span class="date-right">
+                        <span class="date">@ttdate</span>
+                        <span class="location">@ct.TieuDe</span>
+                    </span>
+                </div>
+            </div>
+        }
+    }*@

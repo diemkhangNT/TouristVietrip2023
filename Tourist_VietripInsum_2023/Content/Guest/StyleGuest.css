@@ -1,0 +1,123 @@
+﻿.header .navbar {
+    padding: 8px 25px;
+    background: white;
+}
+
+.nav-item {
+    margin: 0 8px;
+}
+
+.navbar-nav .nav-link {
+    color: white;
+    font-size: 17PX;
+    font-weight: 600;
+}
+
+.navbar-brand span {
+    color: white;
+    font-size: 15PX;
+    font-weight: 800;
+}
+
+.list-menutourvist {
+    padding-left: 0;
+    list-style: none;
+}
+
+.group-features {
+    padding-left: 20px;
+    ;
+}
+
+@media screen and (max-width: 991px) {
+    .group-features .item {
+        cursor: pointer;
+        padding: 0px 11px;
+    }
+}
+
+.header .navbar .group-features .item i {
+    font-size: 22px;
+    color: rgb(45, 66, 113);
+}
+
+/* FOOTER */
+.footerguest {
+    padding: 30px 15px;
+    background: rgb(232, 232, 232);
+}
+
+
+.footer-content {
+}
+
+.footerguest h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #67a448;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.footerguest p {
+    font-size: 16px;
+    color: black;
+}
+
+.footerguest a {
+    display: block;
+    font-size: 16px;
+    text-decoration: none;
+    color: black;
+}
+
+    .footerguest a:hover {
+        color: var(--orange);
+        text-decoration: underline;
+    }
+
+.footer .credit {
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-top: 1rem;
+    font-size: 2rem;
+    font-weight: normal;
+    color: #fff;
+    border-top: .1rem solid rgba(255,255,255,.2);
+}
+
+    .footer .credit span {
+        color: var(--orange);
+    }
+
+
+.navbar .megamenu {
+    padding: 1rem;
+}
+
+/* ============ desktop view ============ */
+@media all and (min-width: 992px) {
+
+    .navbar .has-megamenu {
+        position: static !important;
+    }
+
+    .navbar .megamenu {
+        left: 0;
+        right: 0;
+        width: 100%;
+        margin-top: 0;
+    }
+}
+/* ============ desktop view .end// ============ */
+/*MeGaMeNu*/
+
+
+/* ============ mobile view ============ */
+@media(max-width: 991px) {
+    .navbar.fixed-top .navbar-collapse, .navbar.sticky-top .navbar-collapse {
+        overflow-y: auto;
+        max-height: 90vh;
+        margin-top: 10px;
+    }
+}

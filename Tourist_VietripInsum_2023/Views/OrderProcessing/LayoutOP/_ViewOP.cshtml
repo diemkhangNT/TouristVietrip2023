@@ -82,10 +82,15 @@
                     <i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Quản lý đặt tour</span>
                 </a>
             </li>
+            <li>
+                <a class="app-menu__item @ViewBag.booking" href="/OrderProcessing/Booking">
+                    <i class='app-menu__icon bx bx-calendar'></i><span class="app-menu__label">Giám sát thanh toán</span>
+                </a>
+            </li>
 
             <li>
                 <a class="app-menu__item @ViewBag.tour" href="~/OrderProcessing/TourList">
-                    <i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Danh sách tour</span>
+                    <i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Danh sách vé</span>
                 </a>
             </li>
 
@@ -100,20 +105,20 @@
                 </a>
             </li>
             <!--<li>
-                <a class="app-menu__item @ViewBag.dh" href="#">
-                    <i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Danh sách hành khách</span>
-                </a>
-            </li>
-            <li>
-                <a class="app-menu__item @ViewBag.hd" href="#">
-                    <i class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Liên lạc</span>
-                </a>
-            </li>-->
+        <a class="app-menu__item @ViewBag.dh" href="#">
+            <i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Danh sách hành khách</span>
+        </a>
+    </li>
+    <li>
+        <a class="app-menu__item @ViewBag.hd" href="#">
+            <i class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Liên lạc</span>
+        </a>
+    </li>-->
             @*<li>
-                    <a class="app-menu__item  @ViewBag.prf" href="/Tourmanager/Profile/@user.MaNV">
-                        <i class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Profile</span>
-                    </a>
-                </li>*@
+            <a class="app-menu__item  @ViewBag.prf" href="/Tourmanager/Profile/@user.MaNV">
+                <i class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Profile</span>
+            </a>
+        </li>*@
             <!-- User Menu-->
             <li>
                 <a class="app-menu__item btn_Logout" href="@Url.Action("Logout", "LoginStaff" )">

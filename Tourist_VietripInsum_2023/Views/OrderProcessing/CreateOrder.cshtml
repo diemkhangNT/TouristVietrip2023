@@ -39,6 +39,16 @@
         });
     </script>
 }
+@if (TempData["ErrorSoChoTrong"] != null)
+{
+    <script>
+        swal({
+            title: "Số chỗ vượt quá số chỗ còn trống",
+            icon: "warning",
+            button: "Thoát",
+        });
+    </script>
+}
 
 <div class="row">
     <div class="col-sm-12">
@@ -52,36 +62,44 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         <div class="row element-button">
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-4">
                                 <label class="control-label">Số điện thoại</label>
                                 @Html.EditorFor(model => Session["SDT"], new { htmlAttributes = new { @class = "form-control col-sm-12", @readonly = "readonly" } })
                                 @Html.ValidationMessageFor(model => model.SdtKH, "", new { @class = "text-danger" })
                             </div>
 
-                            <div class="form-group col-md-5">
+                            <div class="form-group col-md-8">
                                 <label class="control-label">Tên tour</label>
                                 @*@Html.DropDownList("MaTour", null, htmlAttributes: new { @class = "form-control col-sm-12" })*@
-                            <select class="form-control col-sm-12" id="MaTour" name="MaTour">
-                                <option value="">Vui lòng chọn tour</option>
-                                @foreach (var item in tour)
-                                {
-                                    if (item.TrangThai != "Sắp ra mắt")
+                                <select class="form-control col-sm-12" id="MaTour" name="MaTour">
+                                    <option value="">Vui lòng chọn tour</option>
+                                    @foreach (var item in tour)
                                     {
-                                        <option value="@item.MaTour">@item.TenTour</option>
+                                        if (item.TrangThai != "Sắp ra mắt")
+                                        {
+                                            <option value="@item.MaTour">@item.TenTour</option>
+                                        }
                                     }
-                                }
-                            </select>
+                                </select>
                                 @*@Html.DropDownListFor(m => m.MaTour, (SelectList)ViewBag.MaTour, "Vui lòng chọn tour", htmlAttributes: new { @class = "form-control col-sm-12" })*@
                                 @Html.ValidationMessageFor(model => model.MaTour, "", new { @class = "text-danger" })
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-4">
                                 <label class="control-label">Số chỗ trống</label>
-                                <span class="form-control" id="SoChoNull" type="number"></span>
+                                <span class="form-control" id="SoChoNull" type="number">0</span>
                             </div>
-                            <div class="form-group col-md-3">
-                                <label class="control-label">Số chỗ đặt</label>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Số lượng vé</label>
                                 @Html.EditorFor(model => model.SoCho, new { htmlAttributes = new { @class = "form-control col-sm-12", @id = "numberplace" } })
                                 @Html.ValidationMessageFor(model => model.SoCho, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Hình thức thanh toán</label>
+                                <select class="form-control list-box tri-state" id="HinhThucThanhToan" name="HinhThucThanhToan">
+                                    <option selected="selected" value="true">Chuyển khoản</option>
+                                    <option value="false">Thanh toán tại văn phòng</option>
+
+                                </select>
                             </div>
                         </div>
 

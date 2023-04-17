@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewBag.Title = "VeChungToi";
+    Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
+}
+
+<style>
+
+    .header1 {
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        margin: 20px auto;
+    }
+
+        .header1 h1 {
+            font-size: 50px;
+            color: forestgreen;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .header1 p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 35px;
+        }
+
+    .container {
+        width: 90%;
+        margin: 0 auto;
+        padding: 10px 20px;
+    }
+
+    .about {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+        .about image {
+            flex: 1;
+            margin-right: 50px;
+            overflow: hidden;
+        }
+
+    .about-image img {
+        width: 800px;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        transition: 0.5s ease;
+        margin-right: 40px;
+    }
+
+    .about-image:hover img {
+        transform: scale(0.8);
+    }
+
+    .about-content {
+        flex: 1;
+        margin: 0;
+    }
+
+        .about-content h2 {
+            font-size: 23px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .about-content p {
+            font-size: 18px;
+            line-height: 1.5;
+            color: #666;
+        }
+
+        .about-content .read-more {
+            display: inline-block;
+            padding: 10px 20px;
+            color: black;
+            font-size: 19px;
+            text-decoration: 2px;
+            border-radius: 25px;
+            margin-top: 15px;
+            background-color: yellow;
+        }
+
+            .about-content .read-more:hover {
+                background-color: yellow;
+                color: green;
+            }
+</style>
+
+<body>
+    <div class="body">
+        <div class="header1">
+            <h1>SaiGon Travel</h1>
+            <p>
+                Công ty SaiGon Travel là một trong những công ty hàng đầu tại Việt Nam về lĩnh vực du lịch và dịch vụ du lịch. Với kinh nghiệm hơn 10 năm hoạt động trong ngành du lịch, SaiGon Travel đã trở thành một thương hiệu được khách hàng tin tưởng và yêu thích.
+            </p>
+        </div>
+        <div class="container">
+            <section class="about">
+                <div class="about-image">
+                    <img src="~/Content/Images/tourhanoi.jpg" />
+                </div>
+                <div class="about-content">
+                    <h2> Giới thiệu về công ty Saigon Travel </h2>
+                    <p>
+                        SaiGon Travel cung cấp các tour du lịch với nhiều điểm đến hấp dẫn trong nước và quốc tế, bao gồm các tour tham quan, du lịch miền Tây, du lịch miền Trung, du lịch miền Bắc, tour nghỉ dưỡng,...
+
+                        Với đội ngũ nhân viên giàu kinh nghiệm, trí tuệ, tư vấn viên am hiểu nhiều ngôn ngữ và chăm sóc khách hàng tận tình, SaiGon Travel cam kết không chỉ đưa du khách đến được những địa điểm du lịch đẹp, tuyệt vời nhất mà còn giúp khách hàng có được những trải nghiệm tuyệt hảo trong hành trình của mình.
+
+                        SaiGon Travel luôn chú trọng đến việc nâng cao chất lượng dịch vụ, tạo ra những sản phẩm du lịch độc đáo, hấp dẫn và mang lại sự hài lòng cho khách hàng. Nếu bạn đang lên kế hoạch cho chuyến đi du lịch, hãy liên hệ với SaiGon Travel để trải nghiệm những dịch vụ đặc biệt nhất.
+                    </p>
+                    <a href="" class="read-more"> Read More</a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="load-more-container">
+        <div class="data-container">
+            <!-- Hiển thị dữ liệu ở đây -->
+        </div>
+        <button class="load-more-button">Load More</button>
+    </div>
+
+</body>
+
+
+<script>
+    $(document).ready(function () {
+        var skip = 0;
+        var take = 10;
+
+        $('.load-more-button').click(function () {
+            $.ajax({
+                url: '/Home/LoadMore',
+                type: 'GET',
+                data: { skip: skip, take: take },
+                dataType: 'json',
+                success: function (data) {
+                    //Thêm dữ liệu mới vào phần dữ liệu đã hiển thị
+                    $('.data-container').append(data);
+
+                    //Tăng skip lên take để lấy dữ liệu tiếp theo
+                    skip += take;
+                }
+            });
+        });
+    });
+
+</script>

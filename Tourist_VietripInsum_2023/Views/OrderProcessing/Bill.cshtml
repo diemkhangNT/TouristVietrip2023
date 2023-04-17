@@ -1,0 +1,204 @@
+﻿@model Tourist_VietripInsum_2023.Models.BookTour
+@using Tourist_VietripInsum_2023.Models
+@{
+    ViewBag.Title = "Hóa đơn";
+    Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
+    ViewBag.booking = "active";
+    TouristEntities1 db = new TouristEntities1();
+}
+
+<div class="container-sm">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile" id="printMe">
+
+                @{
+                    DateTime ngay = (DateTime)(Model.NgayLap);
+                    var today = String.Format("{0:d/M/yyyy}", DateTime.Now);
+                    int thang = ngay.Month;
+                    var khach = db.KhachHangs.Where(s => s.MaKH == Model.MaKH).FirstOrDefault();
+                    var tour = db.Tours.Where(s => s.MaTour == Model.MaTour).FirstOrDefault();
+                    var hinhthuc = Model.HinhThucThanhToan;
+                    string ht = "";
+                    if (hinhthuc == true)
+                    {
+                        ht = "Chuyển khoản";
+                    }
+                    else
+                    {
+                        ht = "Thanh toàn tại văn phòng";
+                    }
+
+                }
+                <div id="page" class="page">
+                    <div class="header">
+                        @*<div class="logo">
+            <img class="app-nav__item" src="~/Content/Images/logo_project.png" width="40px" height="50px;" alt="User Image">
+            <h5 class="app-nav__item justify-content-between">SAIGON TRAVEL</h5>
+        </div>*@
+                        @*<br />
+        <br />
+        <br />*@
+                        <div class="title element-button" style="text-align:center">
+                            <span style="font-weight:600;font-size:20px">HÓA ĐƠN THANH TOÁN</span>
+                            <br />
+                            Ngày: @today
+                        </div>
+                        <div class="info-sg element-button">
+                            <strong>Đơn vị cung cấp dịch vụ: </strong> CÔNG TY CỐ PHẦN SAIGON TRAVEL
+                            <br />
+                            <strong>Địa chỉ: </strong>10 Hai Bà Trưng, Q.3, TP.HCM
+                            <br />
+                            <strong>Liên lạc: </strong> (+84 28) 1234 2345 - SGContent@gmail.com
+                            <br />
+                            <strong>Số tài khoản: </strong>0971654756478 - Ngân Hàng Vietinbank
+                        </div>
+                        <div class="info-cus">
+                            <strong>Tên khách hàng: </strong>@Html.DisplayFor(model => khach.HoTenKH)
+                            <br />
+                            <strong>Địa chỉ: </strong>@Html.DisplayFor(model => khach.DiaChi)
+                            <br />
+                            <strong>Liên lạc: </strong>@Html.DisplayFor(model => khach.SDT) - @Html.DisplayFor(model => khach.Email)
+                            <br />
+                            <b>Mã đơn hàng: </b>@Html.DisplayFor(model => Model.MaDH)
+                            <br />
+                            <b>Thông tin tour: </b> @Model.MaTour - @tour.TenTour
+                            <br />
+                            <b>Ngày đặt mua: </b>@Model.NgayLap
+                            <br />
+                            <b>Số chổ đặt: </b>@Model.SoCho
+                            <br />
+                            <b>Hình thức thanh toán: </b>@ht
+                        </div>
+                        @{
+                            List<Ve> listTickets = db.Ves.Where(s => s.MaDH == Model.MaDH).ToList();
+                            var gia = "";
+                            var total = 0;
+
+                        }
+                        <table class="TableData">
+                            <tr>
+                                <th>Mã Vé</th>
+                                <th>Thông tin hành khách</th>
+                                <th>Lưu ý</th>
+                                <th>Loại vé</th>
+                                <th>Thành tiền</th>
+                            </tr>
+
+                            @foreach (var item in listTickets)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MaVe)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Hoten_KH) -@Html.DisplayFor(modelItem => item.GioiTinh)
+                                        <br />
+                                        @{ var ngaySinh = string.Format("{0:dd/MM/yyyy}", item.NgaySinh);}
+                                        @Html.DisplayFor(modelItem => ngaySinh)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LuuY)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LoaiVe.TenLVe)
+                                    </td>
+                                    @if (item.MaLVe == "TICKET01")
+                                    {
+                                        total += (int)tour.GiaNguoiLon;
+                                        gia = string.Format("{0:0,0}", tour.GiaNguoiLon);
+                                    }
+                                    else
+                                    {
+                                        total += (int)tour.GiaTreEm;
+                                        gia = string.Format("{0:0,0}", tour.GiaTreEm);
+                                    }
+                                    <td>
+
+                                        @gia vnd
+                                    </td>
+
+                                </tr>
+
+                            }
+                            <tr>
+                                <th colspan="4">Tổng tiền</th>
+                                @{ var TongCong = string.Format("{0:0,0 vnđ}", total);}
+                                <td>@Html.DisplayFor(modelItem => TongCong)</td>
+                            </tr>
+                            <tr>
+                                <th colspan="4">Chiết khấu khách hàng</th>
+                                @{ var lk = db.LoaiKHs.Where(s => s.MaLoaiKH == khach.MaLoaiKH).FirstOrDefault();
+                                    var tiengiam = total * (1 - lk.ChietKhau);
+                                    var chietkhau = lk.ChietKhau * 100;
+                                    var Tiensau = string.Format("{0:0,0 vnđ}", tiengiam);
+                                }
+                                <td>@chietkhau %</td>
+                            </tr>
+                            <tr>
+                                <th colspan="4">Tổng tiền thanh toán: </th>
+                                <td>@Tiensau</td>
+                            </tr>
+
+                        </table>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5 style="margin-left:10%;padding-top:20px;">Nhân viên</h5>
+                                <h6 style="margin-left: 5%;">(ký và ghi rõ họ tên)</h6>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5 style="margin-left: 50%;padding-top:20px;" id="sample1">Khách hàng</h5>
+                                <h6 style="margin-left:45%; font-style:italic;" id="sample1">(ký và ghi rõ họ tên)</h6>
+                            </div>
+                        </div>
+                      
+                        
+                        
+                        
+                        <br />
+                        <br />
+                        <br />
+
+                    </div>
+                  
+
+                </div>
+
+            </div>
+            <div class="row" style="padding-left:10px" id="btnin">
+                @*<div class="col-sm-2">
+                <a class="btn btn-warning btn-sm " data-toggle="modal" data-target="#myModal">
+                    Cập thông tin đơn hàng
+                </a>
+            </div>*@
+                <div class="col-sm-2">
+                    <a class="btn btn-delete btn-sm " title="In" onclick="printDiv('printMe')">
+                        <i class="fas fa-print"></i> In dữ liệu
+                    </a>
+                </div>
+                <div class="col-sm-2">
+
+
+                </div>
+
+            </div>
+            <script>
+                function printDiv(divName) {
+
+
+                    var printContents = document.getElementById(divName).innerHTML;
+                    var originalContents = document.body.innerHTML;
+
+                    document.getElementById("btnin").style.display = "none";
+
+
+                    document.body.innerHTML = printContents;
+
+                    window.print();
+
+                    document.body.innerHTML = originalContents;
+                }
+            </script>
+ 

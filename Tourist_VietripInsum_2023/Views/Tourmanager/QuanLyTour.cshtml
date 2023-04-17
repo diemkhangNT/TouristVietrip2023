@@ -55,7 +55,9 @@
                     <div class="tile-body">
                         <div class="row element-button" style="padding:10px">
                             <div class="col-md-12 col-sm-12">
+                                <h5 class="text-secondary">Đây là danh sách bao gồm tất cả các tour đã được tạo</h5>
                                 <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTours">
+                                    <i class="fa fas-add"></i>
                                     Tạo tour mới
                                 </a>
 
@@ -74,9 +76,9 @@
                                             <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã tour</th>
                                             <th aria-controls="sampleTable" rowspan="1" colspan="1">Loại tour</th>
                                             <th aria-controls="sampleTable" rowspan="1" colspan="1">Tên tour</th>
-                                            <th aria-controls="sampleTable" rowspan="1" colspan="1" width="200px">Thông tin khởi hành</th>
-                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Số chỗ trống</th>
-                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Hạn chót</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1" width="170px">Thông tin khởi hành</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1" width="80px">Hiển thị</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1" width="80px">Hạn chót</th>
                                             <th aria-controls="sampleTable" rowspan="1" colspan="1">Tình trạng</th>
                                             <th aria-controls="sampleTable" rowspan="1" colspan="1">Chức năng</th>
                                         </tr>
@@ -107,13 +109,15 @@
                                                         <p>Địa điểm: @Html.DisplayFor(modelItem => item.NoiKhoiHanh)</p>
                                                     </td>
                                                     <td>
-                                                        @Html.DisplayFor(modelItem => item.SoChoNull)
+                                                        @Html.DisplayFor(modelItem => item.TrangThai)
                                                     </td>
                                                     <td>
                                                         @{
                                                             var day = String.Format("{0:d/M/yyyy}", item.HanChotDatVe);
                                                         }
                                                         @Html.DisplayFor(modelItem => day)
+                                                        <p>Số chỗ: @Html.DisplayFor(modelItem => item.SoChoNull)</p>
+                                                        
                                                     </td>
                                                     <td>
                                                         @{
@@ -172,6 +176,7 @@
                     <div class="tile-body">
                         <div class="row element-button" style="padding:10px">
                             <div class="col-md-12 col-sm-12">
+                                <h5 class="text-secondary">Đây là danh sách bao gồm tour sắp đến hạn (dưới 10 ngày) tính từ hôm nay và số chỗ trống trên 10 chỗ</h5>
                                 <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTours">
                                     Tạo tour mới
                                 </a>
@@ -183,7 +188,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12 table-responsive">
-                                <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable1" role="grid" aria-describedby="sampleTable_info">
                                     @*//Phần render từng dòng trong C#*@
                                     <thead style="background-color: #ffd43b;">
                                         <tr>
@@ -265,6 +270,8 @@
                     <div class="tile-body">
                         <div class="row element-button" style="padding:10px">
                             <div class="col-md-12 col-sm-12">
+                                <h5 class="text-secondary">Đây là danh sách bao gồm tour sắp hết chỗ (dưới 10 chỗ) và hạn chót đặt vé phải trên 10 ngày, tính từ hôm nay</h5>
+
                                 <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTours">
                                     Tạo tour mới
                                 </a>
@@ -276,7 +283,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12 table-responsive">
-                                <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable2" role="grid" aria-describedby="sampleTable_info">
                                     @*//Phần render từng dòng trong C#*@
                                     <thead style="background-color: #ffd43b;">
                                         <tr>
@@ -358,6 +365,8 @@
                     <div class="tile-body">
                         <div class="row element-button" style="padding:10px">
                             <div class="col-md-12 col-sm-12">
+                                <h5 class="text-secondary">Đây là danh sách bao gồm tour đã hết chỗ hoặc đã hết hạn đặt vé</h5>
+
                                 <a class="btn btn-success btn-sm " type="button" title="CreateTour" href="/Tourmanager/CreateTours">
                                     Tạo tour mới
                                 </a>
@@ -369,7 +378,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12 table-responsive">
-                                <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable3" role="grid" aria-describedby="sampleTable_info">
                                     @*//Phần render từng dòng trong C#*@
                                     <thead style="background-color: #ffd43b;">
                                         <tr>

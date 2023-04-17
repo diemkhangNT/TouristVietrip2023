@@ -145,6 +145,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="common\MailHelp.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -236,10 +237,12 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\FormTour.css" />
     <Content Include="Content\Guest.js" />
-    <Content Include="Content\Guest\DetailTours.css" />
+    <Content Include="Content\Guest\BookingBill.css" />
+    <Content Include="Content\Guest\booktour.css" />
+    <Content Include="Content\Guest\detailtour.css" />
     <Content Include="Content\Guest\homepageGuest.css" />
     <Content Include="Content\Guest\ListTour-Option.css" />
-    <Content Include="Content\Guest\MainLayoutGuest.css" />
+    <Content Include="Content\Guest\StyleGuest.css" />
     <Content Include="Content\Images\1.png" />
     <Content Include="Content\Images\2.png" />
     <Content Include="Content\Images\dânng.jpg" />
@@ -260,6 +263,9 @@
     <Content Include="Content\styleLogin.css" />
     <Content Include="Content\style_contact.css" />
     <Content Include="Content\style_order.css" />
+    <Content Include="Content\template\mailcancel.html" />
+    <Content Include="Content\template\mailconn.html" />
+    <Content Include="Content\template\mailOrder.html" />
     <Content Include="Content\tourmanager.css" />
     <Content Include="favicon.ico" />
     <Content Include="Forms\Order.html" />
@@ -276,6 +282,7 @@
     <Content Include="images\danang_banahill.jpg" />
     <Content Include="images\danang_congviennuoc.jpg" />
     <Content Include="images\danang_phocohoian.jpg" />
+    <Content Include="images\green_typetour.gif" />
     <Content Include="images\khanhhoa_nhathonui.jpg" />
     <Content Include="images\khanhhoa_ponaga.jpg" />
     <Content Include="images\khanhhoa_vinpearland.jpg" />
@@ -533,9 +540,17 @@
     <Content Include="Views\Guest\TinTuc.cshtml" />
     <Content Include="Views\Guest\ListTour.cshtml" />
     <Content Include="Views\OrderProcessing\TourList.cshtml" />
+    <Content Include="Views\Admin\ListOfCustomers.cshtml" />
+    <Content Include="Views\Guest\VeChungToi.cshtml" />
     <Content Include="Views\OrderProcessing\CusDetailsTour.cshtml" />
     <Content Include="Views\OrderProcessing\EditCusInfo.cshtml" />
     <Content Include="Views\Tourmanager\CusDetailsTour.cshtml" />
+    <Content Include="Views\Guest\Ticket.cshtml" />
+    <Content Include="Views\OrderProcessing\Booking.cshtml" />
+    <Content Include="Views\OrderProcessing\UpdateBooking.cshtml" />
+    <Content Include="Views\OrderProcessing\Bill.cshtml" />
+    <Content Include="Views\OrderProcessing\AddTicket.cshtml" />
+    <Content Include="Views\Guest\Payment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
