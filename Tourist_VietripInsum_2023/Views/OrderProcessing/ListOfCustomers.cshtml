@@ -4,28 +4,28 @@
     ViewBag.Title = "ListOfCustomers";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
     ViewBag.Name = "List Of Customers";
-    ViewBag.order = "active";
+    ViewBag.cus = "active";
 
     if (TempData["success"] != null)
     {
         <script>
-        swal({
-            title: "Cập nhật thông tin khách hàng thành công",
-            icon: "success",
-            button: "Thoát",
-        });
+            swal({
+                title: "Cập nhật thông tin khách hàng thành công",
+                icon: "success",
+                button: "Thoát",
+            });
         </script>
     }
 }
 
-<ul class="nav nav-tabs">
-    <li class="nav-item">
-        <a class="nav-link" href="/OrderProcessing/ManageTourOrders">Danh sách đơn đặt</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" href="#">Danh sách khách hàng</a>
-    </li>
-</ul>
+@*<ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="/OrderProcessing/ManageTourOrders">Danh sách đơn đặt</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Danh sách khách hàng</a>
+        </li>
+    </ul>*@
 
 <div class="row">
     <div class="col-sm-12">
@@ -34,11 +34,6 @@
             <div class="tile-body">
                 <div class="row element-button" style="padding-left:10px">
                     <div class="row element-button" style="padding-bottom: 20px;">
-                        <div class="col-sm-2">
-                            <a class="btn btn-success btn-sm " type="button" title="Create Order" href="/OrderProcessing/CheckCusInfo">
-                                Create Order
-                            </a>
-                        </div>
                         @*<form class="col-sm-10" method="get">
                                 <div>
                                     <input class="btn-sm" type="search" name="search" placeholder="Enter phone number" style="width: 250px;" />
@@ -52,10 +47,8 @@
                                 <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã KH</th>
                                 <th aria-controls="sampleTable" rowspan="1" colspan="1">Số điện thoại</th>
                                 <th aria-controls="sampleTable" rowspan="1" colspan="1">Họ và tên</th>
-                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Địa chỉ</th>
                                 <th aria-controls="sampleTable" rowspan="1" colspan="1">Email</th>
-                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Ngày sinh</th>
-                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Giới tính</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Tổng tiền đặt</th>
                                 <th aria-controls="sampleTable" rowspan="1" colspan="1">Chức năng</th>
                             </tr>
                         </thead>
@@ -82,20 +75,15 @@
                                             @Html.DisplayFor(modelItem => item.HoTenKH)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.DiaChi)
-                                        </td>
-                                        <td>
                                             @Html.DisplayFor(modelItem => item.Email)
                                         </td>
                                         <td>
-                                            @{ var ngaySinh = string.Format("{0:dd/MM/yyyy}", item.NgaySinh);}
-                                            @Html.DisplayFor(modelItem => ngaySinh)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.GioiTinh)
+                                            @{ var tongTienDat = string.Format("{0:0,0} VNĐ", item.TongTienDat);}
+                                            @Html.DisplayFor(modelItem => tongTienDat)
                                         </td>
                                         <td>
                                             @*<a href="/OrderProcessing/EditCusInfo?MaKH=@item.MaKH&SDT=@item.SDT" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail"><i class="fas fa-edit"></i></a>*@
+                                            <a href="/OrderProcessing/CusDetail/@item.MaKH" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail"><i class="fas fa-train"></i></a>
                                             <a href="/OrderProcessing/EditCusInfo/@item.MaKH" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail"><i class="fas fa-edit"></i></a>
                                         </td>
                                     </tr>

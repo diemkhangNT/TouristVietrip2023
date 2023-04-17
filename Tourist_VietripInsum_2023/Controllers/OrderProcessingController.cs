@@ -82,6 +82,22 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
         }
 
+        public ActionResult CusDetail(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            KhachHang khachHang = db.KhachHangs.Find(id);
+
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            return View(khachHang);
+        }
+
         public ActionResult EditCusInfo(string id)
         {
             if (id == null)
@@ -423,11 +439,6 @@ namespace Tourist_VietripInsum_2023.Controllers
             Session["MaDHBook"] = donHang.MaDH;
             return View();
         }
-
-        
-
-
-
 
         public ActionResult DeleteOrdering(string id)
         {

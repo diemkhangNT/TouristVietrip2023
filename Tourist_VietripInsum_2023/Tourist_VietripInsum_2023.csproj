@@ -551,6 +551,7 @@
     <Content Include="Views\OrderProcessing\Bill.cshtml" />
     <Content Include="Views\OrderProcessing\AddTicket.cshtml" />
     <Content Include="Views\Guest\Payment.cshtml" />
+    <Content Include="Views\OrderProcessing\CusDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

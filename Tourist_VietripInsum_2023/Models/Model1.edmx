@@ -109,7 +109,7 @@
           <Property Name="UserPassword" Type="varchar" MaxLength="50" />
           <Property Name="HoTen" Type="nvarchar" MaxLength="50" />
           <Property Name="Sdt" Type="varchar" MaxLength="15" />
-          <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="500" />
           <Property Name="Email" Type="varchar" MaxLength="100" />
           <Property Name="NgaySinh" Type="datetime" />
           <Property Name="GioiTinh" Type="nvarchar" MaxLength="10" />
@@ -502,6 +502,7 @@
           <Property Name="NgaySinh" Type="DateTime" Precision="3" />
           <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="HinhDaiDien" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TongTienDat" Type="Double" />
           <NavigationProperty Name="BookTours" Relationship="Self.FK_BookTour_KhachHang1" FromRole="KhachHang" ToRole="BookTour" />
           <NavigationProperty Name="LoaiKH" Relationship="Self.FK_Customer_Guest_TypeCus" FromRole="KhachHang" ToRole="LoaiKH" />
           <NavigationProperty Name="PhanHois" Relationship="Self.FK_PhanHoi_KhachHang1" FromRole="KhachHang" ToRole="PhanHoi" />
@@ -542,7 +543,7 @@
           <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Sdt" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="NgaySinh" Type="DateTime" Precision="3" />
           <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
