@@ -111,5 +111,13 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             return View();
         }
+        public ActionResult DangNhap() 
+        {
+            return View();
+        }
+        public ActionResult DangKy()
+        {
+            return View();
+        }
     }
     }
