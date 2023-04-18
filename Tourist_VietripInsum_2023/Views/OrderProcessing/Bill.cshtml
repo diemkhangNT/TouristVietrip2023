@@ -4,6 +4,7 @@
     ViewBag.Title = "Hóa đơn";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
     ViewBag.booking = "active";
+    ViewBag.Name = "Hóa đơn";
     TouristEntities1 db = new TouristEntities1();
 }
 
@@ -33,12 +34,12 @@
                 <div id="page" class="page">
                     <div class="header">
                         @*<div class="logo">
-            <img class="app-nav__item" src="~/Content/Images/logo_project.png" width="40px" height="50px;" alt="User Image">
-            <h5 class="app-nav__item justify-content-between">SAIGON TRAVEL</h5>
-        </div>*@
+                                <img class="app-nav__item" src="~/Content/Images/logo_project.png" width="40px" height="50px;" alt="User Image">
+                                <h5 class="app-nav__item justify-content-between">SAIGON TRAVEL</h5>
+                            </div>*@
                         @*<br />
-        <br />
-        <br />*@
+                            <br />
+                            <br />*@
                         <div class="title element-button" style="text-align:center">
                             <span style="font-weight:600;font-size:20px">HÓA ĐƠN THANH TOÁN</span>
                             <br />
@@ -153,37 +154,34 @@
                                 <h6 style="margin-left:45%; font-style:italic;" id="sample1">(ký và ghi rõ họ tên)</h6>
                             </div>
                         </div>
-                      
-                        
-                        
-                        
+
+
+
+
                         <br />
                         <br />
                         <br />
 
                     </div>
-                  
+
 
                 </div>
 
             </div>
             <div class="row" style="padding-left:10px" id="btnin">
-                @*<div class="col-sm-2">
-                <a class="btn btn-warning btn-sm " data-toggle="modal" data-target="#myModal">
-                    Cập thông tin đơn hàng
-                </a>
-            </div>*@
+                <div class="col-sm-2">
+                    <a class="btn btn-warning btn-sm" href="/OrderProcessing/UpdateBooking/@Model.MaDH">Quay lại</a>
+                </div>
                 <div class="col-sm-2">
                     <a class="btn btn-delete btn-sm " title="In" onclick="printDiv('printMe')">
                         <i class="fas fa-print"></i> In dữ liệu
                     </a>
                 </div>
-                <div class="col-sm-2">
-
-
-                </div>
-
+           
             </div>
+        </div>
+    </div>
+</div>
             <script>
                 function printDiv(divName) {
 
