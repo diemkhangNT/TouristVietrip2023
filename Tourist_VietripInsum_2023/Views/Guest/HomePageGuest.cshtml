@@ -142,9 +142,8 @@
                                 var tien = string.Format("{0:#,##0}", item.GiaNguoiLon);
                                 var loaitour = db.LoaiTours.Where(s => s.MaLTour == item.MaLTour).FirstOrDefault();
 
-                                //var pricesale = (double)item.GiaNguoiLon * (1 - loaitour.ChietKhau);
-                                var tienchuagiam = item.GiaNguoiLon + (item.GiaNguoiLon * loaitour.ChietKhau);
-                                var tiensale = string.Format("{0:#,##0}", tienchuagiam);
+                                var pricesale = (double)item.GiaNguoiLon * (1 + loaitour.ChietKhau);
+                                var tiengiamgia = string.Format("{0:#,##0}", pricesale);
                                 var ck = loaitour.ChietKhau * 100;
 
                             }
@@ -163,10 +162,10 @@
                                         {
                                             <div class="pricebefore">
                                                 Giá
-                                                <span class="tour-item_priceold">@tiensale ₫</span>
+                                                <span class="tour-item_priceold">@tiengiamgia ₫</span>
                                             </div>
                                             <div class="price-current">
-                                                <span class="tour-item_price-new">@tien ₫</span>
+                                                <span class="tour-item_price-new"> @tien ₫</span>
                                                 <span class="tour-item_discount small p-1">@ck% GIẢM</span>
                                             </div>
                                         }

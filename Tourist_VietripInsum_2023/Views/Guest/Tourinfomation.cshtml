@@ -34,7 +34,7 @@
                         var tien = string.Format("{0:#,##0}", Model.GiaNguoiLon);
                         var tiente = string.Format("{0:#,##0}", Model.GiaTreEm);
                         var loaitour = db.LoaiTours.Where(s => s.MaLTour == Model.MaLTour).FirstOrDefault();
-                        var pricesale = (double)Model.GiaNguoiLon * (1 - loaitour.ChietKhau);
+                        var pricesale = (double)Model.GiaNguoiLon * (1 + loaitour.ChietKhau);
                         var tiengiamgia = string.Format("{0:#,##0}", pricesale);
                         var ck = loaitour.ChietKhau * 100;
 
@@ -53,11 +53,11 @@
                         <div class="or-price">
                             <span>
                                 Giá
-                                <span class="tour-itemprice">@tien ₫</span>/ khách
+                                <span class="tour-itemprice">@tiengiamgia ₫</span>/ khách
                             </span>
                         </div>
                         <div class="sale-price">
-                            <p><span class="price">@tiengiamgia ₫</span>/ khách</p>
+                            <p><span class="price">@tien ₫</span>/ khách</p>
                         </div>
                         <div class="saving">
                         </div>
@@ -253,7 +253,7 @@
                                             <input type="submit" value="Thêm phản hồi" class="btn btn-success btn-sm" />
                                         </div>
                                     </div>
-                                }
+                                                    }
                             </div>
                         </div>
                     </div>
@@ -284,7 +284,7 @@
                                     </div>
                                 </div>
                                 @{
-                                    List<ChiTietTour> chiTietTours = db.ChiTietTours.Where(c => c.MaTour == Model.MaTour).ToList();
+                                    List<ChiTietTour> chiTietTours = db.ChiTietTours.Where(s => s.MaTour == Model.MaTour).ToList();
                                     List<DiaDiemThamQuan> diaDiemThamQuans = new List<DiaDiemThamQuan>();
 
                                     foreach (var ctiet in chiTietTours)
@@ -350,7 +350,7 @@
                                 <p>Thời gian: <b>@Model.SoNgay ngày</b></p>
                                 <p>Nơi khởi hành: <b>@Model.NoiKhoiHanh</b></p>
                                 <p>
-                                    Số chỗ còn nhận: <b>4</b>
+                                    Số chỗ còn nhận: <b>@Model.SoChoNull</b>
                                 </p>
                             </div>
                             <div class="calendar">
@@ -471,7 +471,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                }
+                                                }
 
                             </div>
 
@@ -545,14 +545,14 @@
                                     <tr>
                                         <th scope="row">1</th>
                                         <td>Người lớn (Từ 12 tuổi trở lên)</td>
+                                        <td>@tiengiamgia đ</td>
                                         <td>@tien đ</td>
-                                        <td>7,790,000 đ</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">2</th>
                                         <td>Trẻ em (Từ 5 - 11 tuổi)</td>
                                         <td>@tiente đ</td>
-                                        <td>0 đ</td>
+                                        <td>@tiente đ</td>
                                     </tr>
                                     @{
                                         var tiennho = string.Format("{0:#,##0}", Model.GiaTreEm / 2);
