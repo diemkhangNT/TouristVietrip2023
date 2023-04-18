@@ -541,12 +541,12 @@ namespace Tourist_VietripInsum_2023.Controllers
                     db.BookTours.Remove(donHang);
                     db.SaveChanges();
 
-                    TempData["deletesuccess"] = "Xóa đơn đặt thành công";
+                    TempData["bookingtour"] = "deletebooking";
                     return RedirectToAction("Booking");
                 }
                 else
                 {
-                    TempData["xoadonhang"] = "loi";
+                    TempData["bookingtour"] = "loi";
                     return RedirectToAction("UpdateBooking", new RouteValueDictionary(
                                       new { controller = "OrderProcessing", action = "BookTourDeTail", Id = donHang.MaDH }));
                 }
@@ -650,10 +650,11 @@ namespace Tourist_VietripInsum_2023.Controllers
                     //Gui mail
                     var toEmail = ConfigurationManager.AppSettings["toEmailAddress"].ToString();
                     new MailHelp().SendMail(kh.Email, "Thông tin", content);
+                   
 
                 }
-               
-                TempData["success"] = "Cập nhật trạng thái thành công";
+
+                TempData["bookingtour"] = "editbookingtc";
                 return RedirectToAction("UpdateBooking", new RouteValueDictionary(
                                   new { controller = "OrderProcessing", action = "BookTourDeTail", Id = bookTour.MaDH}));
             }
@@ -677,8 +678,8 @@ namespace Tourist_VietripInsum_2023.Controllers
 
             //Gui mail
             var toEmail = ConfigurationManager.AppSettings["toEmailAddress"].ToString();
-            new MailHelp().SendMail(kh.Email, "Thông tin", content);
-
+            new MailHelp().SendMail(kh.Email, "Thông báo", content);
+             TempData["bookingtour"] = "MAIL";
             return RedirectToAction("HomePageOP");
 
         }
@@ -744,6 +745,12 @@ namespace Tourist_VietripInsum_2023.Controllers
             double tongtien = 0;
             double pricesale = 0;
             int m = int.Parse(soluongdat);
+            if (m == 0)
+            {
+                TempData["ve"] = "trong";
+                return RedirectToAction("BookTourDeTail", new RouteValueDictionary(
+                                       new { controller = "OrderProcessing", action = "BookTourDeTail", Id = madh }));
+            }
             if (ModelState.IsValid)
             {
                 Random rd = new Random();

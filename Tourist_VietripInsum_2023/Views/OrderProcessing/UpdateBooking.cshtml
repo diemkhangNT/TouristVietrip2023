@@ -11,26 +11,40 @@
 
 }
 
-@*@if (TempData["success"] != null)
-{
-    <script>
-        swal({
-            title: "Thay đổi trạng thái thành công !!!",
-            icon: "success",
-            button: "Thoát",
-        });
-    </script>
+@{
+    string ktra = (string)TempData["bookingtour"];
+    if (ktra == "editbookingtc")
+    {
+        <script>
+            swal({
+                title: "Thay đổi trạng thái thành công !!!",
+                icon: "success",
+                button: "Thoát",
+            });
+        </script>
+    }
+    else if (ktra == "loi")
+    {
+        <script>
+            swal({
+                title: "Đơn hàng đã thanh toán !!!",
+                icon: "error",
+                button: "Thoát",
+            });
+        </script>
+    }
+    else if (ktra == "MAIL")
+    {
+        <script>
+            swal({
+                title: "Gửi mail thành công !!!",
+                icon: "success",
+                button: "Thoát",
+            });
+        </script>
+    }
 }
-else if(TempData["xoadonhang"]!=null)
-{
-    <script>
-        swal({
-            title: "Đơn hàng đã thanh toán !!!",
-            icon: "error",
-            button: "Thoát",
-        });
-    </script>
-}*@
+
 
 <div class="row">
     <div class="col-sm-12">
@@ -142,130 +156,142 @@ else if(TempData["xoadonhang"]!=null)
 
 
                                     </div>
+                                    <div class="col-sm-2" style="margin:10px">
+                                        <input class="btn btn-success btn-sm" type="submit" value="Cập nhật" />
+                                    </div>
+
 
                                 </div>
+                            }
 
-
-
-
-                                <div class="element-button" style="margin-top: 20px;">
-                                    <table class="table">
-                                        <thead style="background-color: #ffd43b;">
+                            <div class="element-button">
+                                <table class="table">
+                                    <thead style="background-color: #ffd43b;">
+                                        <tr>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã vé</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Loại vé</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Họ và tên</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Giới tính</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Ngày sinh</th>
+                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Lưu ý</th>
+                                            @*<th aria-controls="sampleTable" rowspan="1" colspan="1">Tùy chọn</th>*@
+                                        </tr>
+                                    </thead>
+                                    @{
+                                        var listTickets = db.Ves.Where(s => s.MaDH == Model.MaDH).ToList();
+                                    }
+                                    <tbody>
+                                        @if (listTickets.Count() == 0)
+                                        {
                                             <tr>
-                                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã vé</th>
-                                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Loại vé</th>
-                                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Họ và tên</th>
-                                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Giới tính</th>
-                                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Ngày sinh</th>
-                                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Lưu ý</th>
-                                                @*<th aria-controls="sampleTable" rowspan="1" colspan="1">Tùy chọn</th>*@
+                                                <td colspan="9" class="text-center"> Records not found </td>
                                             </tr>
-                                        </thead>
-                                        @{
-                                            var listTickets = db.Ves.Where(s => s.MaDH == Model.MaDH).ToList();
                                         }
-                                        <tbody>
-                                            @if (listTickets.Count() == 0)
+                                        else
+                                        {
+                                            foreach (var item in listTickets)
                                             {
                                                 <tr>
-                                                    <td colspan="9" class="text-center"> Records not found </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.MaVe)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.LoaiVe.TenLVe)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Hoten_KH)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.GioiTinh)
+                                                    </td>
+                                                    <td>
+                                                        @{ var ngaySinh = string.Format("{0:dd/MM/yyyy}", item.NgaySinh);}
+                                                        @Html.DisplayFor(modelItem => ngaySinh)
+                                                    </td>
+
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.LuuY)
+                                                    </td>
+                                                    @*<td>
+                                                            <a href="/OrderProcessing/TicketEdit/@item.MaVe" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                        </td>*@
                                                 </tr>
                                             }
-                                            else
-                                            {
-                                                foreach (var item in listTickets)
-                                                {
-                                                    <tr>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.MaVe)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.LoaiVe.TenLVe)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.Hoten_KH)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.GioiTinh)
-                                                        </td>
-                                                        <td>
-                                                            @{ var ngaySinh = string.Format("{0:dd/MM/yyyy}", item.NgaySinh);}
-                                                            @Html.DisplayFor(modelItem => ngaySinh)
-                                                        </td>
+                                        }
+                                    </tbody>
+                                </table>
 
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.LuuY)
-                                                        </td>
-                                                        @*<td>
-                                                                <a href="/OrderProcessing/TicketEdit/@item.MaVe" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                                    <i class="fas fa-edit"></i>
-                                                                </a>
-                                                            </td>*@
-                                                    </tr>
-                                                }
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10">
                                     <a class="btn btn-warning btn-sm" href="/OrderProcessing/Booking">Quay lại</a>
-                                    <input class="btn btn-success btn-sm" type="submit" value="Cập nhật" />
-                                    }
-                                    <a class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#DeleteBooking">Xóa đơn hàng</a>
+                                    <a class="btn btn-outline-danger btn-sm" role="button" data-toggle="modal" data-target="#DeleteBooking">Xóa đơn hàng</a>
+                                    <a class="btn btn-outline-secondary btn-sm" href="/OrderProcessing/Bill/@Model.MaDH">Xuất hóa đơn</a>
+                                </div>
 
-                                    <div class="modal fade" id="DeleteBooking" tabindex="-1" role="dialog" aria-labelledby="DeleteBooking" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
+                                <div class="col-md-2">
 
-                                            <div class="modal-content" style="padding:20px 10px">
-                                                <div class="modal-body">
-                                                    <div class="hero-text">
-
-                                                        <div class="form-horizontal" style="color: #2d4271;text-align:left">
-
-                                                            <h4 style="text-align:center" class="element-button"> XÁC NHẬN ĐƠN HÀNG</h4>
-
-                                                            <strong>Thông tin khách hàng</strong>
-                                                            <br />
-                                                            @kh.HoTenKH - @kh.SDT -@kh.Email
-                                                            <br />
-                                                            @kh.DiaChi
-                                                            <br />
-                                                            <strong>Thông tin đơn hàng</strong>
-                                                            <br />
-                                                            <strong>Mã đơn hàng:</strong>@Model.MaDH
-                                                            <br />
-                                                            <strong>Ngày mua: </strong>@Model.NgayLap
-                                                            <br />
-                                                            <strong>Số lượng vé:</strong>@Model.SoCho
-                                                            <br />
-                                                            <strong>Tổng tiền:</strong>@tongTien vnd
-
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a class="btn btn-secondary btn-sm" data-dismiss="modal">Close</a>
-                                                    <a type="submit" value="Xóa" class="btn btn-danger btn-sm" href="/OrderProcessing/DeleteBooking/@Model.MaDH">Xóa </a>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
                                     @using (Html.BeginForm("SendMailCancel", "OrderProcessing", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                     {
                                         @Html.AntiForgeryToken()
-                                        <input type="submit" value="Thêm vé" class="btn btn-success btn-sm" />
+                                        <input type="submit" value="Gửi Mail Hủy" class="btn btn-outline-dark btn-sm" />
                                     }
-                                    <a class="btn btn-outline-dark btn-sm" href="/OrderProcessing/Bill/@Model.MaDH">Xuất hóa đơn</a>
-                                
+                                </div>
 
-                           
+                            </div>
+
+
+
+
+
+
                         </div>
                     </div>
 
 
 
                 </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="DeleteBooking" tabindex="-1" role="dialog" aria-labelledby="DeleteBooking" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content" style="padding:20px 10px">
+            <div class="modal-body">
+                <div class="hero-text">
+
+                    <div class="form-horizontal" style="color: #2d4271;text-align:left">
+
+                        <h4 style="text-align:center" class="element-button"> XÁC NHẬN ĐƠN HÀNG</h4>
+
+                        <strong>Thông tin khách hàng</strong>
+                        <br />
+                        @kh.HoTenKH - @kh.SDT -@kh.Email
+                        <br />
+                        @kh.DiaChi
+                        <br />
+                        <strong>Thông tin đơn hàng</strong>
+                        <br />
+                        <strong>Mã đơn hàng:</strong>@Model.MaDH
+                        <br />
+                        <strong>Ngày mua: </strong>@Model.NgayLap
+                        <br />
+                        <strong>Số lượng vé:</strong>@Model.SoCho
+                        <br />
+                        <strong>Tổng tiền:</strong>@tongTien vnd
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-secondary btn-sm" data-dismiss="modal">Close</a>
+                <a type="submit" value="Xóa" class="btn btn-danger btn-sm" href="/OrderProcessing/DeleteBooking/@Model.MaDH">Xóa</a>
             </div>
         </div>
 
