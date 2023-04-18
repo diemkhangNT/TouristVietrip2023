@@ -33,11 +33,14 @@
             });
         </script>
     }
-    else if (ktra == "MAIL")
+   
+
+    string mailcheck = (string)TempData["cancelmail"];
+    if (mailcheck == "cancel")
     {
         <script>
             swal({
-                title: "Gửi mail thành công !!!",
+                title: "Gửi mail hủy thành công !!!",
                 icon: "success",
                 button: "Thoát",
             });

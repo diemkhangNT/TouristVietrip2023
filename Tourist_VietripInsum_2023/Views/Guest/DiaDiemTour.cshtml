@@ -1,26 +1,31 @@
 ﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.DiaDiemThamQuan>
+@using Tourist_VietripInsum_2023.Models
 <link href="~/Content/Guest/homepageGuest.css" rel="stylesheet" />
-
+@{
+    TouristEntities1 db = new TouristEntities1();
+    List<DiaDiemThamQuan> d = Model.Take(6).ToList();
+}
 <div class="row g-5 g-lg-3 d-none d-lg-flex">
-    @foreach (var diadiem in Model)
-        {
-            <div class="col-4">
-                <div class="card destination-item">
-                    <div class="box-container">
-                        <div class="box">
-                            <img src="@diadiem.HinhMinhHoa_D" alt="">
-                            <div class="content">
-                                <h6>@diadiem.TenDDTQ</h6>
-                                <p></p>
-                                <a href="/Guest/ListTour_DiaDiem/@diadiem.MaDDTQ" class="btn">see more</a>
-                            </div>
+
+    @foreach (var diadiem in d)
+    {
+        <div class="col-4">
+            <div class="card destination-item">
+                <div class="box-container">
+                    <div class="box">
+                        <img src="@diadiem.HinhMinhHoa_D" alt="">
+                        <div class="content">
+                            <h6>@diadiem.TenDDTQ</h6>
+                            <p></p>
+                            <a href="/Guest/ListTour_DiaDiem/@diadiem.MaDDTQ" class="btn">Xem thêm</a>
                         </div>
                     </div>
-
-
                 </div>
+
+
             </div>
-        }
+        </div>
+    }
 
 
 
