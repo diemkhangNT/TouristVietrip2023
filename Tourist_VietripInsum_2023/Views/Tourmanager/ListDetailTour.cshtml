@@ -5,6 +5,9 @@
     ViewBag.Title = "ListDetailTour";
     Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
     TouristEntities1 db = new TouristEntities1();
+    var matour = Session["tempdata"];
+    var tour = db.Tours.Where(s => s.MaTour == matour).FirstOrDefault();
+    int songay = Model.Count();
     ViewBag.Name = "List Detail";
     ViewBag.qlt = "active";
 
@@ -17,9 +20,21 @@
             <div class="tile-body">
                 <div class="row">
                     <div class="col-sm-2">
-                        <a class="btn btn-success btn-sm " type="button" title="Create Detail" href="/Tourmanager/CreateDetailTour/@Session["tempdata"]">
-                            Thêm chi tiết tour
-                        </a>
+                        @{
+                            if (tour.SoNgay == songay)
+                            {
+                                <a class="btn btn-outline-success btn-sm" style="cursor:no-drop;" type="button" title="Create Detail">
+                                   <i class="fas fa-plus"> </i> Thêm chi tiết tour
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-outline-success btn-sm " type="button" title="Create Detail" href="/Tourmanager/CreateDetailTour/@Session["tempdata"]">
+                                    <i class="fas fa-plus"> </i> Thêm chi tiết tour
+                                </a>
+                            }
+                        }
+
                     </div>
                 </div>
             </div>
@@ -120,7 +135,7 @@
 </div>
 
 <div>
-    <a class="btn btn-outline-danger btn-sm" href="~/Tourmanager/QuanLyTour">
+    <a class="btn btn-outline-danger btn-sm" href="~/Tourmanager/TourDetails/@matour">
         <i class="fas fa-retweet">
             Back to list tour
         </i>

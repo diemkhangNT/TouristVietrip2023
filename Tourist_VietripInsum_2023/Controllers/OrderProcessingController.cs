@@ -364,8 +364,6 @@ namespace Tourist_VietripInsum_2023.Controllers
                 double tienbandau = TinhCKKhach(tongtien, booking.MaKH);
                 updateBT.TotalPrice = tienbandau;
                 db.SaveChanges();
-
-
                 return RedirectToAction("OrderingInfo");
             }
             return RedirectToAction("OrderingInfo");

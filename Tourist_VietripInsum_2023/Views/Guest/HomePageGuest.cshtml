@@ -5,7 +5,7 @@
     ViewBag.Name = "Homepage Guest";
 
     TouristEntities1 db = new TouristEntities1();
-   
+
 
 }
 
@@ -18,14 +18,27 @@
     if (data == "taothanhcong")
     {
         <script>
-            swal("Good job!", "Bạn đã gửi phản hồi cho SaiGonTravel", "success");
+            swal("Đã gửi!", "Bạn đã gửi phản hồi cho SaiGonTravel", "success");
         </script>
     }
 
 
 
 }
-
+@{
+    var checkMessage = TempData["noti"];
+    if (checkMessage == "success")
+    {
+        <script>
+            swal({
+                title: "Đặt vé thành công",
+                text: "Chúng tôi đã gửi mail xác nhận cho bạn! Vui lòng phản hồi lại với chúng tôi trong thời gian sớm nhất!",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    }
+}
 
 
 @*CAROUSEL*@
@@ -69,12 +82,12 @@
         <div class="banner-right col-sm-8">
             <p> <span>Công ty Du lịch SaiGon Travel</span>  là công ty du lịch, dịch vụ chuyên nghiệp, uy tín, đáng tin cậy ở Thành Phố Hồ Chí Minh. Chúng tôi chuyên về các <span> tour du lịch trong nước</span>  với sự cam kết chất lượng dịch vụ tốt nhất dành cho khách hàng. Nụ cười của quý khách chính là niềm hạnh phúc, động lực lớn cho công ty để đem đến trải nghiệm tốt nhất cho khách hàng. </p>
             <div class="contact-banner">
-                <a href="/Guest/VeChungToi" target="#" class="btn btn-success">
+                <a href="/Guest/VeChungToi" target="_self" class="btn btn-success">
                     <span style="color: white;">Về chúng tôi</span>
                     <i class="bi bi-chevron-right"></i>
                 </a>
-                <a class="btn btn-outline-success" href="~/Guest/LienHeGuest" target="_self" >
-                   Liên hệ
+                <a class="btn btn-outline-success" href="~/Guest/LienHeGuest" target="_self">
+                    Liên hệ
                 </a>
 
 
@@ -95,7 +108,7 @@
         @{
             List<Tour> tournb = db.Tours.Where(t => t.TrangThai == "Tour nổi bật").ToList();
             List<Tour> tours = db.Tours.Where(t => t.TrangThai == "Tour nổi bật").ToList();
-           
+
 
 
         }
@@ -169,11 +182,11 @@
 
                                     <div class="tour-item_btntour">
                                         @*<div class="btn-book">
-                                            <a href="#" class="btn-order btn-sm " title="" value="" id="">
-                                                <i class="fas fa-shopping-cart"></i>
-                                                Đặt chổ
-                                            </a>
-                                        </div>*@
+                                                <a href="#" class="btn-order btn-sm " title="" value="" id="">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                                    Đặt chổ
+                                                </a>
+                                            </div>*@
                                         <div class="btn-block">
                                             <a href="/Guest/Tourinfomation/@item.MaTour" title="" class="btn-viewdetail">
                                                 Xem chi tiết
@@ -203,18 +216,14 @@
 
         <div class="btnmoretour">
             <a href="/Guest/ListTour" class="btn btn-success">
-               Xem thêm 
+                Xem thêm
             </a>
         </div>
         <style>
-            .btnmoretour{
-                padding-top:30px;
-                text-align:right;
-               
-
+            .btnmoretour {
+                padding-top: 30px;
+                text-align: right;
             }
-               
-               
         </style>
     </div>
 

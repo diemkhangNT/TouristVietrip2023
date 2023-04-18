@@ -143,6 +143,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         [HttpPost]
         public ActionResult DeleteHotel(string id, Hotel ht)
         {
+            ht = db.Hotels.Where(s => s.MaKS == id).FirstOrDefault();
             TempData["noti"] = "delete-true";
             db.Hotels.Remove(ht);
             db.SaveChanges();
@@ -606,7 +607,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MaLTour = new SelectList(db.LoaiTours, "MaLTour", "TenLTour", tour.LoaiTour.TenLTour);
+            ViewBag.MaLTour = new SelectList(db.LoaiTours, "MaLTour", "TenLTour");
             return View(tour);
         }
         [HttpPost]
@@ -619,6 +620,7 @@ namespace Tourist_VietripInsum_2023.Controllers
 
             TimeSpan span = endDate.Subtract(startDate);
             int numOfDays = (int)span.TotalDays + 1;
+            tour.SoNgay = numOfDays;
             db.SaveChanges();
             TempData["noti"] = "oke";
             return RedirectToAction("QuanLyTour");
