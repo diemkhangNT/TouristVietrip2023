@@ -5,7 +5,7 @@
     ViewBag.Name = "Homepage Guest";
 
     TouristEntities1 db = new TouristEntities1();
-   
+
 
 }
 
@@ -25,7 +25,20 @@
 
 
 }
-
+@{
+    var checkMessage = TempData["noti"];
+    if (checkMessage == "success")
+    {
+        <script>
+            swal({
+                title: "Đặt vé thành công",
+                text: "Chúng tôi đã gửi mail xác nhận cho bạn! Vui lòng phản hồi lại với chúng tôi trong thời gian sớm nhất!",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    }
+}
 
 
 @*CAROUSEL*@
@@ -73,8 +86,8 @@
                     <span style="color: white;">Về chúng tôi</span>
                     <i class="bi bi-chevron-right"></i>
                 </a>
-                <a class="btn btn-outline-success" href="~/Guest/LienHeGuest" target="_self" >
-                   Liên hệ
+                <a class="btn btn-outline-success" href="~/Guest/LienHeGuest" target="_self">
+                    Liên hệ
                 </a>
 
 
@@ -95,7 +108,7 @@
         @{
             List<Tour> tournb = db.Tours.Where(t => t.TrangThai == "Tour nổi bật").ToList();
             List<Tour> tours = db.Tours.Where(t => t.TrangThai == "Tour nổi bật").ToList();
-           
+
 
 
         }
@@ -136,7 +149,7 @@
                             @{
                                 var tien = string.Format("{0:#,##0}", item.GiaNguoiLon);
                                 var loaitour = db.LoaiTours.Where(s => s.MaLTour == item.MaLTour).FirstOrDefault();
-                                var pricesale = (double)item.GiaNguoiLon * (1 - loaitour.ChietKhau);
+                                var pricesale = (double)item.GiaNguoiLon * (1 + loaitour.ChietKhau);
                                 var tiengiamgia = string.Format("{0:#,##0}", pricesale);
                                 var ck = loaitour.ChietKhau * 100;
 
@@ -156,10 +169,10 @@
                                         {
                                             <div class="pricebefore">
                                                 Giá
-                                                <span class="tour-item_priceold">@tien ₫</span>
+                                                <span class="tour-item_priceold">@tiengiamgia ₫</span>
                                             </div>
                                             <div class="price-current">
-                                                <span class="tour-item_price-new">@tiengiamgia ₫</span>
+                                                <span class="tour-item_price-new"> @tien ₫</span>
                                                 <span class="tour-item_discount small p-1">@ck% GIẢM</span>
                                             </div>
                                         }
@@ -169,11 +182,11 @@
 
                                     <div class="tour-item_btntour">
                                         @*<div class="btn-book">
-                                            <a href="#" class="btn-order btn-sm " title="" value="" id="">
-                                                <i class="fas fa-shopping-cart"></i>
-                                                Đặt chổ
-                                            </a>
-                                        </div>*@
+                                                <a href="#" class="btn-order btn-sm " title="" value="" id="">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                                    Đặt chổ
+                                                </a>
+                                            </div>*@
                                         <div class="btn-block">
                                             <a href="/Guest/Tourinfomation/@item.MaTour" title="" class="btn-viewdetail">
                                                 Xem chi tiết
@@ -203,18 +216,14 @@
 
         <div class="btnmoretour">
             <a href="/Guest/ListTour" class="btn btn-success">
-               Xem thêm 
+                Xem thêm
             </a>
         </div>
         <style>
-            .btnmoretour{
-                padding-top:30px;
-                text-align:right;
-               
-
+            .btnmoretour {
+                padding-top: 30px;
+                text-align: right;
             }
-               
-               
         </style>
     </div>
 

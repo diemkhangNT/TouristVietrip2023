@@ -436,7 +436,8 @@ namespace Tourist_VietripInsum_2023.Controllers
         public ActionResult Ticket()
         {
             string matour = (string)Session["Matourchon"];
-            ViewBag.chodamua = SoChoTrong(matour);
+            var tour = db.Tours.Where(t => t.MaTour == matour).FirstOrDefault();
+            ViewBag.chodamua = tour.SoChoNull;
             return View();
         }
 
@@ -447,6 +448,15 @@ namespace Tourist_VietripInsum_2023.Controllers
             var maDH = Session["madonhang"].ToString();
             var dh = db.BookTours.Where(t => t.MaDH == maDH).FirstOrDefault();
             var tour = db.Tours.Where(s => s.MaTour == dh.MaTour).FirstOrDefault();
+            var ves = db.Ves.Where(s => s.MaDH == maDH).ToList();
+            if(ves.Count() > 0)
+            {
+                foreach(var item in ves)
+                {
+                    db.Ves.Remove(item);
+                    tour.SoChoNull += 1;
+                }
+            }
             double tongtien = 0;
             int m = 0;
             //null
@@ -504,26 +514,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 dh.SoCho = m;
                 tour.SoChoNull -= dh.SoCho;
                 db.SaveChanges();
-                //string content = System.IO.File.ReadAllText(Server.MapPath("/Content/template/mailconn.html"));
-
-                
-                //var t = db.Tours.Where(s => s.MaTour == dh.MaTour).FirstOrDefault();
                 TongtienDAT(kh.MaKH);
-                //content = content.Replace("{{TenKH}}", kh.HoTenKH);
-                //content = content.Replace("{{Phoneno}}", dh.MaKH);
-                //content = content.Replace("{{MaDH}}", dh.MaDH);
-                //content = content.Replace("{{Email}}", kh.Email);
-                //content = content.Replace("{{Address}}", dh.MaKH);
-                //content = content.Replace("{{MaTour}}", t.MaTour);
-                //content = content.Replace("{{TenTour}}", t.TenTour);
-                //content = content.Replace("{{ngaykhoihanh}}", t.NgayKhoihanh.ToString());
-                //content = content.Replace("{{noikhoihanh}}", t.NoiKhoiHanh);
-                //content = content.Replace("{{hanchotve}}", t.HanChotDatVe.ToString());
-                //content = content.Replace("{{total}}", dh.TotalPrice.ToString());
-
-                ////Gui mail
-                //var toEmail = ConfigurationManager.AppSettings["toEmailAddress"].ToString();
-                //new MailHelp().SendMail(kh.Email, "Thông tin", content);
                 TempData["noti"] = "success";
                 return RedirectToAction("Payment");
             }
@@ -540,6 +531,26 @@ namespace Tourist_VietripInsum_2023.Controllers
         public ActionResult Payment(string id)
         {
             //Email
+            string content = System.IO.File.ReadAllText(Server.MapPath("/Content/template/mailconn.html"));
+            var dh = db.BookTours.Where(s => s.MaDH == id).FirstOrDefault();
+            var kh = db.KhachHangs.Where(s => s.MaKH == dh.MaKH).FirstOrDefault();
+            var t = db.Tours.Where(s => s.MaTour == dh.MaTour).FirstOrDefault();
+            content = content.Replace("{{TenKH}}", kh.HoTenKH);
+            content = content.Replace("{{Phoneno}}", dh.MaKH);
+            content = content.Replace("{{MaDH}}", dh.MaDH);
+            content = content.Replace("{{Email}}", kh.Email);
+            content = content.Replace("{{Address}}", dh.MaKH);
+            content = content.Replace("{{MaTour}}", t.MaTour);
+            content = content.Replace("{{TenTour}}", t.TenTour);
+            content = content.Replace("{{ngaykhoihanh}}", t.NgayKhoihanh.ToString());
+            content = content.Replace("{{noikhoihanh}}", t.NoiKhoiHanh);
+            content = content.Replace("{{hanchotve}}", t.HanChotDatVe.ToString());
+            content = content.Replace("{{total}}", dh.TotalPrice.ToString());
+
+            ////Gui mail
+            var toEmail = ConfigurationManager.AppSettings["toEmailAddress"].ToString();
+            new MailHelp().SendMail(kh.Email, "Xác nhận đặt tour", content);
+            TempData["noti"] = "success";
             return RedirectToAction("HomePageGuest", "Guest");
         }
 
