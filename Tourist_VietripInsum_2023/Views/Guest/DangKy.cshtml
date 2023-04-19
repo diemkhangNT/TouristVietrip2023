@@ -12,7 +12,7 @@
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f2f2f2;
-            background-image: url('/images/img_background.jpg');
+            background-image: url('/images/img_background1.jpg');
             background-repeat: no-repeat;
             background-size: cover;
         }
@@ -30,8 +30,11 @@
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            width: 800px;
             transition: all 0.3s ease-in-out;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
         }
 
             .form:hover {
@@ -49,6 +52,7 @@
                 width: 100%;
                 background-color: #f2f2f2;
                 transition: all 0.3s ease-in-out;
+
             }
 
                 .form input[type="text"]:focus, .form input[type="password"]:focus, .form input[type="date"] {
@@ -77,37 +81,42 @@
                 font-size: 16px;
                 transition: all 0.3s ease-in-out;
             }
-
-                .form input[type="submit"]:hover {
+            .form input[type="submit"]:hover {
                     background-color: #e3b236;
-                }
+            }
+            h2 {
+                padding-top: 120px;
+            }
     </style>
 </head>
 <body>
     <div class="container">
         <form class="form">
             <h2>Đăng ký tài khoản</h2>
-            <label for="username">Tên đăng nhập</label>
-            <input type="text" id="username" name="username" required>
-            <label for="password">Mật khẩu</label>
-            <input type="password" id="password" name="password" required>
-            <label for="password-confirm">Nhập lại mật khẩu</label>
-            <input type="password" id="password-confirm" name="password-confirm" required>
-            <label for="phone">Số điện thoại</label>
-            <input type="text" id="phone" name="phone" required>
-            <label for="address">Địa chỉ</label>
-            <input type="text" id="address" name="address" required>
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email" required>
-            <label for="birthday"> Ngày sinh</label>
-            <input type="date" id="birthday" name="birthday">
-            <label for="avatar">Ảnh đại diện:</label>
-            <input type="file" id="avatar" name="avatar" accept=".jpg, .jpeg, .png" title="Chỉ chấp nhận tệp ảnh có định dạng JPG, JPEG và PNG.">
-
-
-            <input type="submit" value="Đăng ký" />
-            <!--Xử lí cái button đăng ký này nhen dĩm khen -->
-        </form>
+                <div class="col">
+                    <label for="username">Tên đăng nhập</label>
+                    <input type="text" id="username" name="username" required>
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" name="password" required>
+                    <label for="password-confirm">Nhập lại mật khẩu</label>
+                    <input type="password" id="password-confirm" name="password-confirm" required>
+                    <label for="phone">Số điện thoại</label>
+                    <input type="text" id="phone" name="phone" required>
+                </div>
+                <div class="col">
+                    <label for="address">Địa chỉ</label>
+                    <input type="text" id="address" name="address" required>
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email" required>
+                    <label for="birthday"> Ngày sinh</label>
+                    <input type="date" id="birthday" name="birthday">
+                    <label for="avatar">Ảnh đại diện:</label>
+                    <input type="file" id="avatar" name="avatar" accept=".jpg, .jpeg, .png" title="Chỉ chấp nhận tệp ảnh có định dạng JPG, JPEG và PNG.">
+                    <input type="submit" value="Đăng ký" />
+                </div>
+                </div>
+                <!--Xử lí cái button đăng ký này nhen dĩm khen -->
+</form>
     </div>
 </body>
 </html>
