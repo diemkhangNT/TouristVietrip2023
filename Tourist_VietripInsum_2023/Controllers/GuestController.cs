@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
 using Tourist_VietripInsum_2023.common;
 using Tourist_VietripInsum_2023.Models;
 
@@ -16,6 +17,38 @@ namespace Tourist_VietripInsum_2023.Controllers
     {
         TouristEntities1 db = new TouristEntities1();
         // GET: Guest
+
+        public ActionResult LoginGuest()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult LoginGuest(string username, string password)
+        {
+            var data = db.KhachHangs.Where(s => s.Username == username && s.UserPassword == password).FirstOrDefault();
+            var taikhoan = db.KhachHangs.SingleOrDefault(s => s.Username == username && s.UserPassword == password);
+            if (taikhoan == null)
+            {
+                TempData["error"] = "err";
+                return View("LoginGuest");
+            }
+            else if (taikhoan != null)
+            {
+                //add session
+                db.Configuration.ValidateOnSaveEnabled = false;
+                Session["UserKH"] = taikhoan;
+                return RedirectToAction("HomePageGuest", "Guest");
+            }
+            return View();
+        }
+
+        public ActionResult LogOut()
+        {
+            Session.Clear();//remove session
+            FormsAuthentication.SignOut();
+            return RedirectToAction("HomePageGuest");
+        }
+
         public ActionResult HomePageGuest()
         {
             return View();
