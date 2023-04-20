@@ -35,15 +35,12 @@
 <body>
     <div>
         <!-- header section starts  -->
-
         <header class="header">
-
             <nav class="navbar navbar-expand-lg " style="background: #094933 ">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="/Guest/HomePageGuest">
-                        <img src="~/Content/Images/logo_project.png" height="40px" width="30px" />
+                        <img src="~/Content/Images/logo_project.png" height="40" width="30px" />
                         <span>SAIGON TRAVEL</span>
-
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -55,13 +52,14 @@
                                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"> Du lịch </a>
                                 <div class="dropdown-menu megamenu" role="menu">
                                     @Html.Action("DiaDiemPartial", "Guest")
-
                                 </div> <!-- dropdown-mega-menu.// -->
                             </li>
 
-                            <a class="nav-link" href="~/Guest/TinTuc" role="button" aria-expanded="false">
-                                Tin tức
-                            </a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/Guest/TinTuc" role="button" aria-expanded="false">
+                                    Tin tức
+                                </a>
+                            </li>
                             @*<li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Tin tức
@@ -79,10 +77,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="~/Guest/LienHeGuest">Liên Hệ</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"></a>
-                            </li>
-
+                            @*<li class="nav-item">
+                                    <a class="nav-link" href="#"></a>
+                                </li>*@
                         </ul>
                         @*<form class="d-flex">
                                 <input class="search-mn form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -95,14 +92,50 @@
                                     </a>
                                 </div>
                             </div>*@
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                @{ var user = (Tourist_VietripInsum_2023.Models.KhachHang)HttpContext.Current.Session["UserKH"];}
+                                @if (user == null)
+                                {
+                                    <a style="padding-left: 150px;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img class="img-circle" src="~/images/user.png" style="border-radius: 100%" width="30" height="30" />
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span style="color: white;">Hello, @user.HoTenKH</span>
+                                        @if (user.HinhDaiDien == null)
+                                        {
+                                            <img class="img-circle" src="~/images/user.png" style="margin-left: 5px; border-radius: 100%" width="30" height="30" />
+                                        }
+                                        else
+                                        {
+                                            <img class="img-circle" src="@user.HinhDaiDien" style="margin-left: 5px; border-radius: 100%" width="30" height="30" />
+                                        }
+                                    </a>
+                                }
+                                @if (user == null)
+                                {
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="~/Guest/LoginGuest">Đăng nhập</a></li>
+                                        <li><a class="dropdown-item" href="">Đăng ký</a></li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <ul style="margin-left: 50px;" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="">Thông tin cá nhân</a></li>
+                                        <li><a class="dropdown-item" href="~/Guest/LogOut">Đăng xuất</a></li>
+                                    </ul>
+                                }
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>
         </header>
-
         <!-- header section ends -->
-
-
     </div>
 
     <div>
@@ -154,13 +187,6 @@
 
                 </div>
             </div>
-
-
-
-
-
-
-
         </div>
     </div>
 </body>
