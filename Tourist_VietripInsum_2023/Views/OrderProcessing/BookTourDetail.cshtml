@@ -55,6 +55,16 @@ else if (TempData["thongbao"] == "donhang1ve")
             });
         </script>
     }
+    else if (noti == "trong")
+    {
+        <script>
+            swal({
+                title: "Chưa có vé !!",
+                icon: "error",
+                button: "Thoát",
+            });
+        </script>
+    }
 
 }
 
@@ -64,7 +74,7 @@ else if (TempData["thongbao"] == "donhang1ve")
         <div class="tile">
             <h3 class="tile-title" style="text-align: center;">CHI TIẾT ĐƠN ĐẶT TOUR @ViewBag.MaBT</h3>
             <div class="tile-body">
-                <div style="font-size:15px">
+                <div style="font-size:14px">
                     @{
                         var kh = db.KhachHangs.Where(s => s.MaKH == Model.MaKH).FirstOrDefault();
                         var tour = db.Tours.Where(s => s.MaTour == Model.MaTour).FirstOrDefault();
@@ -106,7 +116,7 @@ else if (TempData["thongbao"] == "donhang1ve")
                             <b>Thông tin tour: </b>@Html.DisplayFor(model => tour.TenTour) - @Html.DisplayFor(model => tour.MaTour)
                             <br />
                             <b>Ngày đặt: </b>@Html.DisplayFor(model => model.NgayLap)
-                            <b style="margin-left: 15px;">Số chỗ: </b>@Html.DisplayFor(model => model.SoCho)
+                            <b style="margin-left: 15px;">Số chỗ đặt: </b> @Html.DisplayFor(model => model.SoCho)
                             <br />
                             <b>Tổng tiền: </b>@{ var tongTien = string.Format("{0:0,0}", Model.TotalPrice);}
                             @Html.DisplayFor(model => tongTien) vnd
@@ -170,13 +180,13 @@ else if (TempData["thongbao"] == "donhang1ve")
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             @*@if (Model.TrangThaiTT == false)
-                                            {
-                                                <a class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#DeleteTicket" ata-toggle="tooltip" title="Xóa vé">
-                                                    <i class="fas fa-remove"></i>
-                                                </a>
-                                            }*@
+                                                {
+                                                    <a class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#DeleteTicket" ata-toggle="tooltip" title="Xóa vé">
+                                                        <i class="fas fa-remove"></i>
+                                                    </a>
+                                                }*@
 
-                                         
+
 
 
                                         </td>
@@ -212,7 +222,7 @@ else if (TempData["thongbao"] == "donhang1ve")
 
 
         <div class="modal-content" style="padding:20px 10px;">
-            <h4 style="text-align:center">THÊM VÉ</h4>
+            <h4 style="text-align: center; color: #2d4271">THÊM VÉ</h4>
             <div class="col-sm-12 element-button">
                 <button id="themve" onclick="ThemVe()" class="btn btn-outline-primary btn-sm">
                     <icon class="fas fa-ticket-alt" style="margin-right:5px"></icon> Thêm vé
@@ -221,6 +231,7 @@ else if (TempData["thongbao"] == "donhang1ve")
                 <button id="xoave" onclick="xoaVe()" class="btn btn-outline-danger btn-sm">
                     <icon class="fas fa-trash"></icon>
                 </button>
+                <b style="margin-left:35px;font-size:16px;">Số chổ còn trống: </b>@tour.SoChoNull
                 <input type="text" id="sc" name="sc" value="@tour.SoChoNull" style="visibility:hidden" />
             </div>
 
@@ -240,10 +251,10 @@ else if (TempData["thongbao"] == "donhang1ve")
                         </div>
 
                     </div>
-                    <input name="soluongdat" id="soluongdat" style="visibility:hidden" />
+                    <input name="soluongdat" id="soluongdat" value="0" style="visibility:hidden" />
                     <div class="modal-footer">
                         <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal">Close</button>
-                        <input type="submit" value="Thêm vé" class="btn btn-success btn-sm" />
+                        <input id="addticket" onchange="checkve()" type="submit" value="Thêm vé" class="btn btn-success btn-sm" />
                     </div>
                 </div>
 
@@ -253,6 +264,7 @@ else if (TempData["thongbao"] == "donhang1ve")
 
 
         </div>
+    </div>
         <script>
             var i = 0;
             function ThemVe() {
@@ -332,7 +344,15 @@ else if (TempData["thongbao"] == "donhang1ve")
                 document.getElementById("soluongdat").value = i;
 
             }
+            //function checkve() {
+            //    if (i == 0) {
+            //        document.getElementById("addticket").disabled = true;
 
+            //    }
+            //    else {
+            //        document.getElementById("addticket").disabled = false;
+            //    }
+            //}
         </script>
     </div>
     <input type="text" id="number" name="number" value="@thanhtoans" style="visibility:hidden" />
@@ -359,4 +379,5 @@ else if (TempData["thongbao"] == "donhang1ve")
 
 
         }
+        
     </script>

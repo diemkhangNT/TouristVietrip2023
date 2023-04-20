@@ -106,17 +106,9 @@
         <h3 class="home-page_title mb-4">TOUR NỔI BẬT</h3>
         <!-- <script src="/Content/Default/js/CoutDown/jquery.countdown.min.js"></script> -->
         @{
-            List<Tour> tournb = db.Tours.Where(t => t.TrangThai == "Tour nổi bật").ToList();
-            List<Tour> tours = db.Tours.Where(t => t.TrangThai == "Tour nổi bật").ToList();
-
-
-
+            List<Tour> tours = db.Tours.Where(t => t.TrangThai == "Tour nổi bật" && t.SoChoNull > 0).Take(6).ToList();
         }
-        <style>
-            .tour-item:hover {
-                box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
-            }
-        </style>
+
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @foreach (var item in tours)
             {
@@ -149,6 +141,7 @@
                             @{
                                 var tien = string.Format("{0:#,##0}", item.GiaNguoiLon);
                                 var loaitour = db.LoaiTours.Where(s => s.MaLTour == item.MaLTour).FirstOrDefault();
+
                                 var pricesale = (double)item.GiaNguoiLon * (1 + loaitour.ChietKhau);
                                 var tiengiamgia = string.Format("{0:#,##0}", pricesale);
                                 var ck = loaitour.ChietKhau * 100;
@@ -160,7 +153,7 @@
                                         if (ck == 0)
                                         {
                                             <div class="price-current">
-                                                <span class="tour-item_price-new">@tiengiamgia ₫</span>
+                                                <span class="tour-item_price-new">@item.GiaNguoiLon ₫</span>
 
                                             </div>
 
@@ -180,19 +173,19 @@
 
 
 
-                                    <div class="tour-item_btntour">
-                                        @*<div class="btn-book">
-                                                <a href="#" class="btn-order btn-sm " title="" value="" id="">
-                                                    <i class="fas fa-shopping-cart"></i>
-                                                    Đặt chổ
-                                                </a>
-                                            </div>*@
-                                        <div class="btn-block">
+                                    <!--<div class="tour-item_btntour">-->
+                                    @*<div class="btn-book">
+                                            <a href="#" class="btn-order btn-sm " title="" value="" id="">
+                                                <i class="fas fa-shopping-cart"></i>
+                                                Đặt chổ
+                                            </a>
+                                        </div>*@
+                                    <!--<div class="btn-block" class="col-sm-12">
                                             <a href="/Guest/Tourinfomation/@item.MaTour" title="" class="btn-viewdetail">
                                                 Xem chi tiết
                                             </a>
                                         </div>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                             @{
@@ -219,16 +212,11 @@
                 Xem thêm
             </a>
         </div>
-        <style>
-            .btnmoretour {
-                padding-top: 30px;
-                text-align: right;
-            }
-        </style>
     </div>
 
 
 </section>
+
 <!-- DIA DIEM NOI BAT -->
 <section class="gallery" id="gallery">
     <div class="container">
@@ -327,3 +315,12 @@
     </div>
 </section>
 
+<style>
+    .tour-item:hover {
+        box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+    }
+    .btnmoretour {
+        padding-top: 30px;
+        text-align: right;
+    }
+</style>
