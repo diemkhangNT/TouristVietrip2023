@@ -44,7 +44,7 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult TourList()
         {
-            List<Tour> listTour = db.Tours.Include(t => t.LoaiTour).ToList();
+            List<Tour> listTour = db.Tours.Include(t => t.LoaiTour).Where(s=>s.TrangThai!="Sắp ra mắt").ToList();
             return View(listTour);
         }
 
@@ -550,12 +550,12 @@ namespace Tourist_VietripInsum_2023.Controllers
                     db.BookTours.Remove(donHang);
                     db.SaveChanges();
 
-                    TempData["deletesuccess"] = "Xóa đơn đặt thành công";
+                    TempData["bookingtour"] = "deletebooking";
                     return RedirectToAction("Booking");
                 }
                 else
                 {
-                    TempData["xoadonhang"] = "loi";
+                    TempData["bookingtour"] = "loi";
                     return RedirectToAction("UpdateBooking", new RouteValueDictionary(
                                       new { controller = "OrderProcessing", action = "BookTourDeTail", Id = donHang.MaDH }));
                 }
@@ -652,17 +652,45 @@ namespace Tourist_VietripInsum_2023.Controllers
                 {
                     string content = System.IO.File.ReadAllText(Server.MapPath("/Content/template/mailOrder.html"));
                     var kh = db.KhachHangs.Where(s => s.MaKH == bookTour.MaKH).FirstOrDefault();
+                    var t = db.Tours.Where(s => s.MaTour == bookTour.MaTour).FirstOrDefault();
                     content = content.Replace("{{TenKH}}", kh.HoTenKH);
+                    content = content.Replace("{{SDT}}", kh.SDT);
+                    content = content.Replace("{{EmailKH}}", kh.Email);
+                    content = content.Replace("{{Diachi}}", kh.DiaChi);
+
+                    DateTime ngaydi = (DateTime)t.NgayKhoihanh;
+                    TimeSpan aInterval = new System.TimeSpan(0, 1, 1, 0);
+                    DateTime newTime = ngaydi.Subtract(aInterval);
+
+                    content = content.Replace("{{MaTour}}", t.MaTour);
+                    content = content.Replace("{{TenTour}}", t.TenTour);
+                    content = content.Replace("{{ngaykhoihanh}}", t.NgayKhoihanh.ToString());
+                    content = content.Replace("{{noikhoihanh}}", t.NoiKhoiHanh);
+                    content = content.Replace("{{giotaptrung}}", newTime.ToString());
+
+                    string hinhthuc = "";
+                    if (bookTour.HinhThucThanhToan == true)
+                    {
+                        hinhthuc = "Chuyển khoản";
+                    }
+                    else
+                    {
+                        hinhthuc = "Thanh toán tại văn phòng";
+                    }
+                    content = content.Replace("{{hinhthuc}}", hinhthuc);
+                    content = content.Replace("{{ngaydat}}", bookTour.NgayLap.ToString());
+                    content = content.Replace("{{total}}", bookTour.TotalPrice.ToString());
                     content = content.Replace("{{MaDonHang}}", bookTour.MaDH);
                
 
                     //Gui mail
                     var toEmail = ConfigurationManager.AppSettings["toEmailAddress"].ToString();
-                    new MailHelp().SendMail(kh.Email, "Thông tin", content);
+                    new MailHelp().SendMail(kh.Email, "Thông báo", content);
+                   
 
                 }
-               
-                TempData["success"] = "Cập nhật trạng thái thành công";
+
+                TempData["bookingtour"] = "editbookingtc";
                 return RedirectToAction("UpdateBooking", new RouteValueDictionary(
                                   new { controller = "OrderProcessing", action = "BookTourDeTail", Id = bookTour.MaDH}));
             }
@@ -686,9 +714,10 @@ namespace Tourist_VietripInsum_2023.Controllers
 
             //Gui mail
             var toEmail = ConfigurationManager.AppSettings["toEmailAddress"].ToString();
-            new MailHelp().SendMail(kh.Email, "Thông tin", content);
-
-            return RedirectToAction("HomePageOP");
+            new MailHelp().SendMail(kh.Email, "Thông báo", content);
+             TempData["cancelmail"] = "cancel";
+            return RedirectToAction("UpdateBooking", new RouteValueDictionary(
+                                  new { controller = "OrderProcessing", action = "BookTourDeTail", Id = madh }));
 
         }
         //XOA VE
@@ -753,6 +782,12 @@ namespace Tourist_VietripInsum_2023.Controllers
             double tongtien = 0;
             double pricesale = 0;
             int m = int.Parse(soluongdat);
+            if (m == 0)
+            {
+                TempData["ve"] = "trong";
+                return RedirectToAction("BookTourDeTail", new RouteValueDictionary(
+                                       new { controller = "OrderProcessing", action = "BookTourDeTail", Id = madh }));
+            }
             if (ModelState.IsValid)
             {
                 Random rd = new Random();

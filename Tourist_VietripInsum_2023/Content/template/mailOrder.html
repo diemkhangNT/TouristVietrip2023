@@ -6,100 +6,207 @@
 </head>
 <body>
     <h2 class="titleemail">SAIGONTRAVEL - XÁC NHẬN ĐƠN HÀNG THANH TOÁN THÀNH CÔNG</h2>
-    <p>Kính gửi quý khách, {{TenKH}}</p>
+    <p>Kính gửi quý khách,<b>{{TenKH}}</b> </p>
     <p>Thay mặt SaigonTravel, kính gửi đến quý khách lời chúc sức khỏe và lời cảm ơn chân thành vì đã quan tâm, tin tưởng sử dụng dịch vụ của chúng tôi.</p>
     <p>
-        SaigonTravel xác nhận đơn hàng {{MaDonHang}} đã thanh toán thành công
+        SaigonTravel xác nhận đơn hàng <b>{{MaDonHang}}</b> của quý khách đã thanh toán thành công
 
     </p>
 
-    <table border="1px;" style="width: 100%;">
+    <table border="1px;" style="width: 60%;">
         <thead>
             <tr>
                 <th colspan="2">
-                    <h3>PHIẾU XÁC NHẬN ĐẶT TOUR</h3>
-                </th>
-                <th style="border: 0px;"></th>
-                <th colspan="2">
-                    <h3>THÔNG TIN LIÊN LẠC</h3>
+                    <h4 style="color:#2d4271">THÔNG TIN LIÊN LẠC</h4>
                 </th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td style="padding: 10px;"><b>Mã tour</b></td>
-                <td style="padding: 10px;">T0001</td>
-                <td style="border: 0px;"></td>
                 <td style="padding: 10px;"><b>Tên khách hàng</b></td>
-                <td style="padding: 10px;">Trương Thị Hường</td>
+                <td style="padding: 10px;">{{TenKH}}</td>
             </tr>
             <tr>
-                <td style="padding: 10px;"><b>Tên tour</b></td>
-                <td style="padding: 10px;">Đà Nẵng-Huế</td>
-                <td style="border: 0px;"></td>
+
                 <td style="padding: 10px;"><b>Số điện thoại</b></td>
-                <td style="padding: 10px;">0966253223</td>
+                <td style="padding: 10px;">{{SDT}}</td>
             </tr>
+
             <tr>
-                <td style="padding: 10px;"><b>Ngày đi</b></td>
-                <td style="padding: 10px;">12/04/2023</td>
-                <td style="border: 0px;"></td>
-                <td style="padding: 10px;"><b>Địa chỉ</b></td>
-                <td style="padding: 10px;">Đồng Nai</td>
-            </tr>
-            <tr>
-                <td style="padding: 10px;"><b>Ngày về</b></td>
-                <td style="padding: 10px;">15/04/2023</td>
-                <td style="border: 0px;"></td>
+
                 <td style="padding: 10px;"><b>Email</b></td>
-                <td style="padding: 10px;">truongthihuong@gmail.com</td>
+                <td style="padding: 10px;">{{EmailKH}}</td>
             </tr>
             <tr>
-                <td style="padding: 10px;"><b>Nơi khởi hành</b></td>
-                <td style="padding: 10px;">Hà Nội</td>
-                <td style="border: 0px;"></td>
-                <td style="padding: 10px;"><b>Số khách</b></td>
-                <td style="padding: 10px;">Người lớn: 2 Trẻ em: 2</td>
+
+                <td style="padding: 10px;"><b>Địa chỉ</b></td>
+                <td style="padding: 10px;">{{Diachi}}</td>
             </tr>
         </tbody>
-        <tfoot>
+
+    </table>
+    <h4 style="color:#2d4271">
+        THÔNG TIN TOUR
+    </h4>
+    <table border="0" cellpadding="0" width="851" style="width:638.1pt">
+        <tbody>
             <tr>
-                <td colspan="5" style="text-align: center;">
-                    <h3>CHI TIẾT BOOKING</h3>
+                <td>
+                    <p class="MsoNormal">
+                        Mã tour :
+
+                    </p>
+                </td>
+                <td colspan="4">
+                    <p class="MsoNormal">
+                        <b>
+                            <span style="background:yellow">{{MaTour}}</span>
+                        </b>
+                    </p>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="padding: 10px;"><b>Giảm giá</b></td>
-                <td style="border: 0px;"></td>
-                <td colspan="2" style="padding: 10px;">MDG01</td>
+                <td>
+                    <p class="MsoNormal">
+                        Tên Tour :
+
+                    </p>
+                </td>
+                <td colspan="4">
+                    <p class="MsoNormal">
+                        <b>
+                            <span style="background:yellow">{{TenTour}}</span>
+                        </b>
+                    </p>
+                </td>
             </tr>
             <tr>
-                <td colspan="2" style="padding: 10px;"><b>Trị giá booking</b></td>
-                <td style="border: 0px;"></td>
-                <td colspan="2" style="padding: 10px;">2.000.000 VNĐ (Đã áp dụng giảm giá)</td>
+                <td>
+                    <p class="MsoNormal">
+                        Ngày khởi hành :
+
+                    </p>
+                </td>
+                <td colspan="4">
+                    <p class="MsoNormal">
+                        <b>
+                            <span style="background:yellow">{{ngaykhoihanh}}</span>
+                        </b>
+                    </p>
+                </td>
             </tr>
             <tr>
-                <td colspan="2" style="padding: 10px;"><b>Ngày đăng ký</b></td>
-                <td style="border: 0px;"></td>
-                <td colspan="2" style="padding: 10px;">01/04/2023</td>
+                <td>
+                    <p class="MsoNormal">
+                        Nơi khởi hành :
+
+                    </p>
+                </td>
+                <td colspan="4">
+                    <p class="MsoNormal">
+                        <b>
+                            <span style="background:yellow">{{noikhoihanh}}</span>
+                        </b>
+                    </p>
+                </td>
             </tr>
             <tr>
-                <td colspan="2" style="padding: 10px;"><b>Hình thức thanh toán</b></td>
-                <td style="border: 0px;"></td>
-                <td colspan="2" style="padding: 10px;">Tiền mặt</td>
+                <td>
+                    <p class="MsoNormal">
+                        Giờ tập trung :
+
+                    </p>
+                </td>
+                <td colspan="4">
+                    <p class="MsoNormal">
+                        <b>
+                            <span style="background:yellow">{{giotaptrung}}</span>
+                        </b>
+                    </p>
+                </td>
             </tr>
-            <tr>
-                <td colspan="2" style="padding: 10px;"><b>Tình trạng</b></td>
-                <td style="border: 0px;"></td>
-                <td colspan="2" style="background-color: yellow; padding: 10px;">Booking của quý khách đã quá hạn thanh toán</td>
-            </tr>
-            <tr>
-                <td colspan="2" style="padding: 10px;"><b>Thời hạn thanh toán</b></td>
-                <td style="border: 0px;"></td>
-                <td colspan="2" style="padding: 10px;">Thanh toán trước ngày 03/04/2023</td>
-            </tr>
-        </tfoot>
+
+
     </table>
+    <h4 style="color:#2d4271">
+        THÔNG TIN BOOKING
+    </h4>
+    <table border="1" cellspacing="0" cellpadding="0" width="70%">
+        <tbody>
+            <tr>
+                <td class="td1">
+                    <p>
+                        <strong style="font-family: Roboto; padding-left: 20px;">
+                            Mã đơn hàng
+                        </strong>
+                    </p>
+                </td>
+                <td class="td2">
+                    <p>{{MaDonHang}}</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="td1">
+                    <p>
+                        <strong style="font-family: Roboto; padding-left: 20px;">
+                            Tên khách hàng
+                        </strong>
+                    </p>
+                </td>
+                <td class="td2">
+                    <p>{{TenKH}}</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="td1">
+                    <p>
+                        <strong style="font-family: Roboto; padding-left: 20px;">
+                            Tổng hóa đơn
+                        </strong>
+                    </p>
+                </td>
+                <td class="td2">
+                    <p>{{total}}</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="td1">
+                    <p>
+                        <strong style="font-family: Roboto; padding-left: 20px;">
+                            Hình thức thanh toán
+                        </strong>
+                    </p>
+                </td>
+                <td class="td2">
+                    <p>{{hinhthuc}}</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="td1">
+                    <p>
+                        <strong style="font-family: Roboto; padding-left: 20px;">
+                            Ngày đặt
+                        </strong>
+                    </p>
+                </td>
+                <td class="td2">
+                    <p style="font-family:Roboto;">{{ngaydat}}</p>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <p>Qúy khách tập trung theo đúng ngày giờ để nhân viên có thể hổ trợ tận tình trong quá trình tham gia dịch vụ.</p>
+    <p>
+        Cần thêm thông tin, Anh vui lòng liên hệ theo số điện thoại Ms DIỄM KHANG - Số nội bộ: 1111 - Tồng đài: 1900.4567
+    </p>
+    <p>
+        Mong sớm nhận được hồi âm của quý khách.
+    </p>
+    <p>
+        Trân trọng!
+    </p>
     <br />
 </body>
 </html>

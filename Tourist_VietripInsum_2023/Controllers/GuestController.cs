@@ -77,7 +77,6 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 var item = db.DiaDiemThamQuans.Where(m => m.MaDDTQ == i.MaDD).FirstOrDefault();
                d.Add(item);
-                   
 
             }
             return d;
@@ -171,15 +170,12 @@ namespace Tourist_VietripInsum_2023.Controllers
             foreach (var item in tinhthanh)
             {
                 var a = db.Tours.Where(s => s.MaTour == item.MaTour).FirstOrDefault();
-                if(a.TrangThai!="Sắp ra mắt")
+                if(a.TrangThai!="Sắp ra mắt" && a.SoChoNull>0)
                 {
                     tour.Add(a);
                 }    
                 
-                
             }
-            
-
             return View(tour);
         }
 
@@ -357,7 +353,7 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult ListTour()
         {
-            List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật").ToList();
+            List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull>0).ToList();
 
             return View(tour);
         }
@@ -573,6 +569,20 @@ namespace Tourist_VietripInsum_2023.Controllers
             content = content.Replace("{{MaDH}}", dh.MaDH);
             content = content.Replace("{{Email}}", kh.Email);
             content = content.Replace("{{Address}}", dh.MaKH);
+            string hinhthuc = "";
+            if(dh.HinhThucThanhToan==true)
+            {
+                hinhthuc = "Chuyển khoản";
+            }
+            else
+            {
+                hinhthuc = "Thanh toán tại văn phòng";
+            }
+            DateTime ngaydat = (DateTime)dh.NgayLap;
+            DateTime hanthanhtoan = ngaydat.AddDays(1);
+            content = content.Replace("{{hinhthuc}}", hinhthuc);
+            content = content.Replace("{{ngaydat}}", ngaydat.ToString());
+            content = content.Replace("{{hanthanhtoan}}", hanthanhtoan.ToString());
             content = content.Replace("{{MaTour}}", t.MaTour);
             content = content.Replace("{{TenTour}}", t.TenTour);
             content = content.Replace("{{ngaykhoihanh}}", t.NgayKhoihanh.ToString());
