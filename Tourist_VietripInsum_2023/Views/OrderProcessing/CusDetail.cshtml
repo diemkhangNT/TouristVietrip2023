@@ -1,0 +1,57 @@
+﻿@model Tourist_VietripInsum_2023.Models.KhachHang
+
+@{
+    ViewBag.Title = "CusDetail";
+    Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
+    ViewBag.Name = "Customer Information";
+    ViewBag.cus = "active";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="tile">
+            <h4 class="tile-title">THÔNG TIN KHÁCH HÀNG</h4>
+            <div class="tile-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="@Model.HinhDaiDien" width="300" height="300" />
+                    </div>
+                    <div class="col-md-8" style="font-size: 18px;">
+                        <div class="form-group">
+                            <b>Loại khách hàng: </b>@Html.DisplayFor(model => model.LoaiKH.TenLoaiKH)
+                        </div>
+
+                        <div class="form-group">
+                            <b>Họ và tên: </b>@Html.DisplayFor(model => model.HoTenKH)
+                            <b style="margin-left: 20px;">Ngày sinh: </b>
+                            @{ var ngaySinh = string.Format("{0:dd/MM/yyyy}", Model.NgaySinh);}
+                            @Html.DisplayFor(model => ngaySinh)
+                            <b style="margin-left: 20px;">Giới tính: </b>@Html.DisplayFor(model => model.GioiTinh)
+                        </div>
+
+                        <div class="form-group">
+                            <b>Số điện thoại: </b>@Html.DisplayFor(model => model.SDT)
+                            <b style="margin-left: 20px;">Email: </b>@Html.DisplayFor(model => model.Email)
+                        </div>
+
+                        <div class="form-group">
+                            <b>Địa chỉ: </b>@Html.DisplayFor(model => model.DiaChi)
+                        </div>
+
+                        <div class="form-group">
+                            <b>Tổng tiền đã đặt: </b>
+                            @{ var tongTienDat = string.Format("{0:0,0} VNĐ", Model.TongTienDat);}
+                            @Html.DisplayFor(model => tongTienDat)
+                        </div>
+
+                        <div class="form-group">
+                            <a class="btn btn-cancel btn-sm" href="/OrderProcessing/ListOfCustomers">Quay lại</a>
+                            <a class="btn btn-secondary btn-sm" href="/OrderProcessing/EditCusInfo/@Model.MaKH">Sửa thông tin</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
