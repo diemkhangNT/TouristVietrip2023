@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Web.Security;
 using Tourist_VietripInsum_2023.common;
 using Tourist_VietripInsum_2023.Models;
@@ -17,37 +17,6 @@ namespace Tourist_VietripInsum_2023.Controllers
     {
         TouristEntities1 db = new TouristEntities1();
         // GET: Guest
-
-        public ActionResult LoginGuest()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult LoginGuest(string username, string password)
-        {
-            var data = db.KhachHangs.Where(s => s.Username == username && s.UserPassword == password).FirstOrDefault();
-            var taikhoan = db.KhachHangs.SingleOrDefault(s => s.Username == username && s.UserPassword == password);
-            if (taikhoan == null)
-            {
-                TempData["error"] = "err";
-                return View("LoginGuest");
-            }
-            else if (taikhoan != null)
-            {
-                //add session
-                db.Configuration.ValidateOnSaveEnabled = false;
-                Session["UserKH"] = taikhoan;
-                return RedirectToAction("HomePageGuest", "Guest");
-            }
-            return View();
-        }
-
-        public ActionResult LogOut()
-        {
-            Session.Clear();//remove session
-            FormsAuthentication.SignOut();
-            return RedirectToAction("HomePageGuest");
-        }
 
         public ActionResult HomePageGuest()
         {
@@ -644,6 +613,183 @@ namespace Tourist_VietripInsum_2023.Controllers
             var data = "Tui là Dĩm Khang nè!";
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
+
+        //--------------------------------------------------------------Customer------------------------------------------------------
+        public void LuuImageCus(KhachHang t, HttpPostedFileBase ImagerCus)
+        {
+            #region Hình ảnh
+
+            if (ImagerCus == null)
+            {
+                t.HinhDaiDien = t.HinhDaiDien;
+            }
+            else
+            {
+
+                //Xác định đường dẫn lưu file : Url tương đói => tuyệt đói
+                var urlTuongdoi = "/images/";
+                var urlTuyetDoi = Server.MapPath(urlTuongdoi);// Lấy đường dẫn lưu file trên server
+
+                //Check trùng tên file => Đổi tên file  = tên file cũ (ko kèm đuôi)
+                //Ảnh.jpg = > ảnh + "-" + 1 + ".jpg" => ảnh-1.jpg
+
+                string fullDuongDan = urlTuyetDoi + ImagerCus.FileName;
+
+
+                int i = 1;
+                while (System.IO.File.Exists(fullDuongDan) == true)
+                {
+                    // 1. Tách tên và đuôi 
+                    var ten = Path.GetFileNameWithoutExtension(ImagerCus.FileName);
+                    var duoi = Path.GetExtension(ImagerCus.FileName);
+                    // 2. Sử dụng biến i để chạy và cộng vào tên file mới
+                    fullDuongDan = urlTuyetDoi + ten + "-" + i + duoi;
+                    i++;
+                    // 3. Check lại 
+                }
+                #endregion
+                //Lưu file (Kiểm tra trùng file)
+                ImagerCus.SaveAs(fullDuongDan);
+                t.HinhDaiDien = urlTuongdoi + Path.GetFileName(fullDuongDan);
+            }
+        }
+
+        public ActionResult SignupGuest()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignupGuest([Bind(Include = "MaKH,SDT,MaLoaiKH,Username,UserPassword,HoTenKH,DiaChi,Email,NgaySinh,GioiTinh,HinhDaiDien,TongTienDat")] KhachHang khachHang, string ConfirmPassword, HttpPostedFileBase ImagerCus)
+        {
+            var email = db.KhachHangs.Count(s => s.Email == khachHang.Email);
+            var username = db.KhachHangs.Count(s => s.Username == khachHang.Username);
+
+            if ((email >= 1))
+            {
+                TempData["errorInfo"] = "Email is already taken. Please choose a different email!";
+                khachHang.Email = "";
+                return View(khachHang);
+            }
+            if ((username >= 1))
+            {
+                TempData["errorInfo"] = "Username is already taken. Please choose a different username!";
+                khachHang.Username = "";
+                return View(khachHang);
+            }
+            if (khachHang.UserPassword.Length < 6)
+            {
+                TempData["errorPass"] = "Password must be over 6 characters!";
+                return View(khachHang);
+            }
+            if (ModelState.IsValid)
+            {
+
+                if (ConfirmPassword != khachHang.UserPassword)
+                {
+                    TempData["errorMK"] = "Confirm password not valid!";
+                    return View(khachHang);
+                }
+                else if (ConfirmPassword == khachHang.UserPassword)
+                {
+                    Random rd = new Random();
+                    KhachHang kh = db.KhachHangs.Where(s => s.SDT == khachHang.SDT).FirstOrDefault();
+                    if (kh != null)
+                    {
+                        LuuImageCus(khachHang, ImagerCus);
+                        kh.HinhDaiDien = khachHang.HinhDaiDien;
+                        kh.Username = khachHang.Username;
+                        kh.UserPassword = khachHang.UserPassword;
+                        kh.HoTenKH = khachHang.HoTenKH;
+                        kh.DiaChi = khachHang.DiaChi;
+                        kh.Email = khachHang.Email;
+                        kh.NgaySinh = khachHang.NgaySinh;
+                        kh.GioiTinh = khachHang.GioiTinh;
+                        db.Entry(kh).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("LoginGuest");
+                    }
+
+                    var makh = "KH" + rd.Next(100, 10000);
+                    khachHang.MaKH = makh;
+                    khachHang.MaLoaiKH = "TH";
+                    LuuImageCus(khachHang, ImagerCus);
+                    db.KhachHangs.Add(khachHang);
+                    db.SaveChanges();
+                    return RedirectToAction("LoginGuest");
+                }
+            }
+            return View(khachHang);
+        }
+        //----------------------check---------------------
+        public JsonResult CheckEmailAvailability(string Email)
+        {
+            System.Threading.Thread.Sleep(200);
+
+            var mailCus = db.KhachHangs.Where(x => x.Email == Email).FirstOrDefault();
+            if (mailCus != null)
+            {
+                return Json(1);
+            }
+            else
+            {
+                return Json(0);
+            }
+        }
+
+        public JsonResult CheckUserNameAvailability(string userName)
+        {
+            System.Threading.Thread.Sleep(200);
+
+            var userNameCus = db.KhachHangs.Where(x => x.Username == userName).FirstOrDefault();
+            if (userNameCus != null)
+            {
+                return Json(1);
+            }
+            else
+            {
+                return Json(0);
+            }
+        }
+        //--------------------end check-------------------
+        public ActionResult LoginGuest()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult LoginGuest(string username, string password)
+        {
+            var data = db.KhachHangs.Where(s => s.Username == username && s.UserPassword == password).FirstOrDefault();
+            var taikhoan = db.KhachHangs.SingleOrDefault(s => s.Username == username && s.UserPassword == password);
+            if (taikhoan == null)
+            {
+                TempData["error"] = "err";
+                return View("LoginGuest");
+            }
+            else if (taikhoan != null)
+            {
+                //add session
+                db.Configuration.ValidateOnSaveEnabled = false;
+                Session["UserKH"] = taikhoan;
+                return RedirectToAction("HomePageGuest", "Guest");
+            }
+            return View();
+        }
+
+        public ActionResult LogOut()
+        {
+            Session.Clear();//remove session
+            FormsAuthentication.SignOut();
+            return RedirectToAction("HomePageGuest");
+        }
+
+
+
+
+
+
 
     }
 }

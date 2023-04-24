@@ -149,6 +149,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KhachHangsController.cs" />
     <Compile Include="Controllers\LoginStaffController.cs" />
     <Compile Include="Controllers\OrderProcessingController.cs" />
     <Compile Include="Controllers\TourmanagerController.cs" />
@@ -244,6 +245,7 @@
     <Content Include="Content\Guest\ListTour-Option.css" />
     <Content Include="Content\Guest\StyleGuest.css" />
     <Content Include="Content\Images\1.png" />
+    <Content Include="Content\Images\11.png" />
     <Content Include="Content\Images\2.png" />
     <Content Include="Content\Images\dânng.jpg" />
     <Content Include="Content\Images\mientay.png" />
@@ -556,6 +558,12 @@
     <Content Include="Views\Guest\Payment.cshtml" />
     <Content Include="Views\OrderProcessing\CusDetail.cshtml" />
     <Content Include="Views\Guest\LoginGuest.cshtml" />
+    <Content Include="Views\Guest\SignupGuest.cshtml" />
+    <Content Include="Views\KhachHangs\Create.cshtml" />
+    <Content Include="Views\KhachHangs\Delete.cshtml" />
+    <Content Include="Views\KhachHangs\Details.cshtml" />
+    <Content Include="Views\KhachHangs\Edit.cshtml" />
+    <Content Include="Views\KhachHangs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
