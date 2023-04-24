@@ -1,6 +1,7 @@
 ﻿
-@model IEnumerable<Tourist_VietripInsum_2023.Models.Tour>
 @using Tourist_VietripInsum_2023.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<Tour>
 
 @{
     ViewBag.Title = "List Tour";
@@ -10,7 +11,7 @@
     List<DiaDiemThamQuan> diaDiems = db.DiaDiemThamQuans.ToList();
 }
 
-
+<link href="~/Content/PagedList.css" rel="stylesheet" />
 <link href="~/Content/Guest/ListTour-Option.css" rel="stylesheet" />
 
 <div class="tour-searchlist" style="background-color: #f9f9f9">
@@ -36,77 +37,77 @@
                         </div>*@
                     @using (Html.BeginForm("ListTour", "Guest", FormMethod.Post))
                     {
-                    <div class="">
-                        <h5 class="m-3 text-dark text-center">Bộ lọc tìm kiếm</h5>
-                        <div>
-                            <div class="bg-success py-2 text-center">
-                                <span class="text-white fw-bold">Du lịch</span>
-                            </div>
-                            <div class="py-4">
-                                <div class="mb-4">
-                                    <h5 class="point-start-title s-title">Loại tour</h5>
-                                    <select class="form-select" name="trangthai">
-                                        <option>Tour giờ chót</option>
-                                        <option>Đang diễn ra</option>
-                                    </select>
+                        <div class="">
+                            <h5 class="m-3 text-dark text-center">Bộ lọc tìm kiếm</h5>
+                            <div>
+                                <div class="bg-success py-2 text-center">
+                                    <span class="text-white fw-bold">Du lịch</span>
                                 </div>
-                                <div class="start-to-stop mb-3">
-                                    <h5 class="point-start-title s-title">Nơi khởi hành</h5>
-                                    <select class="form-select" id="departureIDFilter" name="noikhoihanh">
-                                        <option>TP. Hồ Chí Minh</option>
-                                        <option>Hà Nội</option>
-                                        <option>Đà Nẵng</option>
-                                        <option>Huế</option>
-                                        <option>Rạch Giá</option>
-                                        <option>Vũng tàu</option>
-                                        <option>Nha Trang</option>
-                                        <option>Cần Thơ</option>
-                                    </select>
-                                </div>
-                                <div class=" mb-4 row">
-                                    <h5 class="s-title">Số ngày</h5>
-                                    <div class="radio col-6">
-                                        <label><input type="radio" name="songay" value="1 - 3 ngày" checked> 1 - 3 ngày</label>
+                                <div class="py-4">
+                                    <div class="mb-4">
+                                        <h5 class="point-start-title s-title">Loại tour</h5>
+                                        <select class="form-select" name="trangthai">
+                                            <option>Tour giờ chót</option>
+                                            <option>Đang diễn ra</option>
+                                        </select>
                                     </div>
-                                    <div class="radio col-6">
-                                        <label><input type="radio" name="songay" value="4 - 7 ngày"> 4 - 7 ngày</label>
+                                    <div class="start-to-stop mb-3">
+                                        <h5 class="point-start-title s-title">Nơi khởi hành</h5>
+                                        <select class="form-select" id="departureIDFilter" name="noikhoihanh">
+                                            <option>TP. Hồ Chí Minh</option>
+                                            <option>Hà Nội</option>
+                                            <option>Đà Nẵng</option>
+                                            <option>Huế</option>
+                                            <option>Rạch Giá</option>
+                                            <option>Vũng tàu</option>
+                                            <option>Nha Trang</option>
+                                            <option>Cần Thơ</option>
+                                        </select>
                                     </div>
-                                    <div class="radio col-6">
-                                        <label><input type="radio" name="songay" value="8 - 10 ngày"> 8 - 10 ngày</label>
+                                    <div class=" mb-4 row">
+                                        <h5 class="s-title">Số ngày</h5>
+                                        <div class="radio col-6">
+                                            <label><input type="radio" name="songay" value="1 - 3 ngày" checked> 1 - 3 ngày</label>
+                                        </div>
+                                        <div class="radio col-6">
+                                            <label><input type="radio" name="songay" value="4 - 7 ngày"> 4 - 7 ngày</label>
+                                        </div>
+                                        <div class="radio col-6">
+                                            <label><input type="radio" name="songay" value="8 - 10 ngày"> 8 - 10 ngày</label>
+                                        </div>
+                                        <div class="radio col-6">
+                                            <label><input type="radio" name="songay" value="10+ ngày"> 10+ ngày</label>
+                                        </div>
                                     </div>
-                                    <div class="radio col-6">
-                                        <label><input type="radio" name="songay" value="10+ ngày"> 10+ ngày</label>
-                                    </div>
-                                </div>
-                                <h5 class="date-go-to-back-title s-title">Ngày đi</h5>
-                                <input class="form-control col-md-12 text-box single-line " data-val="true" name="ngaykhoihanh" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")">
-                                <p id="alternate1"></p>
-                                <p id="alternate4"></p>
-                                <div class="tour-search-result__filter__block mb-4">
-                                    <h5 class="s-title">Số người</h5>
-                                    <div class="btn-group tour-search-result__filter__room" role="group" aria-label="Basic example">
-                                        <div class="row g-2">
-                                            <div class="radio col-6">
-                                                <label><input type="radio" name="songuoi" value="1 người" checked> 1 người</label>
-                                            </div>
-                                            <div class="radio col-6">
-                                                <label><input type="radio" name="songuoi" value="2 - 3 người"> 2 - 3 người</label>
-                                            </div>
-                                            <div class="radio col-6">
-                                                <label><input type="radio" name="songuoi" value="3 - 5 người"> 3 - 5 người</label>
-                                            </div>
-                                            <div class="radio col-6">
-                                                <label><input type="radio" name="songuoi" value="5+ người"> 5+ người</label>
+                                    <h5 class="date-go-to-back-title s-title">Ngày đi</h5>
+                                    <input class="form-control col-md-12 text-box single-line " data-val="true" name="ngaykhoihanh" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")">
+                                    <p id="alternate1"></p>
+                                    <p id="alternate4"></p>
+                                    <div class="tour-search-result__filter__block mb-4">
+                                        <h5 class="s-title">Số người</h5>
+                                        <div class="btn-group tour-search-result__filter__room" role="group" aria-label="Basic example">
+                                            <div class="row g-2">
+                                                <div class="radio col-6">
+                                                    <label><input type="radio" name="songuoi" value="1 người" checked> 1 người</label>
+                                                </div>
+                                                <div class="radio col-6">
+                                                    <label><input type="radio" name="songuoi" value="2 - 3 người"> 2 - 3 người</label>
+                                                </div>
+                                                <div class="radio col-6">
+                                                    <label><input type="radio" name="songuoi" value="3 - 5 người"> 3 - 5 người</label>
+                                                </div>
+                                                <div class="radio col-6">
+                                                    <label><input type="radio" name="songuoi" value="5+ người"> 5+ người</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="text-center">
-                                    <input class="btn btn-outline-success py2" type="submit" name="submit" value="Tìm kiếm" />
+                                    <div class="text-center">
+                                        <input class="btn btn-outline-success py2" type="submit" name="submit" value="Tìm kiếm" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     }
                 </div>
                 <!-- LISTTOUR -->
@@ -114,29 +115,29 @@
                     List<Tour> tours = Model.ToList();
 
                 }
-                <div class="col-md-9 col-12 main-content">
-                    <div class="pr-tinhthanh">
-                        <h3>Du lịch hiện hành</h3>
-                        <hr />
-                        @*<p>Chúng tôi tìm thấy <span>@tongtour</span> kết quả</p>*@
-                    </div>
-                    <div class="listour-search">
+            <div class="col-md-9 col-12 main-content">
+                <div class="pr-tinhthanh">
+                    <h3>Du lịch hiện hành</h3>
+                    <hr />
+                    @*<p>Chúng tôi tìm thấy <span>@tongtour</span> kết quả</p>*@
+                </div>
+                <div class="listour-search">
 
-                        <div class="row row-cols-1 row-cols-md-3 g-4" id="sampleTable">
-                            @foreach (var tour in Model)
-                            {
+                    <div class="row row-cols-1 row-cols-md-3 g-4" id="sampleTable">
+                        @foreach (var tour in Model)
+                        {
 
-                                <div class="col">
-                                    <div class="card tour-item">
-                                        <div class="tour-item__image">
-                                            <a href="/Guest/Tourinfomation/@tour.MaTour" title="#">
-                                                <img src="@tour.HinhMinhHoa_T" class="card-img-top img-fluid" alt="@tour.TenTour">
-                                            </a>
-                                        </div>
-                                        @{
-                                            var ngaykhoihanh = String.Format("{0:d/M/yyyy}", tour.NgayKhoihanh);
-                                            var ngayhethan = String.Format("{0:d/M/yyyy}", tour.HanChotDatVe);
-                                        }
+                            <div class="col">
+                                <div class="card tour-item">
+                                    <div class="tour-item__image">
+                                        <a href="/Guest/Tourinfomation/@tour.MaTour" title="#">
+                                            <img src="@tour.HinhMinhHoa_T" class="card-img-top img-fluid" alt="@tour.TenTour">
+                                        </a>
+                                    </div>
+                                    @{
+                                        var ngaykhoihanh = String.Format("{0:d/M/yyyy}", tour.NgayKhoihanh);
+                                        var ngayhethan = String.Format("{0:d/M/yyyy}", tour.HanChotDatVe);
+                                    }
                                     <div class="card-body p-3">
                                         <p class="tour-item_date mb-1">@ngaykhoihanh - @tour.SoNgay ngày</p>
                                         <p class="card-text tour-item_title mb-1">
@@ -199,18 +200,29 @@
                                             </div>
                                         </div>
                                     </div>
-                                          
-                                        </div>
-                                    </div>
-                             
-                            }
+
+                                </div>
+                            </div>
+
+                        }
 
 
-                        </div>
                     </div>
-
-
                 </div>
+                <!-- Thêm mã phân trang -->
+                <br />
+                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                <div class="MenuTrang">
+                    @Html.PagedListPager(Model, page => Url.Action("ListTour", new { page }))
+                </div>
+                <style>
+                    .MenuTrang li {
+                        display: inline;
+                    }
+                </style>
+                <!-- Kết thúc -->
+
+            </div>
 
             </div>
 

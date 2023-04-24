@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Tourist_VietripInsum_2023.common;
 using Tourist_VietripInsum_2023.Models;
+using PagedList;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
@@ -117,7 +118,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             return tour;
         }
        
-        public ActionResult ListTourTinhThanh(string id)
+        public ActionResult ListTourTinhThanh(string id,int? page)
         {
             
             List<Tour> tour = new List<Tour>();
@@ -145,7 +146,9 @@ namespace Tourist_VietripInsum_2023.Controllers
                 }    
                 
             }
-            return View(tour);
+            int pageSize = 9;
+            int pageNum = (page ?? 1);
+            return View(tour.ToPagedList(pageNum,pageSize));
         }
 
         [HttpPost]
@@ -200,13 +203,14 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         //dia danh
 
-        public ActionResult ListTour_DiaDiem(string id)
+        public ActionResult ListTour_DiaDiem(string id,int? page)
         {
             var iddiadiem = db.DiaDiemThamQuans.Where(d => d.MaDDTQ == id).FirstOrDefault();
             List<Tour> tour = lay_Tour(id);
-            
+            int pageSize = 9;
+            int pageNum = (page ?? 1);
             Session["tendiadiem"] = iddiadiem.TenDDTQ;
-            return View(tour);
+            return View(tour.ToPagedList(pageNum,pageSize));
         }
         [HttpPost]
         public ActionResult ListTour_DiaDiem(string trangthai, string noikhoihanh, string songay, string ngaykhoihanh, string songuoi, int? songaybd, int? songaykt, int? songuoibd)
@@ -320,11 +324,12 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         }
 
-        public ActionResult ListTour()
+        public ActionResult ListTour(int? page)
         {
-            List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull>0).ToList();
-
-            return View(tour);
+            List<Tour> tour = db.Tours.Where(s => s.TrangThai !="Sắp ra mắt" && s.SoChoNull>0).ToList();
+            int pageSize = 9;
+            int pageNum = (page ?? 1);
+            return View(tour.ToPagedList(pageNum,pageSize));
         }
 
 
@@ -377,38 +382,52 @@ namespace Tourist_VietripInsum_2023.Controllers
         public ActionResult BookTour(BookTour booktour,string DiaChi,string SDT,string Email,string TenKH)
         {
             string matour = (string)Session["Matourchon"];
+            KhachHang khachdk = Session["UserKH"] as KhachHang;
             Random rd = new Random();
-            var khach = db.KhachHangs.Where(s => s.SDT == SDT).FirstOrDefault();
-            if (khach == null)
+            //dang nhap
+            if(khachdk!=null)
             {
+                booktour.MaKH = khachdk.MaKH;
+                booktour.SdtKH = khachdk.SDT;
+                Session["TaiKhoan"] = khachdk;
 
-                KhachHang kh = new KhachHang();
-                
-                var idKH = "GS" + rd.Next(1, 1000);
-                kh.MaKH = idKH;
-                booktour.MaKH = idKH;
-
-
-                kh.SDT = SDT;
-                booktour.SdtKH = kh.SDT;
-                kh.DiaChi = DiaChi;
-                kh.Email = Email;
-                kh.HoTenKH = TenKH;
-                kh.MaLoaiKH = "TH";
-                Session["TaiKhoan"] = kh;
-                db.KhachHangs.Add(kh);
-                db.SaveChanges();
-            }
+            }    
             else
             {
-                Session["TaiKhoan"] = khach;
-                booktour.MaKH = khach.MaKH;
-                booktour.SdtKH = khach.SDT;
-                khach.DiaChi = DiaChi;
-                khach.Email = Email;
-                khach.HoTenKH = TenKH;
-            }
-            var idDH = "DH" + rd.Next(1, 1000);
+                //khong dang nhap
+                var khach = db.KhachHangs.Where(s => s.SDT == SDT).FirstOrDefault();
+                if (khach == null)
+                {
+                    //khong dang nhap va khong phia khach trong he thong
+                    KhachHang kh = new KhachHang();
+
+                    var idKH = "GS" + rd.Next(1, 1000);
+                    kh.MaKH = idKH;
+                    booktour.MaKH = idKH;
+
+                    kh.SDT = SDT;
+                    booktour.SdtKH = kh.SDT;
+                    kh.DiaChi = DiaChi;
+                    kh.Email = Email;
+                    kh.HoTenKH = TenKH;
+                    kh.MaLoaiKH = "TH";
+                    Session["TaiKhoan"] = kh;
+                    db.KhachHangs.Add(kh);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    //khong dang nhap nhung la khach trong he thong
+                    Session["TaiKhoan"] = khach;
+                    booktour.MaKH = khach.MaKH;
+                    booktour.SdtKH = khach.SDT;
+                    khach.DiaChi = DiaChi;
+                    khach.Email = Email;
+                    khach.HoTenKH = TenKH;
+                }
+            }    
+
+            var idDH = "DH" + rd.Next(1, 10)+ rd.Next(11, 99);
             booktour.MaDH = idDH;
             booktour.MaTour = matour;
             booktour.NgayLap = DateTime.Now;
@@ -421,8 +440,6 @@ namespace Tourist_VietripInsum_2023.Controllers
             db.BookTours.Add(booktour);
             db.SaveChanges();
             
-
-
             return RedirectToAction("Ticket");
 
 
