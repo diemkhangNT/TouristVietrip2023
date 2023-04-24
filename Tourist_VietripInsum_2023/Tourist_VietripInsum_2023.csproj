@@ -253,6 +253,7 @@
     <Content Include="Content\javascript\checkdata.js" />
     <Content Include="Content\main-AD.css" />
     <Content Include="Content\ModalDialog.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\style_profile.css" />
     <Content Include="Content\Images\account.png" />
     <Content Include="Content\Images\bg_login.jpg" />
