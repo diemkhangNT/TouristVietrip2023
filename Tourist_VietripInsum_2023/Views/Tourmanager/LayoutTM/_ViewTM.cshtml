@@ -40,7 +40,7 @@
         <ul class="app-nav">
             <img class="app-nav__item" src="~/Content/Images/logo_project.png" width="40px" height="50px;"
                  alt="User Image">
-            <h3 class="app-nav__item justify-content-between">SaiGon Travel</h3>
+            <h3 class="app-nav__item justify-content-between">SaiGon Travels</h3>
         </ul>
 
 
@@ -93,10 +93,16 @@
                 </a>
             </li>
             <li>
+                <a class="app-menu__item @ViewBag.gslh" href="/Tourmanager/GiamSatLienHe">
+                    <i class='app-menu__icon bx bx-chat'></i><span class="app-menu__label">Giám sát liên hệ</span>
+                </a>
+            </li>
+            <li>
                 <a class="app-menu__item  @ViewBag.prf" href="/Tourmanager/Profile/@user.MaNV">
                     <i class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Profile</span>
                 </a>
             </li>
+
             <!-- User Menu-->
             <li>
                 <a class="app-menu__item btn_Logout" href="@Url.Action("Logout", "LoginStaff" )">

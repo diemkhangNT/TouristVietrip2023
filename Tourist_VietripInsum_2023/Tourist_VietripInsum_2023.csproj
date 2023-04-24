@@ -533,8 +533,6 @@
     <Content Include="Views\Tourmanager\IndexLoaiTour.cshtml" />
     <Content Include="Views\Tourmanager\CreateLoaiTour.cshtml" />
     <Content Include="Views\Tourmanager\EditLoaiTour.cshtml" />
-    <Content Include="Views\ChiTietTours\Edit.cshtml" />
-    <Content Include="Views\ChiTietTours\Index.cshtml" />
     <Content Include="Views\Guest\DiaDiemPartial.cshtml" />
     <Content Include="Views\Guest\DiaDiemTour.cshtml" />
     <Content Include="Views\Guest\HomePageGuest.cshtml" />
@@ -559,11 +557,7 @@
     <Content Include="Views\OrderProcessing\CusDetail.cshtml" />
     <Content Include="Views\Guest\LoginGuest.cshtml" />
     <Content Include="Views\Guest\SignupGuest.cshtml" />
-    <Content Include="Views\KhachHangs\Create.cshtml" />
-    <Content Include="Views\KhachHangs\Delete.cshtml" />
-    <Content Include="Views\KhachHangs\Details.cshtml" />
-    <Content Include="Views\KhachHangs\Edit.cshtml" />
-    <Content Include="Views\KhachHangs\Index.cshtml" />
+    <Content Include="Views\Tourmanager\GiamSatLienHe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
