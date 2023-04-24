@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "GiamSatLienHe";
+    Layout = "~/Views/Tourmanager/LayoutTM/_ViewTM.cshtml";
+    ViewBag.gslh = "active";
+    ViewBag.Name = "Giám sát liên hệ";
+}
+<style>
+    .text_center_ {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align:center;
+    }
+</style>
+<div class="tile">
+    <div class="row text_center_">
+        <div class="col-md-6" style="">
+            <h2 class="text-secondary">Live chats</h2>
+            <p class="text-secondary">Dùng để trò chuyện trực tiếp giữa khách hàng</p>
+            <a class="btn btn-outline-warning btn-lg" href="https://my.livechatinc.com/traffic" target="_blank">
+                <div class="text_center_" style="border-bottom:1px solid #FFC107; margin-bottom:5px"><i class='bx bx-chat'></i></div>
+                <span class="text_center_">Theo dõi Live chats</span>
+            </a>
+        </div>
+        <div class="col-md-6" style="">
+            <h2 class="text-secondary">Facebook</h2>
+            <p class="text-secondary">Dùng để quản lý Fanpage facebook từ Meta</p>
+            <a class="btn btn-outline-primary btn-lg" href="https://www.facebook.com/profile.php?id=100091834672207" target="_blank">
+                <div class="text_center_" style="border-bottom:1px solid black; margin-bottom:5px"><i class='bx bxl-facebook'></i></div>
+                <span class="text_center_">Quản lý fanpage</span>
+            </a>
+        </div>
+    </div>
+</div>
+<p>* Lưu ý: Khi lick vào một trong hai button trên, bạn sẽ được di chuyển đến trang khác.</p>
