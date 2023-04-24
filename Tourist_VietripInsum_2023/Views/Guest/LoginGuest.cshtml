@@ -11,9 +11,10 @@
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f2f2f2;
-            background-image: url('/images/img_background1.jpg');
-            background-repeat: no-repeat;
+            background-image: url('../../Content/Images/11.png');
             background-size: cover;
+            background-repeat: no-repeat;
+            opacity: 0.9;
         }
 
         .container {
@@ -93,7 +94,7 @@
             <label for="password">Mật khẩu</label>
             <input type="password" id="password" name="password" required>
             <input type="submit" value="Đăng nhập">
-            <p> Bạn chưa có tài khoản?<a href="@Url.Action("DangKy", "Guest")"> Đăng ký</a></p>
+            <p> Bạn chưa có tài khoản?<a href="@Url.Action("SignupGuest", "Guest")"> Đăng ký</a></p>
         </form>
     </div>
 </body>

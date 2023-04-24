@@ -795,6 +795,11 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(staff);
         }
 
+        public ActionResult GiamSatLienHe()
+        {
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
