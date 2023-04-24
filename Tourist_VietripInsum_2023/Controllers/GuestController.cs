@@ -626,7 +626,6 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             else
             {
-
                 //Xác định đường dẫn lưu file : Url tương đói => tuyệt đói
                 var urlTuongdoi = "/images/";
                 var urlTuyetDoi = Server.MapPath(urlTuongdoi);// Lấy đường dẫn lưu file trên server
@@ -635,7 +634,6 @@ namespace Tourist_VietripInsum_2023.Controllers
                 //Ảnh.jpg = > ảnh + "-" + 1 + ".jpg" => ảnh-1.jpg
 
                 string fullDuongDan = urlTuyetDoi + ImagerCus.FileName;
-
 
                 int i = 1;
                 while (System.IO.File.Exists(fullDuongDan) == true)
@@ -686,7 +684,6 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             if (ModelState.IsValid)
             {
-
                 if (ConfirmPassword != khachHang.UserPassword)
                 {
                     TempData["errorMK"] = "Confirm password not valid!";
@@ -695,6 +692,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 else if (ConfirmPassword == khachHang.UserPassword)
                 {
                     Random rd = new Random();
+                    
                     KhachHang kh = db.KhachHangs.Where(s => s.SDT == khachHang.SDT).FirstOrDefault();
                     if (kh != null)
                     {
@@ -712,10 +710,10 @@ namespace Tourist_VietripInsum_2023.Controllers
                         return RedirectToAction("LoginGuest");
                     }
 
+                    LuuImageCus(khachHang, ImagerCus);
                     var makh = "KH" + rd.Next(100, 10000);
                     khachHang.MaKH = makh;
                     khachHang.MaLoaiKH = "TH";
-                    LuuImageCus(khachHang, ImagerCus);
                     db.KhachHangs.Add(khachHang);
                     db.SaveChanges();
                     return RedirectToAction("LoginGuest");
@@ -784,12 +782,5 @@ namespace Tourist_VietripInsum_2023.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("HomePageGuest");
         }
-
-
-
-
-
-
-
     }
 }

@@ -27,7 +27,7 @@
             });
         </script>
     }
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("SignupGuest", "Guest", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
         <div class="container">
@@ -44,7 +44,6 @@
                             <br />
                             <br />
                             <img id="preview" src="#" width="100%" height="auto" style="visibility: hidden; border-radius: 50%; margin-bottom: 20px;" />
-
                         </div>
                     </div>
                 </div>
@@ -83,7 +82,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Birth day</label>
+                                    <label>Birthday</label>
                                     @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
                                     @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
                                 </div>
@@ -139,7 +138,7 @@
                         </div>
                         <div class="form-group">
                             <div style="text-align: center; margin-top: 10px;">
-                                <a class="btn btn-danger btn-sm" href="/LoginGuest/Guest">Đăng nhập</a>
+                                <a class="btn btn-danger btn-sm" href="/Guest/LoginGuest">Đăng nhập</a>
                                 <input class="btn btn-success btn-sm" type="submit" value="Đăng ký" />
                             </div>
                         </div>
