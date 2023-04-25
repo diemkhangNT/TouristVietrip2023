@@ -119,5 +119,9 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             return View();
         }
+        public ActionResult ThongTinTaiKhoan()
+        {
+            return View();
+        }
     }
     }
