@@ -11,6 +11,7 @@ using System.Web.Security;
 using Tourist_VietripInsum_2023.common;
 using Tourist_VietripInsum_2023.Models;
 using PagedList;
+using System.Web.Routing;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
@@ -802,8 +803,40 @@ namespace Tourist_VietripInsum_2023.Controllers
             return RedirectToAction("HomePageGuest");
         }
 
+        //THONGTINCANHAN
+        public ActionResult Thongtinkhachhang(string id)
+        {
+            var kh = db.KhachHangs.Where(s => s.MaKH == id).FirstOrDefault();
+            return View(kh);
+        }
+        [HttpPost]
+        public ActionResult Thongtinkhachhang(KhachHang khach,HttpPostedFileBase HinhDaiDien, string imgnv)
+        {
+            if (ModelState.IsValid)
+            {
+                if (HinhDaiDien != null)
+                {
+                    var fileName = Path.GetFileName(HinhDaiDien.FileName);
+                    var path = Path.Combine(Server.MapPath("~/images"), fileName);
 
+                    khach.HinhDaiDien = fileName;
+                    //Save vào Images Folder
+                    HinhDaiDien.SaveAs(path);
 
+                }
+                else
+                {
+                    khach.HinhDaiDien = imgnv;
+                }
+                TempData["noti"] = "editkhach";
+                db.Entry(khach).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Thongtinkhachhang", new RouteValueDictionary(
+                                   new { controller = "Guest", action = "Thongtinkhachhang", Id = khach.MaKH }));
+
+            }
+            return View(khach);
+        }
 
 
 
