@@ -4,7 +4,7 @@
     ViewBag.Title = "Ticket";
     Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
     TouristEntities1 db = new TouristEntities1();
-    KhachHang khachhang = Session["taikhoan"] as KhachHang;
+    KhachHang khachhang = Session["UserKH"] as KhachHang;
 }
 @{
     var data = TempData["noti"];
@@ -19,16 +19,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link href="~/Content/Guest/booktour.css" rel="stylesheet" />
 <link href="~/Content/Guest/detailtour.css" rel="stylesheet" />
-@*<div class="dattour">
-    <div class="flex-col flex-grow medium-text-center nav-main">
-        <nav class="nav-links flex-row flex-row-center heading-font text-center strong h4 uppercase">
-            <a href="https://nucuoimekong.com/gio-hang" class="current">	1.Nhập thông tin </a>
-            <span class="divider hide-for-small"><i class="icon-angle-right"></i></span> >
-            <a href="https://nucuoimekong.com/dat-tour" class="hide-for-small">	2.Thanh toán &amp; giao hàng </a> >
-            <span class="divider hide-for-small"><i class="icon-angle-right"></i></span>
-            <a href="#" class="no-click hide-for-small">	3.Hoàn tất đặt hàng </a>
-        </nav>
-    </div>*@
+
 @{
     string matour = (string)Session["Matourchon"];
     var tour = db.Tours.Where(s => s.MaTour == matour).FirstOrDefault();

@@ -5,7 +5,9 @@
     ViewBag.Title = "Thông tin chi tiết tour";
     Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
     TouristEntities1 db = new TouristEntities1();
-    KhachHang khachhang = Session["taikhoan"] as KhachHang;
+
+    KhachHang khachhang = Session["UserKH"] as KhachHang;
+
 
 }
 
@@ -13,11 +15,11 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @{
-    var data = TempData["thongbaoLH"];
-    if (data == "taothanhcong")
+    var data = TempData["editkhach"];
+    if (data == "editkhach")
     {
         <script>
-            swal("Good job!", "Bạn đã gửi phản hồi cho SaiGonTravel", "success");
+            swal("Good job!", "Bạn đã cập nhật thông tin thành công !!!", "success");
         </script>
     }
 
@@ -63,139 +65,114 @@
                         </div>
                     </div>
                     <div class="group-add-cart ">
+                        @*@if (khachhang != null)
+                        {
+
+                            <a href="Guest/HomePageGuest" class="add-to-cart pull-right ">
+                                <i class="fas fa-shopping-cart"></i>
+                                <label>Đặt ngay</label>
+                            </a>
+                        }
+                        else
+                        {
+                        }*@
+
+
                         <a data-toggle="modal" data-target="#dattour" class="add-to-cart pull-right ">
                             <i class="fas fa-shopping-cart"></i>
                             <label>Đặt ngay</label>
                         </a>
-                         
+
                         <div class="modal fade" id="dattour" tabindex="-1" role="dialog" aria-labelledby="dattour" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 @using (Html.BeginForm("BookTour", "Guest", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
                                     @Html.AntiForgeryToken()
+                                 
                                 <div class="modal-content">
-                                    <div class="modal-body">
-                                        @{
-                                            BookTour bookTour = new BookTour();
-                                            bookTour.MaTour = Model.MaTour;
-                                        }
-                                        @Html.HiddenFor(model => bookTour.MaDH)
-                                        @Html.HiddenFor(model => bookTour.MaNVLap)
-                                        @Html.HiddenFor(model => bookTour.MaTour)
-                                        @Html.HiddenFor(model => bookTour.NgayLap)
-                                        @Html.HiddenFor(model => bookTour.TrangThaiTT)
-                                        @Html.HiddenFor(model => bookTour.TotalPrice)
-                                        @Html.HiddenFor(model => bookTour.SoCho)
-                                        <div class="form-horizontal" style="text-align:left">
-                                            <h3 class="title-name">THÔNG TIN LIÊN LẠC</h3>
-                                            <div class="customer-contact mb-3">
-                                                <div class="row ">
-                                                    <div class="name col-sm-6">
-                                                        <label>Họ và Tên <b>*</b></label>
-                                                        <input class="form-control" id="contact_name" name="TenKH" type="text" value="">
-                                                    </div>
-                                                    <div class="mail col-sm-6">
-                                                        <label>Email <b>*</b></label>
-                                                        <input class="form-control" id="email" name="Email" type="text" value="">
-                                                    </div>
-                                                    <div class="phone col-sm-6">
-                                                        <label>Số điện thoại <b>*</b></label>
-                                                        <input class="form-control" id="mobilephone" name="SDT" onkeypress="return funCheckInt(event)" type="text" value="">
-                                                    </div>
-                                                    <div class="addess col-sm-6">
-                                                        <label>Địa chỉ</label>
-                                                        <input class="form-control" id="address" name="DiaChi" type="text" value="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @*<div class="ticket-tour">
-                    <div class="change col-sm-10">
-                        <div class="change-title">
-                            <h4>Số vé đặt mua</h4>
-                        </div>
-                        <div class="change-number">
-                            @Html.EditorFor(model => bookTour.SoCho, new { htmlAttributes = new { @class = "form-control", @id = "socho" } })
-
-                        </div>
-                    </div>
-
-
-            </div>*@
-                                        </div>
-                                    </div>
-                               
-                                                <div class="modal-footer">
-                                                    <a class="btn btn-secondary btn-sm" data-dismiss="modal">Close</a>
-                                                    <input type="submit" value="Tiếp tục" class="btn btn-success btn-sm" />
-                                                </div>
-                                            </div>
+                                   
+                                        <div class="modal-body">
+                                            @{
+                                                BookTour bookTour = new BookTour();
+                                                bookTour.MaTour = Model.MaTour;
                                             }
+                                            @Html.HiddenFor(model => bookTour.MaDH)
+                                            @Html.HiddenFor(model => bookTour.MaNVLap)
+                                            @Html.HiddenFor(model => bookTour.MaTour)
+                                            @Html.HiddenFor(model => bookTour.NgayLap)
+                                            @Html.HiddenFor(model => bookTour.TrangThaiTT)
+                                            @Html.HiddenFor(model => bookTour.TotalPrice)
+                                            @Html.HiddenFor(model => bookTour.SoCho)
+                                            <div class="form-horizontal" style="text-align:left">
+                                                <h3 class="title-name">THÔNG TIN LIÊN LẠC</h3>
+                                                @if (khachhang == null)
+                                                {
+
+                                                    <div class="customer-contact mb-3">
+                                                        <div class="row ">
+                                                            <div class="name col-sm-6">
+                                                                <label>Họ và Tên <b>*</b></label>
+                                                                <input class="form-control" id="contact_name" name="TenKH" type="text" value="" required>
+                                                            </div>
+                                                            <div class="mail col-sm-6">
+                                                                <label>Email <b>*</b></label>
+                                                                <input class="form-control" id="email" name="Email" type="text" value="" required>
+                                                            </div>
+                                                            <div class="phone col-sm-6">
+                                                                <label>Số điện thoại <b>*</b></label>
+                                                                <input class="form-control" id="mobilephone" name="SDT" onkeypress="return funCheckInt(event)" type="text" value="" required>
+                                                            </div>
+                                                            <div class="addess col-sm-6">
+                                                                <label>Địa chỉ</label>
+                                                                <input class="form-control" id="address" name="DiaChi" type="text" value="" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    
+                                                    <div class="customer-contact mb-3">
+                                                        <div class="row ">
+                                                            <div class="name col-sm-6">
+                                                                <label>Họ và Tên <b>*</b></label>
+                                                                <input class="form-control" id="contact_name" name="TenKH" readonly="readonly" type="text" value="@khachhang.HoTenKH" required>
+                                                            </div>
+                                                            <div class="mail col-sm-6">
+                                                                <label>Email <b>*</b></label>
+                                                                <input class="form-control" id="email" name="Email" readonly="readonly" type="text" value="@khachhang.Email" required>
+                                                            </div>
+                                                            <div class="phone col-sm-6">
+                                                                <label>Số điện thoại <b>*</b></label>
+                                                                <input class="form-control" id="mobilephone" readonly="readonly" name="SDT" onkeypress="return funCheckInt(event)" type="text" value="@khachhang.SDT" required>
+                                                            </div>
+                                                            <div class="addess col-sm-6">
+                                                                <label>Địa chỉ</label>
+                                                                <input class="form-control" id="address" readonly="readonly" name="DiaChi" type="text" value="@khachhang.DiaChi" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
                                         </div>
-                            <style>
-                                .title-name {
-                                    font-weight: 700;
-                                    font-size: 22px;
-                                    line-height: 38px;
-                                    color: #2d4271;
-                                    width: 100%;
-                                    margin-bottom: 20px;
-                                    margin-top: 20px;
-                                }
+                                   
 
 
-                                .change {
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: space-between;
-                                    margin: 10px;
-                                    border: 2px solid #53787D;
-                                    border-radius: 10px;
-                                    padding: 5px 10px;
-                                }
+                                    <div class="modal-footer">
+                                        <a class="btn btn-secondary btn-sm" data-dismiss="modal">Close</a>
+                                        <input type="submit" value="Tiếp tục" class="btn btn-success btn-sm" />
+                                    </div>
+                                </div>
+                                                }
+                            </div>
 
-                                    .change :hover {
-                                        box-shadow: #53787D;
-                                    }
-
-                                .change-title {
-                                    padding-left: 5px;
-                                    color: #2d4271;
-                                }
-
-                                    .change-title h4 {
-                                        font-weight: 700;
-                                        font-size: 18px;
-                                        margin-bottom: 0;
-                                    }
-                            </style>
                         </div>
 
 
                         <a href="#" data-toggle="modal" data-target="#exampleModal" class="add-to-group pull-right">
                             <label>Liên hệ tư vấn</label>
                         </a>
-                        <style>
-                            .add-to-group:hover {
-                                background-color: #2d4271;
-                                color: white;
-                            }
 
-                            .hero-text {
-                                background-color: white;
-                                padding: 20px;
-                                border-radius: 20px;
-                            }
-
-                                .hero-text h4 {
-                                    text-align: center;
-                                    padding-top: 10px;
-                                    font-weight: 600;
-                                }
-
-                            .modal-body {
-                                text-align: right;
-                            }
-                        </style>
                         <!-- Modal -->
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -253,7 +230,7 @@
                                             <input type="submit" value="Thêm phản hồi" class="btn btn-success btn-sm" />
                                         </div>
                                     </div>
-                                                    }
+                                }
                             </div>
                         </div>
                     </div>
@@ -285,24 +262,35 @@
                                 </div>
                                 @{
                                     List<ChiTietTour> chiTietTours = db.ChiTietTours.Where(s => s.MaTour == Model.MaTour).ToList();
-                                    List<DiaDiemThamQuan> diaDiemThamQuans = new List<DiaDiemThamQuan>();
-
-                                    foreach (var ctiet in chiTietTours)
+                                    var hinh1="";
+                                    var hinh2="";
+                                    if (chiTietTours.Count<=3)
                                     {
-                                        var dd = db.DiaDiemThamQuans.Where(s => s.MaDDTQ == ctiet.MaDDTQ).FirstOrDefault();
-                                        diaDiemThamQuans.Add(dd);
+                                        hinh1 = "/images/dalat_fairytale-3.jpg";
+                                        hinh2 = "/images/phuquoc_langchai-2.jpg";
+                                    }
+                                    else
+                                    {
+                                        List<DiaDiemThamQuan> diaDiemThamQuans = new List<DiaDiemThamQuan>();
+
+                                        foreach (var ctiet in chiTietTours)
+                                        {
+                                            var dd = db.DiaDiemThamQuans.Where(s => s.MaDDTQ == ctiet.MaDDTQ).FirstOrDefault();
+                                            diaDiemThamQuans.Add(dd);
+
+                                        }
+                                        hinh1 = diaDiemThamQuans[1].HinhMinhHoa_D;
+                                        hinh2 = diaDiemThamQuans[0].HinhMinhHoa_D;
+
 
                                     }
-                                    var hinh1 = diaDiemThamQuans[1].HinhMinhHoa_D;
-                                    var hinh2 = diaDiemThamQuans[0].HinhMinhHoa_D;
-
 
 
                                 }
 
                                 <div class="col-6">
-                                    <div class="image" >
-                                        <img src="@hinh1" class="img-fluid" alt="image" style="height:100%">
+                                    <div class="image">
+                                       <img src="@hinh1" class="img-fluid" alt="image" style="height:100%">
                                     </div>
                                 </div>
                             </div>
@@ -382,25 +370,11 @@
                             @{
                                 var diadiem = db.ChiTietTours.Where(s => s.MaTour == Model.MaTour).OrderBy(s => s.STT).ToList();
 
-                                var diemthamquan = 0;
+                                var diemthamquan = diadiem.Count;
 
-                                foreach (var item in diadiem)
-                                {
-                                    if (item.MaTour == Model.MaTour)
-                                    {
-                                        diemthamquan++;
-
-
-                                    }
-                                }
+                                
                             }
-                            @*<div class="item">
-                                    <i class="fas fa-bus"></i>
-                                    <label>Phương tiện di chuyển</label>
-                                    <p>
-                                        @diemthamquan
-                                    </p>
-                                </div>*@
+                           
 
                             <div class="item">
                                 <i class="fas fa-map"></i>
@@ -471,7 +445,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                                }
+                                }
 
                             </div>
 
@@ -487,26 +461,10 @@
 
                                             @dt.MotaChitiet
                                             <br>
-                                            @*strong>Nghỉ đêm tại Huế.</strong>*@
+                                         
                                         </p>
                                     </div>
-                                    <!--<div class="group-services hashCode d-none">-->
-                                    @*<div class="item">
-                                            <i class="icon icon--calendar"></i>
-                                            <label>Khách sạn</label>
-                                            <p>VinOasis Phú Quốc</p>
-                                        </div>*@
-                                    <!--<div class="item">
-                                            <i class="icon icon--fire"></i>
-                                            <label>Bữa ăn</label>
-                                            <p>1 bửa trưa, 1 bửa tối.</p>
-                                        </div>
-                                        <div class="item">
-                                            <i class="icon icon--map"></i>
-                                            <label>Điểm tham quan</label>
-                                            <p>1 địa điểm</p>
-                                        </div>
-                                    </div>-->
+                                  
                                 }
 
                             </div>
@@ -564,11 +522,11 @@
                                         <td>0 đ</td>
                                     </tr>
                                     @*<tr>
-                                        <th scope="row">4</th>
-                                        <td>Em bé ( Dưới 2 tuổi )</td>
-                                        <td>0đ</td>
-                                        <td>0đ</td>
-                                    </tr>*@
+                                            <th scope="row">4</th>
+                                            <td>Em bé ( Dưới 2 tuổi )</td>
+                                            <td>0đ</td>
+                                            <td>0đ</td>
+                                        </tr>*@
                                     @*<tr>
                                             <th scope="row">4</th>
                                             <td>Phụ thu phòng đơn</td>
@@ -758,7 +716,63 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+    .add-to-group:hover {
+        background-color: #2d4271;
+        color: white;
+    }
 
+    .hero-text {
+        background-color: white;
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+        .hero-text h4 {
+            text-align: center;
+            padding-top: 10px;
+            font-weight: 600;
+        }
+
+    .modal-body {
+        text-align: right;
+    }
+    .title-name {
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 38px;
+        color: #2d4271;
+        width: 100%;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+
+    .change {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 10px;
+        border: 2px solid #53787D;
+        border-radius: 10px;
+        padding: 5px 10px;
+    }
+
+        .change :hover {
+            box-shadow: #53787D;
+        }
+
+    .change-title {
+        padding-left: 5px;
+        color: #2d4271;
+    }
+
+        .change-title h4 {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 0;
+        }
+</style>
 
 
 

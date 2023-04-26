@@ -242,6 +242,7 @@
     <Content Include="Content\Guest\booktour.css" />
     <Content Include="Content\Guest\detailtour.css" />
     <Content Include="Content\Guest\homepageGuest.css" />
+    <Content Include="Content\Guest\info-customer.css" />
     <Content Include="Content\Guest\ListTour-Option.css" />
     <Content Include="Content\Guest\StyleGuest.css" />
     <Content Include="Content\Images\1.png" />
@@ -253,6 +254,8 @@
     <Content Include="Content\javascript\checkdata.js" />
     <Content Include="Content\main-AD.css" />
     <Content Include="Content\ModalDialog.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\searchtour.css" />
     <Content Include="Content\style_profile.css" />
     <Content Include="Content\Images\account.png" />
     <Content Include="Content\Images\bg_login.jpg" />
@@ -558,6 +561,8 @@
     <Content Include="Views\Guest\LoginGuest.cshtml" />
     <Content Include="Views\Guest\SignupGuest.cshtml" />
     <Content Include="Views\Tourmanager\GiamSatLienHe.cshtml" />
+    <Content Include="Views\Guest\ViewGuest\customer_info.cshtml" />
+    <Content Include="Views\Guest\Thongtinkhachhang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

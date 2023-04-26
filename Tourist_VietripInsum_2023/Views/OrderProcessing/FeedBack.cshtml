@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.PhanHoi>
 @using Tourist_VietripInsum_2023.Models
 @{
-    ViewBag.Title = "FeedBack";
+    ViewBag.Title = "Phản hồi từ khách hàng";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
-    ViewBag.Name = "Trang phản hồi";
+    ViewBag.Name = "Danh sách phản hổi";
     ViewBag.PhanHoi = "active";
 
     TouristEntities1 db = new TouristEntities1();
@@ -21,19 +21,19 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="tile">
-            <h3 class="tile-title" style="text-align: center;">PHẢN HỒI</h3>
+            <h3 class="tile-title" style="text-align: center;">PHẢN HỒI KHÁCH HÀNG</h3>
             <div class="tile-body">
                 <table class="table">
                     <thead style="background-color: #ffd43b;">
                         <tr>
-                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã phản hồi</th>
-                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã khách hàng</th>
-                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Số điện thoại</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã PH</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã KH</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1">SDT</th>
                             <th aria-controls="sampleTable" rowspan="1" colspan="1">Email</th>
-                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Nội dung</th>
                             <th aria-controls="sampleTable" rowspan="1" colspan="1">Ngày</th>
+                           
                             <th aria-controls="sampleTable" rowspan="1" colspan="1">Trạng thái</th>
-                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Tùy chọn</th>
+                            <th aria-controls="sampleTable" rowspan="1" colspan="1"></th>
                         </tr>
                     </thead>
 
@@ -61,9 +61,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Email)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NoiDung)
-                                    </td>
+                                    
                                     <td>
                                         @Html.DisplayFor(modelItem => item.NgayPH)
                                     </td>
@@ -110,7 +108,7 @@
                                             <div class="modal-content">
                                                 @*Modal body*@
                                                 <div class="modal-body">
-                                                    <h5 class="tile-title" style="text-align: center; padding-top: 20px;">SỬA TRẠNG THÁI PHẢN HỒI</h5>
+                                                    <h5 class="tile-title" style="text-align: center; padding-top: 20px;">CHI TIẾT PHẢN HỒI</h5>
                                                 </div>
                                                 @{ PhanHoi phanHoi = db.PhanHois.Find(item.MaPhanHoi);}
                                             <div>
@@ -120,9 +118,21 @@
                                                 @Html.HiddenFor(model => phanHoi.Email)
                                                 @Html.HiddenFor(model => phanHoi.NoiDung)
                                                 @Html.HiddenFor(model => phanHoi.NgayPH)
-                                                <div class="form-group" style="display: flex; margin-left: 80px;">
-                                                    <label class="control-label" style=" font-size: 18px; margin-top: 10px;">Trạng thái phản hồi</label>
-                                                    @Html.EditorFor(model => phanHoi.TrangThai, new { htmlAttributes = new { @class = "form-control", @style = "width: 150px; margin-left: 15px;" } })
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
+                                                    <b> Mã phản hồi : </b>
+                                                    @phanHoi.MaPhanHoi
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
+                                                    <b> Khách hàng : </b>
+                                                    @phanHoi.MaKH
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
+                                                    <b> Nội dung </b>
+                                                    @phanHoi.NoiDung
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
+                                                    <b> Trạng thái phản hồi : </b>
+                                                    @Html.EditorFor(model => phanHoi.TrangThai, new { htmlAttributes = new { @class = "form-control-sm",} })
                                                 </div>
                                             </div>
                                                 @*Modal footer*@

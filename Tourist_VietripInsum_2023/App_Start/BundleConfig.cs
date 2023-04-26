@@ -22,14 +22,15 @@ namespace Tourist_VietripInsum_2023
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
-            
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/main.css",
                       "~/Content/stylefooter.css",
-                      "~/Content/Guest.css"
-                      ));
+                      "~/Content/Guest.css",
+                      "~/Content/PagedList.css") 
+                      );
         }
     }
 }

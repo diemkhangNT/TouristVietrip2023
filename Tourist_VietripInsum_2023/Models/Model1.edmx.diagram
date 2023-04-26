@@ -4,20 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a31012493b2e4c468f15e03dc7934324" Name="Diagram1">
-        <EntityTypeShape EntityType="TouristModel.BookTour" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+      <Diagram DiagramId="7b592444912e4941a00ff7d923c6488a" Name="Diagram1">
+        <EntityTypeShape EntityType="TouristModel.BookTour" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.ChiTietTour" Width="1.5" PointX="12.25" PointY="12.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.ChucVu" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.DiaDiemThamQuan" Width="1.5" PointX="10" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.Hotel" Width="1.5" PointX="10" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.DiaDiemThamQuan" Width="1.5" PointX="10" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.Hotel" Width="1.5" PointX="10" PointY="12.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.KhachHang" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.LoaiKH" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.LoaiTour" Width="1.5" PointX="0.75" PointY="15.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.LoaiVe" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.NhanVien" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.PhanHoi" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.PhuongTien" Width="1.5" PointX="10" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TouristModel.TinhThanh" Width="1.5" PointX="7.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.PhanHoi" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.PhuongTien" Width="1.5" PointX="10" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TouristModel.TinhThanh" Width="1.5" PointX="7.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.Tour" Width="1.5" PointX="3" PointY="14.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TouristModel.Ve" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
         <AssociationConnector Association="TouristModel.FK_BookTour_KhachHang1" ManuallyRouted="false" />

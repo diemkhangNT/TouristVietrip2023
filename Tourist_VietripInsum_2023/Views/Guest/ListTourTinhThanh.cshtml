@@ -1,17 +1,18 @@
 ﻿
-@model IEnumerable<Tourist_VietripInsum_2023.Models.Tour>
+@using PagedList.Mvc
+@model PagedList.PagedList<Tour>
 @using Tourist_VietripInsum_2023.Models
 
 @{
     ViewBag.Title = "List Tour";
     Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
     TouristEntities1 db = new TouristEntities1();
-   
+
     List<DiaDiemThamQuan> diaDiems = db.DiaDiemThamQuans.ToList();
 }
 
 <link href="~/Content/Guest/ListTour-Option.css" rel="stylesheet" />
-
+<link href="~/Content/PagedList.css" rel="stylesheet" />
 <div class="tour-searchlist" style="background-color: #f9f9f9">
     <div class="container">
         <form action="#" method="post">
@@ -181,14 +182,14 @@
                                                                 }
                                                             }
                                                             <!--<div class="tour-item_btntour">-->
-                                                                @*<div class="btn-book">
-                                                            <a href="#" class="btn-order btn-sm " title="" value="" id="">
-                                                                <i class="fas fa-shopping-cart"></i>
-                                                                Đặt ngay
+                                                            @*<div class="btn-book">
+                                                                    <a href="#" class="btn-order btn-sm " title="" value="" id="">
+                                                                        <i class="fas fa-shopping-cart"></i>
+                                                                        Đặt ngay
 
-                                                            </a>
-                                                        </div>*@
-                                                                <!--<div class="btn-block">
+                                                                    </a>
+                                                                </div>*@
+                                                            <!--<div class="btn-block">
                                                                     <a href="/Guest/Tourinfomation/@tour.MaTour" title="@tour.TenTour" class="btn-viewdetail">
 
                                                                         Xem chi tiết
@@ -218,7 +219,18 @@
                         </div>
                     </div>
 
-
+                    <!-- Thêm mã phân trang -->
+                    <br />
+                    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                    <div class="MenuTrang">
+                        @Html.PagedListPager(Model, page => Url.Action("ListTourTinhThanh", new { page }))
+                    </div>
+                    <style>
+                        .MenuTrang li {
+                            display: inline;
+                        }
+                    </style>
+                    <!-- Kết thúc -->
                 </div>
 
             </div>
@@ -231,6 +243,4 @@
     .tour-item:hover {
         box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
     }
-
-   
 </style>
