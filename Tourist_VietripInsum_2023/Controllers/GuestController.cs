@@ -434,6 +434,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             var khachhang = db.KhachHangs.Where(s => s.SDT == SDT).FirstOrDefault();
             booktour.TotalPrice = 0.0;
             booktour.SoCho = 0;
+            booktour.XacNhanDH = false;
             Session["madonhang"] = booktour.MaDH;
             
             db.BookTours.Add(booktour);
@@ -806,6 +807,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         //THONGTINCANHAN
         public ActionResult Thongtinkhachhang(string id)
         {
+
             var kh = db.KhachHangs.Where(s => s.MaKH == id).FirstOrDefault();
             return View(kh);
         }
@@ -828,6 +830,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 {
                     khach.HinhDaiDien = imgnv;
                 }
+                Session["UserKH"] =khach;
                 TempData["noti"] = "editkhach";
                 db.Entry(khach).State = EntityState.Modified;
                 db.SaveChanges();
@@ -837,7 +840,11 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             return View(khach);
         }
-
+        public ActionResult Dondat( string id)
+        {
+            List<BookTour> dsDon = db.BookTours.Where(s => s.MaKH == id ).ToList();
+            return View();
+        }
 
 
 

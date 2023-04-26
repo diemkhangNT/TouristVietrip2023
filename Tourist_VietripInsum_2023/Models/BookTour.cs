@@ -30,6 +30,7 @@ namespace Tourist_VietripInsum_2023.Models
         public string SdtKH { get; set; }
         public string MaKH { get; set; }
         public Nullable<bool> HinhThucThanhToan { get; set; }
+        public Nullable<bool> XacNhanDH { get; set; }
     
         public virtual KhachHang KhachHang { get; set; }
         public virtual NhanVien NhanVien { get; set; }

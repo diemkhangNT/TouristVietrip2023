@@ -240,9 +240,9 @@
     <Content Include="Content\Guest.js" />
     <Content Include="Content\Guest\BookingBill.css" />
     <Content Include="Content\Guest\booktour.css" />
-    <Content Include="Content\Guest\customerinfo.css" />
     <Content Include="Content\Guest\detailtour.css" />
     <Content Include="Content\Guest\homepageGuest.css" />
+    <Content Include="Content\Guest\info-customer.css" />
     <Content Include="Content\Guest\ListTour-Option.css" />
     <Content Include="Content\Guest\StyleGuest.css" />
     <Content Include="Content\Images\1.png" />

@@ -58,22 +58,33 @@
                             <strong> Hỗ trợ khách hàng </strong>
                             <div class="col-xs-12 mg-bot15 form-lienhe">
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mg-bot15">
-                                        <p class="hoten"> Họ và Tên : </p>
+                                    <div class="col-lg-12 col-md-4 col-sm-6 col-xs-12  mg-bot15">
+                                        <p class="hoten"> Họ và Tên(*) : </p>
                                         <input type="text" class="form-control input-lg" name="txt-Fullname" required />
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mg-bot15">
-                                        <p class="email"> Email : </p>
-                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", } })
+                                        <p class="email"> Email(*) : </p>
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required= "required" } })
                                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mg-bot15">
-                                        <p class="sdt"> Số điện thoại : </p>
-                                        @Html.EditorFor(model => model.Sdt, new { htmlAttributes = new { @class = "form-control", } })
+                                        <p class="sdt"> Số điện thoại(*): </p>
+                                        @Html.EditorFor(model => model.Sdt, new { htmlAttributes = new { @class = "form-control", @required= "required" } })
+                                        @Html.ValidationMessageFor(model => model.Sdt, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  mg-bot15">
+                                        <p class="sdt">Tiêu đề (*) : </p>
+                                        @*@html.editorfor(model => model.sdt, new { htmlattributes = new { @class = "form-control", } })*@
+                                    <select class="form-control list-box tri-state" id="TieuDe" name="TieuDe" required>
+                                       
+                                                <option>Tư vấn tour</option>
+                                                <option>Tư vấn đơn đặt tour</option>
+                                            
+                                    </select>
                                         @Html.ValidationMessageFor(model => model.Sdt, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
-                                        <p class="noidung"> Nhập nội dung: </p>
+                                        <p class="noidung"> Nhập nội dung (*): </p>
                                         @*@Html.EditorFor(model => model.NoiDung, new { htmlAttributes = new { @class = "form-control" } })*@
                                         <textarea rows="5" class="form-control input-lg-nd" name="NoiDung" required> </textarea>
                                         @Html.ValidationMessageFor(model => model.NoiDung, "", new { @class = "text-danger" })

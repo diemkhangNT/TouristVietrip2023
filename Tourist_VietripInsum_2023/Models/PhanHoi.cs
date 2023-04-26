@@ -21,6 +21,7 @@ namespace Tourist_VietripInsum_2023.Models
         public string NoiDung { get; set; }
         public Nullable<System.DateTime> NgayPH { get; set; }
         public Nullable<bool> TrangThai { get; set; }
+        public string TieuDe { get; set; }
     
         public virtual KhachHang KhachHang { get; set; }
     }
