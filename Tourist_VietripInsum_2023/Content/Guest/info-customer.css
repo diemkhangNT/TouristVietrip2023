@@ -1,0 +1,195 @@
+﻿.body {
+    height: 100%;
+    background-color: #f9f9f9;
+    color: #2d4271;
+}
+
+.thongtinkh {
+    padding: 40px 0px;
+}
+.content-cus {
+    border: 1.5px solid #198754;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    padding:50px;
+}
+.hero-text {
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1.5px solid #198754;
+}
+
+
+
+.btn-submit {
+    border-radius: 5px;
+    background-color: #67a448;
+    color: white;
+    font-size: 20px !important;
+    border: none;
+}
+
+.header .navbar {
+    padding: 8px 25px;
+    background: white;
+}
+
+.nav-item {
+    margin: 0 8px;
+}
+
+.navbar-nav .nav-link {
+    color: white;
+    font-size: 17PX;
+    font-weight: 600;
+}
+
+.navbar-brand span {
+    color: white;
+    font-size: 15PX;
+    font-weight: 800;
+}
+
+.list-menutourvist {
+    padding-left: 0;
+    list-style: none;
+}
+
+.group-features {
+    padding-left: 20px;
+}
+
+@media screen and (max-width: 991px) {
+    .group-features .item {
+        cursor: pointer;
+        padding: 0px 11px;
+    }
+}
+
+.header .navbar .group-features .item i {
+    font-size: 22px;
+    color: rgb(45, 66, 113);
+}
+
+.content-info {
+    padding: 10px;
+}
+
+.profile-tab-nav {
+    min-width: 250px;
+    width: 400px;
+    height: 700px;
+    margin: 20px;
+    border: 2px solid #d5d5d5;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.tab-content {
+    flex: 1;
+    margin: 0px;
+    width: 600px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.nav-pills {
+    border-bottom: 1px solid #ddd;
+    border-radius: 0;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+
+
+.menu-func {
+    padding-left: 10px;
+}
+
+.infocus {
+    font-weight: normal;
+    text-align: center;
+}
+
+.title_acc {
+    border-radius: 0.375rem;
+    align-items: center;
+    padding: 5px 10px;
+    border-left: 5px solid #ffd800;
+}
+
+/*label {
+    color: #999999;
+}*/
+
+.online {
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    font-size: 12px;
+    margin-right: 3px;
+}
+
+
+.editProfile {
+    border-radius: 0.375rem;
+    background-color: #ffd800;
+    align-items: center;
+    padding: 5px 50px;
+}
+
+    .editProfile:hover {
+        cursor: no-drop;
+    }
+
+.menu-func {
+    margin-top: 16px;
+}
+
+    .menu-func h4 {
+        font-weight: 600;
+        font-size: 18px;
+        color: rgb(25, 30, 104);
+    }
+
+.link-info a {
+    color: rgb(25, 30, 104);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.menu-func h5 {
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+    .menu-func h5 a {
+        text-decoration: none;
+        color: #6c757d;
+    }
+
+a :hover {
+    color: red;
+    cursor: pointer;
+}
+
+
+
+h3 {
+    text-align: center;
+}
+
+.btn-primary {
+    margin-left: 300px;
+    margin-top: 30px;
+}
+
+.btn-light {
+    margin-top: 30px;
+}

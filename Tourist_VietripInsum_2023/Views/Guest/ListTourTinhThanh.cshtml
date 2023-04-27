@@ -1,4 +1,4 @@
-﻿
+
 @using Tourist_VietripInsum_2023.Models
 @using PagedList.Mvc
 @model PagedList.PagedList<Tour>
@@ -218,6 +218,7 @@
 
                         </div>
                     </div>
+
                     <!-- Thêm mã phân trang -->
                     <br />
                     Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount

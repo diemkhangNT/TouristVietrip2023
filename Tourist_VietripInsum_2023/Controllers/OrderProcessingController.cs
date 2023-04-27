@@ -579,7 +579,7 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult FeedBack()
         {
-            return View(db.PhanHois.ToList());
+            return View(db.PhanHois.Where(s=>s.TieuDe== "Tư vấn đơn đặt tour").ToList());
         }
 
         public ActionResult DeleteFeedBack(string id)

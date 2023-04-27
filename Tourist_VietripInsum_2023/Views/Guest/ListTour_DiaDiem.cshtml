@@ -13,7 +13,7 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" />
 
 <link href="~/Content/Guest/ListTour-Option.css" rel="stylesheet" />
-
+<link href="~/Content/PagedList.css" rel="stylesheet" />
 <div class="tour-searchlist" style="background-color: #f9f9f9">
     <div class="container">
         <form action="#" method="post">
@@ -101,122 +101,147 @@
                     List<Tour> tours = Model.Where(t => t.TrangThai != "Sắp ra mắt" && t.SoChoNull > 0).ToList();
                     int count = tours.Count();
                 }
-                <div class="col-md-9 col-12 main-content">
-                    <div class="pr-tinhthanh">
-                        <h3>Du lịch @Session["tendiadiem"]</h3>
-                        <hr />
-                        @*<p>Chúng tôi tìm thấy <span>@tongtour</span> kết quả</p>*@
-                    </div>
-                    <div class="listour-search">
+            <div class="col-md-9 col-12 main-content">
+                <div class="pr-tinhthanh">
+                    <h3>Du lịch @Session["tendiadiem"]</h3>
+                    <hr />
+                    @*<p>Chúng tôi tìm thấy <span>@tongtour</span> kết quả</p>*@
+                </div>
+                <div class="listour-search">
 
-                        <div class="row row-cols-1 row-cols-md-3 g-4" id="sampleTable">
-                            @{
-                                if (count == 0)
+                    <div class="row row-cols-1 row-cols-md-3 g-4" id="sampleTable">
+                        @{
+                            if (count == 0)
+                            {
+                                <h3 class="text-center">Không tìm thấy tour</h3>
+                            }
+                            else
+                            {
+                                foreach (var tour in Model)
                                 {
-                                    <h3 class="text-center">Không tìm thấy tour</h3>
-                                }
-                                else
-                                {
-                                    foreach (var tour in Model)
-                                    {
-                                        <div class="col">
-                                            <div class="card tour-item">
-                                                <div class="tour-item__image">
-                                                    <a href="/Guest/Tourinfomation/@tour.MaTour" title="#">
-                                                        <img src="@tour.HinhMinhHoa_T" class="card-img-top img-fluid" alt="@tour.TenTour">
+                                    <div class="col">
+                                        <div class="card tour-item">
+                                            <div class="tour-item__image">
+                                                <a href="/Guest/Tourinfomation/@tour.MaTour" title="#">
+                                                    <img src="@tour.HinhMinhHoa_T" class="card-img-top img-fluid" alt="@tour.TenTour">
+                                                </a>
+                                            </div>
+                                            @{
+                                                var ngaykhoihanh = String.Format("{0:d/M/yyyy}", tour.NgayKhoihanh);
+                                                var ngayhethan = String.Format("{0:d/M/yyyy}", tour.HanChotDatVe);
+                                            }
+                                            <div class="card-body p-3">
+                                                <p class="tour-item_date mb-1">@ngaykhoihanh - @tour.SoNgay ngày</p>
+                                                <p class="card-text tour-item_title mb-1">
+                                                    <a href="/Guest/Tourinfomation/@tour.MaTour" title="@tour.TenTour ">
+                                                        @tour.TenTour
+                                                    </a>
+                                                </p>
+                                                <div class="tour-item_code">
+                                                    Mã tour:<span> @tour.MaTour</span>
+                                                </div>
+                                                <p class="tour-item_departure">
+                                                    Nơi khởi hành: <span>
+                                                        @tour.NoiKhoiHanh
+                                                    </span>
+                                                </p>
+                                                @{
+                                                    var tien = string.Format("{0:#,##0}", tour.GiaNguoiLon);
+                                                    var loaitour = db.LoaiTours.Where(s => s.MaLTour == tour.MaLTour).FirstOrDefault();
+
+                                                    //var pricesale = (double)item.GiaNguoiLon * (1 - loaitour.ChietKhau);
+                                                    var tienchuagiam = tour.GiaNguoiLon + (tour.GiaNguoiLon * loaitour.ChietKhau);
+                                                    var tiensale = string.Format("{0:#,##0}", tienchuagiam);
+                                                    var ck = loaitour.ChietKhau * 100;
+
+
+
+                                                }
+                                                <div class="tour-item_price">
+                                                    <div class="price__wrappertour">
+                                                        @{
+                                                            if (ck == 0)
+                                                            {
+                                                                <div class="price-current">
+                                                                    <span class="tour-item_price-new">@tiensale ₫</span>
+
+                                                                </div>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="pricebefore">
+                                                                    Giá
+                                                                    <span class="tour-item_priceold">@tiensale ₫</span>
+                                                                </div>
+                                                                <div class="price-current">
+                                                                    <span class="tour-item_price-new">@tien ₫</span>
+                                                                    <span class="tour-item_discount small p-1">@ck% GIẢM</span>
+                                                                </div>
+                                                            }
+                                                        }
+
+
+
+                                                        <!--<div class="tour-item_btntour">-->
+                                                        @*<div class="btn-book">
+                                                    <a href="#" class="btn-order btn-sm " title="" value="" id="">
+                                                        <i class="fas fa-shopping-cart"></i>
+                                                        <label>
+                                                            Đặt ngay
+                                                        </label>
+                                                    </a>
+                                                </div>*@
+                                                        <!--<div class="btn-block">
+                                                    <a href="" title="" class="btn-viewdetail">
+                                                        <label>
+                                                            Xem chi tiết
+                                                        </label>
                                                     </a>
                                                 </div>
-                                                @{
-                                                    var ngaykhoihanh = String.Format("{0:d/M/yyyy}", tour.NgayKhoihanh);
-                                                    var ngayhethan = String.Format("{0:d/M/yyyy}", tour.HanChotDatVe);
-                                                }
-                                                <div class="card-body p-3">
-                                                    <p class="tour-item_date mb-1">@ngaykhoihanh - @tour.SoNgay ngày</p>
-                                                    <p class="card-text tour-item_title mb-1">
-                                                        <a href="/Guest/Tourinfomation/@tour.MaTour" title="@tour.TenTour ">
-                                                            @tour.TenTour
-                                                        </a>
-                                                    </p>
-                                                    <div class="tour-item_code">
-                                                        Mã tour:<span> @tour.MaTour</span>
+                                            </div>-->
                                                     </div>
-                                                    <p class="tour-item_departure">
-                                                        Nơi khởi hành: <span>
-                                                            @tour.NoiKhoiHanh
-                                                        </span>
-                                                    </p>
-                                                    @{
-                                                        var tien = string.Format("{0:#,##0}", tour.GiaNguoiLon);
-                                                        var loaitour = db.LoaiTours.Where(s => s.MaLTour == tour.MaLTour).FirstOrDefault();
-
-                                                        //var pricesale = (double)item.GiaNguoiLon * (1 - loaitour.ChietKhau);
-                                                        var tienchuagiam = tour.GiaNguoiLon + (tour.GiaNguoiLon * loaitour.ChietKhau);
-                                                        var tiensale = string.Format("{0:#,##0}", tienchuagiam);
-                                                        var ck = loaitour.ChietKhau * 100;
-
+                                                </div>
+                                                <div class="tour-item_footer">
+                                                    <div class="dateend-item">
+                                                        @ngayhethan
+                                                    </div>
+                                                    <div class="seattour_item">
+                                                        Số chỗ còn:
+                                                        <span>@tour.SoChoNull</span>
 
                                                     }
-                                                    <div class="tour-item_price">
-                                                        <div class="price__wrappertour">
-                                                            @{
-                                                                if (ck == 0)
-                                                                {
-                                                                    <div class="price-current">
-                                                                        <span class="tour-item_price-new">@tiensale ₫</span>
-
-                                                                    </div>
-
-                                                                }
-                                                                else
-                                                                {
-                                                                    <div class="pricebefore">
-                                                                        Giá
-                                                                        <span class="tour-item_priceold">@tiensale ₫</span>
-                                                                    </div>
-                                                                    <div class="price-current">
-                                                                        <span class="tour-item_price-new">@tien ₫</span>
-                                                                        <span class="tour-item_discount small p-1">@ck% GIẢM</span>
-                                                                    </div>
-                                                                }
-                                                            }
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="tour-item_footer">
-                                                        <div class="dateend-item">
-                                                            @ngayhethan
-                                                        </div>
-                                                        <div class="seattour_item">
-                                                            Số chỗ còn:
-                                                            <span>@tour.SoChoNull</span>
-                                                        </div>
+                                                 
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    }
-
-
+                                    </div>
                                 }
+
+
+
                             }
-
-
-                        </div>
-                    </div>
-                    <!-- Thêm mã phân trang -->
-                    <br />
-                    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
-                    <div class="MenuTrang">
-                        @Html.PagedListPager(Model, page => Url.Action("ListTour_DiaDiem", new { page }))
-                    </div>
-                    <style>
-                        .MenuTrang li {
-                            display: inline;
                         }
-                    </style>
-                    <!-- Kết thúc -->
+
+
+                    </div>
 
                 </div>
+                <!-- Thêm mã phân trang -->
+                <br />
+                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                <div class="MenuTrang">
+                    @Html.PagedListPager(Model, page => Url.Action("ListTour_DiaDiem", new { page }))
+                </div>
+                <style>
+                    .MenuTrang li {
+                        display: inline;
+                    }
+                </style>
+                <!-- Kết thúc -->
+
+            </div>
 
             </div>
 

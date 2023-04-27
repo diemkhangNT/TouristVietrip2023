@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
@@ -11,6 +11,7 @@ using System.Web.Security;
 using Tourist_VietripInsum_2023.common;
 using Tourist_VietripInsum_2023.Models;
 using PagedList;
+using System.Web.Routing;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
@@ -326,9 +327,9 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult ListTour(int? page)
         {
-            List<Tour> tour = db.Tours.Where(s => s.TrangThai !="Sắp ra mắt" && s.SoChoNull>0).ToList();
             int pageSize = 9;
             int pageNum = (page ?? 1);
+            List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull>0).ToList();
             return View(tour.ToPagedList(pageNum,pageSize));
         }
 
@@ -382,29 +383,27 @@ namespace Tourist_VietripInsum_2023.Controllers
         public ActionResult BookTour(BookTour booktour,string DiaChi,string SDT,string Email,string TenKH)
         {
             string matour = (string)Session["Matourchon"];
-            KhachHang khachdk = Session["UserKH"] as KhachHang;
             Random rd = new Random();
-            //dang nhap
-            if(khachdk!=null)
+            KhachHang khdn = Session["UserKH"] as KhachHang;
+            if(khdn!=null)
             {
-                booktour.MaKH = khachdk.MaKH;
-                booktour.SdtKH = khachdk.SDT;
-                Session["TaiKhoan"] = khachdk;
+                booktour.MaKH = khdn.MaKH;
+                booktour.SdtKH = khdn.SDT;
+                Session["TaiKhoan"] = khdn.MaKH;
+
 
             }    
             else
             {
-                //khong dang nhap
+
                 var khach = db.KhachHangs.Where(s => s.SDT == SDT).FirstOrDefault();
                 if (khach == null)
                 {
                     //khong dang nhap va khong phia khach trong he thong
                     KhachHang kh = new KhachHang();
-
                     var idKH = "GS" + rd.Next(1, 1000);
                     kh.MaKH = idKH;
                     booktour.MaKH = idKH;
-
                     kh.SDT = SDT;
                     booktour.SdtKH = kh.SDT;
                     kh.DiaChi = DiaChi;
@@ -426,8 +425,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                     khach.HoTenKH = TenKH;
                 }
             }    
-
-            var idDH = "DH" + rd.Next(1, 10)+ rd.Next(11, 99);
+            var idDH = "DH" + rd.Next(1, 1000);
             booktour.MaDH = idDH;
             booktour.MaTour = matour;
             booktour.NgayLap = DateTime.Now;
@@ -436,18 +434,14 @@ namespace Tourist_VietripInsum_2023.Controllers
             var khachhang = db.KhachHangs.Where(s => s.SDT == SDT).FirstOrDefault();
             booktour.TotalPrice = 0.0;
             booktour.SoCho = 0;
+            booktour.XacNhanDH = false;
             Session["madonhang"] = booktour.MaDH;
             
             db.BookTours.Add(booktour);
             db.SaveChanges();
             
             return RedirectToAction("Ticket");
-
-
         }
-
-        
-
 
         public ActionResult Ticket()
         {
@@ -800,6 +794,50 @@ namespace Tourist_VietripInsum_2023.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("HomePageGuest");
         }
+
+        //THONGTINCANHAN
+        public ActionResult Thongtinkhachhang(string id)
+        {
+
+            var kh = db.KhachHangs.Where(s => s.MaKH == id).FirstOrDefault();
+            return View(kh);
+        }
+        [HttpPost]
+        public ActionResult Thongtinkhachhang(KhachHang khach,HttpPostedFileBase HinhDaiDien, string imgnv)
+        {
+            if (ModelState.IsValid)
+            {
+                if (HinhDaiDien != null)
+                {
+                    var fileName = Path.GetFileName(HinhDaiDien.FileName);
+                    var path = Path.Combine(Server.MapPath("~/images"), fileName);
+
+                    khach.HinhDaiDien = fileName;
+                    //Save vào Images Folder
+                    HinhDaiDien.SaveAs(path);
+
+                }
+                else
+                {
+                    khach.HinhDaiDien = imgnv;
+                }
+                Session["UserKH"] =khach;
+                TempData["noti"] = "editkhach";
+                db.Entry(khach).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Thongtinkhachhang", new RouteValueDictionary(
+                                   new { controller = "Guest", action = "Thongtinkhachhang", Id = khach.MaKH }));
+
+            }
+            return View(khach);
+        }
+        public ActionResult Dondat( string id)
+        {
+            List<BookTour> dsDon = db.BookTours.Where(s => s.MaKH == id ).ToList();
+            return View();
+        }
+
+
 
         public ActionResult TourBookingHistory()
         {
