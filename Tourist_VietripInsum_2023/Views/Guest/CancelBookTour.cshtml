@@ -1,0 +1,95 @@
+﻿@model Tourist_VietripInsum_2023.Models.BookTour
+@using Tourist_VietripInsum_2023.Models
+@{
+    ViewBag.Title = "CancelBookTour";
+    Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
+    TouristEntities1 db = new TouristEntities1();
+    var listTickets = db.Ves.Where(s => s.MaDH == Model.MaDH);
+}
+
+<section class="home-page_listtour mb-4">
+    <div class="container">
+        <h3 style="margin-top: 30px;">Bạn có chắc chắn muốn hủy đơn đặt tour này không?</h3>
+        <div>
+            <hr />
+            <b>Tour: </b> @Html.DisplayFor(model => model.Tour.TenTour) <br />
+            <b>Ngày đặt: </b> @Html.DisplayFor(model => model.NgayLap) <br />
+            <b>Tổng tiền: </b> @{var tongTien = string.Format("{0: 0,0} VNĐ", Model.TotalPrice);}@Html.DisplayFor(model => tongTien)
+            <b style="margin-left: 20px;">Số chỗ: </b> @Html.DisplayFor(model => model.SoCho) <br />
+            <b>Hình thức thanh toán: </b>
+            @if (Model.HinhThucThanhToan == true)
+            {
+                <span>Chuyển khoản</span>
+            }
+            else
+            {
+                <span>Tiền mặt</span>
+            }
+            <b style="margin-left: 20px;">Tình trạng thanh toán: </b>
+            @if (Model.TrangThaiTT == true)
+            {
+                <span>Đã thanh toán</span>
+            }
+            else
+            {
+                <span>Chưa thanh toán</span>
+            }
+        </div>
+        <table class="table" style="margin-top: 30px;">
+            <thead style="background-color: #ffd43b;">
+                <tr>
+                    <th aria-controls="sampleTable">Mã vé</th>
+                    <th aria-controls="sampleTable">Loại vé</th>
+                    <th aria-controls="sampleTable">Họ và tên</th>
+                    <th aria-controls="sampleTable">Giới tính</th>
+                    <th aria-controls="sampleTable">Ngày sinh</th>
+                    <th aria-controls="sampleTable">Lưu ý</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (listTickets.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="9" class="text-center"> Records not found </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in listTickets)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaVe)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LoaiVe.TenLVe)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Hoten_KH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GioiTinh)
+                            </td>
+                            <td>
+                                @{ var ngaySinh = string.Format("{0:dd/MM/yyyy}", item.NgaySinh);}
+                                @Html.DisplayFor(modelItem => ngaySinh)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LuuY)
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <a href="/Guest/TourBookingHistory" class="btn btn-cancel">Quay lại</a>
+                <input type="submit" value="Xác nhận" class="btn btn-success" />
+            </div>
+        }
+    </div>
+</section>

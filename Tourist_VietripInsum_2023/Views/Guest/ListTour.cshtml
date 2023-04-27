@@ -1,8 +1,7 @@
-﻿
+
 @using Tourist_VietripInsum_2023.Models
 @using PagedList.Mvc
 @model PagedList.PagedList<Tour>
-
 
 @{
     ViewBag.Title = "List Tour";
@@ -12,7 +11,7 @@
     List<DiaDiemThamQuan> diaDiems = db.DiaDiemThamQuans.ToList();
 }
 
-
+<link href="~/Content/PagedList.css" rel="stylesheet" />
 <link href="~/Content/Guest/ListTour-Option.css" rel="stylesheet" />
 <link href="~/Content/PagedList.css" rel="stylesheet" />
 <div class="tour-searchlist" style="background-color: #f9f9f9">
@@ -207,6 +206,9 @@
 
                         }
 
+
+                                </div>
+                            </div>
 
                     </div>
                 </div>

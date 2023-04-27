@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
@@ -208,10 +208,9 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             var iddiadiem = db.DiaDiemThamQuans.Where(d => d.MaDDTQ == id).FirstOrDefault();
             List<Tour> tour = lay_Tour(id);
-            
-            Session["tendiadiem"] = iddiadiem.TenDDTQ;
             int pageSize = 9;
             int pageNum = (page ?? 1);
+            Session["tendiadiem"] = iddiadiem.TenDDTQ;
             return View(tour.ToPagedList(pageNum,pageSize));
         }
         [HttpPost]
@@ -331,7 +330,6 @@ namespace Tourist_VietripInsum_2023.Controllers
             int pageSize = 9;
             int pageNum = (page ?? 1);
             List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull>0).ToList();
-
             return View(tour.ToPagedList(pageNum,pageSize));
         }
 
@@ -393,18 +391,19 @@ namespace Tourist_VietripInsum_2023.Controllers
                 booktour.SdtKH = khdn.SDT;
                 Session["TaiKhoan"] = khdn.MaKH;
 
+
             }    
             else
             {
+
                 var khach = db.KhachHangs.Where(s => s.SDT == SDT).FirstOrDefault();
                 if (khach == null)
                 {
-
+                    //khong dang nhap va khong phia khach trong he thong
                     KhachHang kh = new KhachHang();
                     var idKH = "GS" + rd.Next(1, 1000);
                     kh.MaKH = idKH;
                     booktour.MaKH = idKH;
-
                     kh.SDT = SDT;
                     booktour.SdtKH = kh.SDT;
                     kh.DiaChi = DiaChi;
@@ -417,6 +416,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 }
                 else
                 {
+                    //khong dang nhap nhung la khach trong he thong
                     Session["TaiKhoan"] = khach;
                     booktour.MaKH = khach.MaKH;
                     booktour.SdtKH = khach.SDT;
@@ -425,12 +425,12 @@ namespace Tourist_VietripInsum_2023.Controllers
                     khach.HoTenKH = TenKH;
                 }
             }    
-          
             var idDH = "DH" + rd.Next(1, 1000);
             booktour.MaDH = idDH;
             booktour.MaTour = matour;
             booktour.NgayLap = DateTime.Now;
             booktour.TrangThaiTT = false;
+            booktour.XacNhanDH = false;
             var khachhang = db.KhachHangs.Where(s => s.SDT == SDT).FirstOrDefault();
             booktour.TotalPrice = 0.0;
             booktour.SoCho = 0;
@@ -440,15 +440,8 @@ namespace Tourist_VietripInsum_2023.Controllers
             db.BookTours.Add(booktour);
             db.SaveChanges();
             
-
-
             return RedirectToAction("Ticket");
-
-
         }
-
-        
-
 
         public ActionResult Ticket()
         {
@@ -645,7 +638,6 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             else
             {
-
                 //Xác định đường dẫn lưu file : Url tương đói => tuyệt đói
                 var urlTuongdoi = "/images/";
                 var urlTuyetDoi = Server.MapPath(urlTuongdoi);// Lấy đường dẫn lưu file trên server
@@ -654,7 +646,6 @@ namespace Tourist_VietripInsum_2023.Controllers
                 //Ảnh.jpg = > ảnh + "-" + 1 + ".jpg" => ảnh-1.jpg
 
                 string fullDuongDan = urlTuyetDoi + ImagerCus.FileName;
-
 
                 int i = 1;
                 while (System.IO.File.Exists(fullDuongDan) == true)
@@ -705,7 +696,6 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             if (ModelState.IsValid)
             {
-
                 if (ConfirmPassword != khachHang.UserPassword)
                 {
                     TempData["errorMK"] = "Confirm password not valid!";
@@ -714,6 +704,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 else if (ConfirmPassword == khachHang.UserPassword)
                 {
                     Random rd = new Random();
+                    
                     KhachHang kh = db.KhachHangs.Where(s => s.SDT == khachHang.SDT).FirstOrDefault();
                     if (kh != null)
                     {
@@ -731,10 +722,10 @@ namespace Tourist_VietripInsum_2023.Controllers
                         return RedirectToAction("LoginGuest");
                     }
 
+                    LuuImageCus(khachHang, ImagerCus);
                     var makh = "KH" + rd.Next(100, 10000);
                     khachHang.MaKH = makh;
                     khachHang.MaLoaiKH = "TH";
-                    LuuImageCus(khachHang, ImagerCus);
                     db.KhachHangs.Add(khachHang);
                     db.SaveChanges();
                     return RedirectToAction("LoginGuest");
@@ -848,5 +839,44 @@ namespace Tourist_VietripInsum_2023.Controllers
 
 
 
+        public ActionResult TourBookingHistory()
+        {
+            if (Session["UserKH"] == null)
+            {
+                return RedirectToAction("LoginGuest");
+            }
+            return View();
+        }
+
+        public ActionResult CancelBookTour(string id)
+        {
+            TempData["DeleteSuccess"] = "success";
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BookTour bookTour = db.BookTours.Find(id);
+            if (bookTour == null)
+            {
+                return HttpNotFound();
+            }
+            return View(bookTour);
+        }
+        [HttpPost, ActionName("CancelBookTour")]
+        public ActionResult CancelBookTourConfirmed(string id)
+        {
+            var userKH = (Tourist_VietripInsum_2023.Models.KhachHang)HttpContext.Session["UserKH"];
+            var ve = db.Ves.Where(s => s.MaDH == id).ToList();
+            db.Ves.RemoveRange(ve);
+            db.SaveChanges();
+
+            var bookTour = db.BookTours.Find(id);
+            var tour = db.Tours.Find(bookTour.MaTour);
+            tour.SoChoNull += bookTour.SoCho;
+            db.BookTours.Remove(bookTour);
+            db.SaveChanges();
+            TempData["DeleteSuccess"] = "Deletesuccess";
+            return RedirectToAction("TourBookingHistory/" + userKH.MaKH);
+        }
     }
 }

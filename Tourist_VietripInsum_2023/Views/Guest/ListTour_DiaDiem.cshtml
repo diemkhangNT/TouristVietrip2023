@@ -10,7 +10,7 @@
 
     List<DiaDiemThamQuan> diaDiems = db.DiaDiemThamQuans.ToList();
 }
-
+<link href="~/Content/PagedList.css" rel="stylesheet" />
 
 <link href="~/Content/Guest/ListTour-Option.css" rel="stylesheet" />
 <link href="~/Content/PagedList.css" rel="stylesheet" />
@@ -155,6 +155,7 @@
                                                     var ck = loaitour.ChietKhau * 100;
 
 
+
                                                 }
                                                 <div class="tour-item_price">
                                                     <div class="price__wrappertour">
@@ -208,6 +209,9 @@
                                                     <div class="seattour_item">
                                                         Số chỗ còn:
                                                         <span>@tour.SoChoNull</span>
+
+                                                    }
+                                                 
                                                     </div>
                                                 </div>
                                             </div>
@@ -216,11 +220,13 @@
                                 }
 
 
+
                             }
                         }
 
 
                     </div>
+
                 </div>
                 <!-- Thêm mã phân trang -->
                 <br />
