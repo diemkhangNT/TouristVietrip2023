@@ -559,6 +559,8 @@
     <Content Include="Views\Guest\LoginGuest.cshtml" />
     <Content Include="Views\Guest\SignupGuest.cshtml" />
     <Content Include="Views\Tourmanager\GiamSatLienHe.cshtml" />
+    <Content Include="Views\Guest\TourBookingHistory.cshtml" />
+    <Content Include="Views\Guest\CancelBookTour.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

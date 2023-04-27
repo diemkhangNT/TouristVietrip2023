@@ -432,6 +432,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             booktour.MaTour = matour;
             booktour.NgayLap = DateTime.Now;
             booktour.TrangThaiTT = false;
+            booktour.XacNhanDH = false;
             var khachhang = db.KhachHangs.Where(s => s.SDT == SDT).FirstOrDefault();
             booktour.TotalPrice = 0.0;
             booktour.SoCho = 0;
@@ -798,6 +799,46 @@ namespace Tourist_VietripInsum_2023.Controllers
             Session.Clear();//remove session
             FormsAuthentication.SignOut();
             return RedirectToAction("HomePageGuest");
+        }
+
+        public ActionResult TourBookingHistory()
+        {
+            if (Session["UserKH"] == null)
+            {
+                return RedirectToAction("LoginGuest");
+            }
+            return View();
+        }
+
+        public ActionResult CancelBookTour(string id)
+        {
+            TempData["DeleteSuccess"] = "success";
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BookTour bookTour = db.BookTours.Find(id);
+            if (bookTour == null)
+            {
+                return HttpNotFound();
+            }
+            return View(bookTour);
+        }
+        [HttpPost, ActionName("CancelBookTour")]
+        public ActionResult CancelBookTourConfirmed(string id)
+        {
+            var userKH = (Tourist_VietripInsum_2023.Models.KhachHang)HttpContext.Session["UserKH"];
+            var ve = db.Ves.Where(s => s.MaDH == id).ToList();
+            db.Ves.RemoveRange(ve);
+            db.SaveChanges();
+
+            var bookTour = db.BookTours.Find(id);
+            var tour = db.Tours.Find(bookTour.MaTour);
+            tour.SoChoNull += bookTour.SoCho;
+            db.BookTours.Remove(bookTour);
+            db.SaveChanges();
+            TempData["DeleteSuccess"] = "Deletesuccess";
+            return RedirectToAction("TourBookingHistory/" + userKH.MaKH);
         }
     }
 }

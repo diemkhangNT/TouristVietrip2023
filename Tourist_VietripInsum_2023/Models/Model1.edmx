@@ -19,6 +19,7 @@
           <Property Name="SdtKH" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="MaKH" Type="varchar" MaxLength="10" />
           <Property Name="HinhThucThanhToan" Type="bit" />
+          <Property Name="XacNhanDH" Type="bit" />
         </EntityType>
         <EntityType Name="ChiTietTour">
           <Key>
@@ -126,6 +127,7 @@
           <Property Name="NoiDung" Type="ntext" />
           <Property Name="NgayPH" Type="datetime" />
           <Property Name="TrangThai" Type="bit" />
+          <Property Name="TieuDe" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PhuongTien">
           <Key>
@@ -436,6 +438,7 @@
           <Property Name="SdtKH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MaKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="HinhThucThanhToan" Type="Boolean" />
+          <Property Name="XacNhanDH" Type="Boolean" />
           <NavigationProperty Name="KhachHang" Relationship="Self.FK_BookTour_KhachHang1" FromRole="BookTour" ToRole="KhachHang" />
           <NavigationProperty Name="NhanVien" Relationship="Self.FK_DonHang_NhanVien" FromRole="BookTour" ToRole="NhanVien" />
           <NavigationProperty Name="Tour" Relationship="Self.FK_OrderCus_Tour" FromRole="BookTour" ToRole="Tour" />
@@ -562,6 +565,7 @@
           <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NgayPH" Type="DateTime" Precision="3" />
           <Property Name="TrangThai" Type="Boolean" />
+          <Property Name="TieuDe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="KhachHang" Relationship="Self.FK_PhanHoi_KhachHang1" FromRole="PhanHoi" ToRole="KhachHang" />
         </EntityType>
         <EntityType Name="PhuongTien">
@@ -881,6 +885,7 @@
                 <ScalarProperty Name="SdtKH" ColumnName="SdtKH" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
                 <ScalarProperty Name="HinhThucThanhToan" ColumnName="HinhThucThanhToan" />
+                <ScalarProperty Name="XacNhanDH" ColumnName="XacNhanDH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -998,6 +1003,7 @@
                 <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
                 <ScalarProperty Name="NgayPH" ColumnName="NgayPH" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
