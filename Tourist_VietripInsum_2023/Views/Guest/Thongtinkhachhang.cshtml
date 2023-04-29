@@ -24,7 +24,7 @@
 
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal" >
+    <div class="form-horizontal">
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.MaKH)
@@ -33,7 +33,7 @@
             <b>Họ tên khách hàng</b>
             <div class="col-md-10">
                 @*@Html.EditorFor(model => model.HoTenKH, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", } })*@
-                <input class="form-control" name="HoTenKH" readonly="readonly" value="@Model.HoTenKH" />
+                <input class="form-control" name="HoTenKH" value="@Model.HoTenKH" />
                 @Html.ValidationMessageFor(model => model.HoTenKH, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -61,16 +61,41 @@
             <div class="form-group col-sm-5">
                 <b>Ngày sinh</b>
                 <div class="col-md-10">
-                    @{ 
+                    @{
                         DateTime day = (DateTime)Model.NgaySinh;
-                        string a=day.ToString("yyyy-MM-dd");
+                        string a = day.ToString("yyyy-MM-dd");
                     }
                     <input class="form-control text-box single-line col-md-12" data-val="true" data-val-date="The field NgayNhap must be a date." id="NgaySinh" value="@a" name="NgaySinh" type="date" required>
                     @*@Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control" } })*@
                     @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+
                 </div>
             </div>
             <div class="form-group col-sm-5">
+                <b>Email</b>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "Email", onchange = "EmailCheck()", @required= "required" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    <p id="mess"></p>
+                </div>
+            </div>
+            <div class="form-group col-sm-5">
+                <b>SDT</b>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control", @id = "SDT", onchange = "SDTCheck()", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                    <p id="sdtcheck"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <b>Địa chỉ</b>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
                 <b>Username</b>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
@@ -81,36 +106,17 @@
             <div class="form-group col-sm-5">
                 <b>Password</b>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                    @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control", @type = "password", required = "required", @id = "pass1" } })
                     @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
                 </div>
             </div>
-
-
             <div class="form-group col-sm-5">
-                <b>Email</b>
+                <b>Nhập Password</b>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    <input class="form-control"  id="pass2" name="typepassword" required="required" onchange="PassCheck()" type="password" value="@Model.UserPassword" />
+                    <span id="checkpass"></span>
                 </div>
             </div>
-            <div class="form-group col-sm-5">
-                <b>SDT</b>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <b>Địa chỉ</b>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
             <div class="form-group">
                 <b>Hình ảnh</b>
                 <div class="col-md-10">
@@ -122,9 +128,11 @@
             </div>
 
 
+
+
             <div class="form-group col-sm-2">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Cập nhật" class="btn btn-success btn-sm" />
+                    <input type="submit" value="Cập nhật" class="btn btn-success btn-sm" id="btn-submit" />
                 </div>
             </div>
             <div class="form-group col-sm-2">
@@ -135,8 +143,89 @@
         </div>
 
     </div>
-
+    <input name="makh" id="makh" clas="makh" value="@Model.MaKH" style="visibility:hidden" />
 
 </form>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+<script type="text/javascript">
 
+     function EmailCheck() {
+        $("#mess").html("check ...");
+        $.post("@Url.Action("CheckMail", "Guest")",
+            {
+                usermail: $("#Email").val(),
+                makh: $("#makh").val()
+            },
+            function (data) {
+                if (data == 0) {
+                    $("#mess").html('<font color="Green">Hợp lệ!</font>');
+                    $("#Email").css("border-color", "Green");
+                    document.getElementById('btn-submit').disabled = false;
+                }
+                else if (data == 1) {
+                    $("#mess").html('<font color="Red">Đã có nhân viên sử dụng !!</font>');
+                    $("#Email").css("border-color", "Red");
+                    document.getElementById('btn-submit').disabled = true;
+                }
+                 else {
+                    $("#mess").html('<font color="Red">Mail không đúng định dạng!!</font>');
+                    $("#Email").css("border-color", "Red");
+                    document.getElementById('btn-submit').disabled = true;
+                }
+            }
+        )
+    }
+    function SDTCheck() {
+        $("#sdtcheck").html("check ...");
+        $.post("@Url.Action("CheckSDT", "Guest")",
+            {
+                userSDT: $("#SDT").val(),
+                makh: $("#makh").val()
+            },
+            function (data) {
+                if (data == 0) {
+                    $("#sdtcheck").html('<font color="Green">Hợp lệ !</font>');
+                    $("#SDT").css("border-color", "green");
+                    document.getElementById('btn-submit').disabled = false;
+                }
+                else if (data == 2) {
+                    $("#sdtcheck").html('<font color="Red">Đã được sử dụng !!</font>');
+                    $("#SDT").css("border-color", "Red");
+                    document.getElementById('btn-submit').disabled = true;
+                }
+                 else {
+                    $("#sdtcheck").html('<font color="Red">Số điện thoại không đúng định dạng!!</font>');
+                    $("#SDT").css("border-color", "Red");
+                    document.getElementById('btn-submit').disabled = true;
+                }
+            }
+        )
+    }
+
+     function PassCheck() {
+        $("#checkpass").html("check ...");
+        $.post("@Url.Action("KtraPass", "Guest")",
+            {
+                pass1: $("#pass1").val(),
+                pass2: $("#pass2").val()
+            },
+            function (data) {
+                if (data == 0) {
+                    $("#checkpass").html('<font color="Green">Hợp lệ!</font>');
+                    $("#typepassword").css("border-color", "Green");
+                    document.getElementById('btn-submit').disabled = false;
+                }
+                else {
+                    $("#checkpass").html('<font color="Red">Không trùng password !!</font>');
+                    $("#typepassword").css("border-color", "Red");
+                    document.getElementById('btn-submit').disabled = true;
+                }
+            }
+        )
+    }
+
+
+
+</script>
 

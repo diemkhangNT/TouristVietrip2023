@@ -12,6 +12,7 @@ using Tourist_VietripInsum_2023.common;
 using Tourist_VietripInsum_2023.Models;
 using PagedList;
 using System.Web.Routing;
+using System.Text.RegularExpressions;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
@@ -796,6 +797,77 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
 
         //THONGTINCANHAN
+        public static bool IsValidEmail(string email)
+        {
+            try
+            {
+                // Kiểm tra email có đúng định dạng
+                var match = Regex.Match(email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+                if (match.Success)
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return false;
+        }
+        public JsonResult CheckMail(string usermail, string makh)
+        {
+            System.Threading.Thread.Sleep(200);
+            var SeachData = db.KhachHangs.Where(x => x.Email == usermail && x.MaKH!=makh).SingleOrDefault();
+
+            bool isValid = IsValidEmail(usermail);
+            if(isValid==true)
+            {
+                if (SeachData != null)
+                {
+                    return Json(1);
+                }
+                else
+                {
+                    return Json(0);
+                }
+            }    
+            else
+            {
+                return Json(2);
+            }
+
+        }
+
+        public JsonResult CheckSDT(string userSDT,string makh)
+        {
+            System.Threading.Thread.Sleep(200);
+            var phone = db.KhachHangs.Where(x => x.SDT == userSDT && x.MaKH!=makh).SingleOrDefault();
+
+            if (phone != null)
+            {
+                return Json(2);
+            }
+            else
+            {
+                if(userSDT.Length==10)
+                    return Json(0);
+                return Json(1);
+            }
+
+        }
+        public JsonResult KtraPass(string pass1, string pass2)
+        {
+            System.Threading.Thread.Sleep(200);
+            if (pass1 != pass2)
+            {
+                return Json(1);
+            }
+            else
+            {
+                return Json(0);
+            }
+
+        }
         public ActionResult Thongtinkhachhang(string id)
         {
 

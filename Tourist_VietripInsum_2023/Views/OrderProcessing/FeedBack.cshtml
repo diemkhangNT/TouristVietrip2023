@@ -118,6 +118,8 @@
                                                 @Html.HiddenFor(model => phanHoi.Email)
                                                 @Html.HiddenFor(model => phanHoi.NoiDung)
                                                 @Html.HiddenFor(model => phanHoi.NgayPH)
+                                                @Html.HiddenFor(model => phanHoi.TieuDe)
+
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
                                                     <b> Mã phản hồi : </b>
                                                     @phanHoi.MaPhanHoi
@@ -132,7 +134,7 @@
                                                 </div>
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
                                                     <b> Trạng thái phản hồi : </b>
-                                                    @Html.EditorFor(model => phanHoi.TrangThai, new { htmlAttributes = new { @class = "form-control-sm",} })
+                                                    @Html.EditorFor(model => phanHoi.TrangThai, new { htmlAttributes = new { @class = "form-control-sm", } })
                                                 </div>
                                             </div>
                                                 @*Modal footer*@
