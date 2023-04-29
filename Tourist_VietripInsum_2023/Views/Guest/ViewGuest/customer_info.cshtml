@@ -124,12 +124,12 @@
                             </div>
                             <div class="menu-func">
                                 <h4>Tài khoản </h4>
-                                <h5> <a href="/Guest/Thongtinkhachhang/@user.MaKH" > Thông tin cá nhân  </a> </h5>
-                                <h5>  <a href="">Lịch sử đơn hàng</a></h5>
+                                <h5><a href="/Guest/Thongtinkhachhang/@user.MaKH"> Thông tin cá nhân </a></h5>
+                                <h5><a href="/Guest/TourBookingHistory">Lịch sử đơn hàng</a></h5>
                                 @*<h5>  <a href="">Thông tin thanh toán</a></h5>
                                 <h5>  <a href="">Yêu cầu xóa tài khoản</a></h5>*@
                                 <div class="link-info">
-                                    <h4> <a href=""> Đơn đặt chỗ</a> </h4>
+                                    <h4> <a href="/Guest/NewOrderPlaced"> Đơn đặt chỗ</a> </h4>
                                     @*<h4><a href=""> Đánh giá của quý khách</a> </h4>*@
                                 </div>
 
@@ -142,6 +142,7 @@
                     <div class="col-sm-8">
                         <div class="content-cus">
                             @RenderBody()
+                            <!-- Start of LiveChat (www.livechat.com) code -->
                             <script>
                                 window.__lc = window.__lc || {};
                                 window.__lc.license = 15360669;
@@ -149,7 +150,6 @@
                             </script>
                             <noscript><a href="https://www.livechat.com/chat-with/15360669/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
                             <!-- End of LiveChat code merge-->
-
                         </div>
                             @RenderSection("scripts", false)
                         </div>

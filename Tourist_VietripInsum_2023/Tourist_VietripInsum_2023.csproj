@@ -565,6 +565,7 @@
     <Content Include="Views\Guest\Thongtinkhachhang.cshtml" />
     <Content Include="Views\Guest\TourBookingHistory.cshtml" />
     <Content Include="Views\Guest\CancelBookTour.cshtml" />
+    <Content Include="Views\Guest\NewOrderPlaced.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
