@@ -2,15 +2,15 @@
 @using Tourist_VietripInsum_2023.Models
 @{
     ViewBag.Title = "TourBookingHistory";
-    Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
+    Layout = "~/Views/Guest/ViewGuest/customer_info.cshtml";
 
     TouristEntities1 db = new TouristEntities1();
     var userKH = (Tourist_VietripInsum_2023.Models.KhachHang)HttpContext.Current.Session["UserKH"];
-    var listBooking = db.BookTours.Where(s => s.MaKH == userKH.MaKH && s.Tour.NgayKhoihanh > DateTime.Now && s.XacNhanDH == false);
-    var listHistory = db.BookTours.Where(s => s.MaKH == userKH.MaKH && s.Tour.NgayKhoihanh < DateTime.Now && s.XacNhanDH == true);
+    //var listBooking = db.BookTours.Where(s => s.MaKH == userKH.MaKH && s.Tour.NgayKhoihanh > DateTime.Now && s.XacNhanDH == false);
+    var listHistory = db.BookTours.Where(s => s.MaKH == userKH.MaKH && s.Tour.NgayKhoihanh < DateTime.Now);
 
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @*<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     var checkMessage = TempData["DeleteSuccess"];
     if (checkMessage == "Deletesuccess")
     {
@@ -22,10 +22,10 @@
                 button: "OK",
             });
         </script>
-    }
+    }*@
 }
 
-<section class="home-page_listtour mb-4">
+@*<section class="home-page_listtour mb-4">
     <div class="container">
         <h5 style="margin-top: 30px;">TOUR VỪA ĐẶT</h5>
         @if (listBooking.Count() == 0)
@@ -93,64 +93,71 @@
             }
         }
     </div>
-</section>
+</section>*@
 
 <section class="home-page_listtour mb-4">
     <div class="container">
         <h5>LỊCH SỬ</h5>
-        @foreach (var item in listHistory)
+        @if (listHistory.Count() == 0)
         {
-            <div class="accordion" id="accordionExample">
-                <div class="card">
-                    <h2 class="accordion-header" id="headingOne">
-                        <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne_@item.MaDH" aria-expanded="true" aria-controls="accordionOne" role="tabpanel">
-                            @Html.DisplayFor(model => item.NgayLap)
-                        </button>
-                    </h2>
-                    <div id="accordionOne_@item.MaDH" class="accordion-collapse collapse hiding" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="day">
-                                <div class="wrapper">
-                                    <div>
-                                        <h6>THÔNG TIN TOUR</h6>
-                                        <b>Tour: </b>@Html.DisplayFor(model => item.Tour.TenTour) <br />
-                                        <b>Ngày khởi hành: </b>@Html.DisplayFor(model => item.Tour.NgayKhoihanh) -
-                                        <b>Ngày trở về: </b>@Html.DisplayFor(model => item.Tour.NgayTroVe) <br />
-                                        <b>Nơi khởi hành: </b>@Html.DisplayFor(model => item.Tour.NoiKhoiHanh)
-                                    </div>
-                                    <hr />
-                                    <div style="margin-top: 10px;">
-                                        @{ var veNL = db.Ves.Count(s => s.MaDH == item.MaDH && s.MaLVe == "TICKET01");}
-                                        @{ var veTE = db.Ves.Count(s => s.MaDH == item.MaDH && s.MaLVe == "TICKET02");}
-                                        <h6>THÔNG TIN ĐẶT TOUR</h6>
-                                        <b>Số chỗ: </b> @Html.DisplayFor(model => item.SoCho) -
-                                        <b>Số chỗ người lớn: </b> @veNL - <b>Số chỗ trẻ em: </b> @veTE <br />
-                                        <b>Tổng tiền:</b> @{var tongTien = string.Format("{0:0,0} VNĐ", item.TotalPrice);} @Html.DisplayFor(model => tongTien) <br />
-                                        <b>Hình thức thanh toán: </b>
-                                        @if (item.HinhThucThanhToan == true)
-                                        {
-                                            <p>Chuyển khoản</p>
-                                        }
-                                        else
-                                        {
-                                            <span>Tiền mặt</span>
-                                        }
-                                        - <b>Tình trạng thanh toán:</b>
-                                        @if (item.TrangThaiTT == true)
-                                        {
-                                            <span>Đã thanh toán</span>
-                                        }
-                                        else
-                                        {
-                                            <span>Chưa thanh toán</span>
-                                        }
+            <p>Không có lịch sử đặt tour</p>
+        }
+        else
+        {
+            foreach (var item in listHistory)
+            {
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button style="background-color: #094933; color: black;" type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne_@item.MaDH" aria-expanded="true" aria-controls="accordionOne" role="tabpanel">
+                                @Html.DisplayFor(model => item.NgayLap)
+                            </button>
+                        </h2>
+                        <div id="accordionOne_@item.MaDH" class="accordion-collapse collapse hiding" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="day">
+                                    <div class="wrapper">
+                                        <div>
+                                            <h6>THÔNG TIN TOUR</h6>
+                                            <b>Tour: </b>@Html.DisplayFor(model => item.Tour.TenTour) <br />
+                                            <b>Ngày khởi hành: </b>@Html.DisplayFor(model => item.Tour.NgayKhoihanh) -
+                                            <b>Ngày trở về: </b>@Html.DisplayFor(model => item.Tour.NgayTroVe) <br />
+                                            <b>Nơi khởi hành: </b>@Html.DisplayFor(model => item.Tour.NoiKhoiHanh)
+                                        </div>
+                                        <hr />
+                                        <div style="margin-top: 10px;">
+                                            @{ var veNL = db.Ves.Count(s => s.MaDH == item.MaDH && s.MaLVe == "TICKET01");}
+                                            @{ var veTE = db.Ves.Count(s => s.MaDH == item.MaDH && s.MaLVe == "TICKET02");}
+                                            <h6>THÔNG TIN ĐẶT TOUR</h6>
+                                            <b>Số chỗ: </b> @Html.DisplayFor(model => item.SoCho) -
+                                            <b>Số chỗ người lớn: </b> @veNL - <b>Số chỗ trẻ em: </b> @veTE <br />
+                                            <b>Tổng tiền:</b> @{var tongTien = string.Format("{0:0,0} VNĐ", item.TotalPrice);} @Html.DisplayFor(model => tongTien) <br />
+                                            <b>Hình thức thanh toán: </b>
+                                            @if (item.HinhThucThanhToan == true)
+                                            {
+                                                <p>Chuyển khoản</p>
+                                            }
+                                            else
+                                            {
+                                                <span>Tiền mặt</span>
+                                            }
+                                            - <b>Tình trạng thanh toán:</b>
+                                            @if (item.TrangThaiTT == true)
+                                            {
+                                                <span>Đã thanh toán</span>
+                                            }
+                                            else
+                                            {
+                                                <span>Chưa thanh toán</span>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         }
     </div>
 </section>

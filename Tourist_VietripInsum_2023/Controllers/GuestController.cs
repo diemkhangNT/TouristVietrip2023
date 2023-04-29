@@ -837,9 +837,16 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View();
         }
 
-
-
         public ActionResult TourBookingHistory()
+        {
+            if (Session["UserKH"] == null)
+            {
+                return RedirectToAction("LoginGuest");
+            }
+            return View();
+        }
+
+        public ActionResult NewOrderPlaced()
         {
             if (Session["UserKH"] == null)
             {
@@ -876,7 +883,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             db.BookTours.Remove(bookTour);
             db.SaveChanges();
             TempData["DeleteSuccess"] = "Deletesuccess";
-            return RedirectToAction("TourBookingHistory/" + userKH.MaKH);
+            return RedirectToAction("NewOrderPlaced/" + userKH.MaKH);
         }
     }
 }

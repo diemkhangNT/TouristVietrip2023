@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.BookTour>
+@using Tourist_VietripInsum_2023.Models
+
+@{
+    ViewBag.Title = "NewOrderPlaced";
+    Layout = "~/Views/Guest/ViewGuest/customer_info.cshtml";
+    TouristEntities1 db = new TouristEntities1();
+    var userKH = (Tourist_VietripInsum_2023.Models.KhachHang)HttpContext.Current.Session["UserKH"];
+    var listBooking = db.BookTours.Where(s => s.MaKH == userKH.MaKH && s.Tour.NgayKhoihanh > DateTime.Now);
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    var checkMessage = TempData["DeleteSuccess"];
+    if (checkMessage == "Deletesuccess")
+    {
+        <script>
+            swal({
+                title: "Hủy đặt tour thành công",
+                /*text: "Chúng tôi đã gửi mail xác nhận cho bạn! Vui lòng phản hồi lại với chúng tôi trong thời gian sớm nhất!",*/
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    }
+}
+
+<section class="home-page_listtour mb-4">
+    <div class="container">
+        <h5>ĐƠN VỪA ĐẶT</h5>
+        @if (listBooking.Count() == 0)
+        {
+            <p>Không có đơn hàng nào được đặt, vui lòng đặt tour để xem danh sách</p>
+        }
+        else
+        {
+            foreach (var item in listBooking)
+            {
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button style="background-color: #094933; color: white;" type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne_@item.MaDH" aria-expanded="true" aria-controls="accordionOne" role="tabpanel">
+                                @Html.DisplayFor(model => item.NgayLap)
+                            </button>
+                        </h2>
+                        <div id="accordionOne_@item.MaDH" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="day">
+                                    <div class="wrapper">
+                                        <div>
+                                            <h6>THÔNG TIN TOUR</h6>
+                                            <b>Tour: </b>@Html.DisplayFor(model => item.Tour.TenTour) <br />
+                                            <b>Ngày khởi hành: </b>@Html.DisplayFor(model => item.Tour.NgayKhoihanh) <br />
+                                            <b>Ngày trở về: </b>@Html.DisplayFor(model => item.Tour.NgayTroVe) <br />
+                                            <b>Nơi khởi hành: </b>@Html.DisplayFor(model => item.Tour.NoiKhoiHanh)
+                                        </div>
+                                        <hr />
+                                        <div style="margin-top: 10px;">
+                                            @{ var veNL = db.Ves.Count(s => s.MaDH == item.MaDH && s.MaLVe == "TICKET01");}
+                                            @{ var veTE = db.Ves.Count(s => s.MaDH == item.MaDH && s.MaLVe == "TICKET02");}
+                                            <h6>CHI TIẾT ĐƠN HÀNG</h6>
+                                            <b>Số chỗ: </b> @Html.DisplayFor(model => item.SoCho) -
+                                            <b>Số chỗ người lớn: </b> @veNL - <b>Số chỗ trẻ em: </b> @veTE <br />
+                                            <b>Tổng tiền:</b> @{var tongTien = string.Format("{0:0,0} VNĐ", item.TotalPrice);} @Html.DisplayFor(model => tongTien) <br />
+                                            <b>Hình thức thanh toán: </b>
+                                            @if (item.HinhThucThanhToan == true)
+                                            {
+                                                <span>Chuyển khoản</span>
+                                            }
+                                            else
+                                            {
+                                                <span>Tiền mặt</span>
+                                            }
+                                            <br />
+                                            <b>Tình trạng thanh toán:</b>
+                                            @if (item.TrangThaiTT == true)
+                                            {
+                                                <span>Đã thanh toán</span>
+                                            }
+                                            else
+                                            {
+                                                <span>Chưa thanh toán</span>
+                                            }
+                                        </div>
+                                        <div style="text-align: right;">
+                                            @if (item.XacNhanDH == false && item.TrangThaiTT == false)
+                                            {
+                                                <a class="btn btn-warning" href="/Guest/CancelBookTour/@item.MaDH">Hủy đặt</a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</section>
