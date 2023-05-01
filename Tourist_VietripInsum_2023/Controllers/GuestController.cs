@@ -395,6 +395,64 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(tour.ToPagedList(pageNum,pageSize));
         }
 
+        [HttpPost]
+        public ActionResult ListTour(string trangthai, int? page, string noikhoihanh, string songay, string ngaykhoihanh, string songuoi, int? songaybd, int? songaykt, int? songuoibd)
+        {
+            //Xử lý số ngày, số người, ngày khơi hành
+            if (songay == "1 - 3 ngày")
+            {
+                songaybd = 1;
+                songaykt = 3;
+            }
+            else if (songay == "4 - 7 ngày")
+            {
+                songaybd = 4;
+                songaykt = 7;
+            }
+            else if (songay == "8 - 10 ngày")
+            {
+                songaybd = 8;
+                songaykt = 10;
+            }
+            else if (songay == "10+ ngày")
+            {
+                songaybd = 10;
+                songaykt = 100;
+            }
+            //--------------------
+            if (songuoi == "1 người")
+            {
+                songuoibd = 1;
+            }
+            else if (songuoi == "2 - 3 người")
+            {
+                songuoibd = 2;
+            }
+            else if (songuoi == "3 - 5 người")
+            {
+                songuoibd = 3;
+            }
+            else if (songuoi == "5+ người")
+            {
+                songuoibd = 5;
+            }
+            //ngaykhoihanh = String.Format("{0:d/M/yyyy}", tour.NgayKhoihanh);
+            DateTime.Now.ToString("yyyy-MM-dd");
+            int pageSize = 9;
+            int pageNum = (page ?? 1);
+            if (noikhoihanh == "---Tất cả---")
+            {
+                List<Tour> tourall = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull > 0).ToList(); ;
+                var toursearchall = tourall.ToList();
+                var toursall = toursearchall.ToPagedList(pageNum, pageSize);
+                return View(toursall);
+            }
+            List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull > 0).ToList();
+            var toursearch = tour.Where(s => s.NoiKhoiHanh == noikhoihanh && (s.SoNgay >= songaybd && s.SoNgay <= songaykt) && s.SoChoNull >= songuoibd).ToList();
+
+            var tours = toursearch.ToPagedList(pageNum, pageSize);
+            return View(tours);
+        }
 
         //Anh Hau
         public ActionResult LienHe()
