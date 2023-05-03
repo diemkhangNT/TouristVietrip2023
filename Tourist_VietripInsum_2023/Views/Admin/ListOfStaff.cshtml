@@ -1,12 +1,9 @@
 ﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.NhanVien>
 @{
-    ViewBag.Title = "List Of Staff";
+    ViewBag.Title = "Danh sách nhân viên";
     Layout = "~/Views/Admin/AdminView.cshtml";
-    ViewBag.Name = "List Of Staff";
+    ViewBag.Name = "Danh sách nhân viên";
 }
-
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
 @{
     var data = TempData["thongbao"];
     if (data == "taothanhcong")
@@ -15,13 +12,7 @@
             swal("Good job!", "Bạn đã tạo tài khoản nhân viên", "success");
         </script>
     }
-  
-
-
 }
-
-
-
 
 <div class="row">
     <div class="col-md-12">
@@ -30,57 +21,59 @@
                 <div class="row element-button" style="padding-left:10px">
                     <div class="col-sm-2">
                         <a class="btn btn-success btn-sm " type="button" title="CreateStaff" href="/Admin/CreateStaff">
-                            Create Staff
+                            Thêm nhân viên
                         </a>
                     </div>
                 </div>
-                <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
-                    <thead>
-                        <tr role="row" class="col-staff">
-                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã hóa đơn: activate to sort column ascending" style="width: 40px; text-align: center;">HinhDaiDien</th>
-                            <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã đơn hàng: activate to sort column ascending" style="width: 40px;">Id</th>
-                            <th class="100 sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Tên đại lý: activate to sort column ascending" style="width: 100px;">Full Name</th>
-                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Tổng tiền: activate to sort column ascending" style="width: 50px;">Name Pos</th>
-                            <th width="100" class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Mã đơn hàng: activate to sort column ascending" style="width: 40px;">User Name</th>
-                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Chức vụ: activate to sort column ascending" style="width: 50px; text-align: center;">Option</th>
-                        </tr>
-                    </thead>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td style="text-align: center">
-                                        <img src="@item.HinhDaiDien" width="50" height="50" />
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.MaNV)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.HoTen)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ChucVu.TenCV)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Username)
-                            </td>
+                <div class="row table-responsive">
+                    <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                        <thead style="background-color: #ffd43b;">
+                            <tr>
+                            <tr role="row" class="col-staff">
+                                <th class="sorting">Hình</th>
+                                <th class="sorting">Mã NV</th>
+                                <th class="sorting">Nhân viên</th>
+                                <th class="sorting">Vị trí</th>
+                                <th class="sorting">Username</th>
+                                <th class="sorting"></th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="text-align: center">
+                                    <img src="@item.HinhDaiDien" width="50" height="50" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MaNV)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.HoTen)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChucVu.TenCV)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Username)
+                                </td>
 
-                            <td style="text-align: center;">
-                                <a href="/Admin/EditStaff/@item.MaNV" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="/Admin/DetailStaff/@item.MaNV" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                    <i class="fas fa-train"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </div>
+                                <td style="text-align: center;">
+                                    <a href="/Admin/EditGuest/@item.MaNV" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="/Admin/DetailStaff/@item.MaNV" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                        <i class="fas fa-train"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
         </div>
         <div class="element-button" style="padding-left:10px; border: 0px;">
             <div class="col-sm-2">
                 <a class="btn btn-warning btn-sm " type="button" title="Back" href="/Admin/HomePage">
-                    Back to list
+                    Quay lại trang chủ
                 </a>
             </div>
         </div>

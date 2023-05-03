@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Tourist_VietripInsum_2023.App_Start;
@@ -223,5 +224,157 @@ namespace Tourist_VietripInsum_2023.Controllers
             return RedirectToAction("ListOfStaff");
 
         }
+
+        public ActionResult EditGuest(string id)
+        {
+            
+            var guest = db.KhachHangs.Where(s => s.MaKH == id).FirstOrDefault();
+            ViewBag.MaLoaiKH = new SelectList(db.LoaiKHs, "MaLoaiKH", "TenLoaiKH", guest.MaLoaiKH);
+            return View(guest);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditGuest(KhachHang guest, HttpPostedFileBase HinhDaiDien)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                var kh = db.KhachHangs.FirstOrDefault(p => p.MaKH == guest.MaKH);
+                if (kh != null)
+                {
+                    // đổi dữ liệu thay đổi từ cũ sang mới,productdb đổi sang mới
+                    kh.SDT = guest.SDT;
+                    kh.MaLoaiKH = guest.MaLoaiKH;
+                    kh.Username = guest.Username;
+                    kh.UserPassword = guest.UserPassword;
+                    kh.HoTenKH = guest.HoTenKH;
+                    kh.DiaChi = guest.DiaChi;
+                    kh.Email = guest.Email;
+                    kh.NgaySinh = guest.NgaySinh;
+                    kh.GioiTinh = guest.GioiTinh;
+
+                    if (HinhDaiDien != null)
+                    {
+                        var fileName = Path.GetFileName(HinhDaiDien.FileName);
+                        var path = Path.Combine(Server.MapPath("/Images"), fileName);
+                        kh.HinhDaiDien = fileName;
+                        HinhDaiDien.SaveAs(path);
+
+                    }
+                }
+                //db.Entry(product).State = EntityState.Modified;
+                //luu procduct
+                db.SaveChanges();
+                TempData["thongbaoguest"] = "edit";
+                return RedirectToAction("ListOfCustomers");
+            }
+            ViewBag.LoaiKH = new SelectList(db.LoaiKHs, "MaLoaiKH", "TenLoaiKH", guest.MaLoaiKH);
+            return View(guest);
+        }
+
+        public JsonResult CheckUserKH(string userdata,string makh)
+        {
+            System.Threading.Thread.Sleep(200);
+            var ktr = db.KhachHangs.Where(x => x.Username == userdata && x.MaKH != makh ).SingleOrDefault();
+          
+            if (ktr != null)
+            {
+                return Json(1);
+            }
+            else
+            {
+                return Json(0);
+            }
+
+        }
+        public static bool IsValidEmail(string email)
+        {
+            try
+            {
+                // Kiểm tra email có đúng định dạng
+                var match = Regex.Match(email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+                if (match.Success)
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return false;
+        }
+        public JsonResult CheckMailKH(string usermailkh,string makh)
+        {
+            System.Threading.Thread.Sleep(200);
+            var SeachData = db.KhachHangs.Where(x => x.Email == usermailkh && x.MaKH != makh).SingleOrDefault();
+
+            bool isValid = IsValidEmail(usermailkh);
+            if (isValid == true)
+            {
+                if (SeachData != null)
+                {
+                    return Json(1);
+                }
+                else
+                {
+                    return Json(0);
+                }
+            }
+            else
+            {
+                return Json(2);
+            }
+
+        }
+        public JsonResult CheckSDTKH(string userSDT)
+        {
+            System.Threading.Thread.Sleep(200);
+            var ktra = db.KhachHangs.Where(x => x.SDT == userSDT).SingleOrDefault();
+            if (ktra != null)
+            {
+                return Json(1);
+            }
+            else
+            {
+                return Json(0);
+            }
+
+        }
+
+        public ActionResult DetailGuest(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            KhachHang guest = db.KhachHangs.Where(s => s.MaKH == id).FirstOrDefault();
+            if (guest == null)
+            {
+                return HttpNotFound();
+            }
+            return View(guest);
+        }
+
+        public ActionResult DeleteGuest(string id)
+        {
+            var guest = db.KhachHangs.Where(s => s.MaKH == id).FirstOrDefault();
+            List<BookTour> dh = db.BookTours.Where(t => t.MaKH == guest.MaKH).ToList();
+            if (dh.Count==0)
+            {
+                db.KhachHangs.Remove(guest);
+                TempData["thongbaoguest"] = "thanhcong";
+                db.SaveChanges();
+               return  RedirectToAction("ListOfCustomers");
+            }
+            else
+            {
+                TempData["thongbaoxoa"] = "thatbai";
+                return RedirectToAction("DetailGuest","Admin", new { id = id });
+            }
+            return RedirectToAction("ListOfCustomers");
+        }
+
+
     }
 }
