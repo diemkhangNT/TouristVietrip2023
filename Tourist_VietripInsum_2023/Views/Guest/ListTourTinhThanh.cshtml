@@ -1,7 +1,7 @@
-﻿
+
+@using Tourist_VietripInsum_2023.Models
 @using PagedList.Mvc
 @model PagedList.PagedList<Tour>
-@using Tourist_VietripInsum_2023.Models
 
 @{
     ViewBag.Title = "List Tour";
@@ -38,13 +38,13 @@
                                     <div class="mb-4">
                                         <h5 class="point-start-title s-title">Loại tour</h5>
                                         <select class="form-select" name="trangthai">
-                                            <option>Tour giờ chót</option>
                                             <option>Đang diễn ra</option>
                                         </select>
                                     </div>
                                     <div class="start-to-stop mb-3">
                                         <h5 class="point-start-title s-title">Nơi khởi hành</h5>
                                         <select class="form-select" id="departureIDFilter" name="noikhoihanh">
+                                            <option>---Tất cả---</option>
                                             <option>TP. Hồ Chí Minh</option>
                                             <option>Hà Nội</option>
                                             <option>Đà Nẵng</option>
@@ -70,10 +70,10 @@
                                             <label><input type="radio" name="songay" value="10+ ngày"> 10+ ngày</label>
                                         </div>
                                     </div>
-                                    <h5 class="date-go-to-back-title s-title">Ngày đi</h5>
+                                    @*<h5 class="date-go-to-back-title s-title">Ngày đi</h5>
                                     <input class="form-control col-md-12 text-box single-line " data-val="true" name="ngaykhoihanh" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")">
                                     <p id="alternate1"></p>
-                                    <p id="alternate4"></p>
+                                    <p id="alternate4"></p>*@
                                     <div class="tour-search-result__filter__block mb-4">
                                         <h5 class="s-title">Số người</h5>
                                         <div class="btn-group tour-search-result__filter__room" role="group" aria-label="Basic example">
@@ -110,7 +110,7 @@
                     </div>
                     <div class="listour-search">
 
-                        <div class="row row-cols-1 row-cols-md-3 g-4" id="sampleTable">
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
                             @{
                                 if (count == 0)
                                 {
@@ -231,6 +231,7 @@
                         }
                     </style>
                     <!-- Kết thúc -->
+
                 </div>
 
             </div>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
@@ -154,7 +154,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         }
 
         [HttpPost]
-        public ActionResult ListTourTinhThanh(string trangthai, string noikhoihanh, string songay, string ngaykhoihanh, string songuoi, int? songaybd, int? songaykt, int? songuoibd)
+        public ActionResult ListTourTinhThanh(string trangthai, int? page, string noikhoihanh, string songay, string ngaykhoihanh, string songuoi, int? songaybd, int? songaykt, int? songuoibd)
         {
             //Xử lý số ngày, số người, ngày khơi hành
             if (songay == "1 - 3 ngày")
@@ -182,7 +182,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 songuoibd = 1;
             }
-            else if (songay == "2 - 3 người")
+            else if (songuoi == "2 - 3 người")
             {
                 songuoibd = 2;
             }
@@ -190,14 +190,49 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 songuoibd = 3;
             }
-            else if (songay == "5+ người")
+            else if (songuoi == "5+ người")
             {
                 songuoibd = 5;
             }
             //ngaykhoihanh = String.Format("{0:d/M/yyyy}", tour.NgayKhoihanh);
-            //DateTime.Now.ToString("yyyy-MM-dd");
-            var tours = db.Tours.Where(s => s.TrangThai == trangthai && s.NoiKhoiHanh == noikhoihanh && (s.SoNgay >= songaybd && s.SoNgay <= songaykt) && s.SoChoNull >= songuoibd);
-            return View(tours.ToList());
+            DateTime.Now.ToString("yyyy-MM-dd");
+            int pageSize = 9;
+            int pageNum = (page ?? 1);
+            List<Tour> toura = new List<Tour>();
+            List<DiaDiemThamQuan> diaDiems = db.DiaDiemThamQuans.ToList();
+            List<ChiTietTour> chiTietTours = db.ChiTietTours.ToList();
+            List<Tour> dstours = db.Tours.ToList();
+            string id = (string)Session["tentinh"];
+            var tinhthanh = (from s in diaDiems
+
+                             join a in chiTietTours on s.MaDDTQ equals a.MaDDTQ
+                             where s.MaTinh == id
+                             group a by a.MaTour into g
+                             select new
+                             {
+                                 MaTour = g.FirstOrDefault().MaTour,
+
+                             }).ToList();
+
+            foreach (var item in tinhthanh)
+            {
+                var a = db.Tours.Where(s => s.MaTour == item.MaTour).FirstOrDefault();
+                if (a.TrangThai != "Sắp ra mắt" && a.SoChoNull > 0)
+                {
+                    toura.Add(a);
+                }
+
+            }
+            if (noikhoihanh == "---Tất cả---")
+            {
+                var toursearchall = toura.ToList();
+                var toursall = toursearchall.ToPagedList(pageNum, pageSize);
+                return View(toursall);
+            }
+            //List<Tour> tour = Lay_DiaDiem();
+            var toursearch = toura.Where(s => s.NoiKhoiHanh == noikhoihanh && (s.SoNgay >= songaybd && s.SoNgay <= songaykt) && s.SoChoNull >= songuoibd).ToList();
+            var tours = toursearch.ToPagedList(pageNum, pageSize);
+            return View(tours);
         }
 
 
@@ -207,23 +242,38 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult ListTour_DiaDiem(string id,int? page)
         {
-            var iddiadiem = db.DiaDiemThamQuans.Where(d => d.MaDDTQ == id).FirstOrDefault();
-            List<Tour> tour = lay_Tour(id);
+            if (id != null)
+            {
+                Session["madiadiem"] = id;
+                var iddiadiem = db.DiaDiemThamQuans.Where(d => d.MaDDTQ == id).FirstOrDefault();
+                List<Tour> tour = lay_Tour(id);
+                int pageSize = 9;
+                int pageNum = (page ?? 1);
+                Session["tendiadiem"] = iddiadiem.TenDDTQ;
+                return View(tour.ToPagedList(pageNum, pageSize));
+            }
+            else
+            {
+                id = (string)Session["madiadiem"];
+                var iddiadiem = db.DiaDiemThamQuans.Where(d => d.MaDDTQ == id).FirstOrDefault();
+                List<Tour> tour = lay_Tour(id);
+                int pageSize = 9;
+                int pageNum = (page ?? 1);
+                Session["tendiadiem"] = iddiadiem.TenDDTQ;
+                return View(tour.ToPagedList(pageNum, pageSize));
+            }
             
-            Session["tendiadiem"] = iddiadiem.TenDDTQ;
-            int pageSize = 9;
-            int pageNum = (page ?? 1);
-            return View(tour.ToPagedList(pageNum,pageSize));
         }
         [HttpPost]
-        public ActionResult ListTour_DiaDiem(string trangthai, string noikhoihanh, string songay, string ngaykhoihanh, string songuoi, int? songaybd, int? songaykt, int? songuoibd)
+        public ActionResult ListTour_DiaDiem(string trangthai, int? page, string noikhoihanh, string songay, string ngaykhoihanh, string songuoi, int? songaybd, int? songaykt, int? songuoibd)
         {
             //Xử lý số ngày, số người, ngày khơi hành
             if (songay == "1 - 3 ngày")
             {
                 songaybd = 1;
                 songaykt = 3;
-            } else if (songay == "4 - 7 ngày")
+            }
+            else if (songay == "4 - 7 ngày")
             {
                 songaybd = 4;
                 songaykt = 7;
@@ -243,7 +293,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 songuoibd = 1;
             }
-            else if (songay == "2 - 3 người")
+            else if (songuoi == "2 - 3 người")
             {
                 songuoibd = 2;
             }
@@ -251,16 +301,26 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
                 songuoibd = 3;
             }
-            else if (songay == "5+ người")
+            else if (songuoi == "5+ người")
             {
                 songuoibd = 5;
             }
             //ngaykhoihanh = String.Format("{0:d/M/yyyy}", tour.NgayKhoihanh);
             DateTime.Now.ToString("yyyy-MM-dd");
-            var tours = db.Tours.Where(s => s.TrangThai == trangthai 
-            && s.NoiKhoiHanh == noikhoihanh && (s.SoNgay >= songaybd && s.SoNgay <= songaykt) 
-             && s.SoChoNull >= songuoibd);
-            return View(tours.ToList());
+            int pageSize = 9;
+            int pageNum = (page ?? 1);
+            if (noikhoihanh == "---Tất cả---")
+            {
+                List<Tour> tourall = lay_Tour((string)Session["madiadiem"]);
+                var toursearchall = tourall.ToList();
+                var toursall = toursearchall.ToPagedList(pageNum, pageSize);
+                return View(toursall);
+            }
+            List<Tour> tour = lay_Tour((string)Session["madiadiem"]);
+            var toursearch = tour.Where(s => s.NoiKhoiHanh == noikhoihanh && (s.SoNgay >= songaybd && s.SoNgay<=songaykt) && s.SoChoNull >= songuoibd).ToList();
+      
+            var tours = toursearch.ToPagedList(pageNum, pageSize);
+            return View(tours);
         }
 
         public ActionResult LienHeGuest()
@@ -332,10 +392,67 @@ namespace Tourist_VietripInsum_2023.Controllers
             int pageSize = 9;
             int pageNum = (page ?? 1);
             List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull>0).ToList();
-
             return View(tour.ToPagedList(pageNum,pageSize));
         }
 
+        [HttpPost]
+        public ActionResult ListTour(string trangthai, int? page, string noikhoihanh, string songay, string ngaykhoihanh, string songuoi, int? songaybd, int? songaykt, int? songuoibd)
+        {
+            //Xử lý số ngày, số người, ngày khơi hành
+            if (songay == "1 - 3 ngày")
+            {
+                songaybd = 1;
+                songaykt = 3;
+            }
+            else if (songay == "4 - 7 ngày")
+            {
+                songaybd = 4;
+                songaykt = 7;
+            }
+            else if (songay == "8 - 10 ngày")
+            {
+                songaybd = 8;
+                songaykt = 10;
+            }
+            else if (songay == "10+ ngày")
+            {
+                songaybd = 10;
+                songaykt = 100;
+            }
+            //--------------------
+            if (songuoi == "1 người")
+            {
+                songuoibd = 1;
+            }
+            else if (songuoi == "2 - 3 người")
+            {
+                songuoibd = 2;
+            }
+            else if (songuoi == "3 - 5 người")
+            {
+                songuoibd = 3;
+            }
+            else if (songuoi == "5+ người")
+            {
+                songuoibd = 5;
+            }
+            //ngaykhoihanh = String.Format("{0:d/M/yyyy}", tour.NgayKhoihanh);
+            DateTime.Now.ToString("yyyy-MM-dd");
+            int pageSize = 9;
+            int pageNum = (page ?? 1);
+            if (noikhoihanh == "---Tất cả---")
+            {
+                List<Tour> tourall = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull > 0).ToList(); ;
+                var toursearchall = tourall.ToList();
+                var toursall = toursearchall.ToPagedList(pageNum, pageSize);
+                return View(toursall);
+            }
+            List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull > 0).ToList();
+            var toursearch = tour.Where(s => s.NoiKhoiHanh == noikhoihanh && (s.SoNgay >= songaybd && s.SoNgay <= songaykt) && s.SoChoNull >= songuoibd).ToList();
+
+            var tours = toursearch.ToPagedList(pageNum, pageSize);
+            return View(tours);
+        }
 
         //Anh Hau
         public ActionResult LienHe()
@@ -394,18 +511,19 @@ namespace Tourist_VietripInsum_2023.Controllers
                 booktour.SdtKH = khdn.SDT;
                 Session["TaiKhoan"] = khdn.MaKH;
 
+
             }    
             else
             {
+
                 var khach = db.KhachHangs.Where(s => s.SDT == SDT).FirstOrDefault();
                 if (khach == null)
                 {
-
+                    //khong dang nhap va khong phia khach trong he thong
                     KhachHang kh = new KhachHang();
                     var idKH = "GS" + rd.Next(1, 1000);
                     kh.MaKH = idKH;
                     booktour.MaKH = idKH;
-
                     kh.SDT = SDT;
                     booktour.SdtKH = kh.SDT;
                     kh.DiaChi = DiaChi;
@@ -418,6 +536,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 }
                 else
                 {
+                    //khong dang nhap nhung la khach trong he thong
                     Session["TaiKhoan"] = khach;
                     booktour.MaKH = khach.MaKH;
                     booktour.SdtKH = khach.SDT;
@@ -426,12 +545,12 @@ namespace Tourist_VietripInsum_2023.Controllers
                     khach.HoTenKH = TenKH;
                 }
             }    
-          
             var idDH = "DH" + rd.Next(1, 1000);
             booktour.MaDH = idDH;
             booktour.MaTour = matour;
             booktour.NgayLap = DateTime.Now;
             booktour.TrangThaiTT = false;
+            booktour.XacNhanDH = false;
             var khachhang = db.KhachHangs.Where(s => s.SDT == SDT).FirstOrDefault();
             booktour.TotalPrice = 0.0;
             booktour.SoCho = 0;
@@ -441,15 +560,8 @@ namespace Tourist_VietripInsum_2023.Controllers
             db.BookTours.Add(booktour);
             db.SaveChanges();
             
-
-
             return RedirectToAction("Ticket");
-
-
         }
-
-        
-
 
         public ActionResult Ticket()
         {
@@ -646,7 +758,6 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             else
             {
-
                 //Xác định đường dẫn lưu file : Url tương đói => tuyệt đói
                 var urlTuongdoi = "/images/";
                 var urlTuyetDoi = Server.MapPath(urlTuongdoi);// Lấy đường dẫn lưu file trên server
@@ -655,7 +766,6 @@ namespace Tourist_VietripInsum_2023.Controllers
                 //Ảnh.jpg = > ảnh + "-" + 1 + ".jpg" => ảnh-1.jpg
 
                 string fullDuongDan = urlTuyetDoi + ImagerCus.FileName;
-
 
                 int i = 1;
                 while (System.IO.File.Exists(fullDuongDan) == true)
@@ -706,7 +816,6 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             if (ModelState.IsValid)
             {
-
                 if (ConfirmPassword != khachHang.UserPassword)
                 {
                     TempData["errorMK"] = "Confirm password not valid!";
@@ -715,6 +824,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 else if (ConfirmPassword == khachHang.UserPassword)
                 {
                     Random rd = new Random();
+                    
                     KhachHang kh = db.KhachHangs.Where(s => s.SDT == khachHang.SDT).FirstOrDefault();
                     if (kh != null)
                     {
@@ -732,10 +842,10 @@ namespace Tourist_VietripInsum_2023.Controllers
                         return RedirectToAction("LoginGuest");
                     }
 
+                    LuuImageCus(khachHang, ImagerCus);
                     var makh = "KH" + rd.Next(100, 10000);
                     khachHang.MaKH = makh;
                     khachHang.MaLoaiKH = "TH";
-                    LuuImageCus(khachHang, ImagerCus);
                     db.KhachHangs.Add(khachHang);
                     db.SaveChanges();
                     return RedirectToAction("LoginGuest");
@@ -918,7 +1028,53 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View();
         }
 
+        public ActionResult TourBookingHistory()
+        {
+            if (Session["UserKH"] == null)
+            {
+                return RedirectToAction("LoginGuest");
+            }
+            return View();
+        }
 
+        public ActionResult NewOrderPlaced()
+        {
+            if (Session["UserKH"] == null)
+            {
+                return RedirectToAction("LoginGuest");
+            }
+            return View();
+        }
 
+        public ActionResult CancelBookTour(string id)
+        {
+            TempData["DeleteSuccess"] = "success";
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BookTour bookTour = db.BookTours.Find(id);
+            if (bookTour == null)
+            {
+                return HttpNotFound();
+            }
+            return View(bookTour);
+        }
+        [HttpPost, ActionName("CancelBookTour")]
+        public ActionResult CancelBookTourConfirmed(string id)
+        {
+            var userKH = (Tourist_VietripInsum_2023.Models.KhachHang)HttpContext.Session["UserKH"];
+            var ve = db.Ves.Where(s => s.MaDH == id).ToList();
+            db.Ves.RemoveRange(ve);
+            db.SaveChanges();
+
+            var bookTour = db.BookTours.Find(id);
+            var tour = db.Tours.Find(bookTour.MaTour);
+            tour.SoChoNull += bookTour.SoCho;
+            db.BookTours.Remove(bookTour);
+            db.SaveChanges();
+            TempData["DeleteSuccess"] = "Deletesuccess";
+            return RedirectToAction("NewOrderPlaced/" + userKH.MaKH);
+        }
     }
 }

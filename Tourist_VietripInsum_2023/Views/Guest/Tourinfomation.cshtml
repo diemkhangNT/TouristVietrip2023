@@ -5,8 +5,8 @@
     ViewBag.Title = "Thông tin chi tiết tour";
     Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
     TouristEntities1 db = new TouristEntities1();
-
     KhachHang khachhang = Session["UserKH"] as KhachHang;
+
 
 
 }
@@ -88,7 +88,6 @@
                                 @using (Html.BeginForm("BookTour", "Guest", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
                                     @Html.AntiForgeryToken()
-                                 
                                 <div class="modal-content">
                                    
                                         <div class="modal-body">
@@ -107,7 +106,6 @@
                                                 <h3 class="title-name">THÔNG TIN LIÊN LẠC</h3>
                                                 @if (khachhang == null)
                                                 {
-
                                                     <div class="customer-contact mb-3">
                                                         <div class="row ">
                                                             <div class="name col-sm-6">
@@ -120,18 +118,20 @@
                                                             </div>
                                                             <div class="phone col-sm-6">
                                                                 <label>Số điện thoại <b>*</b></label>
+
                                                                 <input class="form-control" id="mobilephone" name="SDT" onkeypress="return funCheckInt(event)" type="text" value="" required>
                                                             </div>
                                                             <div class="addess col-sm-6">
                                                                 <label>Địa chỉ</label>
                                                                 <input class="form-control" id="address" name="DiaChi" type="text" value="" required>
+
                                                             </div>
                                                         </div>
                                                     </div>
                                                 }
                                                 else
                                                 {
-                                                    
+
                                                     <div class="customer-contact mb-3">
                                                         <div class="row ">
                                                             <div class="name col-sm-6">
@@ -149,6 +149,7 @@
                                                             <div class="addess col-sm-6">
                                                                 <label>Địa chỉ</label>
                                                                 <input class="form-control" id="address" readonly="readonly" name="DiaChi" type="text" value="@khachhang.DiaChi" required>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -272,20 +273,14 @@
                                     else
                                     {
                                         List<DiaDiemThamQuan> diaDiemThamQuans = new List<DiaDiemThamQuan>();
-
                                         foreach (var ctiet in chiTietTours)
                                         {
                                             var dd = db.DiaDiemThamQuans.Where(s => s.MaDDTQ == ctiet.MaDDTQ).FirstOrDefault();
                                             diaDiemThamQuans.Add(dd);
-
                                         }
                                         hinh1 = diaDiemThamQuans[1].HinhMinhHoa_D;
                                         hinh2 = diaDiemThamQuans[0].HinhMinhHoa_D;
-
-
                                     }
-
-
                                 }
 
                                 <div class="col-6">
@@ -374,8 +369,6 @@
 
                                 
                             }
-                           
-
                             <div class="item">
                                 <i class="fas fa-map"></i>
                                 <label>Điểm tham quan</label>
@@ -464,7 +457,7 @@
                                          
                                         </p>
                                     </div>
-                                  
+
                                 }
 
                             </div>
@@ -679,12 +672,11 @@
 
 
                                         <p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Calibri,sans-serif"><strong><span style="font-size:10.0pt"><span style="color:#262626">Mọi chi tiết vui lòng liên hệ:</span></span></strong></span></span></p>
-                                        <p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Calibri,sans-serif"><strong><span style="font-size:10.0pt"><span style="color:#262626">KHỐI KHÁCH LẺ - DU LỊCH TRONG NƯỚC</span></span></strong></span></span></p>
-                                        <p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Calibri,sans-serif"><span style="font-size:10.0pt"><span style="color:#262626">190 PASTEUR, PHƯỜNG VÕ THỊ SÁU , QUẬN 3, TP.HCM</span></span></span></span></p>
+                                        <p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Calibri,sans-serif"><span style="font-size:10.0pt"><span style="color:#262626">190 , PHƯỜNG VÕ THỊ SÁU , QUẬN 3, TP.HCM</span></span></span></span></p>
                                         <p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Calibri,sans-serif"><span style="font-size:10.0pt"><span style="color:#262626">Điện thoại: (84-0111) 123 456 789</span></span></span></span></p>
-                                        <p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Calibri,sans-serif"><span style="font-size:10.0pt"><span style="color:#262626">Tổng đài tư vấn </span></span><span style="font-size:10.0pt"><span style="color:#262626">1900 1839 từ 8:00 - 23:00</span></span></span></span></p>
+                                        <p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Calibri,sans-serif"><span style="font-size:10.0pt"><span style="color:#262626">Tổng đài tư vấn </span></span><span style="font-size:10.0pt"><span style="color:#262626">1900 0009 từ 8:00 - 23:00</span></span></span></span></p>
                                         <p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Calibri,sans-serif"><span style="font-size:10.0pt"><span style="color:#262626">Hotline: 0938 301 399</span></span></span></span></p>
-                                        <p style="text-align:center"><strong><span style="font-size:15.0pt"><span style="color:#262626">VIETRAVEL </span></span><strong><span style="font-size:15.0pt"><span style="color:#262626">KÍNH CHÚC QUÝ KHÁCH MỘT CHUYẾN DU LỊCH VUI VẺ</span></span></strong></strong></p>
+                                        <p style="text-align:center"><strong><span style="font-size:15.0pt"><span style="color:#262626">SAIGON TRAVEL </span></span><strong><span style="font-size:15.0pt"><span style="color:#262626">KÍNH CHÚC QUÝ KHÁCH MỘT CHUYẾN DU LỊCH VUI VẺ</span></span></strong></strong></p>
 
                                     </div>
                             </div>
@@ -774,6 +766,64 @@
         }
 </style>
 
+<style>
+    .title-name {
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 38px;
+        color: #2d4271;
+        width: 100%;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
 
+
+    .change {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 10px;
+        border: 2px solid #53787D;
+        border-radius: 10px;
+        padding: 5px 10px;
+    }
+
+        .change :hover {
+            box-shadow: #53787D;
+        }
+
+    .change-title {
+        padding-left: 5px;
+        color: #2d4271;
+    }
+
+        .change-title h4 {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 0;
+        }
+</style>
+<style>
+    .add-to-group:hover {
+        background-color: #2d4271;
+        color: white;
+    }
+
+    .hero-text {
+        background-color: white;
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+        .hero-text h4 {
+            text-align: center;
+            padding-top: 10px;
+            font-weight: 600;
+        }
+
+    .modal-body {
+        text-align: right;
+    }
+</style>
 
 

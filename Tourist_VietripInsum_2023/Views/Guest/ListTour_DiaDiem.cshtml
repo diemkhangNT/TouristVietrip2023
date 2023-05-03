@@ -10,7 +10,7 @@
 
     List<DiaDiemThamQuan> diaDiems = db.DiaDiemThamQuans.ToList();
 }
-
+<link href="~/Content/PagedList.css" rel="stylesheet" />
 
 <link href="~/Content/Guest/ListTour-Option.css" rel="stylesheet" />
 <link href="~/Content/PagedList.css" rel="stylesheet" />
@@ -33,13 +33,13 @@
                                     <div class="mb-4">
                                         <h5 class="point-start-title s-title">Loại tour</h5>
                                         <select class="form-select" name="trangthai">
-                                            <option>Tour giờ chót</option>
                                             <option>Đang diễn ra</option>
                                         </select>
                                     </div>
                                     <div class="start-to-stop mb-3">
                                         <h5 class="point-start-title s-title">Nơi khởi hành</h5>
                                         <select class="form-select" id="departureIDFilter" name="noikhoihanh">
+                                            <option>---Tất cả---</option>
                                             <option>TP. Hồ Chí Minh</option>
                                             <option>Hà Nội</option>
                                             <option>Đà Nẵng</option>
@@ -65,10 +65,10 @@
                                             <label><input type="radio" name="songay" value="10+ ngày"> 10+ ngày</label>
                                         </div>
                                     </div>
-                                    <h5 class="date-go-to-back-title s-title">Ngày đi</h5>
+                                    @*<h5 class="date-go-to-back-title s-title">Ngày đi</h5>
                                     <input class="form-control col-md-12 text-box single-line datepicker" data-val="true" name="ngaykhoihanh" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")">
                                     <p id="alternate1"></p>
-                                    <p id="alternate4"></p>
+                                    <p id="alternate4"></p>*@
                                     <div class="tour-search-result__filter__block mb-4">
                                         <h5 class="s-title">Số người</h5>
                                         <div class="btn-group tour-search-result__filter__room" role="group" aria-label="Basic example">
@@ -109,7 +109,7 @@
                 </div>
                 <div class="listour-search">
 
-                    <div class="row row-cols-1 row-cols-md-3 g-4" id="sampleTable">
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
                         @{
                             if (count == 0)
                             {
@@ -119,7 +119,7 @@
                             {
                                 foreach (var tour in Model)
                                 {
-                                    <div class="col">
+                                    <div class="col" id="">
                                         <div class="card tour-item">
                                             <div class="tour-item__image">
                                                 <a href="/Guest/Tourinfomation/@tour.MaTour" title="#">
@@ -153,6 +153,7 @@
                                                     var tienchuagiam = tour.GiaNguoiLon + (tour.GiaNguoiLon * loaitour.ChietKhau);
                                                     var tiensale = string.Format("{0:#,##0}", tienchuagiam);
                                                     var ck = loaitour.ChietKhau * 100;
+
 
 
                                                 }
@@ -216,17 +217,19 @@
                                 }
 
 
+
                             }
                         }
 
 
                     </div>
+
                 </div>
                 <!-- Thêm mã phân trang -->
                 <br />
                 Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
                 <div class="MenuTrang">
-                    @Html.PagedListPager(Model, page => Url.Action("ListTour_DiaDiem", new { page }))
+                    @Html.PagedListPager(Model, page => Url.Action("ListTour_DiaDiem", new { page}))
                 </div>
                 <style>
                     .MenuTrang li {
