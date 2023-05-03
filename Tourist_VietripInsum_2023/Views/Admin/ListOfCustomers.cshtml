@@ -1,37 +1,101 @@
-﻿
+﻿@model IEnumerable<Tourist_VietripInsum_2023.Models.KhachHang>
+
 @{
     ViewBag.Title = "ListOfCustomers";
     Layout = "~/Views/Admin/AdminView.cshtml";
+    ViewBag.Name = "Danh sách khách hàng";
 }
 
-<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 500px;">
-    <div><h2>Tính năng sắp ra mắt</h2></div>
-    <div>
-        <a class="btn btn-warning btn-lg d-block" type="button" title="Back" href="/Admin/HomePage">
-            Trở lại
-        </a>
-    </div>
+@*<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 500px;">
+        <div><h2>Tính năng sắp ra mắt</h2></div>
+        <div>
+            <a class="btn btn-warning btn-lg d-block" type="button" title="Back" href="/Admin/HomePage">
+                Trở lại
+            </a>
+        </div>
 
+    </div>*@
+@{
+    var data = TempData["thongbaoguest"];
+    if (data == "thanhcong")
+    {
+        <script>
+            swal("Thành công !!!", "Bạn đã xóa tài khoản khách hàng thành công !!!", "success");
+        </script>
+    }
+    else if (data == "edit")
+    {
+        <script>
+            swal("Thành công !!!", "Bạn đã cập nhật tài khoản khách hàng thành công !!!", "success");
+        </script>
+    }
+   
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <!--<div class="row element-button" style="padding-left:10px">-->
+                @*<div class="col-sm-2">
+                        <a class="btn btn-success btn-sm " type="button" title="CreateStaff" href="/Admin/CreateStaff">
+                            Thêm tài khoản khách hàng
+                        </a>
+                    </div>*@
+                <!--</div>-->
+                <div class="element-button" style="padding-left:10px;">
+                    <div class="col-sm-2">
+                        <a class="btn btn-warning btn-sm " type="button" title="Back" href="/Admin/HomePage">
+                            Quay lại trang chủ
+                        </a>
+                    </div>
+                </div>
+                <hr />
+
+                <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                    <thead>
+                        <tr role="row" class="col-staff">
+                            <th class="sorting">Hình</th>
+                            <th class="sorting">Mã KH</th>
+                            <th class="sorting">Khách hàng</th>
+                            <th class="sorting">Loại</th>
+                            <th class="sorting">Username</th>
+                            <th class="sorting"></th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="text-align: center">
+                                <img src="~/images/@item.HinhDaiDien" width="50" height="50" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaKH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.HoTenKH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaLoaiKH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Username)
+                            </td>
+
+                            <td style="text-align: center;">
+                                <a href="/Admin/EditGuest/@item.MaKH" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="/Admin/DetailGuest/@item.MaKH" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                    <i class="fas fa-train"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+
+    </div>
 </div>
 
-@*<style>
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 500px;
-            flex-direction: column;
-        }
-
-        .box {
-            width: 100px;
-            height: 100px;
-            background-color: #ccc;
-            margin: 10px;
-        }
-    </style>
-    <div class="container">
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-    </div>*@

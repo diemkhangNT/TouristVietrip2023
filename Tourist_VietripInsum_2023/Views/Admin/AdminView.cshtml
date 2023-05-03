@@ -7,17 +7,20 @@
     <title>@ViewBag.Title</title>
     <link href="~/Content/main-AD.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/bundles/jquery")
     <!-- Main CSS-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!-- or -->
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <!-- Font-icon css-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-    
+
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -28,14 +31,14 @@
     <header class="app-header">
         <!-- Sidebar toggle button-->
         @*<a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
-           aria-label="Hide Sidebar"></a>*@
+            aria-label="Hide Sidebar"></a>*@
         <!-- Navbar Right Menu-->
         <!--<ul class="app-nav">-->
         <!-- User Menu-->
         <!--<li>
-            <a class="app-nav__item" href="#"><i class='bx bx-log-out bx-rotate-180'></i> </a>
-        </li>
-    </ul>-->
+                <a class="app-nav__item" href="#"><i class='bx bx-log-out bx-rotate-180'></i> </a>
+            </li>
+        </ul>-->
         <ul class="app-nav">
             <img class="app-nav__item" src="~/Content/Images/logo_project.png" width="40px" height="50px;"
                  alt="User Image">
@@ -44,7 +47,7 @@
         </ul>
         @{
             var user = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Current.Session["user"];
-           }
+        }
     </header>
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
@@ -55,7 +58,7 @@
                 <p class="app-sidebar__user-name">
                     <b>
                         @{
-                           
+
                             @user.HoTen}
                     </b>
                 </p>
@@ -76,9 +79,8 @@
                     <span class="app-menu__label">Tổng quan</span>
                 </a>
             </li>-->
-            
-            <!-- User Menu-->
-            <!--<li>
+    <!-- User Menu-->
+    <!--<li>
                 <a class="app-menu__item btn_Logout" href="@Url.Action("Logout", "LoginStaff" )">
                     <i class='app-menu__icon bx bx-log-out '></i><span class="app-menu__label">Đăng xuất</span>
                 </a>
@@ -102,9 +104,16 @@
         </div>
     </main>
 
-    <!--dialog_message -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @*//TimKiem*@
+    <!-- Data table plugin-->
+    <script src="~/Scripts/plugin/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/plugin/dataTables.bootstrap.min.js"></script>
+    @*//TimKiem*@
     <script type="text/javascript">
+        $('#sampleTable').DataTable(); //TimKiem
+        $('#sampleTable1').DataTable();
+        $('#sampleTable2').DataTable();
+        $('#sampleTable3').DataTable();
         //Thời Gian
         function time() {
             var today = new Date();
@@ -145,17 +154,37 @@
                 return i;
             }
         }
-                //In dữ liệu
-                //var myApp = new function () {
-                //    this.printTable = function () {
-                //        var tab = document.getElementById('sampleTable');
-                //        var win = window.open('', '', 'height=700,width=700');
-                //        win.document.write(tab.outerHTML);
-                //        win.document.close();
-                //        win.print();
-                //    }
-                //}
     </script>
+
+    <script type="text/javascript">
+        var data = {
+            labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],
+            datasets: [{
+                label: "Dữ liệu đầu tiên",
+                fillColor: "rgba(255, 213, 59, 0.767), 212, 59)",
+                strokeColor: "rgb(255, 212, 59)",
+                pointColor: "rgb(255, 212, 59)",
+                pointStrokeColor: "rgb(255, 212, 59)",
+                pointHighlightFill: "rgb(255, 212, 59)",
+                pointHighlightStroke: "rgb(255, 212, 59)",
+                data: [20, 59, 90, 51, 56, 100]
+            },
+            {
+                label: "Dữ liệu kế tiếp",
+                fillColor: "rgba(9, 109, 239, 0.651)  ",
+                pointColor: "rgb(9, 109, 239)",
+                strokeColor: "rgb(9, 109, 239)",
+                pointStrokeColor: "rgb(9, 109, 239)",
+                pointHighlightFill: "rgb(9, 109, 239)",
+                pointHighlightStroke: "rgb(9, 109, 239)",
+                data: [48, 48, 49, 39, 86, 10]
+            }
+            ]
+        };
+        var ctxb = $("#barChartDemo").get(0).getContext("2d");
+        var barChart = new Chart(ctxb).Bar(data);
+    </script>
+
 
 
 

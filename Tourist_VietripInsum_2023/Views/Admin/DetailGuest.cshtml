@@ -1,0 +1,147 @@
+﻿@model Tourist_VietripInsum_2023.Models.KhachHang
+
+@{
+    ViewBag.Title = "DetailGuest";
+    Layout = "~/Views/Admin/AdminView.cshtml";
+    ViewBag.Name = "Thông tin khách hàng";
+}
+<link href="~/Content/staff.css" rel="stylesheet" />
+@{
+    var data = TempData["thongbaoxoa"];
+        if (data == "thatbai")
+        {
+            <script>
+                swal("Xóa thất bại !!!", "Không thể xóa khách hàng do đã có đơn đặt tour !!!", "error");
+            </script>
+        }
+}
+<div class="container-fluid row">
+    <div class="staff-img col-md-4">
+        <div class="tile">
+            <h4>HÌNH ĐẠI DIỆN</h4>
+            @{
+                var img = Model.HinhDaiDien;
+                if (img == null)
+                {
+                    <img src="~/Content/Images/account.png" class="rounded-circle" alt="Cinque Terre" width="200" height="200" style="margin-top:30px;">
+                }
+                else
+                {
+                    <img src="~/images/@Model.HinhDaiDien" class="rounded-circle" alt="Cinque Terre" width="200" height="200" style="margin-top:30px;">
+                }
+            }
+
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="tile">
+            <div class="tile-body" id="tile-body">
+                <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                    <h4 style="text-align: center; color: rgb(0, 28, 64);">
+                        THÔNG TIN KHÁCH HÀNG
+                    </h4>
+                    <div class="staffinfo row" style="font-size:18px;padding:8px 30px">
+                        <div class="staff-content col-md-8">
+
+                            <p>
+                                <span>
+                                    <b>Mã khách hàng:</b> @Html.DisplayFor(modelItem => Model.MaKH)
+                                </span>
+                                <span>
+                                    <b>Loại: </b> @Html.DisplayFor(modelItem => Model.MaLoaiKH)
+                                </span>
+                            </p>
+                            <p><b>Khách hàng: </b>@Model.HoTenKH - @Model.Username</p>
+                            <p>
+                                <span>
+                                    <strong>Giới tính:</strong> @Html.DisplayFor(modelItem => Model.GioiTinh)
+                                </span>
+                                <span>
+                                    @{ var birthday = string.Format("{0: dd-MM-yyyy}", Model.NgaySinh);}
+                                    <strong>Ngày sinh:</strong> @Html.DisplayFor(modelItem => birthday)
+                                </span>
+                            </p>
+                            <p>
+                                <span>
+                                    <strong>Địa chỉ:</strong> @Html.DisplayFor(modelItem => Model.DiaChi)
+                                </span>
+                            </p>
+
+                            <p>
+                                <span>
+                                    <strong>Liên lạc:</strong> @Html.DisplayFor(modelItem => Model.SDT)
+                                </span>
+                                <span>
+                                    <strong>Email: </strong> @Html.DisplayFor(modelItem => Model.Email)
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row element-button" style="padding-left:10px; border: 0px;">
+            <div class="col-sm-2">
+                <a class="btn btn-danger btn-sm" ata-toggle="tooltip" title="Delete" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fas fa-trash"></i>
+                    Xóa nhân viên
+                </a>
+
+
+
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-delete btn-sm print-file" title="In" onclick="myApp.printTable()">
+                    <i class="fas fa-print"></i> In dữ liệu
+                </a>
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-warning btn-sm " type="button" title="Back" href="/Admin/ListOfCustomers">
+                    Back to list
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+
+@using (Html.BeginForm("DeleteGuest/" + Model.MaKH, "Admin", FormMethod.Post, null))
+{
+    @Html.AntiForgeryToken();
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body" style="text-align: center; padding: 30px">
+                    <h4>THÔNG BÁO</h4>
+                    <p style="font-size:18px">Bạn có muốn xóa tài khoản khách hàng <B>@Model.MaKH - @Model.HoTenKH</B> không?</p>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <a class="btn btn-secondary" data-dismiss="modal">Close</a>
+                    <input type="submit" class="btn btn-danger btn-sm" data-bs-dismiss="modal" value="Xác nhận">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script>
+    //In dữ liệu
+    var myApp = new function () {
+        this.printTable = function () {
+            var tab = document.getElementById('tile-body');
+            var win = window.open('', '', 'height=800px,width=1200px');
+            win.document.write(tab.outerHTML);
+            win.document.close();
+            win.print();
+        }
+    }
+    oTable = $('#sampleTable').dataTable();
+    $('#all').click(function (e) {
+        $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
+        e.stopImmediatePropagation();
+    });
+</script>
