@@ -30,7 +30,7 @@
                         </a>
                     </div>
                 </div>
-               
+
                 <div class="row table-responsive" style="padding: 0 10px">
                     <table class="table table-hover table-bordered js-copytextarea dataTable no-footer" cellpadding="0" cellspacing="0" border="0" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
                         <thead style="background-color: #ffd43b;">
@@ -63,19 +63,27 @@
                                     @Html.DisplayFor(modelItem => item.Username)
                                 </td>
 
-                                <td style="text-align: center;">
-                                    <a href="/Admin/EditGuest/@item.MaNV" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="/Admin/DetailStaff/@item.MaNV" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                        <i class="fas fa-train"></i>
-                                    </a>
-                                </td>
+                                @{ var user = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Current.Session["user"];}
+                                @if (item.MaNV == user.MaNV)
+                                {
+                                    <td style="text-align: center;"></td>
+                                }
+                                else
+                                {
+                                    <td style="text-align: center;">
+                                        <a href="/Admin/EditStaff/@item.MaNV" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="/Admin/DetailStaff/@item.MaNV" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                            <i class="fas fa-train"></i>
+                                        </a>
+                                    </td>
+                                }
                             </tr>
                         }
                     </table>
                 </div>
             </div>
-
+        </div>
     </div>
 </div>

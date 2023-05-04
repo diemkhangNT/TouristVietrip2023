@@ -44,7 +44,7 @@
                 <h5>ĐĂNG KÍ TÀI KHOẢN</h5>
                 <div class="row">
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.MaCV, htmlAttributes: new { @class = "control-label col-md-3" })
+                        @Html.LabelFor(model => model.MaCV, "Mã chức vụ", htmlAttributes: new { @class = "control-label" })
                         <select class="form-control" id="MaCV" name="MaCV">
                             <option>TM</option>
                             <option>OP</option>
@@ -58,34 +58,30 @@
                         @*<input class="form-control" type="text" id="Username" name="Username" required="required"/>*@
                         @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                         <span id="status"></span>
-
                     </div>
                 </div>
-
-
-
             </div>
             <div class="info-staff col-sm-6">
                 <h5>THÔNG TIN CÁ NHÂN</h5>
                 <div class="row">
                     <div class="form-group col-md-12">
-                        @Html.LabelFor(model => model.HoTen, htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.HoTen, "Họ và tên", htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                         @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group col-md-12">
-                        @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.DiaChi, "Địa chỉ", htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                         @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.NgaySinh, htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.NgaySinh, "Ngày sinh", htmlAttributes: new { @class = "control-label" })
                         <input class="form-control text-box single-line" data-val="true" data-val-date="The field NgaySinh must be a date." id="NgaySinh" name="NgaySinh" type="date" required="required" value="">
                         @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.GioiTinh, htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.GioiTinh, "Giới tính", htmlAttributes: new { @class = "control-label" })
                         <select class="form-control" id="GioiTinh" name="GioiTinh">
                             <option>Male</option>
                             <option>Female</option>
@@ -93,7 +89,7 @@
                         @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger", required = "required" })
                     </div>
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.Sdt, htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.Sdt, "Số điện thoại", htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.Sdt, new { htmlAttributes = new { @class = "form-control", required = "required", @id = "Sdt", onchange = " SDTCheck()" } })
                         @*@Html.ValidationMessageFor(model => model.Sdt, "", new { @class = "text-danger" })*@
                         <span id="noti"></span>
@@ -108,9 +104,7 @@
                 </div>
             </div>
             <div class="col-sm-5">
-               
-                    <p> @Html.ValidationSummary(true, "", new { @class = "text-danger" })</p>
-                
+                <p> @Html.ValidationSummary(true, "", new { @class = "text-danger" })</p>
             </div>
             <div class="col-sm-5">
                 <div class="row">
@@ -125,9 +119,6 @@
             </div>
         </form>
     </div>
-   
-        
-   
 </div>
 
 
