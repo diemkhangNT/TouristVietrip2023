@@ -563,6 +563,8 @@
     <Content Include="Views\Tourmanager\GiamSatLienHe.cshtml" />
     <Content Include="Views\Guest\ViewGuest\customer_info.cshtml" />
     <Content Include="Views\Guest\Thongtinkhachhang.cshtml" />
+    <Content Include="Views\Admin\EditGuest.cshtml" />
+    <Content Include="Views\Admin\DetailGuest.cshtml" />
     <Content Include="Views\Guest\TourBookingHistory.cshtml" />
     <Content Include="Views\Guest\CancelBookTour.cshtml" />
     <Content Include="Views\Guest\NewOrderPlaced.cshtml" />
