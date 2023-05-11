@@ -560,12 +560,13 @@ namespace Tourist_VietripInsum_2023.Controllers
             db.BookTours.Add(booktour);
             db.SaveChanges();
             
-            return RedirectToAction("Ticket");
+            return RedirectToAction("Ticket/"+idDH);
         }
 
-        public ActionResult Ticket()
+        public ActionResult Ticket(string id)
         {
             string matour = (string)Session["Matourchon"];
+            Session["madhmua"] = id;
             var tour = db.Tours.Where(t => t.MaTour == matour).FirstOrDefault();
             ViewBag.chodamua = tour.SoChoNull;
             return View();
