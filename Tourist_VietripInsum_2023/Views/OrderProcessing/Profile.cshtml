@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Profile";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
-    ViewBag.Name = "Profile";
+    ViewBag.Name = "Trang Thông Tin Cá Nhân";
     ViewBag.prf = "active";
 }
 
@@ -30,37 +30,35 @@
                         </h3>
                         <div class="nav flex-column nav-pills online" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <p>
-                                <i class=' bx bxs-circle text-success'></i><span class="app-menu__label">Online</span>
+                                <i class=' bx bxs-circle text-success'></i><span class="app-menu__label">Trực tuyến</span>
                             </p>
                         </div>
                         <br />
                         <div class="text-center mb-5" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-
                             <span class="editProfile">Edit</span>
-
                         </div>
                     </div>
                 </div>
                 <div class="p-8 tab-content" id="v-pills-tabContent">
                     <div class="" id="account" role="tabpanel" aria-labelledby="account-tab">
-                        <h2 class="title_acc text-danger">General</h2>
+                        <h2 class="title_acc text-danger">Tổng quan</h2>
                         @{
                             var user = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Current.Session["user"];
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <label>Position</label>
+                                    <label>Chức vụ</label>
                                     <h4>@user.ChucVu.TenCV</h4>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label>ID Staff</label>
+                                    <label>Mã Nhân viên</label>
                                     <h4>@user.MaNV</h4>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label>Phone number</label>
+                                    <label>Số điện thoại</label>
                                     <h4>@user.Sdt</h4>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label>Address</label>
+                                    <label>Địa chỉ</label>
                                     <h4>@user.DiaChi</h4>
                                 </div>
                                 <div class="col-sm-6">
@@ -68,35 +66,34 @@
                                     <h4>@user.Email</h4>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Birthday</label>
+                                    <label>Ngày sinh</label>
                                     @{var db = String.Format("{0:d/M/yyyy}", user.NgaySinh); }
                                     <h4>@db</h4>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Gender</label>
+                                    <label>Giới tính</label>
                                     <h4>@user.GioiTinh</h4>
                                 </div>
                             </div>
                             <hr />
                         }
-                        <h2 class="title_acc text-danger">Login</h2>
+                        <h2 class="title_acc text-danger">Đăng nhập</h2>
                         @{
                             var user2 = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Current.Session["user"];
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Username</label>
+                                        <label>Tên đăng nhập</label>
                                         <h4>@user2.Username</h4>
 
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Password</label>
-
-                                        <p>A password security help protect your account</p>
+                                        <label>Mật khẩu</label>
+                                        <p>Bảo mật bằng mật khẩu giúp bảo vệ tài khoản của bạn</p>
                                         <h4><b>**********</b></h4>
-                                        <p>Last changed: 19/12/2022 </p>
+                                        <p>Thay đổi cuối cùng: 19/12/2022 </p>
                                     </div>
                                 </div>
                             </div>

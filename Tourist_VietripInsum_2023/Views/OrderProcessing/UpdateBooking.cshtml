@@ -5,10 +5,8 @@
     ViewBag.Title = "UpdateBooking";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
     ViewBag.booking = "active";
+    ViewBag.Name = "Trang Thông Tin Chi Tiết Đơn Đặt Tour";
     TouristEntities1 db = new TouristEntities1();
-
-
-
 }
 
 @{
@@ -33,7 +31,7 @@
             });
         </script>
     }
-   
+
 
     string mailcheck = (string)TempData["cancelmail"];
     if (mailcheck == "cancel")
@@ -47,7 +45,6 @@
         </script>
     }
 }
-
 
 <div class="row">
     <div class="col-sm-12">
@@ -130,71 +127,65 @@
                                 @Html.HiddenFor(model => model.SoCho)
                                 @Html.HiddenFor(model => model.SdtKH)
                                 @Html.HiddenFor(model => model.MaKH)
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <b>Tình trạng thanh toán: </b>
-                                <select class="form-control list-box tri-state" id="TrangThaiTT" name="TrangThaiTT">
-                                    @{
-                                        if (tt == true)
-                                        {
-                                            <option selected="selected" value="true">Đã thanh toán</option>
-                                            <option value="false">Chưa thanh toán</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="true">Đã thanh toán</option>
-                                            <option selected="selected" value="false">Chưa thanh toán</option>
-                                        }
-                                    }
-                                </select>
-                                @*@Html.EditorFor(model => model.TrangThaiTT, new { htmlAttributes = new { @class = "form-control" } })*@
-                            </div>
-                            <div class="col-sm-4">
-                                <b>Hình thức thanh toán: </b>
-                                <select class="form-control list-box tri-state" id="HinhThucThanhToan" name="HinhThucThanhToan">
-                                    @{
-                                        if (hinhthuc == true)
-                                        {
-                                            <option selected="selected" value="true">Chuyển khoản</option>
-                                            <option value="false">Thanh toán tại văn phòng</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="true">Chuyển khoản</option>
-                                            <option selected="selected" value="false">Thanh toán tại văn phòng</option>
-                                        }
-                                    }
-                                </select>
-                                @*@Html.EditorFor(model => model.TrangThaiTT, new { htmlAttributes = new { @class = "form-control" } })*@
-
-
-                            </div>
-                            <div class="col-sm-4">
-                                <b>Xác nhận đơn hàng: </b>
-                                <select class="form-control list-box tri-state" id="XacNhanDH" name="XacNhanDH">
-                                    @{
-                                        if (xacnhan == true)
-                                        {
-                                            <option selected="selected" value="true">Đã xác nhận</option>
-                                            <option value="false">Chưa xác nhận</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="true">Đã xác nhấn</option>
-                                            <option selected="selected" value="false">Chưa xác nhận</option>
-                                        }
-                                    }
-                                </select>
-                                @*@Html.EditorFor(model => model.TrangThaiTT, new { htmlAttributes = new { @class = "form-control" } })*@
-
-
-                            </div>
-                            <div class="col-sm-2" style="margin:10px">
-                                <input class="btn btn-success btn-sm" type="submit" value="Cập nhật" />
-                            </div>
-
-
-                        </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Tình trạng thanh toán: </b>
+                                        <select class="form-control list-box tri-state" id="TrangThaiTT" name="TrangThaiTT">
+                                            @{
+                                                if (tt == true)
+                                                {
+                                                    <option selected="selected" value="true">Đã thanh toán</option>
+                                                    <option value="false">Chưa thanh toán</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="true">Đã thanh toán</option>
+                                                    <option selected="selected" value="false">Chưa thanh toán</option>
+                                                }
+                                            }
+                                        </select>
+                                        @*@Html.EditorFor(model => model.TrangThaiTT, new { htmlAttributes = new { @class = "form-control" } })*@
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <b>Hình thức thanh toán: </b>
+                                        <select class="form-control list-box tri-state" id="HinhThucThanhToan" name="HinhThucThanhToan">
+                                            @{
+                                                if (hinhthuc == true)
+                                                {
+                                                    <option selected="selected" value="true">Chuyển khoản</option>
+                                                    <option value="false">Thanh toán tại văn phòng</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="true">Chuyển khoản</option>
+                                                    <option selected="selected" value="false">Thanh toán tại văn phòng</option>
+                                                }
+                                            }
+                                        </select>
+                                        @*@Html.EditorFor(model => model.TrangThaiTT, new { htmlAttributes = new { @class = "form-control" } })*@
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <b>Xác nhận đơn hàng: </b>
+                                        <select class="form-control list-box tri-state" id="XacNhanDH" name="XacNhanDH">
+                                            @{
+                                                if (xacnhan == true)
+                                                {
+                                                    <option selected="selected" value="true">Đã xác nhận</option>
+                                                    <option value="false">Chưa xác nhận</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="true">Đã xác nhấn</option>
+                                                    <option selected="selected" value="false">Chưa xác nhận</option>
+                                                }
+                                            }
+                                        </select>
+                                        @*@Html.EditorFor(model => model.TrangThaiTT, new { htmlAttributes = new { @class = "form-control" } })*@
+                                    </div>
+                                    <div class="col-sm-2" style="margin:10px">
+                                        <input class="btn btn-success btn-sm" type="submit" value="Cập nhật" />
+                                    </div>
+                                </div>
                             }
 
                             <div class="element-button">
@@ -217,7 +208,7 @@
                                         @if (listTickets.Count() == 0)
                                         {
                                             <tr>
-                                                <td colspan="9" class="text-center"> Records not found </td>
+                                                <td colspan="9" class="text-center"> Không tìm thấy </td>
                                             </tr>
                                         }
                                         else
@@ -272,36 +263,21 @@
                                         <input type="submit" value="Gửi Mail Hủy" class="btn btn-outline-dark btn-sm" />
                                     }
                                 </div>
-
                             </div>
-
-
-
-
-
-
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 <div class="modal fade" id="DeleteBooking" tabindex="-1" role="dialog" aria-labelledby="DeleteBooking" aria-hidden="true">
     <div class="modal-dialog" role="document">
-
         <div class="modal-content" style="padding:20px 10px">
             <div class="modal-body">
                 <div class="hero-text">
-
                     <div class="form-horizontal" style="color: #2d4271;text-align:left">
-
                         <h4 style="text-align:center" class="element-button"> XÁC NHẬN ĐƠN HÀNG</h4>
-
                         <strong>Thông tin khách hàng</strong>
                         <br />
                         @kh.HoTenKH - @kh.SDT -@kh.Email
@@ -317,9 +293,7 @@
                         <strong>Số lượng vé:</strong>@Model.SoCho
                         <br />
                         <strong>Tổng tiền:</strong>@tongTien vnd
-
                     </div>
-
                 </div>
             </div>
             <div class="modal-footer">
@@ -327,6 +301,5 @@
                 <a type="submit" value="Xóa" class="btn btn-danger btn-sm" href="/OrderProcessing/DeleteBooking/@Model.MaDH">Xóa</a>
             </div>
         </div>
-
     </div>
 </div>

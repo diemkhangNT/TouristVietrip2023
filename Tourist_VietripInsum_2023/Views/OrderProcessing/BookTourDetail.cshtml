@@ -12,8 +12,6 @@
 
 @if (TempData["success"] != null)
 {
-
-
     <script>
         swal({
             title: "Thay đổi trạng thái thành công",
@@ -22,6 +20,7 @@
         });
     </script>
 }
+
 else if (TempData["thongbao"] == "donhang1ve")
 {
 
@@ -55,6 +54,7 @@ else if (TempData["thongbao"] == "donhang1ve")
             });
         </script>
     }
+
     else if (noti == "trong")
     {
         <script>
@@ -65,9 +65,7 @@ else if (TempData["thongbao"] == "donhang1ve")
             });
         </script>
     }
-
 }
-
 
 <div class="row">
     <div class="col-sm-12">
@@ -125,8 +123,6 @@ else if (TempData["thongbao"] == "donhang1ve")
                             <br />
                             <b>Hình thức thanh toán: </b>@ht
                         </div>
-
-
                     </div>
                     <h6>THÔNG TIN VÉ</h6>
                 </div>
@@ -148,7 +144,7 @@ else if (TempData["thongbao"] == "donhang1ve")
                             @if (listTickets.Count() == 0)
                             {
                                 <tr>
-                                    <td colspan="9" class="text-center"> Records not found </td>
+                                    <td colspan="9" class="text-center"> Không tìm thấy </td>
                                 </tr>
                             }
                             else
@@ -185,10 +181,6 @@ else if (TempData["thongbao"] == "donhang1ve")
                                                         <i class="fas fa-remove"></i>
                                                     </a>
                                                 }*@
-
-
-
-
                                         </td>
                                     </tr>
                                 }
@@ -204,23 +196,14 @@ else if (TempData["thongbao"] == "donhang1ve")
                     @*<input class="btn btn-success btn-sm" type="submit" value="Cập nhật" />*@
                     <a class="btn btn-outline-primary btn-sm" href="/OrderProcessing/Booking">Theo dõi tình trạng</a>
                 </div>
-
-
             </div>
         </div>
-
-
     </div>
 </div>
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-
-
-
         <div class="modal-content" style="padding:20px 10px;">
             <h4 style="text-align: center; color: #2d4271">THÊM VÉ</h4>
             <div class="col-sm-12 element-button">
@@ -259,10 +242,6 @@ else if (TempData["thongbao"] == "donhang1ve")
                 </div>
 
             }
-
-
-
-
         </div>
     </div>
         <script>
@@ -280,41 +259,36 @@ else if (TempData["thongbao"] == "donhang1ve")
                     if (i < 5) {
                         i++;
                         var row = ` <div class="ticket-info" id="nd` + i + `">` +
-
                             `<div class="row" id="ListInfoAdult">` +
-                            `<div class="group-info-name col-md-7">` +
-                            ` <span>Họ tên</span>` +
-                            `<input class="form-control" name="Hoten_KH` + i + `" placeholder="Vui lòng nhập Họ tên" required="required" type="text" value="">` +
-                            `</div>` +
-                            `<div class="form-group col-md-5">` +
-                            `<span>Loại vé</span>` +
-                            ` <select class="form-control col-sm-12" id="MaLVe' + i + '" name="MaLVe` + i + `">` +
-                            `<option value="">Chọn loại vé</option>` +
-                            ` <option value="TICKET01">Vé người lớn</option>` +
-                            `<option value="TICKET02">Vé trẻ em</option>` +
-                            ` </select>` +
-                            ` </div>` +
-                            ` <div class="group-info-sex col-sm-7">` +
-                            `<span>Giới tính</span>` +
-                            `<select class="form-control col-sm-12" id="GioiTinh' + i +'" name="GioiTinh` + i + `">` +
-                            `<option value="">Giới tính</option>` +
-                            `<option value="Nam">Nam</option>` +
-                            `<option value="Nữ">Nữ</option>` +
-                            `</select>` +
-                            `</div>` +
-                            ` <div class="group-info-birthday col-sm-5">` +
-                            `<span>Ngày sinh</span>` +
-
-                            `<input class="form-control text-box single-line" required="required" name="NgaySinh` + i + `" id="NgaySinh' + i +'" placeholder="Vui lòng nhập chọn ngày sinh"type="date" value="">` +
-
-                            `</div>` +
-                            `<div class="group-info-note col-sm-12">` +
-                            ` <span>Lưu ý</span>` +
-                            `<input class="form-control" name="LuuY` + i + `" id="LuuY' + i +'" placeholder="Nhập lưu ý" type="text" value="">` +
-
-                            `</div>` +
-                            `<p>-----</p>` +
-
+                                `<div class="group-info-name col-md-7">` +
+                                    `<span>Họ tên</span>` +
+                                    `<input class="form-group form-control" name="Hoten_KH` + i + `" placeholder="Vui lòng nhập Họ tên" required="required" type="text" value="">` +
+                                `</div>` +
+                                `<div class="form-group col-md-5">` +
+                                    `<span>Loại vé</span>` +
+                                    `<select class="form-control col-sm-12" id="MaLVe' + i + '" name="MaLVe` + i + `">` +
+                                        `<option value="">Chọn loại vé</option>` +
+                                        `<option value="TICKET01">Vé người lớn</option>` +
+                                        `<option value="TICKET02">Vé trẻ em</option>` +
+                                    `</select>` +
+                                `</div>` +
+                                `<div class="form-group group-info-sex col-sm-6">` +
+                                    `<span>Giới tính</span>` +
+                                    `<select class="form-control col-sm-12" id="GioiTinh' + i +'" name="GioiTinh` + i + `">` +
+                                        `<option value="">Giới tính</option>` +
+                                        `<option value="Nam">Nam</option>` +
+                                        `<option value="Nữ">Nữ</option>` +
+                                    `</select>` +
+                                `</div>` +
+                                `<div class="form-group group-info-birthday col-sm-6">` +
+                                    `<span>Ngày sinh</span>` +
+                                    `<input class="form-control text-box single-line" required="required" name="NgaySinh` + i + `" id="NgaySinh' + i +'" placeholder="Vui lòng nhập chọn ngày sinh"type="date" value="">` +
+                                `</div>` +
+                                `<div class="group-info-note col-sm-12">` +
+                                    `<span>Lưu ý</span>` +
+                                    `<input class="form-control col-sm-12" name="LuuY` + i + `" id="LuuY' + i +'" placeholder="Nhập lưu ý" type="text" value="">` +
+                                `</div>` +
+                                `<p>-----</p>` +
                             ` </div>` +
                             ` </div>` +
                             ` </div> `
@@ -326,11 +300,7 @@ else if (TempData["thongbao"] == "donhang1ve")
                         cartitem.append(ticketrow);
                         document.getElementById("soluongdat").value = i;
                     };
-
                 }
-
-
-
             }
             function xoaVe() {
                 var element = document.getElementById("datve");
@@ -342,7 +312,6 @@ else if (TempData["thongbao"] == "donhang1ve")
                     alert("đặt vé lớn hơn 0")
                 }
                 document.getElementById("soluongdat").value = i;
-
             }
             //function checkve() {
             //    if (i == 0) {
@@ -376,8 +345,5 @@ else if (TempData["thongbao"] == "donhang1ve")
 
                 }
             }
-
-
         }
-        
     </script>
