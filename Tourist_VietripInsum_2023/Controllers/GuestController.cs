@@ -695,6 +695,48 @@ namespace Tourist_VietripInsum_2023.Controllers
             var toEmail = ConfigurationManager.AppSettings["toEmailAddress"].ToString();
             new MailHelp().SendMail(kh.Email, "Xác nhận đặt tour", content);
             TempData["noti"] = "success";
+            return RedirectToAction("Payment", "Payment");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PaymentTM(string id)
+        {
+            //Email
+            string content = System.IO.File.ReadAllText(Server.MapPath("/Content/template/mailconn.html"));
+            var dh = db.BookTours.Where(s => s.MaDH == id).FirstOrDefault();
+            var kh = db.KhachHangs.Where(s => s.MaKH == dh.MaKH).FirstOrDefault();
+            var t = db.Tours.Where(s => s.MaTour == dh.MaTour).FirstOrDefault();
+            content = content.Replace("{{TenKH}}", kh.HoTenKH);
+            content = content.Replace("{{Phoneno}}", dh.MaKH);
+            content = content.Replace("{{MaDH}}", dh.MaDH);
+            content = content.Replace("{{Email}}", kh.Email);
+            content = content.Replace("{{Address}}", dh.MaKH);
+            string hinhthuc = "";
+            if (dh.HinhThucThanhToan == true)
+            {
+                hinhthuc = "Chuyển khoản";
+            }
+            else
+            {
+                hinhthuc = "Thanh toán tại văn phòng";
+            }
+            DateTime ngaydat = (DateTime)dh.NgayLap;
+            DateTime hanthanhtoan = ngaydat.AddDays(1);
+            content = content.Replace("{{hinhthuc}}", hinhthuc);
+            content = content.Replace("{{ngaydat}}", ngaydat.ToString());
+            content = content.Replace("{{hanthanhtoan}}", hanthanhtoan.ToString());
+            content = content.Replace("{{MaTour}}", t.MaTour);
+            content = content.Replace("{{TenTour}}", t.TenTour);
+            content = content.Replace("{{ngaykhoihanh}}", t.NgayKhoihanh.ToString());
+            content = content.Replace("{{noikhoihanh}}", t.NoiKhoiHanh);
+            content = content.Replace("{{hanchotve}}", t.HanChotDatVe.ToString());
+            content = content.Replace("{{total}}", dh.TotalPrice.ToString());
+
+            ////Gui mail
+            var toEmail = ConfigurationManager.AppSettings["toEmailAddress"].ToString();
+            new MailHelp().SendMail(kh.Email, "Xác nhận đặt tour", content);
+            TempData["noti"] = "success";
             return RedirectToAction("HomePageGuest", "Guest");
         }
 

@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "PaymentSuccess";
+    Layout = "~/Views/Payment/Layout/_LayoutPayment.cshtml";
+}
+
+<h2>PaymentSuccess</h2>
+<div class="container margin_mobile_fixed margin_payment_status">
+    <div class="row d-flex justify-content-center">
+        <div class="col-12 col-lg-8">
+            @if (ViewBag.Message != null)
+            {
+                <div class="border_payment_order p-4">
+                    <div>
+                        <i class="bi bi-check-circle-fill ic_success_verify_payment d-flex justify-content-center"></i>
+                        <div class="d-flex justify-content-center mb-3 mt-3 fs-25px" style="color: #21C17B;">@ViewBag.Message</div>
+                    </div>
+                    <div>
+                        Đơn hàng của quý khách đã thanh toán thành công. Infinity Watch xin gửi đến bạn thông tin giao dịch như sau:
+                    </div>
+                    <ul style="list-style-type: disc; padding-inline-start: 20px !important;">
+                        <li>
+                            Mã đơn hàng thanh toán: <span style="color: rgb(1,181,187);">#@ViewBag.OrderID</span>
+                        </li>
+                        <li>
+                            Loại tài khoản/thẻ khách hàng sử dụng: @ViewBag.Cardtype
+                        </li>
+                        <li>
+                            Ngân hàng giao dịch: @ViewBag.bankCode
+                        </li>
+                        <li>
+                            Số tiền được thanh toán: <span class="font_roboto_medium" style="color: #dc3545;">@ViewBag.Total</span>
+                        </li>
+                        <li>
+                            Mã giao dịch trên cổng thanh toán: @ViewBag.VnPayID
+                        </li>
+                    </ul>
+                    <div class="d-flex justify-content-end manager_order"><a href="@Url.Action("TrackingOrderDetail", "Account",new { id = @ViewBag.OrderID })" class="btn_manager_order mt-1" style="">Quản lý đơn hàng</a></div>
+                </div> }
+            else
+            {
+                <div class="border_payment_order pd_error_payment">
+                    <div>
+                        <i class="bi bi-x-circle-fill ic_false_verify_payment d-flex justify-content-center"></i>
+                        <div class="d-flex justify-content-center mb-3 mt-3 fs-25px" style="color: #ed2d40;">@ViewBag.Error</div>
+                    </div>
+                    <div class="d-flex justify-content-center manager_order"><a href="@Url.Action("TrackingOrderDetail", "Account",new { id = @ViewBag.OrderID })" class="btn_manager_order mt-50px" style="">Quản lý đơn hàng</a></div>
+                </div>      }
+        </div>
+    </div>
+</div>
+
+

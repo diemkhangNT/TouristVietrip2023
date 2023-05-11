@@ -29,14 +29,14 @@
     var checkMessage = TempData["noti"];
     if (checkMessage == "success")
     {
-        <script>
+    <script>
             swal({
-                title: "Đặt vé thành công",
-                text: "Chúng tôi đã gửi mail xác nhận cho bạn! Vui lòng phản hồi lại với chúng tôi trong thời gian sớm nhất!",
+                title: "@TempData["messageSC"] ",
+                text: "Chúng tôi đã gửi mail xác nhận cho bạn!",
                 icon: "success",
                 button: "OK",
             });
-        </script>
+    </script>
     }
 }
 
