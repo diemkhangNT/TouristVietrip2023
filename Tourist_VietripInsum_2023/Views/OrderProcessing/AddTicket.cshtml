@@ -19,15 +19,12 @@
                     @Html.HiddenFor(model => ve.MaVe)
                     <h4 style="text-align:center">THÊM VÉ</h4>
                     <input name="madh" value="@Model.MaDH" style="visibility:hidden" />
-                    <div id="datve" class="datve" style="padding:0px 10px;">
-
-                    </div>
+                    <div id="datve" class="datve" style="padding:0px 10px;"></div>
 
                     <div>
                         <button id="themve" onclick="ThemVe()" class="btn btn-success btn-sm">Thêm vé</button>
                         <button id="xoave" onclick="xoaVe()" class="btn btn-danger btn-sm">Xóa vé</button>
                     </div>
-
                 </div>
                 <input name="soluongdat" id="soluongdat" style="visibility:hidden" />
                 <div class="modal-footer">
@@ -35,9 +32,6 @@
                     <input type="submit" value="Thêm vé" class="btn btn-success btn-sm" />
                 </div>
             </div>
-
-
-
         }
     </div>
 
@@ -51,47 +45,42 @@
         
         if (i < 5) {
             i++;
-            var row = ` <div class="ticket-info" id="nd` + i + `">` +
+            var row = `<div class="ticket-info" id="nd` + i + `">` +
 
                 `<div class="row" id="ListInfoAdult">` +
-                `<div class="group-info-name col-md-7">` +
-                ` <span>Họ tên</span>` +
-                `<input class="form-control" name="Hoten_KH` + i + `" placeholder="Vui lòng nhập Họ tên" required="required" type="text" value="">` +
+                `<div class="form-group group-info-name col-md-7">` +
+                    `<span>Họ tên</span>` +
+                    `<input class="form-control" name="Hoten_KH` + i + `" placeholder="Vui lòng nhập Họ tên" required="required" type="text" value="">` +
                 `</div>` +
                 `<div class="form-group col-md-5">` +
-                `<span>Loại vé</span>` +
-                ` <select class="form-control col-sm-12" id="MaLVe' + i + '" name="MaLVe` + i + `">` +
-                `<option value="">Chọn loại vé</option>` +
-                ` <option value="TICKET01">Vé người lớn</option>` +
-                `<option value="TICKET02">Vé trẻ em</option>` +
-                ` </select>` +
+                    `<span>Loại vé</span>` +
+                    `<select class="form-control col-sm-12" id="MaLVe' + i + '" name="MaLVe` + i + `">` +
+                        `<option value="">Chọn loại vé</option>` +
+                        `<option value="TICKET01">Vé người lớn</option>` +
+                        `<option value="TICKET02">Vé trẻ em</option>` +
+                    ` </select>` +
                 ` </div>` +
-                ` <div class="group-info-sex col-sm-7">` +
-                `<span>Giới tính</span>` +
-                `<select class="form-control col-sm-12" id="GioiTinh' + i +'" name="GioiTinh` + i + `">` +
-                `<option value="">Giới tính</option>` +
-                `<option value="Nam">Nam</option>` +
-                `<option value="Nữ">Nữ</option>` +
-                `</select>` +
+                ` <div class="form-group group-info-sex col-sm-6">` +
+                    `<span>Giới tính</span>` +
+                    `<select class="form-control col-sm-12" id="GioiTinh' + i +'" name="GioiTinh` + i + `">` +
+                        `<option value="">Giới tính</option>` +
+                        `<option value="Nam">Nam</option>` +
+                        `<option value="Nữ">Nữ</option>` +
+                    `</select>` +
                 `</div>` +
-                ` <div class="group-info-birthday col-sm-5">` +
-                `<span>Ngày sinh</span>` +
-
-                `<input class="form-control text-box single-line" required="required" name="NgaySinh` + i + `" id="NgaySinh' + i +'" placeholder="Vui lòng nhập chọn ngày sinh"type="date" value="">` +
-
+                `<div class="form-group group-info-birthday col-sm-6">` +
+                    `<span>Ngày sinh</span>` +
+                    `<input class="form-control text-box single-line" required="required" name="NgaySinh` + i + `" id="NgaySinh' + i +'" placeholder="Vui lòng nhập chọn ngày sinh"type="date" value="">` +
                 `</div>` +
-                `<div class="group-info-note col-sm-12">` +
-                ` <span>Lưu ý</span>` +
-                `<input class="form-control" name="LuuY` + i + `" id="LuuY' + i +'" placeholder="Nhập lưu ý" type="text" value="">` +
-
+                `<div class="form-group group-info-note col-sm-12">` +
+                    `<span>Lưu ý</span>` +
+                    `<input class="form-control col-sm-12" name="LuuY` + i + `" id="LuuY' + i +'" placeholder="Nhập lưu ý" type="text" value="">` +
                 `</div>` +
                 `<p>-----</p>` +
-
                 ` </div>` +
                 ` </div>` +
                 ` </div> `
                 ;
-
             //var div = document.getElementById("datve");
             //div.innerHTML += row;
             ticketrow.innerHTML = row;

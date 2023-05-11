@@ -22,7 +22,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             var donhang = db.BookTours.Count();
             TempData["TongDonDat"] = donhang;
-            var ph = db.PhanHois.Count();
+            var ph = db.PhanHois.Count(s => s.TieuDe == "Tư vấn đơn đặt tour");
             TempData["phanhoi"] = ph;
             var dsDonHangMoi = db.BookTours.OrderByDescending(dhang => dhang.NgayLap).ToList();
         
@@ -281,6 +281,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                     donHang.NgayLap = System.DateTime.Now;
                     donHang.TrangThaiTT = false;
                     donHang.TotalPrice = null;
+                    donHang.HinhThucThanhToan = donHang.HinhThucThanhToan;
 
                     var sdt = Session["SDT"].ToString();
                     var info = db.KhachHangs.FirstOrDefault(s => s.SDT == sdt);
@@ -579,7 +580,7 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult FeedBack()
         {
-            return View(db.PhanHois.Where(s=>s.TieuDe== "Tư vấn đơn đặt tour").ToList());
+            return View(db.PhanHois.Where(s=>s.TieuDe == "Tư vấn đơn đặt tour").ToList());
         }
 
         public ActionResult DeleteFeedBack(string id)

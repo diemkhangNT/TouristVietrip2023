@@ -62,12 +62,6 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         <div class="row element-button">
-                            <div class="form-group col-md-4">
-                                <label class="control-label">Số điện thoại</label>
-                                @Html.EditorFor(model => Session["SDT"], new { htmlAttributes = new { @class = "form-control col-sm-12", @readonly = "readonly" } })
-                                @Html.ValidationMessageFor(model => model.SdtKH, "", new { @class = "text-danger" })
-                            </div>
-
                             <div class="form-group col-md-8">
                                 <label class="control-label">Tên tour</label>
                                 @*@Html.DropDownList("MaTour", null, htmlAttributes: new { @class = "form-control col-sm-12" })*@
@@ -84,21 +78,27 @@
                                 @*@Html.DropDownListFor(m => m.MaTour, (SelectList)ViewBag.MaTour, "Vui lòng chọn tour", htmlAttributes: new { @class = "form-control col-sm-12" })*@
                                 @Html.ValidationMessageFor(model => model.MaTour, "", new { @class = "text-danger" })
                             </div>
+
                             <div class="form-group col-md-4">
                                 <label class="control-label">Số chỗ trống</label>
                                 <span class="form-control" id="SoChoNull" type="number">0</span>
                             </div>
                             <div class="form-group col-md-4">
+                                <label class="control-label">Số điện thoại</label>
+                                @Html.EditorFor(model => Session["SDT"], new { htmlAttributes = new { @class = "form-control col-sm-12", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.SdtKH, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-4">
                                 <label class="control-label">Số lượng vé</label>
                                 @Html.EditorFor(model => model.SoCho, new { htmlAttributes = new { @class = "form-control col-sm-12", @id = "numberplace" } })
                                 @Html.ValidationMessageFor(model => model.SoCho, "", new { @class = "text-danger" })
+                                <span class="text-secondary"> * Vé chưa bao gồm người đặt!</span>
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="control-label">Hình thức thanh toán</label>
                                 <select class="form-control list-box tri-state" id="HinhThucThanhToan" name="HinhThucThanhToan">
                                     <option selected="selected" value="true">Chuyển khoản</option>
-                                    <option value="false">Thanh toán tại văn phòng</option>
-
+                                    <option value="false">Tiền mặt</option>
                                 </select>
                             </div>
                         </div>
