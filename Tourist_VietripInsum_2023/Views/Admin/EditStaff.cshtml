@@ -5,8 +5,7 @@
     Layout = "~/Views/Admin/AdminView.cshtml";
     TouristEntities1 db = new TouristEntities1();
     ViewBag.qlstaff = "active";
-
-    ViewBag.name = "Edit Staff";
+    ViewBag.name = "Trang Sửa Thông Tin Nhân Viên";
 
 }
 <div class="tile" style="margin:10px 20px;">
@@ -16,36 +15,26 @@
             @Html.AntiForgeryToken()
             @Html.HiddenFor(model => model.MaNV)
             @Html.HiddenFor(model => model.HinhDaiDien)
-            <div class="imgstaff col-sm-5" style="padding-left:40px;">
+            <div class="imgstaff col-sm-5" style="padding-left: 70px;">
                 <div class="col-sm-12" style="text-align: center;">
-                    <label class="control-label">Chọn hình ảnh</label>
                     @*@Html.TextBox("Avatar", "", new { type = "file", @class = "fas fa-cloud-upload-alt", value = "@Model.HinhDaiDien" })*@
+                    <br />
+                    <img src="@Model.HinhDaiDien" id="preview" class="rounded-circle " width="200" height="200" style="margin-bottom: 15px; text-align: center;" />
+                    <br />
+                    <label class="control-label">Chọn hình ảnh</label>
                     <input class="fas fa-cloud-upload-alt" id="Avatar" name="Avatar" type="file">
-                    <br />
-                    <img src="@Model.HinhDaiDien"  id="preview" class="rounded-circle " width="150" height="150" style="margin-bottom: 14px; text-align: center;" />
-                    <br />
                 </div>
-                <h5>THÔNG TIN TÀI KHOẢN</h5>
+                <h5 style="margin-top: 20px;" class="tile-title">THÔNG TIN TÀI KHOẢN</h5>
                 <div class="row">
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.MaCV, "Mã chức vụ", htmlAttributes: new { @class = "control-label" })
-                        <select class="form-control" id="MaCV" name="MaCV">
-                            <option selected="@Model.MaCV">@Model.MaCV</option>
-                            <option>TM</option>
-                            <option>OP</option>
-                            <option>AD</option>
-                        </select>
-                        @Html.ValidationMessageFor(model => model.MaCV, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.Username, "Tên đăng nhập", htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", required = "required", @id = "Username", onchange = "UserCheck()" } })
                         @*<input class="form-control" type="text" id="Username" name="Username" required="required"/>*@
                         @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                         <span id="status"></span>
                     </div>
-                    <div class="form-group col-md-12">
-                        @Html.LabelFor(model => model.UserPassword, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.UserPassword, "Mật khẩu", htmlAttributes: new { @class = "control-label" })
                         <input id="UserPassword" name="UserPassword" type="password" class="form-control" value="@Model.UserPassword" />
                         @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
                     </div>
@@ -55,22 +44,28 @@
                         </div>*@
                 </div>
             </div>
-            <div class="info-staff col-sm-6">
+            <div class="info-staff col-sm-7" style="padding-right: 70px;">
                 <h5 class="tile-title">THÔNG TIN CÁ NHÂN</h5>
                 <div class="row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-4">
+                        @Html.LabelFor(model => model.MaCV, "Mã chức vụ", htmlAttributes: new { @class = "control-label" })
+                        <select class="form-control" id="MaCV" name="MaCV">
+                            <option selected="@Model.MaCV">@Model.MaCV</option>
+                            <option>TM</option>
+                            <option>OP</option>
+                            <option>AD</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.MaCV, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-8">
                         @Html.LabelFor(model => model.HoTen, "Họ và tên", htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                         @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
                     </div>
-                    <div class="form-group col-md-12">
-                        @Html.LabelFor(model => model.DiaChi, "Địa chỉ", htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
-                    </div>
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.NgaySinh, "Ngày sinh", htmlAttributes: new { @class = "control-label" })
                         <input class="form-control text-box single-line" data-val="true" data-val-date="The field NgaySinh must be a date." id="NgaySinh" name="NgaySinh" required="required" value="@Model.NgaySinh">
+                        @*@Html.TextBoxFor(model => model.NgaySinh, "{0:dd-MM-yyyy}", new { @class = "form-control col-md-12", type = "datetime" })*@
                         @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
                     </div>
 
@@ -83,45 +78,37 @@
                         </select>
                         @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger", required = "required" })
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         @Html.LabelFor(model => model.Sdt, "Số điện thoại", htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.Sdt, new { htmlAttributes = new { @class = "form-control", required = "required", @id = "Sdt", onchange = " SDTCheck()" } })
                         @*@Html.ValidationMessageFor(model => model.Sdt, "", new { @class = "text-danger" })*@
                         <span id="noti"></span>
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-8">
                         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", required = "required", @id = "Email", onchange = "EmailCheck()" } })
                         @*@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })*@
                         <span id="mess"></span>
                     </div>
-                </div>
-            </div>
-            <div class="col-sm-5">
-                <p> @Html.ValidationSummary(true, "", new { @class = "text-danger" })</p>
-            </div>
-            <div class="col-sm-5">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <input type="submit" value="Save Update" class="btn btn-success btn-sm" />
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.DiaChi, "Địa chỉ", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
                     </div>
-                    <div class="col-sm-">
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input type="submit" value="Lưu" class="btn btn-success btn-sm" />
                         <a href="/Admin/ListOfStaff" class="btn btn-warning btn-sm">Quay lại danh sách</a>
                     </div>
-
                 </div>
             </div>
         </form>
     </div>
-
-
-
 </div>
 
-
 @* script của upload *@
-
 <script>
     Avatar.onchange = evt => {
         const [file] = Avatar.files
@@ -171,6 +158,7 @@
             }
         )
     }
+
     function SDTCheck() {
         $("#noti").html("check ...");
         $.post("@Url.Action("CheckSDTAvailability", "Admin")",
@@ -189,5 +177,4 @@
             }
         )
     }
-
 </script>

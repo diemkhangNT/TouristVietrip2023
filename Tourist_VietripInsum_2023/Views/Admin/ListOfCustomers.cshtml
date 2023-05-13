@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "ListOfCustomers";
     Layout = "~/Views/Admin/AdminView.cshtml";
-    ViewBag.Name = "Danh sách khách hàng";
+    ViewBag.Name = "Trang danh sách khách hàng";
 }
 
 @*<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 500px;">
@@ -59,7 +59,7 @@
                             <th class="sorting">Mã KH</th>
                             <th class="sorting">Khách hàng</th>
                             <th class="sorting">Loại</th>
-                            <th class="sorting">Username</th>
+                            <th class="sorting">Tên đăng nhập</th>
                             <th class="sorting"></th>
                         </tr>
                     </thead>
@@ -83,9 +83,9 @@
                             </td>
 
                             <td style="text-align: center;">
-                                <a href="/Admin/EditGuest/@item.MaKH" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                @*<a href="/Admin/EditGuest/@item.MaKH" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
                                     <i class="fas fa-edit"></i>
-                                </a>
+                                </a>*@
                                 <a href="/Admin/DetailGuest/@item.MaKH" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
                                     <i class="fas fa-train"></i>
                                 </a>

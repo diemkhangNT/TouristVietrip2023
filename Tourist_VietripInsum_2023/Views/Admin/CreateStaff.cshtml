@@ -7,7 +7,7 @@
     TouristEntities1 db = new TouristEntities1();
     ViewBag.qlstaff = "active";
     List<NhanVien> litst = db.NhanViens.ToList();
-    ViewBag.name = "Create Staff";
+    ViewBag.name = "Trang Tạo Nhân Viên";
 }
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @{
@@ -25,14 +25,13 @@
     }
 }
 
-
 <div class="tile" style="margin:10px 20px;">
-    <h3 class="tile-title">CREATE NEW ACCOUNT</h3>
+    <h3 class="tile-title">TẠO MỚI TÀI KHOẢN</h3>
     <div class="tile-body contenner">
         @Html.AntiForgeryToken()
         @Html.HiddenFor(model => model.MaNV)
         <form class="row" method="post" enctype="multipart/form-data" action="~/Admin/CreateStaff">
-          
+            <p> @Html.ValidationSummary(true, "", new { @class = "text-danger" })</p>
             <div class="imgstaff col-sm-5" style="padding-left:40px;">
                 <div class="col-sm-12" style="text-align: center;">
                     <label class="control-label">Chọn hình ảnh</label>
@@ -41,7 +40,7 @@
                     <img id="preview" class="rounded-circle " src="#" width="230" height="230" style="object-fit:cover; object-position:center; margin-bottom: 8px; text-align: center;" />
                     <br />
                 </div>
-                <h5>ĐĂNG KÍ TÀI KHOẢN</h5>
+                <h5 style="margin-top: 15px;">ĐĂNG KÍ TÀI KHOẢN</h5>
                 <div class="row">
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.MaCV, "Mã chức vụ", htmlAttributes: new { @class = "control-label" })
@@ -53,7 +52,7 @@
                         @Html.ValidationMessageFor(model => model.MaCV, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.Username, "Tên đăng nhập", htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", required = "required", @id = "Username", onchange = "UserCheck()" } })
                         @*<input class="form-control" type="text" id="Username" name="Username" required="required"/>*@
                         @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
@@ -69,11 +68,6 @@
                         @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                         @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
                     </div>
-                    <div class="form-group col-md-12">
-                        @Html.LabelFor(model => model.DiaChi, "Địa chỉ", htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
-                    </div>
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.NgaySinh, "Ngày sinh", htmlAttributes: new { @class = "control-label" })
                         <input class="form-control text-box single-line" data-val="true" data-val-date="The field NgaySinh must be a date." id="NgaySinh" name="NgaySinh" type="date" required="required" value="">
@@ -83,8 +77,8 @@
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.GioiTinh, "Giới tính", htmlAttributes: new { @class = "control-label" })
                         <select class="form-control" id="GioiTinh" name="GioiTinh">
-                            <option>Male</option>
-                            <option>Female</option>
+                            <option>Nam</option>
+                            <option>Nữ</option>
                         </select>
                         @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger", required = "required" })
                     </div>
@@ -101,26 +95,20 @@
                         @*@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })*@
                         <span id="mess"></span>
                     </div>
-                </div>
-            </div>
-            <div class="col-sm-5">
-                <p> @Html.ValidationSummary(true, "", new { @class = "text-danger" })</p>
-            </div>
-            <div class="col-sm-5">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <input type="submit" value="Save Account" class="btn btn-success btn-sm" />
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.DiaChi, "Địa chỉ", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
                     </div>
-                    <div class="col-sm-">
+                    <div class="form-group col-md-12">
+                        <input type="submit" value="Save Account" class="btn btn-success btn-sm" />
                         <a href="/Admin/ListOfStaff" class="btn btn-warning btn-sm">Quay lại danh sách</a>
                     </div>
-
                 </div>
             </div>
         </form>
     </div>
 </div>
-
 
 @* script của upload *@
 
@@ -191,5 +179,4 @@
             }
         )
     }
-
 </script>
