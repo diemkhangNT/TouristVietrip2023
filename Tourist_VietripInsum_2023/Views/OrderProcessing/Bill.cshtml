@@ -14,84 +14,93 @@
                 <table cellspacing="0" cellpadding="0" style="width:100%">
                     <tbody>
                         <tr>
-                            <td colspan="8" style="vertical-align:top; font-size: 12pt; text-align: center">
-                                <h3 style="margin-top:6pt; margin-bottom:6pt;">
-                                    HÓA ĐƠN BÁN HÀNG
-                                </h3>
-                                <span>@Model.NgayLap</span>
-                                <br />
-                                <span><b>Mã:</b>@Model.MaDH</span>
+                            <td colspan="1" style="padding:0 60px">
+                                <img src="~/Content/Images/logo_project.png" width="100" height="100" />
+                            </td>
+                            <td colspan="7" style="padding:10px 30px; font-size: 12pt">
+
+                                <h4 style="padding-top:5px">CÔNG TY TNHH DU LỊCH - LỮ HÀNH SAIGON TRAVEL</h4>
+                                <p style="margin:1pt 0;">
+                                    <span>Địa chỉ: C24/7, đường Hai bà Trưng, Quận 3, Tp HCM</span>
+                                </p>
+                                <p style="margin:1pt 0;">
+                                    <span>Số tài khoản: 1904378324947334 </span>
+                                </p>
+                                <p style="margin:1pt 0;">
+                                    <span>Ngân hàng: MB Bank - Ngân hàng Quân đội </span>
+                                </p>
+                                <p style="margin:1pt 0;">
+                                    <span>Điện thoại: +(83) 4567 7565 123</span>
+                                </p>
 
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="4" style="font-size: 12pt;padding:10px 40px">
-                                <h5>THÔNG TIN CÔNG TY</h5>
-                                <p style="margin:1pt 0;">
-                                    <span><b>Tên người bán:</b> CÔNG TY TNHH LỮ HÀNH HKQ</span>
-                                </p>
-                                <p style="margin:1pt 0;">
-                                    <span><b>Địa chỉ:</b> C24/7, đường Hai bà Trưng, Quận 3, Tp HCM</span>
-                                </p>
-                                <p style="margin:1pt 0;">
-                                    <span><b>Số tài khoản: </b>1904378324947334 </span>
-                                </p>
-                                <p style="margin:1pt 0;">
-                                    <span><b>Ngân hàng: </b>MB Bank - Ngân hàng Quân đội </span>
-                                </p>
-                                <p style="margin:1pt 0;">
-                                    <span><b>Điện thoại:</b> +(83) 4567 7565 123</span>
-                                </p>
+                            <td colspan="8" style="font-size: 12pt;padding:20px 40px;text-align:center">
+                                <h3>
+                                    HÓA ĐƠN ĐƠN ĐẶT TOUR DU LỊCH
+                                </h3>
+                                <span>Ngày : @Model.NgayLap</span>
+                                <br />
+                                <span><b>Mã : </b>@Model.MaDH</span>
                             </td>
-                            @{
-                                var kh = db.KhachHangs.FirstOrDefault(s => s.MaKH == Model.MaKH);
-                            }
-                            <td colspan="4" style="padding: 10px 40px; font-size: 12pt">
-                                <h5>THÔNG TIN KHÁCH HÀNG</h5>
-                                <p style="margin-top:1pt; margin-bottom:6pt">
-                                    <span>
-                                        <b>Họ tên khách hàng:</b> @kh.HoTenKH
 
-                                    </span>
-                                </p>
-                                <p style="margin-top:1pt; margin-bottom:6pt;">
-                                    <span><b>Số điện thoại :</b> @kh.SDT</span>
-                                </p>
-                                <p style="margin-top:1pt; margin-bottom:6pt;">
-                                    <span><b>Địa chỉ :</b> @kh.DiaChi</span>
-                                </p>
-                                <p style="margin-top:1pt; margin-bottom:6pt; ">
-                                    <span>
-                                        <b>Hình thức thanh toán</b> @Model.HinhThucThanhToan
-                                    </span>
-                                </p>
-                            </td>
                         </tr>
                         @{
+                            var kh = db.KhachHangs.FirstOrDefault(s => s.MaKH == Model.MaKH);
                             var tour = db.Tours.FirstOrDefault(t => t.MaTour == Model.MaTour);
                             List<Ve> dsve = db.Ves.Where(s => s.MaDH == Model.MaDH).ToList();
+                            string hinhthuc = "";
+                            if (Model.HinhThucThanhToan == true)
+                            {
+                                hinhthuc = "Chuyển khoản";
+                            }
+                            else
+                            {
+                                hinhthuc = "Tiền mặt tại văn phòng";
+                            }
                         }
                         <tr>
                             <td colspan="8" style="padding: 10px 40px; font-size: 12pt">
-                                <H5>THÔNG TIN TOUR</H5>
-                                <p style="margin-top:3pt; margin-bottom:6pt">
+                                <p style="margin-top:1pt; margin-bottom:6pt">
                                     <span>
-                                        <b>Mã tour:</b> @tour.MaTour
+                                        Họ và tên người mua hàng : @kh.HoTenKH
                                     </span>
                                 </p>
-                                <p style="margin-top:3pt; margin-bottom:6pt;">
-                                    <span><b>Tên tour du lịch :</b> @tour.TenTour</span>
+                                <p style="margin-top:1pt; margin-bottom:6pt;">
+                                    <span>Số điện thoại liên lạc : @kh.SDT</span>
                                 </p>
-                                <p style="margin-top:3pt; margin-bottom:6pt;">
-                                    <span><b>Ngày khởi hành :</b> @tour.NgayKhoihanh - @tour.NoiKhoiHanh</span>
+                                <p style="margin-top:1pt; margin-bottom:6pt;">
+                                    <span>Địa chỉ : @kh.DiaChi</span>
                                 </p>
-                                <p style="margin-top:3pt; margin-bottom:6pt; ">
+                                <p style="margin-top:1pt; margin-bottom:6pt; ">
                                     <span>
-                                        <b>Ngày trở về: </b> @tour.NgayTroVe
+                                        Hình thức thanh toán :  @hinhthuc
                                     </span>
                                 </p>
                             </td>
                         </tr>
+                        @*<tr>
+                    <td colspan="8" style="padding: 10px 40px; font-size: 12pt">
+                        <H5>THÔNG TIN TOUR</H5>
+                        <p style="margin-top:3pt; margin-bottom:6pt">
+                            <span>
+                                <b>Mã tour:</b> @tour.MaTour
+                            </span>
+                        </p>
+                        <p style="margin-top:3pt; margin-bottom:6pt;">
+                            <span><b>Tên tour du lịch :</b> @tour.TenTour</span>
+                        </p>
+                        <p style="margin-top:3pt; margin-bottom:6pt;">
+                            <span><b>Ngày khởi hành :</b> @tour.NgayKhoihanh - @tour.NoiKhoiHanh</span>
+                        </p>
+                        <p style="margin-top:3pt; margin-bottom:6pt; ">
+                            <span>
+                                <b>Ngày trở về: </b> @tour.NgayTroVe
+                            </span>
+                        </p>
+                    </td>
+                </tr>*@
                         <tr>
                             <td style="width:6%;">
                                 <p style="margin-top:6pt; margin-bottom:6pt; text-align:center; line-height:12pt">
@@ -164,49 +173,77 @@
                                 </td>
                             </tr>
                         }
-                       
+
                         <tr>
                             <td colspan="5" style="padding:0px 20px">
                                 <b>Tổng tiền</b>
                             </td>
-                            <td colspan="3">
-                                @Model.TotalPrice
+                            @{
+                                var thanhtien = string.Format("{0:0,0 VNĐ}", Model.TotalPrice);
+                            }
+                            <td colspan="3" style="text-align:center">
+                                @thanhtien
                             </td>
                         </tr>
 
-                        <tr>
-                            <td colspan="3">
-                                <p style="margin-top: 6pt; margin-bottom: 6pt; text-align: center; line-height: 12pt; font-family: 'Times New Roman'; font-size: 12pt">
-                                    <span>Người mua hàng</span>
-                                    <br>
-                                    <span>Chữ ký số (nếu có)</span>
-                                </p>
-                                <p style="margin-top: 6pt; margin-bottom: 6pt; text-align: center; line-height: 12pt; font-family: 'Times New Roman'; font-size: 12pt">
-                                    <span>&nbsp;</span>
-                                </p>
-                            </td>
-                            <td colspan="5">
-                                <p style="margin-top: 6pt; margin-bottom: 6pt; text-align: center; line-height: 12pt; font-family: 'Times New Roman'; font-size: 12pt">
-                                    <span>Người bán hàng</span>
-                                    <br>
-                                    <span>(Chữ ký điện tử, Chữ ký số)</span>
-                                </p>
-                            </td>
-                        </tr>
+                        @*<tr>
+                    <td colspan="4">
+                        <p style="margin-top: 6pt; margin-bottom: 6pt; text-align: center; line-height: 12pt; font-family: 'Times New Roman'; font-size: 12pt">
+                            <span>Người mua hàng</span>
+                            <br>
+                            <span>Chữ ký số (nếu có)</span>
+                        </p>
+                        <p style="margin-top: 6pt; margin-bottom: 6pt; text-align: center; line-height: 12pt; font-family: 'Times New Roman'; font-size: 12pt">
+                            <span>&nbsp;</span>
+                        </p>
+                        <br />
+                        <br />
+                        <br />
+                    </td>
+                    <td colspan="4">
+                        <p style="margin-top: 6pt; margin-bottom: 6pt; text-align: center; line-height: 12pt; font-family: 'Times New Roman'; font-size: 12pt">
+                            <span>Người bán hàng</span>
+                            <br>
+                            <span>(Chữ ký điện tử, Chữ ký số)</span>
+                        </p>
+                        <br />
+                        <br />
+                        <br />
+                    </td>
+                </tr>*@
                         <tr>
                     </tbody>
                 </table>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h5 style="margin-left: 33%;padding-top:20px;" id="sample1">Khách hàng</h5>
+                        <h6 style="margin-left: 30%;font-style:italic;" id="sample1">(ký và ghi rõ họ tên)</h6>
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+                    <div class="col-sm-6">
+                        <h5 style="margin-left:35%;padding-top:20px;" id="sample1">Nhân viên</h5>
+                        <h6 style="margin-left:30%; font-style:italic;" id="sample1">(ký và ghi rõ họ tên)</h6>
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+
+                </div>
+                
+                
 
 
 
             </div>
 
         </div>
-        <div class="row" style="padding-left:10px" id="btnin">
-            <div class="col-sm-2">
+        <div class="row" id="btnin">
+            <div class="col-sm-1">
                 <a class="btn btn-warning btn-sm" href="/OrderProcessing/UpdateBooking/@Model.MaDH">Quay lại</a>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-1">
                 <a class="btn btn-delete btn-sm " title="In" onclick="printDiv('printMe')">
                     <i class="fas fa-print"></i> In dữ liệu
                 </a>

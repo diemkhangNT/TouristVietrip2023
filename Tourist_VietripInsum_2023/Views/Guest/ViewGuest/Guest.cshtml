@@ -38,7 +38,7 @@
         <header class="header">
             <nav class="navbar navbar-expand-lg " style="background: #094933 ">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/Guest/HomePageGuest">
+                    <a class="navbar-brand " href="/Guest/HomePageGuest">
                         <img src="~/Content/Images/logo_project.png" height="40" width="30px" />
                         <span>SAIGON TRAVELS</span>
                     </a>
@@ -49,14 +49,14 @@
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <!-- Mega Menu -->
                             <li class="nav-item dropdown has-megamenu">
-                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"> Du lịch </a>
+                                <a class="nav-link dropdown-toggle  @ViewBag.mn" href="#" data-bs-toggle="dropdown"> Du lịch </a>
                                 <div class="dropdown-menu megamenu" role="menu">
                                     @Html.Action("DiaDiemPartial", "Guest")
                                 </div> <!-- dropdown-mega-menu.// -->
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="~/Guest/TinTuc" role="button" aria-expanded="false">
+                                <a class="nav-link @ViewBag.tt" href="~/Guest/TinTuc" role="button" aria-expanded="false">
                                     Tin tức
                                 </a>
                             </li>
@@ -75,7 +75,7 @@
                                     <a class="nav-link" href="#home-page_listtour">Tour Nổi Bật</a>
                                 </li>*@
                             <li class="nav-item">
-                                <a class="nav-link" href="~/Guest/LienHeGuest">Liên Hệ</a>
+                                <a class="nav-link @ViewBag.lh" href="~/Guest/LienHeGuest">Liên Hệ</a>
                             </li>
                             @*<li class="nav-item">
                                     <a class="nav-link" href="#"></a>

@@ -176,6 +176,7 @@
                     </table>
 
                 </div>
+            
                 <div class="row">
                     <div class="col-md-10">
                         <a class="btn btn-outline-success btn-sm " data-toggle="modal" data-target="#UpdateBooking">
@@ -185,14 +186,21 @@
                         <a class="btn btn-outline-secondary btn-sm" href="/OrderProcessing/Bill/@Model.MaDH">Xuất hóa đơn</a>
 
                     </div>
-
-                    <div class="col-md-2">
-                        @using (Html.BeginForm("SendMailCancel", "OrderProcessing", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @{
+                        DateTime aDatetime = DateTime.Now;
+                        TimeSpan interval = ngaylap.Subtract(aDatetime);
+                        if (interval.Days < 0)
                         {
-                            @Html.AntiForgeryToken()
-                            <input type="submit" value="Gửi Mail Hủy" class="btn btn-danger btn-sm" />
+                            <div class="col-md-2">
+                                @using (Html.BeginForm("SendMailCancel", "OrderProcessing", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="submit" value="Gửi Mail Hủy" class="btn btn-danger btn-sm" />
+                                }
+                            </div>
                         }
-                    </div>
+                    }
+
                 </div>
             </div>
         </div>
@@ -240,82 +248,85 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="padding:20px 10px">
             <div class="modal-body">
-                @using (Html.BeginForm())
+                @using (Html.BeginForm("CapnhatBooking", "OrderProcessing", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
 
-                    @Html.HiddenFor(model => model.MaDH)
-                    @Html.HiddenFor(model => model.MaNVLap)
-                    @Html.HiddenFor(model => model.MaTour)
-                    @Html.HiddenFor(model => model.NgayLap)
-                    @Html.HiddenFor(model => model.TotalPrice)
-                    @Html.HiddenFor(model => model.SoCho)
-                    @Html.HiddenFor(model => model.SdtKH)
-                    @Html.HiddenFor(model => model.MaKH)
+                @Html.HiddenFor(model => model.MaDH)
+                @Html.HiddenFor(model => model.MaNVLap)
+                @Html.HiddenFor(model => model.MaTour)
+                @Html.HiddenFor(model => model.NgayLap)
+                @Html.HiddenFor(model => model.TotalPrice)
+                @Html.HiddenFor(model => model.SoCho)
+                @Html.HiddenFor(model => model.SdtKH)
+                @Html.HiddenFor(model => model.MaKH)
                 <div class="row">
-                    <h5>CẬP NHẬT ĐƠN HÀNG</h5>
-                    <div class="col-sm-4">
+                    <h5 style="text-align:center">CẬP NHẬT ĐƠN HÀNG</h5>
+                    <div class="col-sm-12">
                         <b>Tình trạng thanh toán: </b>
-                        <select class="form-control list-box tri-state" id="TrangThaiTT" name="TrangThaiTT">
-                            @{
-                                if (tt == true)
-                                {
-                                    <option selected="selected" value="true">Đã thanh toán</option>
-                                    <option value="false">Chưa thanh toán</option>
-                                }
-                                else
-                                {
-                                    <option value="true">Đã thanh toán</option>
-                                    <option selected="selected" value="false">Chưa thanh toán</option>
-                                }
+                        <select class="form-control list-box tri-state col-sm-12" id="TrangThaiTT" name="TrangThaiTT">
+                            @*<option selected="@Model.TrangThaiTT">@Model.TrangThaiTT</option>
+                            <option>Đã thanh toán</option>
+                            <option>Chưa thanh toán</option>*@
+                             @{
+                            if (Model.TrangThaiTT == true)
+                            {
+                            <option selected="selected" value="true">Đã thanh toán</option>
+                            <option value="false">Chưa thanh toán</option>
                             }
+                            else
+                            {
+                            <option value="true">Đã thanh toán</option>
+                            <option selected="selected" value="false">Chưa thanh toán</option>
+                            }
+                        }
+
                         </select>
-                        @*@Html.EditorFor(model => model.TrangThaiTT, new { htmlAttributes = new { @class = "form-control" } })*@
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-12">
                         <b>Hình thức thanh toán: </b>
-                        <select class="form-control list-box tri-state" id="HinhThucThanhToan" name="HinhThucThanhToan">
+                        <select class="form-control list-box tri-state col-sm-12" id="HinhThucThanhToan" name="HinhThucThanhToan">
                             @{
-                                if (hinhthuc == true)
+                                if (Model.HinhThucThanhToan == true)
                                 {
-                                    <option selected="selected" value="true">Chuyển khoản</option>
-                                    <option value="false">Thanh toán tại văn phòng</option>
+                                <option selected="selected" value="true">Chuyển khoản</option>
+                                <option value="false">Thanh toán tại văn phòng</option>
                                 }
                                 else
                                 {
-                                    <option value="true">Chuyển khoản</option>
-                                    <option selected="selected" value="false">Thanh toán tại văn phòng</option>
+                                <option value="true">Chuyển khoản</option>
+                                <option selected="selected" value="false">Thanh toán tại văn phòng</option>
                                 }
                             }
                         </select>
 
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-12">
                         <b>Xác nhận đơn hàng: </b>
-                        <select class="form-control list-box tri-state" id="XacNhanDH" name="XacNhanDH">
+                        <select class="form-control list-box tri-state col-sm-12" id="XacNhanDH" name="XacNhanDH">
                             @{
-                                if (xacnhan == true)
+                                if (Model.XacNhanDH == true)
                                 {
-                                    <option selected="selected" value="true">Đã xác nhận</option>
-                                    <option value="false">Chưa xác nhận</option>
+                                <option selected="selected" value="true">Đã xác nhận</option>
+                                <option value="false">Chưa xác nhận</option>
                                 }
                                 else
                                 {
-                                    <option value="true">Đã xác nhấn</option>
-                                    <option selected="selected" value="false">Chưa xác nhận</option>
+                                <option value="true">Đã xác nhấn</option>
+                                <option selected="selected" value="false">Chưa xác nhận</option>
                                 }
                             }
                         </select>
                     </div>
                 </div>
 
-                        <div class="modal-footer">
-                            <a class="btn btn-secondary btn-sm" data-dismiss="modal">Close</a>
-                            <a type="submit" value="Xóa" class="btn btn-danger btn-sm" href="/OrderProcessing/DeleteBooking/@Model.MaDH">Xóa</a>
-                        </div>
-                   
+                <div class="modal-footer">
+                    <a class="btn btn-secondary btn-sm" data-dismiss="modal">Close</a>
+                    <input type="submit" value="Cập nhật  " class="btn btn-success btn-sm" />
+                </div>
+
                 }
 
-
+            </div>
             </div>
         </div>
 </div>

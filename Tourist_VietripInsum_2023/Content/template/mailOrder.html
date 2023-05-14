@@ -12,191 +12,163 @@
         SaigonTravel xác nhận đơn hàng <b>{{MaDonHang}}</b> của quý khách đã thanh toán thành công
 
     </p>
-
-    <table border="1px;" style="width: 60%;">
-        <thead>
-            <tr>
-                <th colspan="2">
-                    <h4 style="color:#2d4271">THÔNG TIN LIÊN LẠC</h4>
-                </th>
-            </tr>
-        </thead>
+    <p class="MsoNormal">
+        <b><span style="font-family:Roboto;color:#c50000;text-transform:uppercase">Chi tiết booking:<u></u><u></u></span></b>
+    </p>
+    <table border="1" cellspacing="0" cellpadding="0" width="100%" style="width:100.0%;border-collapse:collapse;border:none">
         <tbody>
             <tr>
-                <td style="padding: 10px;"><b>Tên khách hàng</b></td>
-                <td style="padding: 10px;">{{TenKH}}</td>
+                <td width="170" style="width:127.2pt;border-top:solid #f4f5f6 1.0pt;border-left:solid #f4f5f6 1.0pt;border-bottom:solid white 1.0pt;border-right:none;background:#f4f5f6;padding:3.75pt 7.5pt 3.75pt 7.5pt">
+                    <p class="MsoNormal" align="right" style="text-align:right">
+                        <span style="font-family:Roboto">Số booking:<u></u><u></u></span>
+                    </p>
+                </td>
+                <td width="1142" style="width:856.75pt;border:solid #f4f5f6 1.0pt;border-left:none;padding:3.75pt 7.5pt 3.75pt 7.5pt">
+                    <p class="MsoNormal" style="line-height:15.0pt">
+                        <b><span style="font-family:Roboto">{{MaDonHang}}</span></b>
+                    </p>
+                </td>
             </tr>
             <tr>
-
-                <td style="padding: 10px;"><b>Số điện thoại</b></td>
-                <td style="padding: 10px;">{{SDT}}</td>
+                <td width="170" style="width:127.2pt;border-top:none;border-left:solid #f4f5f6 1.0pt;border-bottom:solid white 1.0pt;border-right:none;background:#f4f5f6;padding:3.75pt 7.5pt 3.75pt 7.5pt">
+                    <p class="MsoNormal" align="right" style="text-align:right">
+                        <span style="font-family:Roboto">Trị giá booking:<u></u><u></u></span>
+                    </p>
+                </td>
+                <td width="1142" style="width:856.75pt;border-top:none;border-left:none;border-bottom:solid #f4f5f6 1.0pt;border-right:solid #f4f5f6 1.0pt;padding:3.75pt 7.5pt 3.75pt 7.5pt">
+                    <p class="MsoNormal" style="line-height:15.0pt">
+                        <b><span style="font-family:Roboto;color:#c50000">{{total}} đ</span></b>
+                        <span style="font-family:Roboto"> <u></u><u></u></span>
+                    </p>
+                </td>
             </tr>
-
             <tr>
-
-                <td style="padding: 10px;"><b>Email</b></td>
-                <td style="padding: 10px;">{{EmailKH}}</td>
+                <td width="170" style="width:127.2pt;border-top:none;border-left:solid #f4f5f6 1.0pt;border-bottom:solid white 1.0pt;border-right:none;background:#f4f5f6;padding:3.75pt 7.5pt 3.75pt 7.5pt">
+                    <p class="MsoNormal" align="right" style="text-align:right">
+                        <span style="font-family:Roboto">Ngày đăng ký:<u></u><u></u></span>
+                    </p>
+                </td>
+                <td width="1142" style="width:856.75pt;border-top:none;border-left:none;border-bottom:solid #f4f5f6 1.0pt;border-right:solid #f4f5f6 1.0pt;padding:3.75pt 7.5pt 3.75pt 7.5pt">
+                    <p class="MsoNormal" style="line-height:15.0pt">
+                        <span style="font-family:Roboto">{{ngaydat}} <u></u><u></u></span>
+                    </p>
+                </td>
             </tr>
             <tr>
-
-                <td style="padding: 10px;"><b>Địa chỉ</b></td>
-                <td style="padding: 10px;">{{Diachi}}</td>
+                <td width="170" style="width:127.2pt;border-top:none;border-left:solid #f4f5f6 1.0pt;border-bottom:solid white 1.0pt;border-right:none;background:#f4f5f6;padding:3.75pt 7.5pt 3.75pt 7.5pt">
+                    <p class="MsoNormal" align="right" style="text-align:right">
+                        <span style="font-family:Roboto">Hình thức thanh toán:<u></u><u></u></span>
+                    </p>
+                </td>
+                <td width="1142" style="width:856.75pt;border-top:none;border-left:none;border-bottom:solid #f4f5f6 1.0pt;border-right:solid #f4f5f6 1.0pt;padding:3.75pt 7.5pt 3.75pt 7.5pt">
+                    <p class="MsoNormal">
+                        <span style="font-family:Roboto">{{hinhthuc}}<u></u><u></u></span>
+                    </p>
+                </td>
             </tr>
+
+
         </tbody>
-
     </table>
-    <h4 style="color:#2d4271">
-        THÔNG TIN TOUR
-    </h4>
+    <p class="MsoNormal"><b>Thông tin chi tiết tour:</b><u></u><u></u></p>
     <table border="0" cellpadding="0" width="851" style="width:638.1pt">
-        <tbody>
-            <tr>
-                <td>
-                    <p class="MsoNormal">
-                        Mã tour :
-
-                    </p>
-                </td>
-                <td colspan="4">
-                    <p class="MsoNormal">
-                        <b>
-                            <span style="background:yellow">{{MaTour}}</span>
-                        </b>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p class="MsoNormal">
-                        Tên Tour :
-
-                    </p>
-                </td>
-                <td colspan="4">
-                    <p class="MsoNormal">
-                        <b>
-                            <span style="background:yellow">{{TenTour}}</span>
-                        </b>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p class="MsoNormal">
-                        Ngày khởi hành :
-
-                    </p>
-                </td>
-                <td colspan="4">
-                    <p class="MsoNormal">
-                        <b>
-                            <span style="background:yellow">{{ngaykhoihanh}}</span>
-                        </b>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p class="MsoNormal">
-                        Nơi khởi hành :
-
-                    </p>
-                </td>
-                <td colspan="4">
-                    <p class="MsoNormal">
-                        <b>
-                            <span style="background:yellow">{{noikhoihanh}}</span>
-                        </b>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p class="MsoNormal">
-                        Giờ tập trung :
-
-                    </p>
-                </td>
-                <td colspan="4">
-                    <p class="MsoNormal">
-                        <b>
-                            <span style="background:yellow">{{giotaptrung}}</span>
-                        </b>
-                    </p>
-                </td>
-            </tr>
-
-
-    </table>
-    <h4 style="color:#2d4271">
-        THÔNG TIN BOOKING
-    </h4>
-    <table border="1" cellspacing="0" cellpadding="0" width="70%">
-        <tbody>
-            <tr>
-                <td class="td1">
-                    <p>
-                        <strong style="font-family: Roboto; padding-left: 20px;">
-                            Mã đơn hàng
-                        </strong>
-                    </p>
-                </td>
-                <td class="td2">
-                    <p>{{MaDonHang}}</p>
-                </td>
-            </tr>
-            <tr>
-                <td class="td1">
-                    <p>
-                        <strong style="font-family: Roboto; padding-left: 20px;">
-                            Tên khách hàng
-                        </strong>
-                    </p>
-                </td>
-                <td class="td2">
-                    <p>{{TenKH}}</p>
-                </td>
-            </tr>
-            <tr>
-                <td class="td1">
-                    <p>
-                        <strong style="font-family: Roboto; padding-left: 20px;">
-                            Tổng hóa đơn
-                        </strong>
-                    </p>
-                </td>
-                <td class="td2">
-                    <p>{{total}}</p>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="td1">
-                    <p>
-                        <strong style="font-family: Roboto; padding-left: 20px;">
-                            Hình thức thanh toán
-                        </strong>
-                    </p>
-                </td>
-                <td class="td2">
-                    <p>{{hinhthuc}}</p>
-                </td>
-            </tr>
-            <tr>
-                <td class="td1">
-                    <p>
-                        <strong style="font-family: Roboto; padding-left: 20px;">
-                            Ngày đặt
-                        </strong>
-                    </p>
-                </td>
-                <td class="td2">
-                    <p style="font-family:Roboto;">{{ngaydat}}</p>
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
+    <tbody>
+        <tr style="height:9.95pt">
+        <td style="padding:3.75pt 3.75pt 3.75pt 3.75pt;height:9.95pt">
+            <p class="MsoNormal">Mã tour :<u></u><u></u></p>
+        </td>
+        <td colspan="4" style="padding:3.75pt 3.75pt 3.75pt 3.75pt;height:9.95pt">
+            <p class="MsoNormal">
+            <b><span style="background:yellow">{{MaTour}}<u></u><u></u></span></b>
+            </p>
+        </td>
+        <td rowspan="3" style="padding:3.75pt 3.75pt 3.75pt 3.75pt;height:9.95pt"></td>
+         </tr>
+        <tr style="height:9.95pt">
+            <td style="padding:3.75pt 3.75pt 3.75pt 3.75pt;height:9.95pt">
+                <p class="MsoNormal">Tên tour :<u></u><u></u></p>
+            </td>
+            <td colspan="4" style="padding:3.75pt 3.75pt 3.75pt 3.75pt;height:9.95pt">
+                <p class="MsoNormal">
+                    <b><span style="background:yellow">{{TenTour}}<u></u><u></u></span></b>
+                </p>
+            </td>
+        </tr>
+        <tr style="height:9.95pt">
+            <td colspan="6" style="background:#e0dfdf;padding:3.75pt 3.75pt 3.75pt 3.75pt;height:9.95pt">
+            <p class="MsoNormal"><b>Thông tin lịch trình </b><u></u><u></u></p>
+            </td>
+        </tr>
+        <tr style="height:9.95pt">
+            <td width="102" style="width:76.85pt;padding:3.75pt 3.75pt 3.75pt 3.75pt;height:9.95pt">
+                <p class="MsoNormal">Ngày đi:<u></u><u></u></p>
+            </td>
+             <td width="190" style="width:142.2pt;padding:3.75pt 3.75pt 3.75pt 3.75pt;height:9.95pt">
+                 <p class="MsoNormal">{{ngaykhoihanh}}<u></u><u></u></p>
+             </td>
+        </tr>
+        <tr style="height:9.95pt">
+            <td style="padding:3.75pt 3.75pt 3.75pt 3.75pt;height:9.95pt">
+                <p class="MsoNormal">Ngày về :<u></u><u></u></p>
+            </td>
+            <td style="padding:3.75pt 3.75pt 3.75pt 3.75pt;height:9.95pt">
+                <p class="MsoNormal">{{ngayve}}<u></u><u></u></p>
+            </td>
+        </tr>
+        <tr style="height:9.95pt">
+            <td colspan="2" style="padding:3.75pt 3.75pt 3.75pt 3.75pt;height:9.95pt">
+                <p class="MsoNormal">Ngày giờ tập trung<u></u><u></u></p>
+            </td>
+            <td colspan="2" style="padding:3.75pt 3.75pt 3.75pt 3.75pt;height:9.95pt">
+                <p class="MsoNormal">{{giotaptrung}}<u></u><u></u></p>
+            </td>
+            <td colspan="2" style="padding:3.75pt 3.75pt 3.75pt 3.75pt;height:9.95pt">
+            </td>
+        </tr>
+        <tr style="height:9.4pt">
+            <td colspan="2" style="padding:3.75pt 3.75pt 3.75pt 3.75pt;height:9.4pt">
+                <p class="MsoNormal">Nơi tập trung<u></u><u></u></p>
+            </td>
+            <td colspan="2" style="padding:3.75pt 3.75pt 3.75pt 3.75pt;height:9.95pt">
+                <p class="MsoNormal">{{noikhoihanh}}<u></u><u></u></p>
+            </td>
+        </tr>
+       
+        <tr style="height:9.95pt">
+            <td colspan="6" style="background:#e0dfdf;padding:3.75pt 3.75pt 3.75pt 3.75pt;height:9.95pt">
+                <p class="MsoNormal"><b>Giá dịch vụ</b><u></u><u></u></p>
+            </td>
+        </tr>
+        <tr style="height:111.55pt">
+        <td colspan="6" style="border:solid #e0dfdf 3.0pt;">
+            <table border="0" cellpadding="0" width="837" style="width:627.75pt;margin-left:.1pt">
+            <tbody>
+                <tr style="height:19.95pt">
+                    <td></td>
+                    <td style="padding:3pt;height:19.95pt">
+                        <p class="MsoNormal"><b>Giá người lớn<br>(Từ 12 tuổi trở lên)<u></u><u></u></b></p>
+                    </td>
+                    <td style="padding:3pt;height:19.95pt">
+                        <p class="MsoNormal"><b>Giá trẻ em<br>(Từ 2 tuổi đến dưới 12 tuổi)<u></u><u></u></b></p>
+                    </td>
+                </tr>
+                <tr style="height:9">
+                    <td style="padding:3pt;height:9.95pt">
+                        <p class="MsoNormal">Giá trọn gói<u></u><u></u></p>
+                    </td>
+                    <td style="padding:3pt;height:9.95pt">
+                        <p class="MsoNormal"><b>{{gianguoilon}} ₫ <u></u><u></u></b></p>
+                    </td>
+                    <td style="padding:3pt;height:9.95pt">
+                       <p class="MsoNormal"><b>{{giatreem}} ₫<u></u><u></u></b></p>
+                    </td>
+                </tr>
+             </tbody>
+            </table>
+        </td>
+        </tr>
+        </tbody></table>
+  
     <p>Qúy khách tập trung theo đúng ngày giờ để nhân viên có thể hổ trợ tận tình trong quá trình tham gia dịch vụ.</p>
     <p>
         Cần thêm thông tin, Anh vui lòng liên hệ theo số điện thoại Ms DIỄM KHANG - Số nội bộ: 1111 - Tồng đài: 1900.4567

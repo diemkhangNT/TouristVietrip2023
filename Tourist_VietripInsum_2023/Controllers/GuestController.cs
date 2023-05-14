@@ -142,7 +142,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             foreach (var item in tinhthanh)
             {
                 var a = db.Tours.Where(s => s.MaTour == item.MaTour).FirstOrDefault();
-                if(a.TrangThai!="Sắp ra mắt" && a.SoChoNull>0)
+                if(a.TrangThai!="Sắp ra mắt" && a.SoChoNull>0 && a.HanChotDatVe>DateTime.Today)
                 {
                     tour.Add(a);
                 }    
@@ -217,7 +217,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             foreach (var item in tinhthanh)
             {
                 var a = db.Tours.Where(s => s.MaTour == item.MaTour).FirstOrDefault();
-                if (a.TrangThai != "Sắp ra mắt" && a.SoChoNull > 0)
+                if (a.TrangThai != "Sắp ra mắt" && a.SoChoNull > 0 && a.HanChotDatVe>DateTime.Today)
                 {
                     toura.Add(a);
                 }
@@ -391,7 +391,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             int pageSize = 9;
             int pageNum = (page ?? 1);
-            List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull>0).ToList();
+            List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull>0 && s.HanChotDatVe>DateTime.Today).ToList();
             return View(tour.ToPagedList(pageNum,pageSize));
         }
 
@@ -442,12 +442,12 @@ namespace Tourist_VietripInsum_2023.Controllers
             int pageNum = (page ?? 1);
             if (noikhoihanh == "---Tất cả---")
             {
-                List<Tour> tourall = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull > 0).ToList(); ;
+                List<Tour> tourall = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull > 0 && s.HanChotDatVe > DateTime.Today).ToList(); ;
                 var toursearchall = tourall.ToList();
                 var toursall = toursearchall.ToPagedList(pageNum, pageSize);
                 return View(toursall);
             }
-            List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull > 0).ToList();
+            List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull > 0 && s.HanChotDatVe > DateTime.Today).ToList();
             var toursearch = tour.Where(s => s.NoiKhoiHanh == noikhoihanh && (s.SoNgay >= songaybd && s.SoNgay <= songaykt) && s.SoChoNull >= songuoibd).ToList();
 
             var tours = toursearch.ToPagedList(pageNum, pageSize);
