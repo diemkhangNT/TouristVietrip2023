@@ -38,6 +38,7 @@
                                     <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã tour</th>
                                     <th aria-controls="sampleTable" rowspan="1" colspan="1">Ngày đặt</th>
                                     <th aria-controls="sampleTable" rowspan="1" colspan="1">Hạn đặt</th>
+                                    <th aria-controls="sampleTable" rowspan="1" colspan="1">Trạng thái</th>
                                     <th aria-controls="sampleTable" rowspan="1" colspan="1">Thanh toán</th>
                                     <th aria-controls="sampleTable" rowspan="1" colspan="1">Tổng tiền</th>
                                     <th aria-controls="sampleTable" rowspan="1" colspan="1">Số vé</th>
@@ -57,60 +58,82 @@
                                     foreach (var item in Model)
                                     {
                                         var khach = db.KhachHangs.Where(s => s.MaKH == item.MaKH).FirstOrDefault();
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.MaDH)
-                                            </td>
-                                            <td>
-                                                @khach.HoTenKH - @khach.SDT
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.MaTour)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.NgayLap)
-                                            </td>
-                                            @{
-                                                DateTime ngaylap = (DateTime)item.NgayLap;
-                                                DateTime ttdate = (DateTime)ngaylap.AddDays(1);
-                                                //TimeSpan Time = DateTime.Now - ttdate;
-                                                //if(Time=0)
-                                            }
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MaDH)
+                                </td>
+                                <td>
+                                    @khach.HoTenKH
+                                    <br />
+                                    @khach.SDT
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MaTour)
+                                </td>
+                                <td>
+                                    @item.NgayLap
+                                </td>
 
-                                            <td>
-                                                @Html.DisplayFor(modelItem => ttdate)
-                                            </td>
-                                            <td>
-                                                @{
-                                                    var TTTT = item.TrangThaiTT;
-                                                    if (TTTT == true)
-                                                    {
-                                                        <p>Đã thanh toán</p>
-                                                    }
-                                                    else
-                                                    {
-                                                        <p>Chưa thanh toán</p>
-                                                    }
-                                                }
-                                                @*@Html.DisplayFor(modelItem => item.TrangThaiTT)*@
-                                            </td>
-                                            <td>
-                                                @{ var tongTien = string.Format("{0:0,0 VNĐ}", item.TotalPrice);}
-                                                @Html.DisplayFor(modelItem => tongTien)
-                                            </td>
+                                @{ 
+                                    DateTime ngaylap = (DateTime)item.NgayLap;
+                                    DateTime ttdate = (DateTime)ngaylap.AddDays(1);
+                                }
+                                <td>
+                                    @Html.DisplayFor(modelItem => ttdate)
+                                </td>
+                                <td>
+                                    @{
+                                       
+                                        DateTime aDatetime = DateTime.Now;
+                                        TimeSpan interval = ngaylap.Subtract(aDatetime);
 
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.SoCho)
-                                            </td>
-                                            <td>
-                                                <a href="/OrderProcessing/UpdateBooking/@item.MaDH " class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                @*<a href="/OrderProcessing/DeleteOrder/@item.MaDH" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete">
-                                                        <i class="fas fa-remove"></i>
-                                                    </a>*@
-                                            </td>
-                                        </tr>
+
+                                        if (interval.Days < 0)
+                                        {
+                                            <span class="badge badge-danger">Hết hạn</span>
+                                        }
+                                        else if (interval.Days >= 0 && interval.Days <= 1)
+                                        {
+                                            <span class="badge badge-warning">Sắp đến hạn</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-success">Còn hạn</span>
+                                        }
+
+                                    }
+                                </td>
+                                <td>
+                                    @{
+                                        var TTTT = item.TrangThaiTT;
+                                        if (TTTT == true)
+                                        {
+                                            <p>Đã thanh toán</p>
+                                        }
+                                        else
+                                        {
+                                            <p>Chưa thanh toán</p>
+                                        }
+                                    }
+                                    @*@Html.DisplayFor(modelItem => item.TrangThaiTT)*@
+                                </td>
+                                <td>
+                                    @{ var tongTien = string.Format("{0:0,0 VNĐ}", item.TotalPrice);}
+                                    @Html.DisplayFor(modelItem => tongTien)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SoCho)
+                                </td>
+                                <td>
+                                    <a href="/OrderProcessing/UpdateBooking/@item.MaDH " class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Detail">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    @*<a href="/OrderProcessing/DeleteOrder/@item.MaDH" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Delete">
+                <i class="fas fa-remove"></i>
+            </a>*@
+                                </td>
+                            </tr>
                                     }
                                 }
                             </tbody>

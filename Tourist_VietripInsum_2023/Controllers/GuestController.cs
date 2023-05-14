@@ -142,7 +142,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             foreach (var item in tinhthanh)
             {
                 var a = db.Tours.Where(s => s.MaTour == item.MaTour).FirstOrDefault();
-                if(a.TrangThai!="Sắp ra mắt" && a.SoChoNull>0)
+                if(a.TrangThai!="Sắp ra mắt" && a.SoChoNull>0 && a.HanChotDatVe>DateTime.Today)
                 {
                     tour.Add(a);
                 }    
@@ -217,7 +217,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             foreach (var item in tinhthanh)
             {
                 var a = db.Tours.Where(s => s.MaTour == item.MaTour).FirstOrDefault();
-                if (a.TrangThai != "Sắp ra mắt" && a.SoChoNull > 0)
+                if (a.TrangThai != "Sắp ra mắt" && a.SoChoNull > 0 && a.HanChotDatVe>DateTime.Today)
                 {
                     toura.Add(a);
                 }
@@ -391,7 +391,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             int pageSize = 9;
             int pageNum = (page ?? 1);
-            List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull>0).ToList();
+            List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull>0 && s.HanChotDatVe>DateTime.Today).ToList();
             return View(tour.ToPagedList(pageNum,pageSize));
         }
 
@@ -442,12 +442,12 @@ namespace Tourist_VietripInsum_2023.Controllers
             int pageNum = (page ?? 1);
             if (noikhoihanh == "---Tất cả---")
             {
-                List<Tour> tourall = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull > 0).ToList(); ;
+                List<Tour> tourall = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull > 0 && s.HanChotDatVe > DateTime.Today).ToList(); ;
                 var toursearchall = tourall.ToList();
                 var toursall = toursearchall.ToPagedList(pageNum, pageSize);
                 return View(toursall);
             }
-            List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull > 0).ToList();
+            List<Tour> tour = db.Tours.Where(s => s.TrangThai == "Tour nổi bật" && s.SoChoNull > 0 && s.HanChotDatVe > DateTime.Today).ToList();
             var toursearch = tour.Where(s => s.NoiKhoiHanh == noikhoihanh && (s.SoNgay >= songaybd && s.SoNgay <= songaykt) && s.SoChoNull >= songuoibd).ToList();
 
             var tours = toursearch.ToPagedList(pageNum, pageSize);
@@ -560,12 +560,13 @@ namespace Tourist_VietripInsum_2023.Controllers
             db.BookTours.Add(booktour);
             db.SaveChanges();
             
-            return RedirectToAction("Ticket");
+            return RedirectToAction("Ticket/"+idDH);
         }
 
-        public ActionResult Ticket()
+        public ActionResult Ticket(string id)
         {
             string matour = (string)Session["Matourchon"];
+            Session["madhmua"] = id;
             var tour = db.Tours.Where(t => t.MaTour == matour).FirstOrDefault();
             ViewBag.chodamua = tour.SoChoNull;
             return View();
@@ -672,6 +673,48 @@ namespace Tourist_VietripInsum_2023.Controllers
             content = content.Replace("{{Address}}", dh.MaKH);
             string hinhthuc = "";
             if(dh.HinhThucThanhToan==true)
+            {
+                hinhthuc = "Chuyển khoản";
+            }
+            else
+            {
+                hinhthuc = "Thanh toán tại văn phòng";
+            }
+            DateTime ngaydat = (DateTime)dh.NgayLap;
+            DateTime hanthanhtoan = ngaydat.AddDays(1);
+            content = content.Replace("{{hinhthuc}}", hinhthuc);
+            content = content.Replace("{{ngaydat}}", ngaydat.ToString());
+            content = content.Replace("{{hanthanhtoan}}", hanthanhtoan.ToString());
+            content = content.Replace("{{MaTour}}", t.MaTour);
+            content = content.Replace("{{TenTour}}", t.TenTour);
+            content = content.Replace("{{ngaykhoihanh}}", t.NgayKhoihanh.ToString());
+            content = content.Replace("{{noikhoihanh}}", t.NoiKhoiHanh);
+            content = content.Replace("{{hanchotve}}", t.HanChotDatVe.ToString());
+            content = content.Replace("{{total}}", dh.TotalPrice.ToString());
+
+            ////Gui mail
+            var toEmail = ConfigurationManager.AppSettings["toEmailAddress"].ToString();
+            new MailHelp().SendMail(kh.Email, "Xác nhận đặt tour", content);
+            TempData["noti"] = "success";
+            return RedirectToAction("Payment", "Payment");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PaymentTM(string id)
+        {
+            //Email
+            string content = System.IO.File.ReadAllText(Server.MapPath("/Content/template/mailconn.html"));
+            var dh = db.BookTours.Where(s => s.MaDH == id).FirstOrDefault();
+            var kh = db.KhachHangs.Where(s => s.MaKH == dh.MaKH).FirstOrDefault();
+            var t = db.Tours.Where(s => s.MaTour == dh.MaTour).FirstOrDefault();
+            content = content.Replace("{{TenKH}}", kh.HoTenKH);
+            content = content.Replace("{{Phoneno}}", dh.MaKH);
+            content = content.Replace("{{MaDH}}", dh.MaDH);
+            content = content.Replace("{{Email}}", kh.Email);
+            content = content.Replace("{{Address}}", dh.MaKH);
+            string hinhthuc = "";
+            if (dh.HinhThucThanhToan == true)
             {
                 hinhthuc = "Chuyển khoản";
             }

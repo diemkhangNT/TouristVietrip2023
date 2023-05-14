@@ -21,8 +21,14 @@
 <link href="~/Content/Guest/detailtour.css" rel="stylesheet" />
 
 @{
+
     string matour = (string)Session["Matourchon"];
     var tour = db.Tours.Where(s => s.MaTour == matour).FirstOrDefault();
+    string madh = (string)Session["madhmua"];
+    var dh = db.BookTours.FirstOrDefault(s => s.MaDH == madh);
+    var kh = db.KhachHangs.FirstOrDefault(s=>s.MaKH==dh.MaKH);
+
+
 }
 <section class="thongtindatve">
     <div class="container">
@@ -41,9 +47,9 @@
                             <span>Nơi khởi hành <b>@tour.NgayKhoihanh</b></span>
                             <span>Số chỗ còn nhận <b>@ViewBag.chodamua</b></span>
                             @{
-                                var a = String.Format("{0:0,0 vnđ}", @tour.GiaNguoiLon);
-                                var b = String.Format("{0:0,0 vnđ}", @tour.GiaTreEm);
-                            }
+        var a = String.Format("{0:0,0 vnđ}", @tour.GiaNguoiLon);
+        var b = String.Format("{0:0,0 vnđ}", @tour.GiaTreEm);
+    }
                             <span>Giá người lớn <b>@a</b></span>
                             <span>Giá trẻ em <b>@b</b></span>
                             <h6>Hạn chót đặt vé: @tour.HanChotDatVe</h6>
@@ -62,8 +68,8 @@
 
 
         @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+    {
+        @Html.AntiForgeryToken()
 
             @Html.HiddenFor(model => Model.MaDH)
             @Html.HiddenFor(model => Model.MaVe)
@@ -113,16 +119,16 @@
                         <dl class="row lotrinh-left" style="margin: 7px">
                             <h4 class="title-ticket tile-title">Thông tin liên lạc</h4>
                             <dt class="col-sm-4">Họ tên</dt>
-                            <dd class="col-sm-8">@khachhang.HoTenKH</dd>
+                            <dd class="col-sm-8">@kh.HoTenKH</dd>
 
                             <dt class="col-sm-4">Địa chỉ</dt>
-                            <dd class="col-sm-8">@khachhang.DiaChi</dd>
+                            <dd class="col-sm-8">@kh.DiaChi</dd>
 
                             <dt class="col-sm-4">Di động</dt>
-                            <dd class="col-sm-8">@khachhang.SDT</dd>
+                            <dd class="col-sm-8">@kh.SDT</dd>
 
                             <dt class="col-sm-4 text-truncate">Email</dt>
-                            <dd class="col-sm-8">@khachhang.Email</dd>
+                            <dd class="col-sm-8">@kh.Email</dd>
                             <hr />
                             <dd class="col-sm-12">(*) Chúng tôi sẽ liên hệ với bạn thông qua những thông tin này!</dd>
                         </dl>

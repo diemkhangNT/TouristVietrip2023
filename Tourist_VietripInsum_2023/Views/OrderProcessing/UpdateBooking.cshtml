@@ -45,232 +45,171 @@
         </script>
     }
 }
+@{
+    var kh = db.KhachHangs.Where(s => s.MaKH == Model.MaKH).FirstOrDefault();
+    var tour = db.Tours.Where(s => s.MaTour == Model.MaTour).FirstOrDefault();
+    var tt = Model.TrangThaiTT;
+    DateTime ngaylap = (DateTime)Model.NgayLap;
+    DateTime ttdate = (DateTime)ngaylap.AddDays(1);
+    string thanhtoans = "";
+    if (tt == true)
+    {
+        thanhtoans = "Đã thanh toán";
+    }
+    else
+    {
+        thanhtoans = "Chưa thanh toán";
+    }
+    var hinhthuc = Model.HinhThucThanhToan;
+    string ht = "";
+    if (tt == true)
+    {
+        ht = "Chuyển khoản";
+    }
+    else
+    {
+        ht = "Thanh toàn tại văn phòng";
+    }
+    var xacnhan = Model.XacNhanDH;
+    string xn = "";
+    if (xacnhan == true)
+    {
+        xn = "Đã xác nhận";
+    }
+    else
+    {
+        xn = "Chưa xác nhận";
+    }
+}
+<div class="col-sm-12">
+    <div class="tile">
+        <h3 class="tile-title" style="text-align: center;">CHI TIẾT ĐƠN ĐẶT TOUR @ViewBag.MaBT</h3>
+        <div class="tile-body">
+            <div class="row" style="padding:10px">
 
-<div class="row">
-    <div class="col-sm-12">
-        <div class="tile">
-            <h3 class="tile-title" style="text-align: center;">CHI TIẾT ĐƠN ĐẶT TOUR @ViewBag.MaBT</h3>
-            <div class="tile-body">
-                <div class="element-button">
-                    @{
-                        var kh = db.KhachHangs.Where(s => s.MaKH == Model.MaKH).FirstOrDefault();
-                        var tour = db.Tours.Where(s => s.MaTour == Model.MaTour).FirstOrDefault();
-                        var tt = Model.TrangThaiTT;
-                        DateTime ngaylap = (DateTime)Model.NgayLap;
-                        DateTime ttdate = (DateTime)ngaylap.AddDays(1);
-                        string thanhtoans = "";
-                        if (tt == true)
-                        {
-                            thanhtoans = "Đã thanh toán";
-                        }
-                        else
-                        {
-                            thanhtoans = "Chưa thanh toán";
-                        }
-                        var hinhthuc = Model.HinhThucThanhToan;
-                        string ht = "";
-                        if (tt == true)
-                        {
-                            ht = "Chuyển khoản";
-                        }
-                        else
-                        {
-                            ht = "Thanh toàn tại văn phòng";
-                        }
-                        var xacnhan = Model.XacNhanDH;
-                        string xn = "";
-                        if (xacnhan == true)
-                        {
-                            xn = "Đã xác nhận";
-                        }
-                        else
-                        {
-                            xn = "Chưa xác nhận";
-                        }
-                    }
-                    <div class="info-cus">
-                        <h6>THÔNG TIN KHÁCH HÀNG</h6>
-                        <div class="form-group">
-                            <b>Tên Khách Hàng: </b> @Html.DisplayFor(model => kh.HoTenKH)
-                            <b style="margin-left: 15px;">Loại KH: </b> @Html.DisplayFor(model => kh.MaLoaiKH)
-                            <br />
-                            <b>Liên lạc: </b> @Html.DisplayFor(model => model.SdtKH) - @Html.DisplayFor(model => kh.Email)
-                        </div>
-                    </div>
-                    <div class="info-booking">
-                        <h6>THÔNG TIN BOOKING</h6>
-                        <div class="form-group">
-                            <b>Mã đơn hàng: </b>@Html.DisplayFor(model => model.MaDH)
-                            <br />
-                            <b>Thông tin tour: </b>@Html.DisplayFor(model => tour.TenTour) - @Html.DisplayFor(model => tour.MaTour)
-                            <br />
-                            <b>Ngày đặt: </b>@Html.DisplayFor(model => model.NgayLap)
-                            <b style="margin-left: 15px;">Số chỗ: </b>@Html.DisplayFor(model => model.SoCho)
-                            <br />
-                            <b>Hạn đặt: </b>@ttdate
-                            <br />
-                            <b>Tổng tiền: </b>@{ var tongTien = string.Format("{0:0,0}", Model.TotalPrice);}
-                            @Html.DisplayFor(model => tongTien) vnd
-                            <br />
-                            @*<b span id="demo">Tình trạng thanh toán: </b>@thanhtoans
-                                <br />
-                                <b>Hình thức thanh toán: </b>@ht*@
-
-                            @using (Html.BeginForm())
-                            {
-
-                                @Html.HiddenFor(model => model.MaDH)
-                                @Html.HiddenFor(model => model.MaNVLap)
-                                @Html.HiddenFor(model => model.MaTour)
-                                @Html.HiddenFor(model => model.NgayLap)
-                                @Html.HiddenFor(model => model.TotalPrice)
-                                @Html.HiddenFor(model => model.SoCho)
-                                @Html.HiddenFor(model => model.SdtKH)
-                                @Html.HiddenFor(model => model.MaKH)
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <b>Tình trạng thanh toán: </b>
-                                        <select class="form-control list-box tri-state" id="TrangThaiTT" name="TrangThaiTT">
-                                            @{
-                                                if (tt == true)
-                                                {
-                                                    <option selected="selected" value="true">Đã thanh toán</option>
-                                                    <option value="false">Chưa thanh toán</option>
-                                                }
-                                                else
-                                                {
-                                                    <option value="true">Đã thanh toán</option>
-                                                    <option selected="selected" value="false">Chưa thanh toán</option>
-                                                }
-                                            }
-                                        </select>
-                                        @*@Html.EditorFor(model => model.TrangThaiTT, new { htmlAttributes = new { @class = "form-control" } })*@
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <b>Hình thức thanh toán: </b>
-                                        <select class="form-control list-box tri-state" id="HinhThucThanhToan" name="HinhThucThanhToan">
-                                            @{
-                                                if (hinhthuc == true)
-                                                {
-                                                    <option selected="selected" value="true">Chuyển khoản</option>
-                                                    <option value="false">Thanh toán tại văn phòng</option>
-                                                }
-                                                else
-                                                {
-                                                    <option value="true">Chuyển khoản</option>
-                                                    <option selected="selected" value="false">Thanh toán tại văn phòng</option>
-                                                }
-                                            }
-                                        </select>
-                                        @*@Html.EditorFor(model => model.TrangThaiTT, new { htmlAttributes = new { @class = "form-control" } })*@
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <b>Xác nhận đơn hàng: </b>
-                                        <select class="form-control list-box tri-state" id="XacNhanDH" name="XacNhanDH">
-                                            @{
-                                                if (xacnhan == true)
-                                                {
-                                                    <option selected="selected" value="true">Đã xác nhận</option>
-                                                    <option value="false">Chưa xác nhận</option>
-                                                }
-                                                else
-                                                {
-                                                    <option value="true">Đã xác nhấn</option>
-                                                    <option selected="selected" value="false">Chưa xác nhận</option>
-                                                }
-                                            }
-                                        </select>
-                                        @*@Html.EditorFor(model => model.TrangThaiTT, new { htmlAttributes = new { @class = "form-control" } })*@
-                                    </div>
-                                    <div class="col-sm-2" style="margin:10px">
-                                        <input class="btn btn-success btn-sm" type="submit" value="Cập nhật" />
-                                    </div>
-                                </div>
-                            }
-
-                            <div class="element-button">
-                                <table class="table">
-                                    <thead style="background-color: #ffd43b;">
-                                        <tr>
-                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã vé</th>
-                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Loại vé</th>
-                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Họ và tên</th>
-                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Giới tính</th>
-                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Ngày sinh</th>
-                                            <th aria-controls="sampleTable" rowspan="1" colspan="1">Lưu ý</th>
-                                            @*<th aria-controls="sampleTable" rowspan="1" colspan="1">Tùy chọn</th>*@
-                                        </tr>
-                                    </thead>
-                                    @{
-                                        var listTickets = db.Ves.Where(s => s.MaDH == Model.MaDH).ToList();
-                                    }
-                                    <tbody>
-                                        @if (listTickets.Count() == 0)
-                                        {
-                                            <tr>
-                                                <td colspan="9" class="text-center"> Không tìm thấy </td>
-                                            </tr>
-                                        }
-                                        else
-                                        {
-                                            foreach (var item in listTickets)
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.MaVe)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.LoaiVe.TenLVe)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.Hoten_KH)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.GioiTinh)
-                                                    </td>
-                                                    <td>
-                                                        @{ var ngaySinh = string.Format("{0:dd/MM/yyyy}", item.NgaySinh);}
-                                                        @Html.DisplayFor(modelItem => ngaySinh)
-                                                    </td>
-
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.LuuY)
-                                                    </td>
-                                                    @*<td>
-                                                            <a href="/OrderProcessing/TicketEdit/@item.MaVe" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
-                                                                <i class="fas fa-edit"></i>
-                                                            </a>
-                                                        </td>*@
-                                                </tr>
-                                            }
-                                        }
-                                    </tbody>
-                                </table>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-10">
-                                    <a class="btn btn-warning btn-sm" href="/OrderProcessing/Booking">Quay lại</a>
-                                    <a class="btn btn-outline-danger btn-sm" role="button" data-toggle="modal" data-target="#DeleteBooking">Xóa đơn hàng</a>
-                                    <a class="btn btn-outline-secondary btn-sm" href="/OrderProcessing/Bill/@Model.MaDH">Xuất hóa đơn</a>
-                                </div>
-
-                                <div class="col-md-2">
-
-                                    @using (Html.BeginForm("SendMailCancel", "OrderProcessing", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <input type="submit" value="Gửi Mail Hủy" class="btn btn-outline-dark btn-sm" />
-                                    }
-                                </div>
-                            </div>
-                        </div>
+                <div class="col-sm-6">
+                    <h6>THÔNG TIN BOOKING</h6>
+                    <b>Mã đơn hàng: </b>@Html.DisplayFor(model => model.MaDH)
+                    <br />
+                    <b>Thông tin tour: </b>@Html.DisplayFor(model => tour.TenTour) - @Html.DisplayFor(model => tour.MaTour)
+                    <br />
+                    <b>Ngày đặt: </b>@Html.DisplayFor(model => model.NgayLap)
+                    <b style="margin-left: 15px;">Số chỗ: </b>@Html.DisplayFor(model => model.SoCho)
+                    <br />
+                    <b>Hạn đặt: </b>@ttdate
+                    <br />
+                    <b>Tổng tiền: </b>@{ var tongTien = string.Format("{0:0,0}", Model.TotalPrice);}
+                    @Html.DisplayFor(model => tongTien) vnd
+                    <br />
+                    @*<b span id="demo">Tình trạng thanh toán: </b>@thanhtoans
+                        <br />
+                        <b>Hình thức thanh toán: </b>@ht*@
+                </div>
+                <div class="col-sm-6">
+                    <h6>THÔNG TIN KHÁCH HÀNG</h6>
+                    <div class="form-group">
+                        <b>Tên Khách Hàng: </b> @Html.DisplayFor(model => kh.HoTenKH)
+                        <b style="margin-left: 15px;">Loại KH: </b> @Html.DisplayFor(model => kh.MaLoaiKH)
+                        <br />
+                        <b>Liên lạc: </b> @Html.DisplayFor(model => model.SdtKH) - @Html.DisplayFor(model => kh.Email)
                     </div>
                 </div>
             </div>
+            <div class="info-booking">
+                <div class="element-button">
+                    <table class="table">
+                        <thead style="background-color: #ffd43b;">
+                            <tr>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Mã vé</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Loại vé</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Họ và tên</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Giới tính</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Ngày sinh</th>
+                                <th aria-controls="sampleTable" rowspan="1" colspan="1">Lưu ý</th>
+                                @*<th aria-controls="sampleTable" rowspan="1" colspan="1">Tùy chọn</th>*@
+                            </tr>
+                        </thead>
+                        @{
+                            var listTickets = db.Ves.Where(s => s.MaDH == Model.MaDH).ToList();
+                        }
+                        <tbody>
+                            @if (listTickets.Count() == 0)
+                            {
+                                <tr>
+                                    <td colspan="9" class="text-center"> Không tìm thấy </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                foreach (var item in listTickets)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.MaVe)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.LoaiVe.TenLVe)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Hoten_KH)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.GioiTinh)
+                                        </td>
+                                        <td>
+                                            @{ var ngaySinh = string.Format("{0:dd/MM/yyyy}", item.NgaySinh);}
+                                            @Html.DisplayFor(modelItem => ngaySinh)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.LuuY)
+                                        </td>
+                                        @*<td>
+                                                <a href="/OrderProcessing/TicketEdit/@item.MaVe" class="btn btn-outline-primary btn-sm" ata-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            </td>*@
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            
+                <div class="row">
+                    <div class="col-md-10">
+                        <a class="btn btn-outline-success btn-sm " data-toggle="modal" data-target="#UpdateBooking">
+                            Cập thông tin
+                        </a>
+                        <a class="btn btn-outline-danger btn-sm" role="button" data-toggle="modal" data-target="#DeleteBooking">Xóa đơn hàng</a>
+                        <a class="btn btn-outline-secondary btn-sm" href="/OrderProcessing/Bill/@Model.MaDH">Xuất hóa đơn</a>
+
+                    </div>
+                    @{
+                        DateTime aDatetime = DateTime.Now;
+                        TimeSpan interval = ngaylap.Subtract(aDatetime);
+                        if (interval.Days < 0)
+                        {
+                            <div class="col-md-2">
+                                @using (Html.BeginForm("SendMailCancel", "OrderProcessing", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="submit" value="Gửi Mail Hủy" class="btn btn-danger btn-sm" />
+                                }
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
         </div>
+
     </div>
+    <a class="btn btn-warning btn-sm" href="/OrderProcessing/Booking">Quay lại</a>
 </div>
+  
+
 <div class="modal fade" id="DeleteBooking" tabindex="-1" role="dialog" aria-labelledby="DeleteBooking" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="padding:20px 10px">
@@ -302,4 +241,92 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal fade" id="UpdateBooking" tabindex="-1" role="dialog" aria-labelledby="UpdateBooking" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:20px 10px">
+            <div class="modal-body">
+                @using (Html.BeginForm("CapnhatBooking", "OrderProcessing", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+                @Html.HiddenFor(model => model.MaDH)
+                @Html.HiddenFor(model => model.MaNVLap)
+                @Html.HiddenFor(model => model.MaTour)
+                @Html.HiddenFor(model => model.NgayLap)
+                @Html.HiddenFor(model => model.TotalPrice)
+                @Html.HiddenFor(model => model.SoCho)
+                @Html.HiddenFor(model => model.SdtKH)
+                @Html.HiddenFor(model => model.MaKH)
+                <div class="row">
+                    <h5 style="text-align:center">CẬP NHẬT ĐƠN HÀNG</h5>
+                    <div class="col-sm-12">
+                        <b>Tình trạng thanh toán: </b>
+                        <select class="form-control list-box tri-state col-sm-12" id="TrangThaiTT" name="TrangThaiTT">
+                            @*<option selected="@Model.TrangThaiTT">@Model.TrangThaiTT</option>
+                            <option>Đã thanh toán</option>
+                            <option>Chưa thanh toán</option>*@
+                             @{
+                            if (Model.TrangThaiTT == true)
+                            {
+                            <option selected="selected" value="true">Đã thanh toán</option>
+                            <option value="false">Chưa thanh toán</option>
+                            }
+                            else
+                            {
+                            <option value="true">Đã thanh toán</option>
+                            <option selected="selected" value="false">Chưa thanh toán</option>
+                            }
+                        }
+
+                        </select>
+                    </div>
+                    <div class="col-sm-12">
+                        <b>Hình thức thanh toán: </b>
+                        <select class="form-control list-box tri-state col-sm-12" id="HinhThucThanhToan" name="HinhThucThanhToan">
+                            @{
+                                if (Model.HinhThucThanhToan == true)
+                                {
+                                <option selected="selected" value="true">Chuyển khoản</option>
+                                <option value="false">Thanh toán tại văn phòng</option>
+                                }
+                                else
+                                {
+                                <option value="true">Chuyển khoản</option>
+                                <option selected="selected" value="false">Thanh toán tại văn phòng</option>
+                                }
+                            }
+                        </select>
+
+                    </div>
+                    <div class="col-sm-12">
+                        <b>Xác nhận đơn hàng: </b>
+                        <select class="form-control list-box tri-state col-sm-12" id="XacNhanDH" name="XacNhanDH">
+                            @{
+                                if (Model.XacNhanDH == true)
+                                {
+                                <option selected="selected" value="true">Đã xác nhận</option>
+                                <option value="false">Chưa xác nhận</option>
+                                }
+                                else
+                                {
+                                <option value="true">Đã xác nhấn</option>
+                                <option selected="selected" value="false">Chưa xác nhận</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <a class="btn btn-secondary btn-sm" data-dismiss="modal">Close</a>
+                    <input type="submit" value="Cập nhật  " class="btn btn-success btn-sm" />
+                </div>
+
+                }
+
+            </div>
+            </div>
+        </div>
 </div>

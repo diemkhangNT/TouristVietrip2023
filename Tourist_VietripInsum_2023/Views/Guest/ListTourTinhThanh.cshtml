@@ -7,7 +7,7 @@
     ViewBag.Title = "List Tour";
     Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
     TouristEntities1 db = new TouristEntities1();
-
+    ViewBag.mn = "active";
     List<DiaDiemThamQuan> diaDiems = db.DiaDiemThamQuans.ToList();
 }
 
