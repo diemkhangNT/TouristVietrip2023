@@ -669,8 +669,6 @@ namespace Tourist_VietripInsum_2023.Controllers
                     content = content.Replace("{{TenTour}}", t.TenTour);
                     content = content.Replace("{{ngaykhoihanh}}", t.NgayKhoihanh.ToString());
                     content = content.Replace("{{ngayve}}", t.NgayTroVe.ToString());
-                    content = content.Replace("{{noikhoihanh}}", t.NoiKhoiHanh);
-                    content = content.Replace("{{giotaptrung}}", newTime.ToString());
                     content = content.Replace("{{gianguoilon}}", String.Format("{0:00.0}", t.GiaNguoiLon.ToString()));
                     content = content.Replace("{{giatreem}}", String.Format("{0:00.0}", t.GiaTreEm.ToString()));
 
