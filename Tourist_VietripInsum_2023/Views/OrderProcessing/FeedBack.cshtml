@@ -60,12 +60,20 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Email)
                                     </td>
-                                    
+
                                     <td>
                                         @Html.DisplayFor(modelItem => item.NgayPH)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.TrangThai)
+                                        @if (item.TrangThai == false)
+                                        {
+                                            <span>Chưa phản hồi</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Đã phản hồi</span>
+                                        }
+                                        @*@Html.DisplayFor(modelItem => item.TrangThai)*@
                                     </td>
                                     <td>
                                         <a class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editFB-@item.MaPhanHoi">
@@ -110,32 +118,46 @@
                                                     <h5 class="tile-title" style="text-align: center; padding-top: 20px;">CHI TIẾT PHẢN HỒI</h5>
                                                 </div>
                                                 @{ PhanHoi phanHoi = db.PhanHois.Find(item.MaPhanHoi);}
-                                            <div>
-                                                @Html.HiddenFor(model => phanHoi.MaPhanHoi)
-                                                @Html.HiddenFor(model => phanHoi.MaKH)
-                                                @Html.HiddenFor(model => phanHoi.Sdt)
-                                                @Html.HiddenFor(model => phanHoi.Email)
-                                                @Html.HiddenFor(model => phanHoi.NoiDung)
-                                                @Html.HiddenFor(model => phanHoi.NgayPH)
-                                                @Html.HiddenFor(model => phanHoi.TieuDe)
+                                                <div>
+                                                    @Html.HiddenFor(model => phanHoi.MaPhanHoi)
+                                                    @Html.HiddenFor(model => phanHoi.MaKH)
+                                                    @Html.HiddenFor(model => phanHoi.Sdt)
+                                                    @Html.HiddenFor(model => phanHoi.Email)
+                                                    @Html.HiddenFor(model => phanHoi.NoiDung)
+                                                    @Html.HiddenFor(model => phanHoi.NgayPH)
+                                                    @Html.HiddenFor(model => phanHoi.TieuDe)
 
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
-                                                    <b> Mã phản hồi : </b>
-                                                    @phanHoi.MaPhanHoi
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
+                                                        <b> Mã phản hồi : </b>
+                                                        @phanHoi.MaPhanHoi
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
+                                                        <b> Khách hàng : </b>
+                                                        @phanHoi.MaKH
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
+                                                        <b> Nội dung </b>
+                                                        @phanHoi.NoiDung
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
+                                                        <b> Trạng thái phản hồi : </b>
+                                                        <select class="form-control-sm" name="phanHoi.TrangThai">
+                                                            @{
+                                                                if (item.TrangThai == true)
+                                                                {
+                                                                    <option selected="selected" value="true">Đã phản hồi</option>
+                                                                    <option value="false">Chưa phản hồi</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="true">Đã phản hồi</option>
+                                                                    <option selected="selected" value="false">Chưa phản hồi</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                        @*@Html.EditorFor(model => phanHoi.TrangThai, new { htmlAttributes = new { @class = "form-control-sm", } })*@
+                                                    </div>
                                                 </div>
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
-                                                    <b> Khách hàng : </b>
-                                                    @phanHoi.MaKH
-                                                </div>
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
-                                                    <b> Nội dung </b>
-                                                    @phanHoi.NoiDung
-                                                </div>
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  mg-bot30">
-                                                    <b> Trạng thái phản hồi : </b>
-                                                    @Html.EditorFor(model => phanHoi.TrangThai, new { htmlAttributes = new { @class = "form-control-sm", } })
-                                                </div>
-                                            </div>
                                                 @*Modal footer*@
                                                 <div class="modal-footer">
                                                     <input type="button" class="btn btn-cancel btn-sm" data-bs-dismiss="modal" value="Hủy">

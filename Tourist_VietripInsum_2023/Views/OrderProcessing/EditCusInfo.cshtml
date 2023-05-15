@@ -24,7 +24,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">Loại khách hàng</label>
-                                    @Html.DropDownList("MaLoaiKH", null, htmlAttributes: new { @class = "form-control col-md-12" })
+                                    @Html.EditorFor(model => model.LoaiKH.TenLoaiKH, new { htmlAttributes = new { @class = "form-control col-md-12", @readonly= "readonly" } })
+                                    @*@Html.DropDownList("MaLoaiKH", null, htmlAttributes: new { @class = "form-control col-md-12" })*@
                                     @Html.ValidationMessageFor(model => model.MaLoaiKH, "", new { @class = "text-danger" })
                                 </div>
                             </div>
