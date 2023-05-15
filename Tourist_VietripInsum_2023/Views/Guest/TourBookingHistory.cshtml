@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "TourBookingHistory";
     Layout = "~/Views/Guest/ViewGuest/customer_info.cshtml";
+    ViewBag.ls = "active";
 
     TouristEntities1 db = new TouristEntities1();
     var userKH = (Tourist_VietripInsum_2023.Models.KhachHang)HttpContext.Current.Session["UserKH"];

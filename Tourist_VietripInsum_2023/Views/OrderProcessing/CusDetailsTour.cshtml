@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "CusDetailsTour";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
-    ViewBag.Name = "Danh sách khách hàng tham gia tour";
+    ViewBag.Name = "Trang Danh Sách Khách Hàng Tham Gia Tour";
     ViewBag.tour = "active";
 
     TouristEntities1 db = new TouristEntities1();
@@ -101,7 +101,7 @@
                         @if (Model.Count() == 0)
                         {
                             <tr>
-                                <td colspan="8" class="text-center"> Records not found </td>
+                                <td colspan="8" class="text-center">Không tìm thấy</td>
                             </tr>
                         }
                         else
@@ -134,7 +134,6 @@
                             }
                         }
                 </table>
-
             </div>
         </div>
     </div>
