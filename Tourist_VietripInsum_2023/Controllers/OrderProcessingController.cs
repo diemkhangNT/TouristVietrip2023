@@ -114,25 +114,26 @@ namespace Tourist_VietripInsum_2023.Controllers
             return View(khachHang);
         }
         [HttpPost]
-        public ActionResult EditCusInfo(KhachHang khachHang)
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCusInfo(KhachHang kh)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(khachHang).State = EntityState.Modified;
+                db.Entry(kh).State = EntityState.Modified;
                 db.SaveChanges();
 
-                var bookTour = db.BookTours.Where(s => s.MaKH == khachHang.MaKH).ToList();
+                var bookTour = db.BookTours.Where(s => s.MaKH == kh.MaKH).ToList();
                 foreach (var item in bookTour)
                 {
-                    item.SdtKH = khachHang.SDT;
+                    item.SdtKH = kh.SDT;
                     db.Entry(item).State = System.Data.Entity.EntityState.Modified;
                 }
                 db.SaveChanges();
                 TempData["success"] = "Cập nhật thông tin khách hàng thành công";
                 return RedirectToAction("ListOfCustomers");
             }
-            ViewBag.MaLoaiKH = new SelectList(db.LoaiKHs, "MaLoaiKH", "TenLoaiKH", khachHang.MaLoaiKH);
-            return View(khachHang);
+            ViewBag.LoaiKH = new SelectList("MaLoaiKH", "MaLoaiKH", kh.MaLoaiKH);
+            return View(kh);
         }
 
         public ActionResult CheckCusInfo(string search)
