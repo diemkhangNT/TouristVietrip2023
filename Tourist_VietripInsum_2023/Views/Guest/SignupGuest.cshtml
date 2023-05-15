@@ -1,6 +1,9 @@
 ﻿@model Tourist_VietripInsum_2023.Models.KhachHang
 
-
+@{ 
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Guest/ViewGuest/Guest.cshtml";
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,40 +37,42 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.MaKH)
             @Html.HiddenFor(model => model.MaLoaiKH)
+            <h2 class="text-center">Đăng ký thành viên</h2> <hr />
             <div class="bg-white shadow rounded-lg d-block d-sm-flex">
+                
                 <div class="profile-tab-nav border-right">
                     <div class="p-4">
-                        <h4>Choose Avatar</h4>
+                        <h4>Chọn hình đại diện</h4>
                         <div style="width: 100%; height: auto; border-radius:50%;">
                             <br />
                             @Html.TextBox("ImagerCus", "", new { type = "file" })
                             <br />
                             <br />
-                            <img id="preview" src="#" width="100%" height="auto" style="visibility: hidden; border-radius: 50%; margin-bottom: 20px;" />
+                            <img id="preview" src="#" width="95%" height="95%" style="visibility: hidden; border-radius: 50%; margin-bottom: 20px;" />
                         </div>
                     </div>
                 </div>
                 <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
-                        <h3 class="mb-4">Profile Settings</h3>
+                        <h3 class="mb-4">Thông tin cá nhân</h3>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Full Name</label>
+                                    <label>Họ và tên</label>
                                     @Html.EditorFor(model => model.HoTenKH, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                                     @Html.ValidationMessageFor(model => model.HoTenKH, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Phone number</label>
+                                    <label>Số điện thoại</label>
                                     @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                                     @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Address</label>
+                                    <label>Địa chỉ</label>
                                     @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                                     @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
                                 </div>
@@ -82,22 +87,22 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Birthday</label>
+                                    <label>Ngày sinh</label>
                                     @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
                                     @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Gender:</label>
+                                    <label>Giới tính</label>
                                     <select name="GioiTinh" class="form-control form-select">
-                                        <option value="Nam"> Male </option>
-                                        <option value="Nu"> Female</option>
+                                        <option value="Nam">Nam</option>
+                                        <option value="Nu">Nữ</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <h3 class="mb-4">Account Settings</h3>
+                        <h3 class="mb-4">Tài khoản</h3>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -125,7 +130,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Confirm new password</label>
+                                    <label>Nhập lại password</label>
                                     <input class="form-control col-md-12 text-box single-line" type="password" name="ConfirmPassword" placeholder="Xác thực mật khẩu" />
                                     @if (TempData["errorMK"] != null)
                                     {
@@ -138,8 +143,11 @@
                         </div>
                         <div class="form-group">
                             <div style="text-align: center; margin-top: 10px;">
-                                <a class="btn btn-danger btn-sm" href="/Guest/LoginGuest">Đăng nhập</a>
-                                <input class="btn btn-success btn-sm" type="submit" value="Đăng ký" />
+                                <input class="btn btn-outline-dark btn-sm" type="submit" value="Đăng ký ngay" />
+                                <br /> <hr />
+                                <span>Bạn đã có tài khoản?</span>
+                                <a class="" href="/Guest/LoginGuest"><u>Đăng nhập</u></a>
+
                             </div>
                         </div>
                     </div>

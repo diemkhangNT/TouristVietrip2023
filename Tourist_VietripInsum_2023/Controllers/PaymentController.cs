@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Tourist_VietripInsum_2023.common;
 using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
@@ -86,6 +87,56 @@ namespace Tourist_VietripInsum_2023.Controllers
                         donhang.TrangThaiTT = true;
                         db.Entry(donhang).State = EntityState.Modified;
                         db.SaveChanges();
+                        //Update tổng tiền đặt
+                        var kh = db.KhachHangs.Where(s => s.MaKH == donhang.MaKH).FirstOrDefault();
+                        kh.TongTienDat = kh.TongTienDat + donhang.TotalPrice;
+                        if (kh.TongTienDat >= 15000000)
+                        {
+                            kh.MaLoaiKH = "TT";
+                        }
+                        else if (kh.TongTienDat >= 50000000)
+                        {
+                            kh.MaLoaiKH = "VIP";
+                        }
+                        db.Entry(kh).State = EntityState.Modified;
+                        db.SaveChanges();
+                        //gửi mail
+                        //Email thanh toán online
+                        string content = System.IO.File.ReadAllText(Server.MapPath("/Content/template/mailconn.html"));
+                        
+                        var t = db.Tours.Where(s => s.MaTour == donhang.MaTour).FirstOrDefault();
+
+                        content = content.Replace("{{TenKH}}", kh.HoTenKH);
+                        content = content.Replace("{{Phoneno}}", kh.SDT);
+                        content = content.Replace("{{MaDH}}", donhang.MaDH);
+                        content = content.Replace("{{Email}}", kh.Email);
+                        content = content.Replace("{{Address}}", kh.DiaChi);
+                        string hinhthuc = "Chuyển khoản";
+
+
+                        DateTime ngaydat = (DateTime)donhang.NgayLap;
+                        DateTime hanthanhtoan = ngaydat.AddDays(1);
+                        DateTime ngaydi = (DateTime)t.NgayKhoihanh;
+                        TimeSpan aInterval = new System.TimeSpan(0, 1, 1, 0);
+                        DateTime newTime = ngaydi.Subtract(aInterval);
+                        content = content.Replace("{{hinhthuc}}", hinhthuc);
+                        content = content.Replace("{{ngaydat}}", ngaydat.ToString());
+                        content = content.Replace("{{hanthanhtoan}}", hanthanhtoan.ToString());
+                        content = content.Replace("{{MaTour}}", t.MaTour);
+                        content = content.Replace("{{TenTour}}", t.TenTour);
+                        content = content.Replace("{{ngaykhoihanh}}", t.NgayKhoihanh.ToString());
+                        content = content.Replace("{{noikhoihanh}}", t.NoiKhoiHanh);
+                        content = content.Replace("{{ngayve}}", t.NgayTroVe.ToString());
+                        content = content.Replace("{{hanchotve}}", t.HanChotDatVe.ToString());
+                        content = content.Replace("{{total}}", donhang.TotalPrice.ToString());
+                        content = content.Replace("{{nguoilon}}", t.GiaNguoiLon.ToString());
+                        content = content.Replace("{{treem}}", t.GiaTreEm.ToString());
+                        content = content.Replace("{{tieude}}", "XÁC NHẬN ĐẶT TOUR - THANH TOÁN QUA VNPAY THÀNH CÔNG");
+                        content = content.Replace("{{noidung}}", "SaigonTravels xác nhận quý khách đã đăng ký tour thành công. ");
+
+                        ////Gui mail
+                        var toEmail = ConfigurationManager.AppSettings["toEmailAddress"].ToString();
+                        new MailHelp().SendMail(kh.Email, "Xác nhận thanh toán tour thành công", content);
                         return RedirectToAction("HomePageGuest","Guest");
                     }
                     else

@@ -517,6 +517,11 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
 
                 var khach = db.KhachHangs.Where(s => s.SDT == SDT).FirstOrDefault();
+                if(khach.Username != null && khach.UserPassword != null)
+                {
+                    TempData["existTK"] = "existTK";
+                    return RedirectToAction("LoginGuest", "Guest");
+                }
                 if (khach == null)
                 {
                     //khong dang nhap va khong phia khach trong he thong
@@ -623,8 +628,14 @@ namespace Tourist_VietripInsum_2023.Controllers
                     
                     ve.NgaySinh = DateTime.Parse(test);
                     ve.LuuY = Request["LuuY" + i];
-                    
-
+                    if(ve.MaLVe == "")
+                    {
+                        ve.MaLVe = "TICKET01";
+                    }
+                    if (ve.GioiTinh == "")
+                    {
+                        ve.GioiTinh = "Nam";
+                    }
                     if (ve.MaLVe == "TICKET01")
                     {
                         tongtien = tongtien + (int)tour.GiaNguoiLon;
@@ -891,6 +902,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             db.SaveChanges();
             string content = System.IO.File.ReadAllText(Server.MapPath("/Content/template/MailQuenMK.html"));
             content = content.Replace("{{email}}", mail);
+            content = content.Replace("{{username}}", kh.Username);
             content = content.Replace("{{matkhau}}", newpass);
 
 
