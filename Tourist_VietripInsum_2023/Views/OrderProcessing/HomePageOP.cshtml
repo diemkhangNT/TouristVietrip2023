@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "HomePageOP";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
-    ViewBag.Name = "Home Page";
+    ViewBag.Name = "Trang chủ";
     ViewBag.home = "active";
 }
 
@@ -13,8 +13,8 @@
     {
         <script>
             swal({
-                title: "Login success!",
-                text: "Welcome to your back!",
+                title: "Đăng nhập thành công!",
+                text: "Chào mừng bạn đã quay trở lại!",
                 icon: "success",
                 button: "OK",
             });
@@ -42,7 +42,7 @@
                 </div>
                 <!-- col-6 -->
                 <div class="col-lg-6 col-xs-12">
-                    <a class="widget-small warning coloured-icon @ViewBag.hh" href="#">
+                    <a class="widget-small warning coloured-icon @ViewBag.hh" href="/OrderProcessing/FeedBack">
                         <i class='icon bx bxs-receipt fa-3x'></i>
                         <div class="info">
                             <h4>Phản hồi</h4>
@@ -78,7 +78,7 @@
                             @if (Model.Count() == 0)
                             {
                                 <tr>
-                                    <td colspan="8" class="text-center"> Records not found </td>
+                                    <td colspan="8" class="text-center"> Không tìm thấy </td>
                                 </tr>
                             }
                             else
@@ -99,7 +99,14 @@
                                             @Html.DisplayFor(modelItem => donhang.NgayLap)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => donhang.TrangThaiTT)
+                                            @if (donhang.TrangThaiTT == true)
+                                            {
+                                                <span>Đã thanh toán</span>
+                                            }
+                                            else
+                                            {
+                                                <span>Chưa thanh toán</span>
+                                            }
                                         </td>
                                         <td>
                                             @{ var tongTien = string.Format("{0:0,0 VNĐ}", donhang.TotalPrice);}

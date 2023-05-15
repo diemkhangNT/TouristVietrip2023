@@ -169,6 +169,7 @@
                         @{
                             if (dh.HinhThucThanhToan == true)
                             {
+
                                 <form method="post" action="@Url.Action("Payment", "Guest", new { id = maDH })">
                                     @Html.AntiForgeryToken()
                                     <button type="submit" class="btn btn-success">Thanh toán ngay</button>
@@ -176,6 +177,7 @@
                             }
                             else
                             {
+                                //thanh toán tại văn phòng
                                 <form method="post" action="@Url.Action("PaymentTM", "Guest", new { id = maDH })">
                                     @Html.AntiForgeryToken()
                                     <button type="submit" class="btn btn-success">Thanh toán ngay</button>

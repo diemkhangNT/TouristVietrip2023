@@ -3,11 +3,12 @@
 @{
     ViewBag.Title = "Thông tin khách hàng";
     Layout = "~/Views/Guest/ViewGuest/customer_info.cshtml";
+    ViewBag.ttcn = "active";
 }
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @{
-    var data = TempData["noti"];
+            var data = TempData["noti"];
     if (data == "editkhach")
     {
         <script>

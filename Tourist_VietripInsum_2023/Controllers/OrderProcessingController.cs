@@ -22,7 +22,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             var donhang = db.BookTours.Count();
             TempData["TongDonDat"] = donhang;
-            var ph = db.PhanHois.Count();
+            var ph = db.PhanHois.Count(s => s.TieuDe == "Tư vấn đơn đặt tour");
             TempData["phanhoi"] = ph;
             var dsDonHangMoi = db.BookTours.OrderByDescending(dhang => dhang.NgayLap).ToList();
         
@@ -281,6 +281,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                     donHang.NgayLap = System.DateTime.Now;
                     donHang.TrangThaiTT = false;
                     donHang.TotalPrice = null;
+                    donHang.HinhThucThanhToan = donHang.HinhThucThanhToan;
 
                     var sdt = Session["SDT"].ToString();
                     var info = db.KhachHangs.FirstOrDefault(s => s.SDT == sdt);
@@ -579,7 +580,7 @@ namespace Tourist_VietripInsum_2023.Controllers
 
         public ActionResult FeedBack()
         {
-            return View(db.PhanHois.Where(s=>s.TieuDe== "Tư vấn đơn đặt tour").ToList());
+            return View(db.PhanHois.Where(s=>s.TieuDe == "Tư vấn đơn đặt tour").ToList());
         }
 
         public ActionResult DeleteFeedBack(string id)
@@ -641,11 +642,13 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             return View(bookTour);
         }
+        
         [HttpPost]
-        public ActionResult UpdateBooking(BookTour bookTour)
+        public ActionResult CapnhatBooking(BookTour bookTour)
         {
             if (ModelState.IsValid)
             {
+
                 db.Entry(bookTour).State = EntityState.Modified;
                 db.SaveChanges();
                 if (bookTour.TrangThaiTT==true)
@@ -665,8 +668,9 @@ namespace Tourist_VietripInsum_2023.Controllers
                     content = content.Replace("{{MaTour}}", t.MaTour);
                     content = content.Replace("{{TenTour}}", t.TenTour);
                     content = content.Replace("{{ngaykhoihanh}}", t.NgayKhoihanh.ToString());
-                    content = content.Replace("{{noikhoihanh}}", t.NoiKhoiHanh);
-                    content = content.Replace("{{giotaptrung}}", newTime.ToString());
+                    content = content.Replace("{{ngayve}}", t.NgayTroVe.ToString());
+                    content = content.Replace("{{gianguoilon}}", String.Format("{0:00.0}", t.GiaNguoiLon.ToString()));
+                    content = content.Replace("{{giatreem}}", String.Format("{0:00.0}", t.GiaTreEm.ToString()));
 
                     string hinhthuc = "";
                     if (bookTour.HinhThucThanhToan == true)
@@ -679,7 +683,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                     }
                     content = content.Replace("{{hinhthuc}}", hinhthuc);
                     content = content.Replace("{{ngaydat}}", bookTour.NgayLap.ToString());
-                    content = content.Replace("{{total}}", bookTour.TotalPrice.ToString());
+                    content = content.Replace("{{total}}", String.Format("{0:00.0}",bookTour.TotalPrice.ToString()));
                     content = content.Replace("{{MaDonHang}}", bookTour.MaDH);
                
 
@@ -691,8 +695,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 }
 
                 TempData["bookingtour"] = "editbookingtc";
-                return RedirectToAction("UpdateBooking", new RouteValueDictionary(
-                                  new { controller = "OrderProcessing", action = "BookTourDeTail", Id = bookTour.MaDH}));
+                return RedirectToAction("UpdateBooking/" + bookTour.MaDH);
             }
             return View();
         }

@@ -124,15 +124,21 @@
                             </div>
                             <div class="menu-func">
                                 <h4>Tài khoản </h4>
-                                <h5><a href="/Guest/Thongtinkhachhang/@user.MaKH"> Thông tin cá nhân </a></h5>
-                                <h5><a href="/Guest/TourBookingHistory">Lịch sử đơn hàng</a></h5>
-                                @*<h5>  <a href="">Thông tin thanh toán</a></h5>
-                                <h5>  <a href="">Yêu cầu xóa tài khoản</a></h5>*@
-                                <div class="link-info">
-                                    <h4> <a href="/Guest/NewOrderPlaced"> Đơn đặt chỗ</a> </h4>
-                                    @*<h4><a href=""> Đánh giá của quý khách</a> </h4>*@
-                                </div>
-
+                                <nav class="navbar bg-success navbar-light" style="border-radius:10px ">
+                                    <div class="container-fluid">
+                                        <ul class="navbar-nav">
+                                            <li class="nav-item">
+                                                <a class="nav-link @ViewBag.ttcn" href="/Guest/Thongtinkhachhang/@user.MaKH">Thông tin cá nhân</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link @ViewBag.ls " href="/Guest/TourBookingHistory">Lịch sử đơn hàng</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link @ViewBag.ddh"  href="/Guest/NewOrderPlaced">Đơn đặt chỗ</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </nav>
                             </div>
 
 

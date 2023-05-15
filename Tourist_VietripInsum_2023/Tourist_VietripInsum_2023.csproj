@@ -276,6 +276,7 @@
     <Content Include="Content\template\mailcancel.html" />
     <Content Include="Content\template\mailconn.html" />
     <Content Include="Content\template\mailOrder.html" />
+    <Content Include="Content\template\MailQuenMK.html" />
     <Content Include="Content\tourmanager.css" />
     <Content Include="favicon.ico" />
     <Content Include="Forms\Order.html" />
@@ -576,6 +577,7 @@
     <Content Include="Views\Payment\Layout\_LayoutPayment.cshtml" />
     <Content Include="Views\Payment\PaymentSuccess.cshtml" />
     <Content Include="Views\Payment\PaymentFailed.cshtml" />
+    <Content Include="Views\Guest\QuenMK.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

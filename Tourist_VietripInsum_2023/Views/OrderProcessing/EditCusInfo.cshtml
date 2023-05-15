@@ -4,7 +4,7 @@
     ViewBag.Title = "EditCusInfo";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
     ViewBag.Name = "Trang sửa thông tin khách hàng";
-    ViewBag.order = "active";
+    ViewBag.cus = "active";
 }
 
 <div class="row">
@@ -24,7 +24,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">Loại khách hàng</label>
-                                    @Html.DropDownList("MaLoaiKH", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownList("MaLoaiKH", null, htmlAttributes: new { @class = "form-control col-md-12" })
                                     @Html.ValidationMessageFor(model => model.MaLoaiKH, "", new { @class = "text-danger" })
                                 </div>
                             </div>
