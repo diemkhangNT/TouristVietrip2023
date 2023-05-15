@@ -49,7 +49,7 @@
         <div class="app-sidebar__user">
             <img class="app-sidebar__user-avatar" src="@{
                             var user1 = (Tourist_VietripInsum_2023.Models.NhanVien)HttpContext.Current.Session["user"];
-                            @user1.HinhDaiDien}" width="50px"
+                            @user1.HinhDaiDien}" height="70"
                  alt="User Image">
             <div>
                 <p class="app-sidebar__user-name">
@@ -79,7 +79,7 @@
 
             <li>
                 <a class="app-menu__item @ViewBag.order" href="~/OrderProcessing/ManageTourOrders">
-                    <i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Quản lý đặt tour</span>
+                    <i class='app-menu__icon bx bx-clipboard'></i><span class="app-menu__label">Quản lý đặt tour</span>
                 </a>
             </li>
 
@@ -97,13 +97,13 @@
 
             <li>
                 <a class="app-menu__item @ViewBag.tour" href="~/OrderProcessing/TourList">
-                    <i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Danh sách vé</span>
+                    <i class='app-menu__icon    bx bx-credit-card'></i><span class="app-menu__label">Danh sách vé</span>
                 </a>
             </li>
 
             <li>
                 <a class="app-menu__item @ViewBag.phanhoi" href="~/OrderProcessing/Feedback">
-                    <i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Phản hồi</span>
+                    <i class='app-menu__icon bx bx-message-dots'></i><span class="app-menu__label">Phản hồi</span>
                 </a>
             </li>
             <li>
