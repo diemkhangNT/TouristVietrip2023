@@ -47,9 +47,9 @@
                             <span>Nơi khởi hành <b>@tour.NgayKhoihanh</b></span>
                             <span>Số chỗ còn nhận <b>@ViewBag.chodamua</b></span>
                             @{
-        var a = String.Format("{0:0,0 vnđ}", @tour.GiaNguoiLon);
-        var b = String.Format("{0:0,0 vnđ}", @tour.GiaTreEm);
-    }
+                                var a = String.Format("{0:0,0 vnđ}", @tour.GiaNguoiLon);
+                                var b = String.Format("{0:0,0 vnđ}", @tour.GiaTreEm);
+                            }
                             <span>Giá người lớn <b>@a</b></span>
                             <span>Giá trẻ em <b>@b</b></span>
                             <h6>Hạn chót đặt vé: @tour.HanChotDatVe</h6>

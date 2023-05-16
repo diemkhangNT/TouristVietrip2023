@@ -19,22 +19,19 @@
             swal("Xác nhận!", "SaiGonTravels đã gửi mail xác nhận đến mail của bạn !!", "success");
         </script>
     }
-
-
-
 }
 @{
     var checkMessage = TempData["noti"];
     if (checkMessage == "success")
     {
-    <script>
+        <script>
             swal({
                 title: "@TempData["messageSC"] ",
                 text: "Chúng tôi đã gửi mail xác nhận cho bạn!",
                 icon: "success",
                 button: "OK",
             });
-    </script>
+        </script>
     }
 }
 
@@ -74,10 +71,10 @@
     <div class="row">
         <div class="banner-left col-sm-4">
             <h3><strong>VỀ</strong></h3>
-            <h1><STRONG>Saigon Travel</STRONG></h1>
+            <h1><STRONG>Saigon Travels</STRONG></h1>
         </div>
         <div class="banner-right col-sm-8">
-            <p> <span>Công ty Du lịch SaiGon Travel</span>  là công ty du lịch, dịch vụ chuyên nghiệp, uy tín, đáng tin cậy ở Thành Phố Hồ Chí Minh. Chúng tôi chuyên về các <span> tour du lịch trong nước</span>  với sự cam kết chất lượng dịch vụ tốt nhất dành cho khách hàng. Nụ cười của quý khách chính là niềm hạnh phúc, động lực lớn cho công ty để đem đến trải nghiệm tốt nhất cho khách hàng. </p>
+            <p> <span>Công ty Du lịch SaiGon Travels</span>  là công ty du lịch, dịch vụ chuyên nghiệp, uy tín, đáng tin cậy ở Thành Phố Hồ Chí Minh. Chúng tôi chuyên về các <span> tour du lịch trong nước</span>  với sự cam kết chất lượng dịch vụ tốt nhất dành cho khách hàng. Nụ cười của quý khách chính là niềm hạnh phúc, động lực lớn cho công ty để đem đến trải nghiệm tốt nhất cho khách hàng. </p>
             <div class="contact-banner">
                 <a href="/Guest/VeChungToi" target="_self" class="btn btn-success">
                     <span style="color: white;">Về chúng tôi</span>
@@ -96,8 +93,8 @@
     <div class="container">
         <h3 class="home-page_title mb-4">TOUR NỔI BẬT</h3>
         @{
-            List<Tour> tours = db.Tours.Where(t => t.TrangThai == "Tour nổi bật" && t.SoChoNull > 0 
-            && t.HanChotDatVe>DateTime.Today).Take(6).ToList();
+            List<Tour> tours = db.Tours.Where(t => t.TrangThai == "Tour nổi bật" && t.SoChoNull > 0
+            && t.HanChotDatVe > DateTime.Today).Take(6).ToList();
         }
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @foreach (var item in tours)
@@ -129,7 +126,7 @@
                                 </span>
                             </p>
                             @{
-                               
+
                                 var tien = string.Format("{0:#,##0}", item.GiaNguoiLon);
                                 var loaitour = db.LoaiTours.Where(s => s.MaLTour == item.MaLTour).FirstOrDefault();
 
@@ -203,7 +200,7 @@
         <div class="row">
             <div class="pr-left col-sm-4">
                 <h4><strong>VÌ SAO CHỌN</strong></h4>
-                <h2><STRONG>SAIGON TRAVEL</STRONG></h2>
+                <h2><STRONG>SAIGON TRAVELS</STRONG></h2>
             </div>
             <div class="pr-right col-sm-7">
                 <div class="row">
@@ -213,7 +210,7 @@
                                 1. Top công ty lữ hành nổi bật
                             </h4>
                             <p>
-                                Năm 2010, SaiGon Travel được trao chứng nhận “Trip Advisor 2019 
+                                Năm 2010, SaiGon Travels được trao chứng nhận “Trip Advisor 2019
                                 Certificate of Excellence”.
                             </p>
                         </div>
@@ -224,7 +221,7 @@
                                 2. Bạn đồng hành đáng tin cậy
                             </h4>
                             <p>
-                                Làm việc với phương châm luôn đặt mình vào vị trí khách hàng 
+                                Làm việc với phương châm luôn đặt mình vào vị trí khách hàng
                                 để lắng nghe và thấu hiểu từ những điều nhỏ nhất.
                             </p>
                         </div>
@@ -235,7 +232,7 @@
                                 3. Sản phẩm đa dạng - chất lượng
                             </h4>
                             <p>
-                                Ngoài các tour du lịch thông thường, chúng tôi còn hỗ trợ tổ chức 
+                                Ngoài các tour du lịch thông thường, chúng tôi còn hỗ trợ tổ chức
                                 các sự kiện, hoạt động teambuilding, du lịch hội thảo (MICE).
                             </p>
                         </div>
@@ -246,7 +243,7 @@
                                 4. Luôn có mức giá tốt nhất
                             </h4>
                             <p>
-                                Bất kể ngày thường hay mùa lễ Tết, SaiGon Travel luôn có mức giá tốt 
+                                Bất kể ngày thường hay mùa lễ Tết, SaiGon Travels luôn có mức giá tốt
                                 nhất với chất lượng dịch vụ không đổi.
                             </p>
                         </div>
@@ -257,7 +254,7 @@
                                 5. Chương trình ưu đãi hấp dẫn
                             </h4>
                             <p>
-                                Công ty thường xuyên ra mắt các gói ưu đãi, chương trình khuyến mãi, 
+                                Công ty thường xuyên ra mắt các gói ưu đãi, chương trình khuyến mãi,
                                 gia tăng tối đa quyền lợi dành cho khách hàng.
                             </p>
                         </div>
@@ -268,7 +265,7 @@
                                 6. Đội ngũ chuyên nghiệp
                             </h4>
                             <p>
-                                SaiGon Travel sở hữu đội ngũ lãnh đạo, nhân viên và hướng dẫn viên giỏi, 
+                                SaiGon Travel sở hữu đội ngũ lãnh đạo, nhân viên và hướng dẫn viên giỏi,
                                 thân thiện và tận tâm với công việc.
                             </p>
                         </div>
@@ -283,6 +280,7 @@
     .tour-item:hover {
         box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
     }
+
     .btnmoretour {
         padding-top: 30px;
         text-align: right;

@@ -15,7 +15,6 @@
             background-image: url('../../Content/Images/11.png');
             background-size: cover;
             background-repeat: no-repeat;
-            opacity: 0.9;
         }
 
         .container {
@@ -89,6 +88,13 @@
         {
             <script>
                 swal("Xác nhận !", "SaigonTravels đã gửi mail xác nhận cho bạn !! ", "success");
+            </script>
+        }
+        var checkTK = TempData["existTK"];
+        if (checkTK == "existTK")
+        {
+            <script>
+                swal("Bạn đã có tài khoản!", "Vui lòng đăng nhập để tiếp tục!", "");
             </script>
         }
     }

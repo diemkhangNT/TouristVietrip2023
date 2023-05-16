@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "EditCusInfo";
     Layout = "~/Views/OrderProcessing/LayoutOP/_ViewOP.cshtml";
-    ViewBag.Name = "Trang sửa thông tin khách hàng";
+    ViewBag.Name = "Trang Sửa Thông Tin Khách Hàng";
     ViewBag.cus = "active";
 }
 
@@ -19,15 +19,9 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(model => model.MaKH)
                         @Html.HiddenFor(model => model.HinhDaiDien)
+                        @Html.HiddenFor(model => model.MaLoaiKH)
                         
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label">Loại khách hàng</label>
-                                    @Html.DropDownList("MaLoaiKH", null, htmlAttributes: new { @class = "form-control col-md-12" })
-                                    @Html.ValidationMessageFor(model => model.MaLoaiKH, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">Họ và tên</label>
@@ -43,10 +37,18 @@
                                     <span id="noti"></span>
                                 </div>
                             </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Ngày sinh</label>
+                                    @Html.TextBoxFor(model => model.NgaySinh, "{0:yyyy-MM-dd 00:00:00}", new { @class = "form-control col-md-12", type = "datetime-local" })
+                                    @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="control-label">Email</label>
                                     @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control col-md-12", @id = "Email", onchange = "EmailCheck()" } })
@@ -54,25 +56,30 @@
                                     <span id="mess"></span>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="control-label">Địa chỉ</label>
                                     @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control col-md-12" } })
                                     @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label class="control-label">Ngày sinh</label>
-                                    @Html.TextBoxFor(model => model.NgaySinh, "{0:dd-MM-yyyy}", new { @class = "form-control col-md-12", type = "datetime" })
-                                    @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="control-label">Giới tính</label>
-                                    @Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+                                    <select name="GioiTinh" class="form-control form-select">
+                                        <option value="@Model.GioiTinh">@Model.GioiTinh</option>
+                                        @{
+                                            if (Model.GioiTinh == "Nam")
+                                            {
+                                                <option value="Nữ">Nữ</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="Nam">Nam</option>
+                                            }
+                                        }
+
+                                    </select>
                                     @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
                                 </div>
                             </div>

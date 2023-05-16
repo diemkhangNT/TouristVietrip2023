@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Form đăng nhập</title>
+    <title>QuenMatKhau</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
     <style>
@@ -89,7 +89,7 @@
         @Html.AntiForgeryToken()*@
         <form class="form" action="QuenMK" method="post" >
             <h2>Quên mật khẩu</h2>
-            <label for="mail">Nhập mail đăng kí tài khoản</label>
+            <label for="mail">Nhập mail lấy lại tài khoản</label>
             <input type="text" id="mail" name="mail" required onchange="KiemtraMail()">
             <p id="mess"></p>
             <input type="submit" id="btn-submit" value="Xác nhận">
