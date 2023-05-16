@@ -434,6 +434,10 @@ namespace Tourist_VietripInsum_2023.Controllers
                 {
                     db.Entry(donHang).State = EntityState.Modified;
                     db.SaveChanges();
+                    if (donHang.TrangThaiTT == true)
+                    {
+                        TongtienDAT(donHang.MaKH);
+                    }
                     return RedirectToAction("CreateTickets");
                 }
 
@@ -441,7 +445,31 @@ namespace Tourist_VietripInsum_2023.Controllers
             Session["MaDHBook"] = donHang.MaDH;
             return View();
         }
-
+        //Hàm tính tổng tiền đặt
+        public ActionResult TongtienDAT(string makh)
+        {
+            var dh = db.BookTours.Where(s => s.MaKH == makh).ToList();
+            var kh = db.KhachHangs.Where(s => s.MaKH == makh).FirstOrDefault();
+            kh.TongTienDat = 0.0;
+            foreach (var item in dh)
+            {
+                if (item.TrangThaiTT == true)
+                {
+                    kh.TongTienDat += item.TotalPrice;
+                }
+            }
+            if (kh.TongTienDat >= 15000000)
+            {
+                kh.MaLoaiKH = "TT";
+            }
+            else if (kh.TongTienDat >= 50000000)
+            {
+                kh.MaLoaiKH = "VIP";
+            }
+            db.Entry(kh).State = EntityState.Modified;
+            db.SaveChanges();
+            return View();
+        }
         public ActionResult DeleteOrdering(string id)
         {
             var ve = db.Ves.Where(s => s.MaDH == id).ToList();
