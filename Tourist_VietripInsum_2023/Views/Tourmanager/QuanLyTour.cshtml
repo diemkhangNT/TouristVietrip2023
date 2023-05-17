@@ -102,11 +102,11 @@
                                                         @Html.DisplayFor(modelItem => item.LoaiTour.TenLTour)
                                                     </td>
                                                     <td>
-                                                        @Html.DisplayFor(modelItem => item.TenTour)
-                                                    </td>
+                                                        @Html.DisplayFor(modelItem => item.TenTour) - <span class="badge bg-secondary">@Html.DisplayFor(modelItem => item.SoNgay) ngày</span>
+</td>
                                                     <td>
                                                         @Html.DisplayFor(modelItem => item.NgayKhoihanh)
-                                                        <p>Địa điểm: @Html.DisplayFor(modelItem => item.NoiKhoiHanh)</p>
+                                                        <p>Địa điểm: <span class="badge bg-success">@Html.DisplayFor(modelItem => item.NoiKhoiHanh)</span></p>
                                                     </td>
                                                     <td>
                                                         @Html.DisplayFor(modelItem => item.TrangThai)

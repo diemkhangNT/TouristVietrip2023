@@ -22,7 +22,7 @@
             swal("Good job!", "Bạn đã cập nhật thông tin thành công !!!", "success");
         </script>
     }
-
+    
 
 
 }
@@ -75,8 +75,8 @@
                                 @using (Html.BeginForm("BookTour", "Guest", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
                                     @Html.AntiForgeryToken()
-                                <div class="modal-content">
-                                   
+                                    <div class="modal-content">
+
                                         <div class="modal-body">
                                             @{
                                                 BookTour bookTour = new BookTour();
@@ -143,15 +143,15 @@
                                                 }
                                             </div>
                                         </div>
-                                   
 
 
-                                    <div class="modal-footer">
-                                        <a class="btn btn-secondary btn-sm" data-dismiss="modal">Close</a>
-                                        <input type="submit" value="Tiếp tục" class="btn btn-success btn-sm" />
+
+                                        <div class="modal-footer">
+                                            <a class="btn btn-secondary btn-sm" data-dismiss="modal">Close</a>
+                                            <input type="submit" value="Tiếp tục" class="btn btn-success btn-sm" />
+                                        </div>
                                     </div>
-                                </div>
-                                                }
+                                }
                             </div>
 
                         </div>
@@ -250,9 +250,9 @@
                                 </div>
                                 @{
                                     List<ChiTietTour> chiTietTours = db.ChiTietTours.Where(s => s.MaTour == Model.MaTour).ToList();
-                                    var hinh1="";
-                                    var hinh2="";
-                                    if (chiTietTours.Count<=3)
+                                    var hinh1 = "";
+                                    var hinh2 = "";
+                                    if (chiTietTours.Count <= 3)
                                     {
                                         hinh1 = "/images/dalat_fairytale-3.jpg";
                                         hinh2 = "/images/phuquoc_langchai-2.jpg";
@@ -272,7 +272,7 @@
 
                                 <div class="col-6">
                                     <div class="image">
-                                       <img src="@hinh1" class="img-fluid" alt="image" style="height:100%">
+                                        <img src="@hinh1" class="img-fluid" alt="image" style="height:100%">
                                     </div>
                                 </div>
                             </div>
@@ -354,7 +354,7 @@
 
                                 var diemthamquan = diadiem.Count;
 
-                                
+
                             }
                             <div class="item">
                                 <i class="fas fa-map"></i>
@@ -441,7 +441,7 @@
 
                                             @dt.MotaChitiet
                                             <br>
-                                         
+
                                         </p>
                                     </div>
 
@@ -716,6 +716,7 @@
     .modal-body {
         text-align: right;
     }
+
     .title-name {
         font-weight: 700;
         font-size: 22px;

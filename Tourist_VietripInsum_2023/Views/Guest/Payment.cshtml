@@ -13,7 +13,6 @@
 
 <script>
     // Kiểm tra sự kiện popstate khi người dùng nhấn nút quay lại
-
     window.addEventListener('popstate', function (event) {
         // Đặt lại trang hiện tại
         location.reload();
@@ -26,16 +25,6 @@
 
     // Xóa lịch sử truy cập gần đây với window.history.replaceState
     history.replaceState(null, null, location.href);
-    // Thêm trang thanh toán vào lịch sử của trình duyệt
-    //window.history.pushState({ page: "Payment" }, "Payment", "http://localhost:49878/Guest/Payment");
-    ////Theo dõi sự kiện bấm nút quay lại của người dùng
-    //window.onpopstate = function (event) {
-    //    // Kiểm tra lại lịch sử của trình duyệt và đặt lại trang về trang trước đó nếu người dùng đã quay lại
-    //    if (event.state && event.state.page === "Payment") {
-    //        alert("Bạn phải hoàn tất thanh toán trước khi quay lại!");
-    //        window.history.pushState({ page: "Payment" }, "Payment", "http://localhost:49878/Guest/Payment");
-    //    }
-    //};
 </script>
 <script src="https://unpkg.com/boxicons@2.1.3/dist/boxicons.js"></script>
 
@@ -126,11 +115,11 @@
                                         @{
                                             if (dh.HinhThucThanhToan == true)
                                             {
-                                                <span>CHUYỂN KHOẢN</span>
+                                                <span>&nbsp;CHUYỂN KHOẢN</span>
                                             }
                                             else
                                             {
-                                                <span>TIỀN MẶT</span>
+                                                <span>&nbsp;TIỀN MẶT</span>
                                             }
                                         }
                                     </button>
@@ -141,13 +130,13 @@
                                             if (dh.HinhThucThanhToan == true)
                                             {
                                                 <p>
-                                                    Quý khách sau khi thực hiện việc chuyển khoản vui lòng gửi email đến contactcentersgt@gmail.com hoặc gọi tổng đài 19001234 để được xác nhận từ công ty chúng tôi.
+                                                    Quý khách sau khi thực hiện việc chuyển khoản vui lòng kiểm tra email. Trong vòng 24h nếu không thấy xác nhận qua email vui lòng gửi email đến contactcentersgt@gmail.com hoặc gọi tổng đài 19001234 để được xác nhận từ công ty chúng tôi.
                                                 </p>
                                             }
                                             else
                                             {
                                                 <p>
-                                                    Quý khách vui lòng thanh toán tại bất kỳ văn phòng SaiGon Travel trên toàn quốc hoặc các chi nhánh tại Thành phố Hồ Chí Minh.
+                                                    Quý khách vui lòng thanh toán tại bất kỳ văn phòng SaiGon Travels trên toàn quốc hoặc các chi nhánh tại Thành phố Hồ Chí Minh.
                                                 </p>
                                             }
                                         }
@@ -169,6 +158,7 @@
                         @{
                             if (dh.HinhThucThanhToan == true)
                             {
+
                                 <form method="post" action="@Url.Action("Payment", "Guest", new { id = maDH })">
                                     @Html.AntiForgeryToken()
                                     <button type="submit" class="btn btn-success">Thanh toán ngay</button>
@@ -176,9 +166,10 @@
                             }
                             else
                             {
+                                //thanh toán tại văn phòng
                                 <form method="post" action="@Url.Action("PaymentTM", "Guest", new { id = maDH })">
                                     @Html.AntiForgeryToken()
-                                    <button type="submit" class="btn btn-success">Thanh toán ngay</button>
+                                    <button type="submit" class="btn btn-success">Đặt vé</button>
                                 </form>
                             }
                         }
