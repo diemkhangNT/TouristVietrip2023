@@ -845,7 +845,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         public JsonResult KiemtraMail(string usermail)
         {
             System.Threading.Thread.Sleep(200);
-            var mailcheck = db.KhachHangs.Where(x => x.Email == usermail).SingleOrDefault();
+            var mailcheck = db.KhachHangs.Where(x => x.Email == usermail && x.Username != null).FirstOrDefault();
 
             bool isValid = IsValidEmail(usermail);
             if (isValid == true)

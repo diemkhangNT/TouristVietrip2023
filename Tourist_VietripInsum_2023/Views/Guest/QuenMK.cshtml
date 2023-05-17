@@ -90,7 +90,7 @@
         <form class="form" action="QuenMK" method="post" >
             <h2>Quên mật khẩu</h2>
             <label for="mail">Nhập mail lấy lại tài khoản</label>
-            <input type="text" id="mail" name="mail" required onchange="KiemtraMail()">
+            <input type="text" id="mail" name="mail" required onchange="KiemtraEMail()">
             <p id="mess"></p>
             <input type="submit" id="btn-submit" value="Xác nhận">
         </form>
@@ -99,12 +99,11 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
     <script type="text/javascript">
-        function KiemtraMail() {
+        function KiemtraEMail() {
         $("#mess").html("check ...");
         $.post("@Url.Action("KiemtraMail", "Guest")",
             {
                 usermail: $("#mail").val()
-
             },
             function (data) {
                 if (data == 1) {
@@ -113,7 +112,7 @@
                     document.getElementById('btn-submit').disabled = false;
                 }
                 else if (data == 0) {
-                    $("#mess").html('<font color="Red"> Không có tài khoản đăng kí mail !!</font>');
+                    $("#mess").html('<font color="Red"> Bạn chưa đăng ký tài khoản !!</font>');
                     $("#Email").css("border-color", "Red");
                     document.getElementById('btn-submit').disabled = true;
                 }
@@ -126,6 +125,5 @@
         )
     }
     </script>
-
 </body>
 </html>
