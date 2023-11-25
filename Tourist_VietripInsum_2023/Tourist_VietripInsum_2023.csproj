@@ -373,7 +373,6 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.6.3.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.3.js" />
     <Content Include="Scripts\jquery-3.6.3.min.js" />
@@ -459,7 +458,6 @@
     <Content Include="Views\Guest\ViewGuest\Guest.cshtml" />
     <Content Include="Views\LoginStaff\ForgotPassword.cshtml" />
     <Content Include="Views\Guest\LienHe.cshtml" />
-    <Content Include="Forms\Login\Index.cshtml" />
     <Content Include="Forms\Order\Index.cshtml" />
     <Content Include="Forms\Signup\Index.cshtml" />
     <Content Include="Forms\_LayoutOrderProcessing.cshtml" />
@@ -573,6 +571,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Forms\ChangePass\" />
     <Folder Include="Forms\Contact\" />
+    <Folder Include="Forms\Login\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

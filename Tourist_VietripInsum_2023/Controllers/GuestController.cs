@@ -517,11 +517,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             {
 
                 var khach = db.KhachHangs.Where(s => s.SDT == SDT).FirstOrDefault();
-                if(khach.Username != null && khach.UserPassword != null)
-                {
-                    TempData["existTK"] = "existTK";
-                    return RedirectToAction("LoginGuest", "Guest");
-                }
+                
                 if (khach == null)
                 {
                     //khong dang nhap va khong phia khach trong he thong
@@ -549,6 +545,11 @@ namespace Tourist_VietripInsum_2023.Controllers
                     khach.Email = Email;
                     khach.HoTenKH = TenKH;
                 }
+                //if (khach.Username != null && khach.UserPassword != null)
+                //{
+                //    TempData["existTK"] = "existTK";
+                //    return RedirectToAction("LoginGuest", "Guest");
+                //}
             }    
             var idDH = "DH" + rd.Next(1, 1000);
             booktour.MaDH = idDH;
@@ -716,42 +717,42 @@ namespace Tourist_VietripInsum_2023.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult PaymentTM(string id)
         {
-            //Email
-            string content = System.IO.File.ReadAllText(Server.MapPath("/Content/template/mailconn.html"));
-            var dh = db.BookTours.Where(s => s.MaDH == id).FirstOrDefault();
-            var kh = db.KhachHangs.Where(s => s.MaKH == dh.MaKH).FirstOrDefault();
-            var t = db.Tours.Where(s => s.MaTour == dh.MaTour).FirstOrDefault();
-            content = content.Replace("{{TenKH}}", kh.HoTenKH);
-            content = content.Replace("{{Phoneno}}", dh.MaKH);
-            content = content.Replace("{{MaDH}}", dh.MaDH);
-            content = content.Replace("{{Email}}", kh.Email);
-            content = content.Replace("{{Address}}", dh.MaKH);
-            string hinhthuc = "Thanh toán toán tiền mặt";
-            string noidung = "XÁC NHẬN ĐẶT TOUR";
-            DateTime ngaydat = (DateTime)dh.NgayLap;
-            DateTime hanthanhtoan = ngaydat.AddDays(1);
-            DateTime ngaydi = (DateTime)t.NgayKhoihanh;
-            TimeSpan aInterval = new System.TimeSpan(0, 1, 1, 0);
-            DateTime newTime = ngaydi.Subtract(aInterval);
-            content = content.Replace("{{hinhthuc}}", hinhthuc);
-            content = content.Replace("{{ngaydat}}", ngaydat.ToString());
-            content = content.Replace("{{hanthanhtoan}}", hanthanhtoan.ToString());
-            content = content.Replace("{{MaTour}}", t.MaTour);
-            content = content.Replace("{{TenTour}}", t.TenTour);
-            content = content.Replace("{{ngaykhoihanh}}", t.NgayKhoihanh.ToString());
-            content = content.Replace("{{noikhoihanh}}", t.NoiKhoiHanh);
-            content = content.Replace("{{ngayve}}", t.NgayTroVe.ToString());
-            content = content.Replace("{{hanchotve}}", t.HanChotDatVe.ToString());
-            content = content.Replace("{{total}}", dh.TotalPrice.ToString());
-            content = content.Replace("{{nguoilon}}", t.GiaNguoiLon.ToString());
-            content = content.Replace("{{treem}}", t.GiaTreEm.ToString());
-            content = content.Replace("{{tieude}}", noidung);
-            content = content.Replace("{{noidung}}", "SaigonTravel xác nhận quý khách đã đăng ký tour thành công, quý khách vui lòng lưu ý thời hạn thanh toán để tránh trường hợp booking bị hủy do quá hạn.");
+            //Email đóng lại 25/11/2023
+            //string content = System.IO.File.ReadAllText(Server.MapPath("/Content/template/mailconn.html"));
+            //var dh = db.BookTours.Where(s => s.MaDH == id).FirstOrDefault();
+            //var kh = db.KhachHangs.Where(s => s.MaKH == dh.MaKH).FirstOrDefault();
+            //var t = db.Tours.Where(s => s.MaTour == dh.MaTour).FirstOrDefault();
+            //content = content.Replace("{{TenKH}}", kh.HoTenKH);
+            //content = content.Replace("{{Phoneno}}", dh.MaKH);
+            //content = content.Replace("{{MaDH}}", dh.MaDH);
+            //content = content.Replace("{{Email}}", kh.Email);
+            //content = content.Replace("{{Address}}", dh.MaKH);
+            //string hinhthuc = "Thanh toán toán tiền mặt";
+            //string noidung = "XÁC NHẬN ĐẶT TOUR";
+            //DateTime ngaydat = (DateTime)dh.NgayLap;
+            //DateTime hanthanhtoan = ngaydat.AddDays(1);
+            //DateTime ngaydi = (DateTime)t.NgayKhoihanh;
+            //TimeSpan aInterval = new System.TimeSpan(0, 1, 1, 0);
+            //DateTime newTime = ngaydi.Subtract(aInterval);
+            //content = content.Replace("{{hinhthuc}}", hinhthuc);
+            //content = content.Replace("{{ngaydat}}", ngaydat.ToString());
+            //content = content.Replace("{{hanthanhtoan}}", hanthanhtoan.ToString());
+            //content = content.Replace("{{MaTour}}", t.MaTour);
+            //content = content.Replace("{{TenTour}}", t.TenTour);
+            //content = content.Replace("{{ngaykhoihanh}}", t.NgayKhoihanh.ToString());
+            //content = content.Replace("{{noikhoihanh}}", t.NoiKhoiHanh);
+            //content = content.Replace("{{ngayve}}", t.NgayTroVe.ToString());
+            //content = content.Replace("{{hanchotve}}", t.HanChotDatVe.ToString());
+            //content = content.Replace("{{total}}", dh.TotalPrice.ToString());
+            //content = content.Replace("{{nguoilon}}", t.GiaNguoiLon.ToString());
+            //content = content.Replace("{{treem}}", t.GiaTreEm.ToString());
+            //content = content.Replace("{{tieude}}", noidung);
+            //content = content.Replace("{{noidung}}", "SaigonTravel xác nhận quý khách đã đăng ký tour thành công, quý khách vui lòng lưu ý thời hạn thanh toán để tránh trường hợp booking bị hủy do quá hạn.");
 
 
-            ////Gui mail
-            var toEmail = ConfigurationManager.AppSettings["toEmailAddress"].ToString();
-            new MailHelp().SendMail(kh.Email, "Xác nhận đặt thành công tour", content);
+            //////Gui mail
+            //var toEmail = ConfigurationManager.AppSettings["toEmailAddress"].ToString();
+            //new MailHelp().SendMail(kh.Email, "Xác nhận đặt thành công tour", content);
             TempData["noti"] = "success";
             return RedirectToAction("HomePageGuest", "Guest");
         }
