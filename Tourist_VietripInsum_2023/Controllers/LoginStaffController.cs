@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Tourist_VietripInsum_2023.common;
+using Tourist_VietripInsum_2023.DesignPattern.Repository;
+using Tourist_VietripInsum_2023.DesignPattern.Singleton;
 using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
@@ -12,7 +16,14 @@ namespace Tourist_VietripInsum_2023.Controllers
     {
         // GET: LoginStaff
         TouristEntities1 database = new TouristEntities1();
-       public ActionResult Login()
+        IBaseRepository _baseRepository = new BaseRepository();
+
+        public LoginStaffController()
+        {
+            UserLogedInSingleton<NhanVien>.Instance.InitSingleton(database);
+        }
+
+        public ActionResult Login()
         {
             return View();
         }
@@ -23,7 +34,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             var tm = "TM"; var op = "OP"; var ad = "AD";
 
             var data = database.NhanViens.Where(s => s.Username == username && s.UserPassword == password).FirstOrDefault();
-            var taikhoan = database.NhanViens.SingleOrDefault(s => s.Username == username && s.UserPassword == password);
+            var taikhoan = UserLogedInSingleton<NhanVien>.Instance.Users.SingleOrDefault(s => s.Username == username && s.UserPassword == password);
             if (taikhoan == null)
             {
                 TempData["error"] = "err";
@@ -64,9 +75,29 @@ namespace Tourist_VietripInsum_2023.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult ForgotPassword(string mail)
+        {
+            string newpass = _baseRepository.RandomPassword(8);
+            var kh = database.KhachHangs.FirstOrDefault(t => t.Email == mail);
+            kh.UserPassword = newpass;
+            database.SaveChanges();
+            string content = System.IO.File.ReadAllText(Server.MapPath("/Content/template/MailQuenMK.html"));
+            content = content.Replace("{{email}}", mail);
+            content = content.Replace("{{username}}", kh.Username);
+            content = content.Replace("{{matkhau}}", newpass);
+
+
+            ////Gui mail
+            var toEmail = ConfigurationManager.AppSettings["toEmailAddress"].ToString();
+            new MailHelp().SendMail(kh.Email, "Thông tin tài khoản", content);
+            TempData["noti"] = "capnhat";
+            return RedirectToAction("Login");
+        }
         public ActionResult Logout()
         {
             Session.Clear();//remove session
+            UserLogedInSingleton<NhanVien>.Instance.Users.Clear();
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }

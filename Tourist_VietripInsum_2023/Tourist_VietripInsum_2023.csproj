@@ -152,6 +152,9 @@
     <Compile Include="Controllers\OrderProcessingController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\TourmanagerController.cs" />
+    <Compile Include="DesignPattern\Repository\BaseRepository.cs" />
+    <Compile Include="DesignPattern\Repository\IBaseRepository.cs" />
+    <Compile Include="DesignPattern\Singleton\UserLogedInSingleton.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -603,7 +606,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49878</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:49878/</IISUrl>
+          <IISUrl>http://localhost:50903/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:50903/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

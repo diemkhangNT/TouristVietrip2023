@@ -13,12 +13,20 @@ using Tourist_VietripInsum_2023.Models;
 using PagedList;
 using System.Web.Routing;
 using System.Text.RegularExpressions;
+using Tourist_VietripInsum_2023.DesignPattern.Singleton;
+using Tourist_VietripInsum_2023.DesignPattern.Repository;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
     public class GuestController : Controller
     {
         TouristEntities1 db = new TouristEntities1();
+        IBaseRepository _guestRepository = new BaseRepository();
+        public GuestController()
+        {
+            UserLogedInSingleton<KhachHang>.Instance.InitSingleton(db);
+        }
+
         // GET: Guest
 
         public ActionResult HomePageGuest()
@@ -656,7 +664,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 dh.SoCho = m;
                 tour.SoChoNull -= dh.SoCho;
                 db.SaveChanges();
-                TongtienDAT(kh.MaKH);
+                _guestRepository.TongtienDAT(kh.MaKH, db);
                 TempData["noti"] = "success";
                 return RedirectToAction("Payment");
             }
@@ -774,30 +782,29 @@ namespace Tourist_VietripInsum_2023.Controllers
             return RedirectToAction("HomePageGuest", "Guest");
         }
 
-        //Hàm tính tổng tiền đặt
-        public ActionResult TongtienDAT(string makh)
-        {
-            var dh = db.BookTours.Where(s => s.MaKH == makh).ToList();
-            var kh = db.KhachHangs.Where(s => s.MaKH == makh).FirstOrDefault();
-            kh.TongTienDat = 0.0;
-            foreach(var item in dh)
-            {
-                if(item.TrangThaiTT == true)
-                {
-                    kh.TongTienDat += item.TotalPrice;
-                }
-            }
-            if(kh.TongTienDat >= 15000000)
-            {
-                kh.MaLoaiKH = "TT";
-            }else if(kh.TongTienDat >= 50000000)
-            {
-                kh.MaLoaiKH = "VIP";
-            }
-            db.Entry(kh).State = EntityState.Modified;
-            db.SaveChanges();
-            return View();
-        }
+        ////Hàm tính tổng tiền đặt
+        //public void TongtienDAT(string makh)
+        //{
+        //    var dh = db.BookTours.Where(s => s.MaKH == makh).ToList();
+        //    var kh = db.KhachHangs.Where(s => s.MaKH == makh).FirstOrDefault();
+        //    kh.TongTienDat = 0.0;
+        //    foreach(var item in dh)
+        //    {
+        //        if(item.TrangThaiTT == true)
+        //        {
+        //            kh.TongTienDat += item.TotalPrice;
+        //        }
+        //    }
+        //    if(kh.TongTienDat >= 15000000)
+        //    {
+        //        kh.MaLoaiKH = "TT";
+        //    }else if(kh.TongTienDat >= 50000000)
+        //    {
+        //        kh.MaLoaiKH = "VIP";
+        //    }
+        //    db.Entry(kh).State = EntityState.Modified;
+        //    db.SaveChanges();
+        //}
  
         public JsonResult LoadMore(int skip, int take)
         {
@@ -870,26 +877,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
 
         }
-        public static string RandomPassword(int number)
-        {
-            var chars = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
-            var password = string.Empty;
-            var random = new Random();
-            for (var i = 0; i < number; i++)
-            {
-                var x = random.Next(1, chars.Length);
-                if (!password.Contains(chars.GetValue(x).ToString()))
-                {
-                    password += chars.GetValue(x);
-                }
-                else
-                {
-                    i--;
-                }
-            }
-
-            return password;
-        }
+        
         public ActionResult QuenMK()
         {
             return View();
@@ -897,7 +885,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         [HttpPost]
         public ActionResult QuenMK(string mail)
         {
-            string newpass = RandomPassword(8);
+            string newpass = _guestRepository.RandomPassword(8);
             var kh = db.KhachHangs.FirstOrDefault(t => t.Email == mail);
             kh.UserPassword = newpass;
             db.SaveChanges();
@@ -1020,8 +1008,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         [HttpPost]
         public ActionResult LoginGuest(string username, string password)
         {
-            var data = db.KhachHangs.Where(s => s.Username == username && s.UserPassword == password).FirstOrDefault();
-            var taikhoan = db.KhachHangs.SingleOrDefault(s => s.Username == username && s.UserPassword == password);
+            var taikhoan = UserLogedInSingleton<KhachHang>.Instance.Users.SingleOrDefault(s => s.Username == username && s.UserPassword == password);
             if (taikhoan == null)
             {
                 TempData["error"] = "err";
@@ -1040,6 +1027,7 @@ namespace Tourist_VietripInsum_2023.Controllers
         public ActionResult LogOut()
         {
             Session.Clear();//remove session
+            UserLogedInSingleton<KhachHang>.Instance.Users.Clear();
             FormsAuthentication.SignOut();
             return RedirectToAction("HomePageGuest");
         }

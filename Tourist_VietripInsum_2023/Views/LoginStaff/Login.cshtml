@@ -27,6 +27,20 @@
             </script>
         }
     }
+    @{
+        var checkMessage = TempData["noti"];
+        if (checkMessage == "capnhat")
+        {
+            <script>
+            swal({
+                title: "@TempData["messageSC"] ",
+                text: "Chúng tôi đã gửi mail xác nhận cho bạn!",
+                icon: "success",
+                button: "OK",
+            });
+            </script>
+        }
+    }
     <div class="box">
         <div class="container">
             <div class="top">
@@ -56,7 +70,7 @@
                         <input autocomplete="off" class="input100 input" type="password" placeholder="Enter password"
                                name="Password" id="Password" required>
                         <span toggle="#password-field" id="spanElement" class="bx fa-fw bx-hide field-icon click-eye"></span>
-                        
+
                         <style>
                             .field-icon {
                                 float: left;
