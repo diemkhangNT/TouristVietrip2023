@@ -31,5 +31,11 @@ namespace Tourist_VietripInsum_2023.DesignPattern.Singleton
                 }
             }
         }
+
+        public void UpdateSigleton(TouristEntities1 _context)
+        {
+            Instance.Users.Clear();
+            InitSingleton(_context);
+        }
     }
 }

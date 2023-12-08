@@ -11,8 +11,9 @@ namespace Tourist_VietripInsum_2023.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class PhuongTien
+    using Tourist_VietripInsum_2023.DesignPattern.Prototype;
+
+    public partial class PhuongTien : ITransportPrototype
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PhuongTien()
@@ -27,5 +28,17 @@ namespace Tourist_VietripInsum_2023.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietTour> ChiTietTours { get; set; }
+
+        public ITransportPrototype Clone()
+        {
+            PhuongTien newPT = new PhuongTien();
+            Random rd = new Random();
+            var idTrans = "PTD" + rd.Next(10, 10000);
+            newPT.MaPTien = idTrans;
+            newPT.TenPTien = TenPTien;
+            newPT.HangXe = HangXe;
+            newPT.ChiTiet = ChiTiet;
+            return newPT;
+        }
     }
 }

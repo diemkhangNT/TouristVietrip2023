@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Tourist_VietripInsum_2023.App_Start;
-
+using Tourist_VietripInsum_2023.DesignPattern.Singleton;
 using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
@@ -161,15 +161,13 @@ namespace Tourist_VietripInsum_2023.Controllers
                 TempData["thongbao"] = "taothanhcong";
                 db.NhanViens.Add(staff);
                 db.SaveChanges();
+                //UserLogedInSingleton<NhanVien>.Instance.UpdateSigleton(db);
             }
             else
             {
                 return View();
 
             }
-
-           
-            
             return RedirectToAction("ListOfStaff");            
         }
         

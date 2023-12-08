@@ -255,6 +255,19 @@ namespace Tourist_VietripInsum_2023.Controllers
 
             return View(trans);
         }
+
+        [HttpPost]
+        public ActionResult DuplicateTrans(string id, PhuongTien trans)
+        {
+
+            trans = db.PhuongTiens.Where(s => s.MaPTien == id).FirstOrDefault();
+            PhuongTien newTrans = (PhuongTien)trans.Clone();
+
+            db.PhuongTiens.Add(newTrans);
+            TempData["noti"] = "duplicatetrans";
+            db.SaveChanges();
+            return RedirectToAction("HotelManager");
+        }
         //end phuong tien
         //---------------------------------------------------------------//
         // Dia diem tham quan

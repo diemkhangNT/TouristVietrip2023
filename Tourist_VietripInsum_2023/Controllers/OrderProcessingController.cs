@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Tourist_VietripInsum_2023.App_Start;
 using Tourist_VietripInsum_2023.common;
+using Tourist_VietripInsum_2023.DesignPattern.Singleton;
 using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
@@ -195,6 +196,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                     
                     db.KhachHangs.Add(khachHang);
                     db.SaveChanges();
+                    //UserLogedInSingleton<KhachHang>.Instance.UpdateSigleton(db);
                 }
             }
             return RedirectToAction("CreateOrder");
