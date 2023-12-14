@@ -15,16 +15,22 @@ using System.Web.Routing;
 using System.Text.RegularExpressions;
 using Tourist_VietripInsum_2023.DesignPattern.Singleton;
 using Tourist_VietripInsum_2023.DesignPattern.Repository;
+using Tourist_VietripInsum_2023.DesignPattern.TemplateMethod;
+using System.Diagnostics;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
-    public class GuestController : Controller
+    public class GuestController : TemplateMethodController
     {
         TouristEntities1 db = new TouristEntities1();
         IBaseRepository _guestRepository = new BaseRepository();
         public GuestController()
         {
             UserLogedInSingleton<KhachHang>.Instance.InitSingleton(db);
+
+            //implement template method
+            var result = PrintInfo();
+            Debugger.Log(1, "Logger: ", $"{result}");
         }
 
         // GET: Guest
@@ -341,7 +347,7 @@ namespace Tourist_VietripInsum_2023.Controllers
             if (ModelState.IsValid)
             {
                 Random rd = new Random();
-                var idPH = "PHKH" + rd.Next(1, 1000);
+                var idPH = "PHKH" + rd.Next(1, 1000) + rd.Next(100, 10000);
                 phanHoi.MaPhanHoi = idPH;
 
                 var kh = db.KhachHangs.Where(k => k.SDT == phanHoi.Sdt).FirstOrDefault();
@@ -1192,6 +1198,18 @@ namespace Tourist_VietripInsum_2023.Controllers
             db.SaveChanges();
             TempData["DeleteSuccess"] = "Deletesuccess";
             return RedirectToAction("NewOrderPlaced/" + userKH.MaKH);
+        }
+
+        public override string PrintRoutes()
+        {
+            return "========================" +
+                "Guest Controller is running!" +
+                "======================";
+        }
+
+        public override string PrintDIs()
+        {
+            return "=================No dependence Injection================\n";
         }
     }
 }

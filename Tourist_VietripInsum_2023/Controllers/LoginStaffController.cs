@@ -14,7 +14,6 @@ namespace Tourist_VietripInsum_2023.Controllers
 {
     public class LoginStaffController : Controller
     {
-        // GET: LoginStaff
         TouristEntities1 database = new TouristEntities1();
         IBaseRepository _baseRepository = new BaseRepository();
 

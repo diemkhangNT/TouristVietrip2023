@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.Build.Framework;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -10,14 +12,23 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Windows.Controls;
 using Tourist_VietripInsum_2023.App_Start;
+using Tourist_VietripInsum_2023.DesignPattern.TemplateMethod;
 using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
     [AdminAuthorize(idPos = "TM")]
-    public class TourmanagerController : Controller
+    public class TourmanagerController : TemplateMethodController
     {
         private TouristEntities1 db = new TouristEntities1();
+
+        public TourmanagerController()
+        {
+            var result = PrintInfo();
+            Debugger.Log(1,"Logger: ",$"{result}");
+        }
+
+
         // GET: Tourmanager
 
         public ActionResult HomePageTM()
@@ -252,8 +263,6 @@ namespace Tourist_VietripInsum_2023.Controllers
                 db.SaveChanges();
                 return RedirectToAction("HotelManager");
             }
-
-            return View(trans);
         }
 
         [HttpPost]
@@ -822,6 +831,17 @@ namespace Tourist_VietripInsum_2023.Controllers
             base.Dispose(disposing);
         }
 
+        public override string PrintRoutes()
+        {
+            return $@"================================" +
+                "TourManagement Controller is running!" +
+                "====================================";
+        }
+
+        public override string PrintDIs()
+        {
+            return "No dependence Injection";
+        }
     }
 }
 

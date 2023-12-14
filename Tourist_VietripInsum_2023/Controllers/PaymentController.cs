@@ -3,17 +3,26 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Tourist_VietripInsum_2023.common;
+using Tourist_VietripInsum_2023.DesignPattern.TemplateMethod;
 using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
-    public class PaymentController : Controller
+    public class PaymentController : TemplateMethodController
     {
         TouristEntities1 db = new TouristEntities1();
+
+        public PaymentController()
+        {
+            var result = PrintInfo();
+            Debugger.Log(1, "Logger: ", $"{result}");
+        }
+
         // GET: Payment
         public ActionResult Index()
         {
@@ -163,6 +172,18 @@ namespace Tourist_VietripInsum_2023.Controllers
         public ActionResult PaymentFailed()
         {
             return View();
+        }
+
+        public override string PrintRoutes()
+        {
+            return "========================" +
+                "Payment Controller is running!" +
+                "======================";
+        }
+
+        public override string PrintDIs()
+        {
+            return "=================No dependence Injection================\n";
         }
     }
 }
