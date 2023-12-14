@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,11 +9,12 @@ using System.Web.Security;
 using Tourist_VietripInsum_2023.common;
 using Tourist_VietripInsum_2023.DesignPattern.Repository;
 using Tourist_VietripInsum_2023.DesignPattern.Singleton;
+using Tourist_VietripInsum_2023.DesignPattern.TemplateMethod;
 using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
-    public class LoginStaffController : Controller
+    public class LoginStaffController : TemplateMethodController
     {
         TouristEntities1 database = new TouristEntities1();
         IBaseRepository _baseRepository = new BaseRepository();
@@ -20,6 +22,9 @@ namespace Tourist_VietripInsum_2023.Controllers
         public LoginStaffController()
         {
             UserLogedInSingleton<NhanVien>.Instance.InitSingleton(database);
+
+            var result = PrintInfo();
+            Debugger.Log(1, "Logger: ", $"{result}");
         }
 
         public ActionResult Login()
@@ -99,6 +104,18 @@ namespace Tourist_VietripInsum_2023.Controllers
             UserLogedInSingleton<NhanVien>.Instance.Users.Clear();
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
+        }
+
+        public override string PrintRoutes()
+        {
+            return "========================" +
+                "Login Staff Controller is running!" +
+                "======================";
+        }
+
+        public override string PrintDIs()
+        {
+            return "=================No dependence Injection================\n";
         }
     }
 }

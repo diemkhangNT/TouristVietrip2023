@@ -9,7 +9,7 @@ namespace Tourist_VietripInsum_2023.DesignPattern.Repository
 {
     public interface IBaseRepository
     {
-        string RandomPassword(int numberUpTo);
-        void TongtienDAT(string makh, TouristEntities1 db); // to update Customer type
+        string RandomPassword(int numberUpTo); //apply in line 892 (GuestController)
+        void TongtienDAT(string makh, TouristEntities1 db); //apply in line 673 (GuestController)
     }
 }

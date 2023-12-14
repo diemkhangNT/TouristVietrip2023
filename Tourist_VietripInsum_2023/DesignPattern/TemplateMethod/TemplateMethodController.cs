@@ -10,8 +10,8 @@ namespace Tourist_VietripInsum_2023.DesignPattern.TemplateMethod
     {
         public abstract string PrintRoutes();
         public abstract string PrintDIs();
-        
-        //template
+
+        //apply in All of Controllers in current project
         public string PrintInfo()
         {
             return PrintRoutes() + "\n&& " + PrintDIs();

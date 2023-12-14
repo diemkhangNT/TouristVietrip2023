@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -8,17 +9,23 @@ using System.Web;
 using System.Web.Mvc;
 using Tourist_VietripInsum_2023.App_Start;
 using Tourist_VietripInsum_2023.DesignPattern.Singleton;
+using Tourist_VietripInsum_2023.DesignPattern.TemplateMethod;
 using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
     [AdminAuthorize(idPos  = "AD")]
-    public class AdminController : Controller
+    public class AdminController : TemplateMethodController
     {
         // GET: Admin
 
         TouristEntities1 db = new TouristEntities1();
 
+        public AdminController()
+        {
+            var result = PrintInfo();
+            Debugger.Log(1, "Logger: ", $"{result}");
+        }
 
         public ActionResult HomePage()
         {
@@ -161,7 +168,7 @@ namespace Tourist_VietripInsum_2023.Controllers
                 TempData["thongbao"] = "taothanhcong";
                 db.NhanViens.Add(staff);
                 db.SaveChanges();
-                //UserLogedInSingleton<NhanVien>.Instance.UpdateSigleton(db);
+                UserLogedInSingleton<NhanVien>.Instance.UpdateSigleton(db);
             }
             else
             {
@@ -370,9 +377,18 @@ namespace Tourist_VietripInsum_2023.Controllers
                 TempData["thongbaoxoa"] = "thatbai";
                 return RedirectToAction("DetailGuest","Admin", new { id = id });
             }
-            return RedirectToAction("ListOfCustomers");
         }
 
+        public override string PrintRoutes()
+        {
+            return "========================" +
+                "Admin Controller is running!" +
+                "======================";
+        }
 
+        public override string PrintDIs()
+        {
+            return "=================No dependence Injection================\n";
+        }
     }
 }

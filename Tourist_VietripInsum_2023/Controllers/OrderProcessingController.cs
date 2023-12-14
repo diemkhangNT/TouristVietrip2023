@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,14 +11,21 @@ using System.Web.Routing;
 using Tourist_VietripInsum_2023.App_Start;
 using Tourist_VietripInsum_2023.common;
 using Tourist_VietripInsum_2023.DesignPattern.Singleton;
+using Tourist_VietripInsum_2023.DesignPattern.TemplateMethod;
 using Tourist_VietripInsum_2023.Models;
 
 namespace Tourist_VietripInsum_2023.Controllers
 {
     [AdminAuthorize(idPos = "OP")]
-    public class OrderProcessingController : Controller
+    public class OrderProcessingController : TemplateMethodController
     {
         TouristEntities1 db = new TouristEntities1();
+
+        public OrderProcessingController()
+        {
+            var result = PrintInfo();
+            Debugger.Log(1, "Logger: ", $"{result}");
+        }
 
         public ActionResult HomePageOP()
         {
@@ -886,6 +894,18 @@ namespace Tourist_VietripInsum_2023.Controllers
             }
             return View(bookTour);
             
+        }
+
+        public override string PrintRoutes()
+        {
+            return "========================" +
+                "Order Processing Controller is running!" +
+                "======================";
+        }
+
+        public override string PrintDIs()
+        {
+            return "=================No dependence Injection================\n";
         }
     }
 }
